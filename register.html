@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RUNPOLLS - Online Voting System</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+    <div class="container">
+        <div class="background-design">
+            <div class="wave wave1"></div>
+            <div class="wave wave2"></div>
+            <div class="decor-circle decor-circle-1"></div>
+            <div class="decor-circle decor-circle-2"></div>
+        </div>
+        <div class="content">
+            <div class="logo">
+                <div class="logo-circle">
+                    <span class="logo-text">RUN</span>
+                </div>
+            </div>
+            <h1>Welcome!</h1>
+            <p class="subtitle">Welcome to RUNPOLLS Online Voting System, please register as a voter to vote in your preferred candidate</p>
+            
+            <form id="registerForm">
+                <div class="form-group animate-input">
+                    <label for="voterEmail">Voters Email</label>
+                    <div class="input-group">
+                        <input type="text" id="voterID" class="form-control" placeholder="Voters Email." required>
+                    </div>
+                </div>
+                
+                <div class="form-group animate-input" style="animation-delay: 0.1s;">
+                    <label for="password">Create password</label>
+                    <div class="input-group">
+                        <input type="password" id="password" class="form-control" placeholder="Password" required>
+                        <span class="password-toggle" onclick="togglePassword('password')">👁️</span>
+                    </div>
+                    <small style="color: #777; font-size: 12px; margin-top: 5px; display: block;">Create a strong password with a mix of letters, numbers, and symbols.</small>
+                </div>
+                
+                <div class="form-group animate-input" style="animation-delay: 0.2s;">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <div class="input-group">
+                        <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" required>
+                        <span class="password-toggle" onclick="togglePassword('confirmPassword')">👁️</span>
+                    </div>
+                </div>
+                
+                <div class="checkbox-group animate-input" style="animation-delay: 0.3s;">
+                    <input type="checkbox" id="termsCheck" required>
+                    <label for="termsCheck">I agree to RUNPOLLS <a href="#" class="terms-link">Terms and Service</a> and <a href="#" class="terms-link">Privacy Policy</a></label>
+                </div>
+                
+                <button type="submit" class="btn-register animate-input" style="animation-delay: 0.4s;">REGISTER</button>
+            </form>
+            
+            <div class="login-link animate-input" style="animation-delay: 0.5s;">
+                Already have an account? <a href="voter_log_in.html" id="signInLink">Sign in</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+            } else {
+                input.type = "password";
+            }
+        }
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const voterID = document.getElementById('voterID').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const termsCheck = document.getElementById('termsCheck').checked;
+            
+            if (!voterID || !password || !confirmPassword) {
+                alert('Please fill in all fields.');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match.');
+                return;
+            }
+            
+            if (!termsCheck) {
+                alert('Please agree to the Terms and Service and Privacy Policy.');
+                return;
+            }
+            
+            // Registration success
+            alert('Registration successful! You can now log in.');
+            // Here you would typically send the data to your server
+        });
+
+        document.getElementById('signInLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Redirecting to sign in page...');
+            window.location.href = "voter_log_in.html"
+        });
+
+        // Add animation to form elements on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.animate-input');
+            animateElements.forEach(function(element, index) {
+                setTimeout(function() {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

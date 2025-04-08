@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RUNPOLLS- Admin Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="admin_log_in.css">
+</head>
+<body>
+    <div class="login-container">
+        <!-- Image Side -->
+        <div class="image-side">
+            <div class="vote-image-top">
+                <div class="image-overlay">
+                    <h2 class="animate-fadeIn">Democracy in Action</h2>
+                    <p class="animate-fadeIn delay-100">Secure, transparent and efficient voting system for a better tomorrow</p>
+                </div>
+                <div class="accent-circles">
+                    <div class="accent-circle accent-circle-1"></div>
+                    <div class="accent-circle accent-circle-2"></div>
+                    <div class="accent-circle accent-circle-3"></div>
+                </div>
+            </div>
+            <div class="vote-image-bottom"></div>
+        </div>
+        
+        <!-- Form Side -->
+        <div class="form-side">
+            <!-- Back Button -->
+            <a href="voter_log_in.html" class="back-button">
+                <i class="bi bi-chevron-left"></i>
+            </a>
+            
+            <div class="logo animate-slideIn">
+                <div class="logo-circle">RUN</div>
+                <div class="logo-text">POLLS</div>
+            </div>
+            
+            <h1 class="animate-slideIn delay-100">Welcome Back!</h1>
+            <p class="subtitle animate-slideIn delay-100">Please sign in to access the admin dashboard and manage the online voting system.</p>
+            
+            <form id="adminLoginForm">
+                <div class="form-group animate-slideIn delay-200">
+                    <label for="adminID">Admin Email</label>
+                    <div class="input-with-icon">
+                        <input type="text" class="form-control" id="adminID" placeholder="Enter your Admin Email" required>
+                    </div>
+                </div>
+                
+                <div class="form-group animate-slideIn delay-300">
+                    <label for="adminPassword">Password</label>
+                    <div class="input-with-icon">
+                        <input type="password" class="form-control" id="adminPassword" placeholder="Enter your password" required>
+                        <span class="input-icon-end" id="togglePassword">
+                            <i class="bi bi-eye"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="remember-forgot animate-slideIn delay-300">
+                    <div class="remember-check">
+                        <input type="checkbox" class="form-check-input" id="rememberPassword">
+                        <label for="rememberPassword">Remember Me</label>
+                    </div>
+                    <a href="#" class="forgot-link">Forgot Password?</a>
+                </div>
+                
+                <button type="submit" class="admin-login-btn animate-slideIn delay-400">
+                    <i class="bi bi-box-arrow-in-right me-2"></i> Login to Dashboard
+                </button>
+                
+                <div class="divider animate-fadeIn delay-400" style="display: none">
+                    <span>OR</span>
+                </div>
+                
+                <div class="alt-login animate-fadeIn delay-400" style="display: none">
+                    <button type="button" class="social-btn">
+                        <i class="bi bi-fingerprint"></i>
+                    </button>
+                    <button type="button" class="social-btn">
+                        <i class="bi bi-shield-lock"></i>
+                    </button>
+                    <button type="button" class="social-btn">
+                        <i class="bi bi-qr-code-scan"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Password visibility toggle
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordField = document.getElementById('adminPassword');
+            
+            togglePassword.addEventListener('click', function() {
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                
+                // Toggle the eye icon
+                if (type === 'text') {
+                    this.innerHTML = '<i class="bi bi-eye-slash"></i>';
+                } else {
+                    this.innerHTML = '<i class="bi bi-eye"></i>';
+                }
+            });
+            
+            // Form submission
+            const adminLoginForm = document.getElementById('adminLoginForm');
+            adminLoginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const adminID = document.getElementById('adminID').value;
+                const password = passwordField.value;
+                
+                // Here you would typically send these credentials to your server
+                console.log('Admin login attempt:', { adminID, password });
+                
+                // For demo purposes, show a success message
+                alert('Admin login successful! Redirecting to admin dashboard...');
+                
+                // You could redirect the admin after successful login
+                // window.location.href = "admin-dashboard.html";
+            });
+            
+            // Back button functionality
+            const backButton = document.querySelector('.back-button');
+            backButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                 window.location.href = "voter_log_in.html"
+            });
+        });
+    </script>
+</body>
+</html>
