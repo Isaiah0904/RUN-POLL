@@ -528,6 +528,7 @@ body {
 @media (max-width: 991.98px) {
   .login-container {
       margin: 1rem;
+      flex-direction: column-reverse;
   }
   
   .login-image {
