@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RUNPOLLS - Online Voting System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                 RUN POLLS
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contacts</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="voter_log_in.html" class="login-btn">Log In</a>
+                <a href="register.html" class="signup-btn">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-container">
+            <div class="hero-content animate">
+                <h1 class="hero-title">Online Voting System</h1>
+                <p class="hero-description">Experience secure and transparent digital voting. Bringing democracy to the digital age with cutting-edge security and real-time results.</p>
+                <a href="register.html" class="hero-button">Register an Account</a>
+            </div>
+            <div class="hero-image animate delay-1">
+                <img src="images/118Z_2012.w017.n001.329B.p15.329.jpg" alt="People voting online">
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process">
+        <div class="container">
+            <div class="process-cards">
+                <div class="process-card animate delay-1">
+                    <h2>Step 1</h2>
+                    <i class="fas fa-user-plus fa-3x" style="color: var(--primary);"></i>
+                    <h3>SIGN UP</h3>
+                    <p>Create an account and verify your identity to join this platform.</p>
+                    <a href="register.html" class="card-btn">Register Now</a>
+                </div>
+                <div class="process-card animate delay-2">
+                    <h2>Step 2</h2>
+                    <i class="fas fa-vote-yea fa-3x" style="color: var(--primary);"></i>
+                    <h3>VOTE</h3>
+                    <p>Cast your ballot securely and confidently from anywhere.</p>
+                </div>
+                <div class="process-card animate delay-3">
+                    <h2>Step 3</h2>
+                    <i class="fas fa-chart-pie fa-3x" style="color: var(--primary);"></i>
+                    <h3>VIEW ELECTION RESULTS</h3>
+                    <p>Access transparent and real-time election results.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Section -->
+    <section class="value">
+        <div class="container">
+            <div class="value-content animate">
+                <h2 class="value-title">Make your decision-making process more modern, safe, and efficient.</h2>
+                <p class="value-description">Whether you're organizing elections, conducting surveys, or gathering opinions, iVOTE provides the tools you need for your success.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title animate">Our Features</h2>
+            <div class="features-container">
+                <div class="feature animate delay-1">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secured Platform</h3>
+                    <p>With our system, your data is secured.</p>
+                </div>
+                <div class="feature animate delay-2">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h3>Vote Online</h3>
+                    <p>Cast your vote from anywhere at any time using any device with internet connectivity.</p>
+                </div>
+                <div class="feature animate delay-3">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Real-Time Results</h3>
+                    <p>View live election results as they happen with transparent counting and auditable trails.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <ul>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Integrations</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Security</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><a href="#">support@ivote.com</a></li>
+                        <li><a href="#">+1 (555) 123-4567</a></li>
+                        <li><a href="#">123 Voting Street, Democracy City</a></li>
+                    </ul>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 RUNPOLLS All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('nav ul');
+        
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+            });
+        }
+
+        // Animation on scroll
+        const animateElements = document.querySelectorAll('.animate');
+        
+        function checkIfInView() {
+            const windowHeight = window.innerHeight;
+            const windowTopPosition = window.scrollY;
+            const windowBottomPosition = windowTopPosition + windowHeight;
+            
+            animateElements.forEach(element => {
+                const elementHeight = element.offsetHeight;
+                const elementTopPosition = element.offsetTop;
+                const elementBottomPosition = elementTopPosition + elementHeight;
+                
+                if ((elementBottomPosition >= windowTopPosition) && 
+                    (elementTopPosition <= windowBottomPosition)) {
+                    element.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkIfInView);
+        window.addEventListener('load', checkIfInView);
+    </script>
+</body>
+</html>
