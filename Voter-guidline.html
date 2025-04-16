@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RUNPOLLS | Voters Guideline</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="Voter-guidline.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo-container">
+            <div class="logo">RUN</div>
+            <div class="brand-text">POLLS</div>
+        </div>
+        
+        <div class="profile-container">
+            <img src="" alt="Profile" class="profile-image" id="sidebarProfileImage">
+            <div class="profile-name" id="sidebarProfileName"></div>
+            <div class="profile-role">Student Voter</div>
+        </div>
+        
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a href="Voter-dashboard.html" class="nav-link">
+                    <i class="bi bi-grid-1x2-fill"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="bi bi-check2-square"></i> Vote
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link active">
+                    <i class="bi bi-journal-text"></i> Voters Guideline
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="bi bi-gear-fill"></i> Profile Settings
+                </a>
+            </li>
+            <li class="nav-item mt-5">
+                <a href="#" class="nav-link text-danger">
+                    <i class="bi bi-box-arrow-right"></i> Log out
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Top Navbar -->
+        <div class="top-navbar">
+            <button class="toggle-sidebar" id="toggleSidebar">
+                <i class="bi bi-list"></i>
+            </button>
+            
+            <div class="search-bar position-relative">
+                <i class="bi bi-search search-icon"></i>
+                <input type="text" class="form-control search-input" placeholder="Search...">
+            </div>
+            
+            <div class="user-actions">
+                <i class="bi bi-bell action-icon"></i>
+                <i class="bi bi-question-circle action-icon"></i>
+                <img src="" alt="User" class="user-avatar" id="navbarProfileImage">
+            </div>
+        </div>
+        
+        <!-- Voters Guideline Content -->
+        <div class="guideline-header">
+            <h1 class="guideline-title">Voters Guideline</h1>
+        </div>
+        
+        <div class="guidelines-container">
+            <button class="print-btn" id="printGuide" title="Print guidelines">
+                <i class="bi bi-printer"></i>
+            </button>
+            
+            <ul class="guideline-list">
+                <li class="guideline-item" id="item1">
+                    <div class="guideline-bullet"></div>
+                    <div class="guideline-text tooltip-custom" data-tooltip="Take your time to research candidates' backgrounds, positions, and qualifications.">
+                        Before voting, take time to research the candidates and issues on the ballot.
+                    </div>
+                </li>
+                
+                <li class="guideline-item" id="item2">
+                    <div class="guideline-bullet"></div>
+                    <div class="guideline-text tooltip-custom" data-tooltip="Check the requirements to ensure you are authorized to participate in this election.">
+                        Make sure you are eligible to vote in this election.
+                    </div>
+                </li>
+                
+                <li class="guideline-item" id="item3">
+                    <div class="guideline-bullet"></div>
+                    <div class="guideline-text tooltip-custom" data-tooltip="Familiarize yourself with how to cast your vote electronically.">
+                        Make sure you understand the voting procedure for the online voting system.
+                    </div>
+                </li>
+                
+                <li class="guideline-item" id="item4">
+                    <div class="guideline-bullet"></div>
+                    <div class="guideline-text tooltip-custom" data-tooltip="Pay close attention to all voting instructions before submitting.">
+                        Read the instructions carefully before voting.
+                    </div>
+                </li>
+                
+                <li class="guideline-item" id="item5">
+                    <div class="guideline-bullet"></div>
+                    <div class="guideline-text tooltip-custom" data-tooltip="Research each candidate's platform to make an informed decision.">
+                        Make sure you understand the candidates and their positions on the issues.
+                    </div>
+                </li>
+                
+                <li class="guideline-item" id="item6">
+                    <div class="guideline-bullet"></div>
+                    <div class="guideline-text tooltip-custom" data-tooltip="Take your time to select the candidate who best represents your interests.">
+                        Choose your candidate carefully.
+                    </div>
+                </li>
+                
+                <li class="guideline-item" id="item7">
+                    <div class="guideline-bullet"></div>
+                    <div class="guideline-text tooltip-custom" data-tooltip="Contact support for any technical issues or questions about the process.">
+                        If you are unsure of how to vote, ask a friend or relative for help.
+                    </div>
+                </li>
+                
+                <li class="guideline-item" id="item8">
+                    <div class="guideline-bullet"></div>
+                    <div class="guideline-text tooltip-custom" data-tooltip="Review your selections to ensure they accurately reflect your choices.">
+                        Double check your choices before submitting your votes.
+                    </div>
+                </li>
+                
+                <li class="guideline-item" id="item9">
+                    <div class="guideline-bullet"></div>
+                    <div class="guideline-text tooltip-custom" data-tooltip="Ensure you're using a private and secure internet connection for voting.">
+                        Make sure you have a secure connection when voting.
+                    </div>
+                </li>
+                
+                <li class="guideline-item" id="item10">
+                    <div class="guideline-bullet"></div>
+                    <div class="guideline-text tooltip-custom" data-tooltip="Your vote is confidential; do not share it with others.">
+                        Keep your vote private. Do not share your vote with anyone.
+                    </div>
+                </li>
+                
+                <li class="guideline-item" id="item11">
+                    <div class="guideline-bullet"></div>
+                    <div class="guideline-text tooltip-custom" data-tooltip="Be aware of all important dates related to the election.">
+                        Make sure you understand the deadlines for the election.
+                    </div>
+                </li>
+                
+                <li class="guideline-item" id="item12">
+                    <div class="guideline-bullet"></div>
+                    <div class="guideline-text tooltip-custom" data-tooltip="Adhere to the official rules set by your election authorities.">
+                        Follow the voting guidelines set by your local election office.
+                    </div>
+                </li>
+                
+                <li class="guideline-item" id="item13">
+                    <div class="guideline-bullet"></div>
+                    <div class="guideline-text tooltip-custom" data-tooltip="Report any technical issues or suspected irregularities.">
+                        Report any problems or concerns you have about the voting process.
+                    </div>
+                </li>
+                
+                <li class="guideline-item" id="item14">
+                    <div class="guideline-bullet"></div>
+                    <div class="guideline-text">
+                        Thank you for participating in democracy!
+                    </div>
+                </li>
+            </ul>
+            
+            <img src="images/Voting-pana.png" alt="Voting Illustration" class="guidelines-image">
+            
+            <div class="contact-info">
+                Got more questions?<br>
+                Please contact: <a href="mailto:support@ivote.com" class="contact-email">support@ivote.com</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap & Other JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Get user data from sessionStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get user data from session storage
+            const userData = JSON.parse(sessionStorage.getItem('userData')) || {};
+            const userName = userData.name || 'Guest User';
+            const userImage = userData.profileImage || '/api/placeholder/70/70'; // Default placeholder if no image
+            
+            // Update sidebar profile
+            document.getElementById('sidebarProfileName').textContent = userName;
+            document.getElementById('sidebarProfileImage').src = userImage;
+            
+            // Update navbar profile image
+            document.getElementById('navbarProfileImage').src = userImage;
+            
+            // Toggle Sidebar
+            document.getElementById('toggleSidebar').addEventListener('click', function() {
+                document.getElementById('sidebar').classList.toggle('active');
+            });
+
+            // Animate guidelines on load
+            const items = document.querySelectorAll('.guideline-item');
+            
+            items.forEach((item, index) => {
+                item.classList.add('animated-item');
+                item.style.animationDelay = `${index * 0.1}s`;
+            });
+            
+            // Print functionality
+            document.getElementById('printGuide').addEventListener('click', function() {
+                window.print();
+            });
+            
+            // Interactive tooltips (enhanced)
+            const tooltips = document.querySelectorAll('.tooltip-custom');
+            
+            tooltips.forEach(tooltip => {
+                tooltip.addEventListener('click', function() {
+                    // Create a floating notification
+                    const notification = document.createElement('div');
+                    notification.textContent = this.getAttribute('data-tooltip');
+                    notification.style.position = 'fixed';
+                    notification.style.bottom = '20px';
+                    notification.style.left = '50%';
+                    notification.style.transform = 'translateX(-50%)';
+                    notification.style.backgroundColor = 'var(--primary)';
+                    notification.style.color = 'white';
+                    notification.style.padding = '10px 20px';
+                    notification.style.borderRadius = '5px';
+                    notification.style.zIndex = '1000';
+                    notification.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+                    notification.style.transition = 'opacity 0.3s';
+                    
+                    document.body.appendChild(notification);
+                    
+                    // Remove after 3 seconds
+                    setTimeout(() => {
+                        notification.style.opacity = '0';
+                        setTimeout(() => {
+                            document.body.removeChild(notification);
+                        }, 300);
+                    }, 3000);
+                });
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const guidelineTexts = document.querySelectorAll('.guideline-text');
+            
+            guidelineTexts.forEach(text => {
+                const parent = text.parentElement;
+                const content = text.textContent.toLowerCase();
+                
+                if (content.includes(searchTerm)) {
+                    parent.style.display = 'flex';
+                    // Highlight the matched text
+                    if (searchTerm.length > 0) {
+                        const regex = new RegExp(`(${searchTerm})`, 'gi');
+                        const highlightedText = text.textContent.replace(regex, '<span style="background-color: yellow;">$1</span>');
+                        text.innerHTML = highlightedText;
+                    } else {
+                        text.innerHTML = text.textContent;
+                    }
+                } else {
+                    parent.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

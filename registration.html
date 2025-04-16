@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RUNPOLLS | Registration</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="registration.css">
+</head>
+<body>
+    <div class="registration-container">
+        <div class="registration-header">
+            <div class="logo-container">
+                <div class="logo">i</div>
+                <div class="brand-text">VOTE</div>
+            </div>
+            <h1 class="registration-title">Create your account</h1>
+        </div>
+        
+        <div class="registration-form">
+            <form id="registrationForm">
+                <!-- Profile Picture Upload -->
+                <div class="profile-upload-container">
+                    <div class="profile-preview" id="profilePreview">
+                        <i class="bi bi-person-fill profile-icon" id="profileIcon"></i>
+                        <!-- Preview image will be shown here -->
+                    </div>
+                    <div class="upload-btn-wrapper">
+                        <button type="button" class="upload-btn">
+                            <i class="bi bi-camera"></i> Upload Profile Picture
+                        </button>
+                        <input type="file" id="profilePicture" accept="image/*" />
+                    </div>
+                    <div class="form-text mt-2">Recommended: Square image, max 2MB</div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstName" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" required>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="studentId" class="form-label">Student ID</label>
+                    <input type="text" class="form-control" id="studentId" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" required>
+                </div>
+                
+                <div class="password-requirements">
+                    <h6 class="mb-2">Password must contain:</h6>
+                    <div class="requirement" id="lengthReq">
+                        <i class="bi bi-x-circle"></i> At least 8 characters
+                    </div>
+                    <div class="requirement" id="upperReq">
+                        <i class="bi bi-x-circle"></i> At least one uppercase letter
+                    </div>
+                    <div class="requirement" id="lowerReq">
+                        <i class="bi bi-x-circle"></i> At least one lowercase letter
+                    </div>
+                    <div class="requirement" id="numberReq">
+                        <i class="bi bi-x-circle"></i> At least one number
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <a href="voter_log_in.html" class="login-link">Already have an account? Log in</a>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap & Other JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Profile picture preview functionality
+            const profilePictureInput = document.getElementById('profilePicture');
+            const profilePreview = document.getElementById('profilePreview');
+            const profileIcon = document.getElementById('profileIcon');
+            
+            profilePictureInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                
+                if (file) {
+                    // Validate file size (max 2MB)
+                    if (file.size > 2 * 1024 * 1024) {
+                        alert('File size exceeds 2MB. Please choose a smaller image.');
+                        return;
+                    }
+                    
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        // Hide the icon
+                        profileIcon.style.display = 'none';
+                        
+                        // Create or update image element
+                        let img = profilePreview.querySelector('img');
+                        if (!img) {
+                            img = document.createElement('img');
+                            profilePreview.appendChild(img);
+                        }
+                        
+                        img.src = e.target.result;
+                        
+                        // Store the image data in localStorage for demo purposes
+                        // In a real app, you would send this to the server
+                        localStorage.setItem('profileImage', e.target.result);
+                    };
+                    
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Password validation
+            const passwordInput = document.getElementById('password');
+            const lengthReq = document.getElementById('lengthReq');
+            const upperReq = document.getElementById('upperReq');
+            const lowerReq = document.getElementById('lowerReq');
+            const numberReq = document.getElementById('numberReq');
+            
+            passwordInput.addEventListener('input', function() {
+                const password = this.value;
+                
+                // Check requirements
+                const meetsLength = password.length >= 8;
+                const meetsUpper = /[A-Z]/.test(password);
+                const meetsLower = /[a-z]/.test(password);
+                const meetsNumber = /[0-9]/.test(password);
+                
+                // Update UI for each requirement
+                updateRequirement(lengthReq, meetsLength);
+                updateRequirement(upperReq, meetsUpper);
+                updateRequirement(lowerReq, meetsLower);
+                updateRequirement(numberReq, meetsNumber);
+            });
+            
+            function updateRequirement(element, isValid) {
+                if (isValid) {
+                    element.classList.add('valid');
+                    element.querySelector('i').className = 'bi bi-check-circle';
+                } else {
+                    element.classList.remove('valid');
+                    element.querySelector('i').className = 'bi bi-x-circle';
+                }
+            }
+            
+            // Form submission
+            const registrationForm = document.getElementById('registrationForm');
+            
+            registrationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const firstName = document.getElementById('firstName').value;
+                const lastName = document.getElementById('lastName').value;
+                const email = document.getElementById('email').value;
+                const studentId = document.getElementById('studentId').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                const profileImage = localStorage.getItem('profileImage');
+                
+                // Validate passwords match
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match!');
+                    return;
+                }
+                
+                // Create user object
+                const user = {
+                    firstName,
+                    lastName,
+                    email,
+                    studentId,
+                    profileImage
+                };
+                
+                // Store user data in localStorage (for demo purposes)
+                // In a real app, you would send this to the server
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                // Redirect to login or dashboard page
+                alert('Registration successful! Redirecting to login page...');
+                window.location.href = 'voter_log_in.html';
+            });
+        });
+    </script>
+</body>
+</html>

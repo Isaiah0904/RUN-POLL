@@ -1,0 +1,376 @@
+:root {
+  --primary: #4954b8;
+  --primary-dark: #3a429b;
+  --secondary: #f5f7ff;
+  --light-gray: #f8f9fa;
+  --text-dark: #2a3074;
+  --text-gray: #6c757d;
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7ff;
+}
+
+.main-content {
+  margin-left: 240px;
+  padding: 20px;
+  transition: margin-left 0.3s;
+}
+
+@media (max-width: 992px) {
+  .main-content {
+      margin-left: 0;
+  }
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100%;
+  background-color: white;
+  box-shadow: var(--shadow);
+  z-index: 1000;
+  transition: transform 0.3s;
+  padding: 20px 0;
+}
+
+@media (max-width: 992px) {
+  .sidebar {
+      transform: translateX(-100%);
+  }
+  .sidebar.active {
+      transform: translateX(0);
+  }
+}
+
+.logo-container {
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logo {
+  background-color: var(--primary);
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.brand-text {
+  color: var(--text-dark);
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.profile-container {
+  padding: 15px;
+  text-align: center;
+  border-radius: 12px;
+  background-color: var(--light-gray);
+  margin: 0 15px 25px;
+}
+
+.profile-image {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  object-fit: cover;
+  border: 3px solid white;
+}
+
+.profile-name {
+  font-weight: bold;
+  color: var(--text-dark);
+  margin-bottom: 2px;
+}
+
+.profile-role {
+  font-size: 12px;
+  color: var(--text-gray);
+}
+
+.nav-item {
+  padding: 5px 15px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  color: var(--text-gray);
+  border-radius: 10px;
+  transition: all 0.2s;
+  position: relative; /* For active indicator */
+}
+
+.nav-link:hover, .nav-link.active {
+  background-color: var(--primary);
+  color: white;
+}
+
+.nav-link i {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+/* Active indicator for current page */
+.nav-link.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: var(--primary-dark);
+  border-radius: 0 4px 4px 0;
+}
+
+/* Top Navbar */
+.top-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+
+.toggle-sidebar {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--text-dark);
+  cursor: pointer;
+}
+
+@media (max-width: 992px) {
+  .toggle-sidebar {
+      display: block;
+  }
+}
+
+.search-bar {
+  flex-grow: 1;
+  max-width: 400px;
+  margin: 0 20px;
+}
+
+.search-input {
+  background-color: white;
+  border-radius: 50px;
+  border: 1px solid #e9ecef;
+  padding-left: 40px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-gray);
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+}
+
+.action-icon {
+  font-size: 20px;
+  color: var(--text-gray);
+  margin-left: 15px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.action-icon:hover {
+  color: var(--primary);
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+/* Guidelines styling */
+.guideline-header {
+  margin-bottom: 30px;
+}
+
+.guideline-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-dark);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.guidelines-container {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  padding: 30px;
+  position: relative;
+}
+
+.guideline-list {
+  list-style: none;
+  padding-left: 0;
+  counter-reset: guideline-counter;
+}
+
+.guideline-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  padding: 5px 0;
+  transition: transform 0.2s;
+}
+
+.guideline-item:hover {
+  transform: translateX(5px);
+}
+
+.guideline-bullet {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  background-color: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 12px;
+  margin-right: 15px;
+  margin-top: 2px;
+  counter-increment: guideline-counter;
+}
+
+.guideline-bullet::before {
+  content: counter(guideline-counter);
+}
+
+.guideline-text {
+  font-weight: 500;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+.guidelines-image {
+  max-width: 300px;
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+  opacity: 0.9;
+}
+
+.contact-info {
+  margin-top: 30px;
+  font-size: 14px;
+  color: var(--text-gray);
+  text-align: center;
+}
+
+.contact-email {
+  color: var(--primary);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.contact-email:hover {
+  text-decoration: underline;
+}
+
+/* For smaller screens */
+@media (max-width: 992px) {
+  .guidelines-image {
+      position: relative;
+      right: auto;
+      bottom: auto;
+      display: block;
+      margin: 30px auto 0;
+      max-width: 80%;
+  }
+}
+
+/* Animation for guidelines */
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.animated-item {
+  animation: fadeInUp 0.5s ease forwards;
+  opacity: 0;
+}
+
+/* Tooltip styles */
+.tooltip-custom {
+  position: relative;
+  cursor: pointer;
+}
+
+.tooltip-custom:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: 5px;
+  background-color: var(--text-dark);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  z-index: 100;
+  width: 200px;
+  white-space: normal;
+}
+
+/* Print style button */
+.print-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.print-btn:hover {
+  background-color: var(--primary-dark);
+  transform: scale(1.1);
+}
