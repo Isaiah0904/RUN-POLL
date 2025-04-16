@@ -11,501 +11,547 @@
     <!-- Chart.js -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.css" rel="stylesheet">
     <link rel="stylesheet" href="Voter-dashboard.css">
+    <style>
+        :root {
+            --primary: #4954b8;
+            --primary-dark: #3a429b;
+            --secondary: #f5f7ff;
+            --light-gray: #f8f9fa;
+            --text-dark: #2a3074;
+            --text-gray: #6c757d;
+            --success: #28a745;
+            --pending: #ffc107;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7ff;
+        }
+
+        .main-content {
+            margin-left: 240px;
+            padding: 20px;
+            transition: margin-left 0.3s;
+        }
+
+        @media (max-width: 992px) {
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 240px;
+            height: 100%;
+            background-color: white;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: transform 0.3s;
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+        }
+
+        .logo-container {
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            background-color: var(--primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        .brand-text {
+            color: var(--text-dark);
+            font-weight: bold;
+            font-size: 22px;
+        }
+
+        .profile-container {
+            padding: 15px;
+            text-align: center;
+            border-radius: 12px;
+            background-color: var(--light-gray);
+            margin: 0 15px 25px;
+        }
+
+        /* Improved profile image styling */
+        .profile-image-container {
+            position: relative;
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 10px;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+            display: block;
+        }
+
+        .edit-icon {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 24px;
+            height: 24px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid white;
+        }
+
+        .profile-name {
+            font-weight: bold;
+            color: var(--text-dark);
+            margin-bottom: 2px;
+        }
+
+        .profile-role {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: hidden;
+        }
+
+        .nav-main {
+            flex: 1;
+        }
+
+        .nav-footer {
+            margin-bottom: 15px;
+        }
+
+        .nav-item {
+            padding: 5px 15px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            color: var(--text-gray);
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .nav-link i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        /* Top Navbar */
+        .top-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+
+        .toggle-sidebar {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        @media (max-width: 992px) {
+            .toggle-sidebar {
+                display: block;
+            }
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            max-width: 600px;
+            margin: 0 20px;
+        }
+
+        .search-input {
+            background-color: white;
+            border-radius: 50px;
+            border: 1px solid #e9ecef;
+            padding-left: 40px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gray);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .action-icon {
+            font-size: 20px;
+            color: var(--text-gray);
+            margin-left: 15px;
+            cursor: pointer;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            height: 40px;
+        }
+
+        .action-icon:hover {
+            color: var(--primary);
+        }
+
+        /* Improved navbar user avatar styling */
+        .navbar-user-container {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            margin-left: 0px;
+        }
+
+        .user-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .status-indicator {
+            position: absolute;
+            bottom: 0;
+            right: -10px;
+            width: 10px;
+            height: 10px;
+            background-color: var(--success);
+            border-radius: 50%;
+            border: 2px solid var(--success);
+        }
+
+        /* Dashboard Cards */
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            font-weight: 600;
+            color: var(--text-dark);
+            padding: 15px 20px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* Election Card */
+        .election-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .election-info h4 {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .vote-btn {
+            background-color: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            border-radius: 20px;
+            padding: 6px 20px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .vote-btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .election-image {
+            max-width: 130px;
+        }
+
+        /* Live Results */
+        .candidate-progress {
+            margin-bottom: 15px;
+        }
+
+        .candidate-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .progress {
+            height: 10px;
+            border-radius: 5px;
+        }
+
+        .progress-bar {
+            background-color: var(--primary);
+        }
+
+        .back-btn {
+            color: var(--text-gray);
+            margin-right: 10px;
+        }
+
+        /* Calendar */
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .today-indicator {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .calendar-navigation {
+            display: flex;
+            gap: 5px;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-gray);
+            cursor: pointer;
+        }
+
+        .date-pill {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            border-radius: 12px;
+            padding: 10px;
+            width: 60px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-right: 10px;
+        }
+
+        .date-pill.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .day {
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .date {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .calendar-event {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .event-color {
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        /* Voting Process */
+        .stat-circle {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .stat-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 12px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        /* Election Activities */
+        .activity-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 5px 0;
+        }
+
+        .activity-status {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .status-ongoing {
+            background-color: var(--success);
+        }
+
+        .status-concluded {
+            background-color: var(--text-gray);
+        }
+
+        .status-pending {
+            background-color: var(--pending);
+        }
+
+        .activity-details {
+            flex-grow: 1;
+        }
+
+        .activity-name {
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .activity-date {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .activity-label {
+            font-size: 12px;
+            padding: 3px 10px;
+            border-radius: 15px;
+        }
+
+        .label-ongoing {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+        }
+
+        .label-concluded {
+            background-color: rgba(108, 117, 125, 0.1);
+            color: var(--text-gray);
+        }
+
+        .label-pending {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: var(--pending);
+        }
+
+        /* Pagination dots */
+        .pagination-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            margin: 0 3px;
+        }
+
+        .dot.active {
+            background-color: var(--primary);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .election-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .election-image {
+                margin-top: 15px;
+            }
+            
+            .calendar-dates {
+                overflow-x: auto;
+                white-space: nowrap;
+                padding-bottom: 10px;
+            }
+        }
+    </style>
 </head>
-<style>
-    :root {
-  --primary: #4954b8;
-  --primary-dark: #3a429b;
-  --secondary: #f5f7ff;
-  --light-gray: #f8f9fa;
-  --text-dark: #2a3074;
-  --text-gray: #6c757d;
-  --success: #28a745;
-  --pending: #ffc107;
-  --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f7ff;
-}
-
-.main-content {
-  margin-left: 240px;
-  padding: 20px;
-  transition: margin-left 0.3s;
-}
-
-@media (max-width: 992px) {
-  .main-content {
-      margin-left: 0;
-  }
-}
-
-/* Sidebar */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 240px;
-  height: 100%;
-  background-color: white;
-  box-shadow: var(--shadow);
-  z-index: 1000;
-  transition: transform 0.3s;
-  padding: 20px 0;
-  display: flex;
-  flex-direction: column;
-}
-
-@media (max-width: 992px) {
-  .sidebar {
-      transform: translateX(-100%);
-  }
-  .sidebar.active {
-      transform: translateX(0);
-  }
-}
-
-.logo-container {
-  padding: 10px 15px;
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.logo {
-  background-color: var(--primary);
-  color: white;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  font-size: 18px;
-  margin-right: 10px;
-}
-
-.brand-text {
-  color: var(--text-dark);
-  font-weight: bold;
-  font-size: 22px;
-}
-
-.profile-container {
-  padding: 15px;
-  text-align: center;
-  border-radius: 12px;
-  background-color: var(--light-gray);
-  margin: 0 15px 25px;
-}
-
-.profile-image {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  margin-bottom: 10px;
-  object-fit: cover;
-  border: 3px solid white;
-}
-
-.profile-name {
-  font-weight: bold;
-  color: var(--text-dark);
-  margin-bottom: 2px;
-}
-
-.profile-role {
-  font-size: 12px;
-  color: var(--text-gray);
-}
-
-.sidebar-nav {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-}
-
-.nav-main {
-  flex: 1;
-}
-
-.nav-footer {
-  margin-bottom: 15px;
-}
-
-.nav-item {
-  padding: 5px 15px;
-}
-
-.nav-link {
-  display: flex;
-  align-items: center;
-  padding: 10px 15px;
-  color: var(--text-gray);
-  border-radius: 10px;
-  transition: all 0.2s;
-}
-
-.nav-link:hover, .nav-link.active {
-  background-color: var(--primary);
-  color: white;
-}
-
-.nav-link i {
-  margin-right: 10px;
-  font-size: 18px;
-}
-
-/* Top Navbar */
-.top-navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  margin-bottom: 20px;
-}
-
-.toggle-sidebar {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: var(--text-dark);
-  cursor: pointer;
-}
-
-@media (max-width: 992px) {
-  .toggle-sidebar {
-      display: block;
-  }
-}
-
-.search-bar {
-  flex-grow: 1;
-  max-width: 400px;
-  margin: 0 20px;
-}
-
-.search-input {
-  background-color: white;
-  border-radius: 50px;
-  border: 1px solid #e9ecef;
-  padding-left: 40px;
-}
-
-.search-icon {
-  position: absolute;
-  left: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--text-gray);
-}
-
-.user-actions {
-  display: flex;
-  align-items: center;
-}
-
-.action-icon {
-  font-size: 20px;
-  color: var(--text-gray);
-  margin-left: 15px;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.action-icon:hover {
-  color: var(--primary);
-}
-
-.user-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-left: 15px;
-  cursor: pointer;
-}
-
-/* Dashboard Cards */
-.card {
-  border: none;
-  border-radius: 15px;
-  box-shadow: var(--shadow);
-  margin-bottom: 20px;
-  overflow: hidden;
-}
-
-.card-header {
-  background-color: white;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  font-weight: 600;
-  color: var(--text-dark);
-  padding: 15px 20px;
-}
-
-.card-body {
-  padding: 20px;
-}
-
-/* Election Card */
-.election-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.election-info h4 {
-  color: var(--primary);
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.vote-btn {
-  background-color: white;
-  color: var(--primary);
-  border: 1px solid var(--primary);
-  border-radius: 20px;
-  padding: 6px 20px;
-  font-weight: 500;
-  transition: all 0.2s;
-}
-
-.vote-btn:hover {
-  background-color: var(--primary);
-  color: white;
-}
-
-.election-image {
-  max-width: 130px;
-}
-
-/* Live Results */
-.candidate-progress {
-  margin-bottom: 15px;
-}
-
-.candidate-name {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 5px;
-  font-weight: 500;
-}
-
-.progress {
-  height: 10px;
-  border-radius: 5px;
-}
-
-.progress-bar {
-  background-color: var(--primary);
-}
-
-.back-btn {
-  color: var(--text-gray);
-  margin-right: 10px;
-}
-
-/* Calendar */
-.calendar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.today-indicator {
-  font-size: 12px;
-  color: var(--text-gray);
-}
-
-.calendar-navigation {
-  display: flex;
-  gap: 5px;
-}
-
-.nav-btn {
-  background: none;
-  border: none;
-  color: var(--text-gray);
-  cursor: pointer;
-}
-
-.date-pill {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: white;
-  border-radius: 12px;
-  padding: 10px;
-  width: 60px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  margin-right: 10px;
-}
-
-.date-pill.active {
-  background-color: var(--primary);
-  color: white;
-}
-
-.day {
-  font-size: 12px;
-  margin-bottom: 5px;
-}
-
-.date {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.calendar-event {
-  background-color: #f8f9fa;
-  padding: 10px;
-  border-radius: 10px;
-  margin-top: 15px;
-  display: flex;
-  align-items: center;
-}
-
-.event-color {
-  width: 10px;
-  height: 10px;
-  background-color: var(--primary);
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-/* Voting Process */
-.stat-circle {
-  width: 120px;
-  height: 120px;
-  margin: 0 auto;
-  position: relative;
-}
-
-.stat-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-.stat-number {
-  font-size: 24px;
-  font-weight: bold;
-  color: var(--text-dark);
-}
-
-.stat-label {
-  color: var(--text-gray);
-  font-size: 12px;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-/* Election Activities */
-.activity-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-  padding: 5px 0;
-}
-
-.activity-status {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin-right: 15px;
-}
-
-.status-ongoing {
-  background-color: var(--success);
-}
-
-.status-concluded {
-  background-color: var(--text-gray);
-}
-
-.status-pending {
-  background-color: var(--pending);
-}
-
-.activity-details {
-  flex-grow: 1;
-}
-
-.activity-name {
-  font-weight: 500;
-  color: var(--text-dark);
-}
-
-.activity-date {
-  font-size: 12px;
-  color: var(--text-gray);
-}
-
-.activity-label {
-  font-size: 12px;
-  padding: 3px 10px;
-  border-radius: 15px;
-}
-
-.label-ongoing {
-  background-color: rgba(40, 167, 69, 0.1);
-  color: var(--success);
-}
-
-.label-concluded {
-  background-color: rgba(108, 117, 125, 0.1);
-  color: var(--text-gray);
-}
-
-.label-pending {
-  background-color: rgba(255, 193, 7, 0.1);
-  color: var(--pending);
-}
-
-/* Pagination dots */
-.pagination-dots {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #e9ecef;
-  margin: 0 3px;
-}
-
-.dot.active {
-  background-color: var(--primary);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .election-card {
-      flex-direction: column;
-      text-align: center;
-  }
-  
-  .election-image {
-      margin-top: 15px;
-  }
-  
-  .calendar-dates {
-      overflow-x: auto;
-      white-space: nowrap;
-      padding-bottom: 10px;
-  }
-}
-</style>
 <body>
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
@@ -515,9 +561,10 @@ body {
         </div>
         
         <div class="profile-container">
-            <div class="position-relative">
+            <!-- Improved profile image container -->
+            <div class="profile-image-container">
                 <img src="/api/placeholder/70/70" alt="Profile" class="profile-image" id="userProfileImage">
-                <div class="position-absolute bottom-0 end-0 bg-primary rounded-circle d-flex justify-content-center align-items-center" style="width: 24px; height: 24px;">
+                <div class="edit-icon">
                     <i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>
                 </div>
             </div>
@@ -544,7 +591,7 @@ body {
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="profile-settings.html" class="nav-link">
                         <i class="bi bi-gear-fill"></i> Profile Settings
                     </a>
                 </li>
@@ -575,11 +622,16 @@ body {
             </div>
             
             <div class="user-actions">
-                <i class="bi bi-bell action-icon"></i>
-                <i class="bi bi-question-circle action-icon"></i>
-                <div class="position-relative">
+                <div class="action-icon">
+                    <i class="bi bi-bell"></i>
+                </div>
+                <div class="action-icon">
+                    <i class="bi bi-question-circle"></i>
+                </div>
+                <!-- Improved navbar user container -->
+                <div class="navbar-user-container">
                     <img src="/api/placeholder/40/40" alt="User" class="user-avatar" id="navbarUserImage">
-                    <span class="position-absolute bottom-0 end-0 bg-success rounded-circle border border-light" style="width: 10px; height: 10px;"></span>
+                    <div class="status-indicator"></div>
                 </div>
             </div>
         </div>
@@ -587,7 +639,7 @@ body {
         <!-- Welcome Message -->
         <div class="mb-4">
             <h2>Hello, Juan!</h2>
-            <p class="text-muted">Welcome to USJR's Online Voting System</p>
+            <p class="text-muted">Welcome to RUN's Online Voting System</p>
         </div>
         
         <div class="row">
@@ -813,9 +865,6 @@ body {
                     profileImageElements.forEach(img => {
                         img.src = user.profileImage;
                         img.alt = `${user.firstName} ${user.lastName}`;
-                        
-                        // Add Bootstrap classes for better image display
-                        img.classList.add('img-fluid');
                     });
                 }
             }
@@ -886,7 +935,7 @@ body {
                     datasets: [{
                         data: [562, 0],
                         backgroundColor: ['#4954b8', '#e9ecef'],
-                        borderWidth: 0
+                        borderWidth:  0
                     }]
                 },
                 options: {
@@ -906,63 +955,62 @@ body {
         );
         document.getElementById('registeredVotersChart').appendChild(registeredVotersChart.canvas);
         
-// Total Votes Chart
-    const totalVotesChart = new Chart(
-        document.createElement('canvas'), {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    data: [321, 241],
-                    backgroundColor: ['#4954b8', '#e9ecef'],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                cutout: '75%',
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        enabled: false
+        // Total Votes Chart
+        const totalVotesChart = new Chart(
+            document.createElement('canvas'), {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [321, 241],
+                        backgroundColor: ['#4954b8', '#e9ecef'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    cutout: '75%',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: false
+                        }
                     }
                 }
             }
-        }
-    );
-    document.getElementById('totalVotesChart').appendChild(totalVotesChart.canvas);
-    
-    // Candidates Chart
-    const candidatesChart = new Chart(
-        document.createElement('canvas'), {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    data: [3, 0],
-                    backgroundColor: ['#4954b8', '#e9ecef'],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                cutout: '75%',
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        enabled: false
+        );
+        document.getElementById('totalVotesChart').appendChild(totalVotesChart.canvas);
+        
+        // Candidates Chart
+        const candidatesChart = new Chart(
+            document.createElement('canvas'), {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [3, 0],
+                        backgroundColor: ['#4954b8', '#e9ecef'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    cutout: '75%',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: false
+                        }
                     }
                 }
             }
-        }
-    );
-    document.getElementById('candidatesChart').appendChild(candidatesChart.canvas);
-});
-</script>
+        );
+        document.getElementById('candidatesChart').appendChild(candidatesChart.canvas);
+      });
+    </script>
 </body>
 </html>
-    

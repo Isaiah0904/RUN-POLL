@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOTE | Profile</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4954b8;
+            --primary-dark: #3a429b;
+            --secondary: #f5f7ff;
+            --light-gray: #f8f9fa;
+            --text-dark: #2a3074;
+            --text-gray: #6c757d;
+            --success: #28a745;
+            --pending: #ffc107;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7ff;
+        }
+
+        .main-content {
+            margin-left: 240px;
+            padding: 20px;
+            transition: margin-left 0.3s;
+        }
+
+        @media (max-width: 992px) {
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 240px;
+            height: 100%;
+            background-color: white;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: transform 0.3s;
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+        }
+
+        .logo-container {
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            background-color: var(--primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: 8px;
+        }
+
+        .brand-text {
+            color: var(--text-dark);
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .profile-container {
+            padding: 15px;
+            text-align: center;
+            border-radius: 12px;
+            background-color: var(--light-gray);
+            margin: 0 15px 25px;
+        }
+
+        /* Profile image styling */
+        .profile-image-container {
+            position: relative;
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 10px;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+            display: block;
+        }
+
+        .profile-name {
+            font-weight: bold;
+            color: var(--text-dark);
+            margin-bottom: 2px;
+        }
+
+        .view-profile {
+            font-size: 12px;
+            color: var(--text-gray);
+            display: block;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: hidden;
+        }
+
+        .nav-main {
+            flex: 1;
+        }
+
+        .nav-footer {
+            margin-bottom: 15px;
+        }
+
+        .nav-item {
+            padding: 5px 15px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            color: var(--text-gray);
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .nav-link i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        /* Top Navbar */
+        .top-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+
+        .toggle-sidebar {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        @media (max-width: 992px) {
+            .toggle-sidebar {
+                display: block;
+            }
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            max-width: 600px;
+            margin: 0 20px;
+        }
+
+        .search-input {
+            background-color: white;
+            border-radius: 50px;
+            border: 1px solid #e9ecef;
+            padding-left: 40px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gray);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .action-icon {
+            font-size: 20px;
+            color: var(--text-gray);
+            margin-left: 15px;
+            cursor: pointer;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            height: 40px;
+        }
+
+        .action-icon:hover {
+            color: var(--primary);
+        }
+
+        /* Navbar user avatar styling */
+        .navbar-user-container {
+            position: relative;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            cursor: pointer;
+        }
+
+        .status-indicator {
+            position: absolute;
+            bottom: 0;
+            right: 0px;
+            width: 10px;
+            height: 10px;
+            background-color: var(--success);
+            border-radius: 50%;
+            border: 2px solid var(--success);
+}
+
+        /* Profile Page Styles */
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            background-color: white;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .profile-large-image-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .profile-large-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .btn-rounded-pill {
+            border-radius: 50px;
+            padding: 8px 20px;
+        }
+        
+        .info-container {
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+        }
+        
+        #edit {
+            border: 1px solid var(--primary);
+            padding: 2px 8px;
+            border-radius: 15px;
+            background-color: white;
+            color: var(--primary);
+            font-size: 12px;
+        }
+
+        /* Modern form input styling */
+        .form-control-sm {
+            height: 38px;
+            font-size: 14px;
+        }
+
+        .form-label-sm {
+            font-size: 12px;
+            color: var(--text-gray);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        /* Sunglasses icon for profile image */
+        .profile-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0,0,0,0.1);
+            opacity: 0;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+        
+        .profile-image-overlay:hover {
+            opacity: 1;
+        }
+        
+        .profile-avatar {
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo-container">
+            <div class="logo">RUN</div>
+            <div class="brand-text">POLLS</div>
+        </div>
+        
+        <div class="profile-container">
+            <!-- Improved profile image container -->
+            <div class="profile-image-container">
+                <img src="/api/placeholder/70/70" alt="Profile" class="profile-image" id="userProfileImage">
+                <div class="edit-icon">
+                    <i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>
+                </div>
+            </div>
+            <div class="profile-name" id="userProfileName">Juan Dela Cruz</div>
+            <div class="profile-role" id="userProfileRole">Student Voter</div>
+        </div>
+        
+        <!-- Sidebar Navigation with improved structure -->
+        <div class="sidebar-nav">
+            <ul class="nav flex-column nav-main">
+                <li class="nav-item">
+                    <a href="Voter-dashboard.html" class="nav-link active">
+                        <i class="bi bi-grid-1x2-fill"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="bi bi-check2-square"></i> Vote
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="Voter-guidline.html" class="nav-link">
+                        <i class="bi bi-journal-text"></i> Voters Guideline
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="bi bi-gear-fill"></i> Profile Settings
+                    </a>
+                </li>
+            </ul>
+            
+            <!-- Logout button in footer section -->
+            <ul class="nav flex-column nav-footer">
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-danger">
+                        <i class="bi bi-box-arrow-right"></i> Log out
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Top Navbar -->
+        <div class="top-navbar">
+            <button class="toggle-sidebar" id="toggleSidebar">
+                <i class="bi bi-list"></i>
+            </button>
+            
+            <div class="search-bar position-relative">
+                <i class="bi bi-search search-icon"></i>
+                <input type="text" class="form-control search-input" placeholder="Search...">
+            </div>
+            
+            <div class="user-actions">
+                <div class="action-icon">
+                    <i class="bi bi-bell"></i>
+                </div>
+                <div class="action-icon">
+                    <i class="bi bi-question-circle"></i>
+                </div>
+                <!-- Improved navbar user container -->
+                <div class="navbar-user-container">
+                    <img src="/api/placeholder/40/40" alt="User" class="user-avatar" id="navbarUserImage">
+                    <div class="status-indicator"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Profile Content -->
+        <div class="container-fluid p-0">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h5 class="mb-4">PROFILE</h5>
+                            
+                            <div class="profile-large-image-container mb-3">
+                                <img src="/api/placeholder/120/120" alt="Profile" class="profile-large-image" id="profileLargeImage">
+                                <div class="profile-image-overlay">
+                                    <i class="bi bi-sunglasses text-white fs-3"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <button class="btn btn-primary btn-sm rounded-pill px-4">UPLOAD</button>
+                                <button class="btn btn-outline-secondary btn-sm rounded-pill px-4 ms-2">REMOVE</button>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label-sm d-block text-start">FIRST NAME</label>
+                                <input type="text" class="form-control form-control-sm" value="JUAN">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label-sm d-block text-start">MIDDLE NAME</label>
+                                <input type="text" class="form-control form-control-sm" value="SALAZAR">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label-sm d-block text-start">LAST NAME</label>
+                                <input type="text" class="form-control form-control-sm" value="DELA CRUZ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-8">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-end mb-4">
+                                <button id="edit" class="btn-sm">EDIT</button>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="d-flex align-items-center mb-1">
+                                    <i class="bi bi-calendar me-2 text-primary"></i>
+                                    <span class="text-muted small">Birthday</span>
+                                </label>
+                                <div class="info-container">
+                                    January 1, 2000
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="d-flex align-items-center mb-1">
+                                    <i class="bi bi-telephone me-2 text-primary"></i>
+                                    <span class="text-muted small">Phone</span>
+                                </label>
+                                <div class="info-container">
+                                    +63 912 345 6789
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="d-flex align-items-center mb-1">
+                                    <i class="bi bi-envelope me-2 text-primary"></i>
+                                    <span class="text-muted small">Email</span>
+                                </label>
+                                <div class="info-container">
+                                    juan.delacruz@email.com
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="d-flex align-items-center mb-1">
+                                    <i class="bi bi-building me-2 text-primary"></i>
+                                    <span class="text-muted small">Department</span>
+                                </label>
+                                <div class="info-container">
+                                    System Development
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap & Other JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle Sidebar
+            document.getElementById('toggleSidebar').addEventListener('click', function() {
+                document.getElementById('sidebar').classList.toggle('active');
+            });
+            
+            // Profile image click handlers
+            const profileLargeImage = document.getElementById('profileLargeImage');
+            const sidebarProfileImage = document.getElementById('userProfileImage');
+            const navbarUserImage = document.getElementById('navbarUserImage');
+            
+            // Implement image upload functionality
+            const uploadBtn = document.querySelector('.btn-primary');
+            uploadBtn.addEventListener('click', function() {
+                // Create file input element
+                const fileInput = document.createElement('input');
+                fileInput.type = 'file';
+                fileInput.accept = 'image/*';
+                fileInput.style.display = 'none';
+                document.body.appendChild(fileInput);
+                
+                // Trigger file selection
+                fileInput.click();
+                
+                // Handle file selection
+                fileInput.addEventListener('change', function() {
+                    if (this.files && this.files[0]) {
+                        const reader = new FileReader();
+                        
+                        reader.onload = function(e) {
+                            // Update all profile images with selected image
+                            profileLargeImage.src = e.target.result;
+                            sidebarProfileImage.src = e.target.result;
+                            navbarUserImage.src = e.target.result;
+                            
+                            // Store image in localStorage (for demo purposes)
+                            try {
+                                let user = JSON.parse(localStorage.getItem('currentUser')) || {};
+                                user.profileImage = e.target.result;
+                                localStorage.setItem('currentUser', JSON.stringify(user));
+                            } catch (error) {
+                                console.error('Error saving profile image:', error);
+                            }
+                        };
+                        
+                        reader.readAsDataURL(this.files[0]);
+                    }
+                    
+                    // Clean up
+                    document.body.removeChild(fileInput);
+                });
+            });
+            
+            // Implement remove image functionality
+            const removeBtn = document.querySelector('.btn-outline-secondary');
+            removeBtn.addEventListener('click', function() {
+                // Set default placeholder images
+                profileLargeImage.src = '/api/placeholder/120/120';
+                sidebarProfileImage.src = '/api/placeholder/70/70';
+                navbarUserImage.src = '/api/placeholder/40/40';
+                
+                // Remove image from storage
+                try {
+                    let user = JSON.parse(localStorage.getItem('currentUser')) || {};
+                    delete user.profileImage;
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                } catch (error) {
+                    console.error('Error removing profile image:', error);
+                }
+            });
+            
+            // Edit button functionality
+            document.getElementById('edit').addEventListener('click', function() {
+                const editBtn = this;
+                
+                if (editBtn.textContent === 'EDIT') {
+                    // Get all info containers
+                    const infoContainers = document.querySelectorAll('.info-container');
+                    
+                    // For each container, replace with input field
+                    infoContainers.forEach(container => {
+                        const currentValue = container.textContent.trim();
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.className = 'form-control form-control-sm';
+                        input.value = currentValue;
+                        
+                        container.parentNode.replaceChild(input, container);
+                    });
+                    
+                    // Change edit button to save button
+                    editBtn.textContent = 'SAVE';
+                    editBtn.style.backgroundColor = 'var(--primary)';
+                    editBtn.style.color = 'white';
+                } else {
+                    // Get all inputs
+                    const inputs = document.querySelectorAll('.col-md-8 .form-control-sm');
+                    
+                    // For each input, replace with info container
+                    inputs.forEach(input => {
+                        const currentValue = input.value.trim();
+                        const container = document.createElement('div');
+                        container.className = 'info-container';
+                        container.textContent = currentValue;
+                        
+                        input.parentNode.replaceChild(container, input);
+                    });
+                    
+                    // Change save button back to edit button
+                    editBtn.textContent = 'EDIT';
+                    editBtn.style.backgroundColor = 'white';
+                    editBtn.style.color = 'var(--primary)';
+                    
+                    // Save user data
+                    try {
+                        const user = JSON.parse(localStorage.getItem('currentUser')) || {};
+                        
+                        // Update user information based on form values
+                        const firstName = document.querySelector('input[value="JUAN"]').value;
+                        const middleName = document.querySelector('input[value="SALAZAR"]').value;
+                        const lastName = document.querySelector('input[value="DELA CRUZ"]').value;
+                        
+                        user.firstName = firstName;
+                        user.middleName = middleName;
+                        user.lastName = lastName;
+                        
+                        // Update display name
+                        document.getElementById('userProfileName').textContent = `${firstName} ${lastName}`;
+                        document.querySelector('.navbar-user-container span').textContent = firstName;
+                        
+                        localStorage.setItem('currentUser', JSON.stringify(user));
+                    } catch (error) {
+                        console.error('Error saving user data:', error);
+                    }
+                }
+            });
+            
+            // Load user data from localStorage if available
+            try {
+                const user = JSON.parse(localStorage.getItem('currentUser'));
+                
+                if (user) {
+                    // Update profile name
+                    if (user.firstName && user.lastName) {
+                        document.getElementById('userProfileName').textContent = `${user.firstName} ${user.lastName}`;
+                        document.querySelector('.navbar-user-container span').textContent = user.firstName;
+                    }
+                    
+                    // Update form fields if they exist
+                    const firstNameInput = document.querySelector('input[value="JUAN"]');
+                    const middleNameInput = document.querySelector('input[value="SALAZAR"]');
+                    const lastNameInput = document.querySelector('input[value="DELA CRUZ"]');
+                    
+                    if (firstNameInput && user.firstName) firstNameInput.value = user.firstName;
+                    if (middleNameInput && user.middleName) middleNameInput.value = user.middleName;
+                    if (lastNameInput && user.lastName) lastNameInput.value = user.lastName;
+                    
+                    // Update profile images if exists
+                    if (user.profileImage) {
+                        profileLargeImage.src = user.profileImage;
+                        sidebarProfileImage.src = user.profileImage;
+                        navbarUserImage.src = user.profileImage;
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading user data:', error);
+            }
+        });
+    </script>
+</body>
+</html>

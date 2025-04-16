@@ -135,7 +135,6 @@ body {
   top: 0;
   bottom: 0;
   width: 4px;
-  background-color: var(--primary-dark);
   border-radius: 0 4px 4px 0;
 }
 
@@ -165,7 +164,7 @@ body {
 
 .search-bar {
   flex-grow: 1;
-  max-width: 400px;
+  max-width: 600px;
   margin: 0 20px;
 }
 
