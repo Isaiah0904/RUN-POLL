@@ -17,6 +17,7 @@
         <div class="logo-container">
             <div class="logo">RUN</div>
             <div class="brand-text">POLLS</div>
+            <i class="bi bi-x-lg" id="close"></i>
         </div>
         
         <div class="profile-container">
@@ -214,6 +215,9 @@
             document.getElementById('toggleSidebar').addEventListener('click', function() {
                 document.getElementById('sidebar').classList.toggle('active');
             });
+            document.getElementById('close').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.remove('active');
+        });
 
             // Animate guidelines on load
             const items = document.querySelectorAll('.guideline-item');

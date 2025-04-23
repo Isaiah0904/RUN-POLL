@@ -39,12 +39,24 @@ body {
   padding: 20px 0;
 }
 
+.bi-x-lg{
+  display: none;
+  color: rgb(42, 48, 116);
+  margin-left: 45px;
+  font-size: 22px;
+  font-weight: 900;
+}
+
 @media (max-width: 992px) {
   .sidebar {
       transform: translateX(-100%);
+      transition: 1s;
   }
   .sidebar.active {
       transform: translateX(0);
+  }
+  .bi-x-lg{
+    display: block;
   }
 }
 

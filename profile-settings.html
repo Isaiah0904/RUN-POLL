@@ -3,349 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VOTE | Profile</title>
+    <title>RUN POLLS | Profile</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #4954b8;
-            --primary-dark: #3a429b;
-            --secondary: #f5f7ff;
-            --light-gray: #f8f9fa;
-            --text-dark: #2a3074;
-            --text-gray: #6c757d;
-            --success: #28a745;
-            --pending: #ffc107;
-            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f7ff;
-        }
-
-        .main-content {
-            margin-left: 240px;
-            padding: 20px;
-            transition: margin-left 0.3s;
-        }
-
-        @media (max-width: 992px) {
-            .main-content {
-                margin-left: 0;
-            }
-        }
-
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 240px;
-            height: 100%;
-            background-color: white;
-            box-shadow: var(--shadow);
-            z-index: 1000;
-            transition: transform 0.3s;
-            padding: 20px 0;
-            display: flex;
-            flex-direction: column;
-        }
-
-        @media (max-width: 992px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-            .sidebar.active {
-                transform: translateX(0);
-            }
-        }
-
-        .logo-container {
-            padding: 10px 15px;
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .logo {
-            background-color: var(--primary);
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            font-size: 18px;
-            margin-right: 8px;
-        }
-
-        .brand-text {
-            color: var(--text-dark);
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        .profile-container {
-            padding: 15px;
-            text-align: center;
-            border-radius: 12px;
-            background-color: var(--light-gray);
-            margin: 0 15px 25px;
-        }
-
-        /* Profile image styling */
-        .profile-image-container {
-            position: relative;
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 10px;
-        }
-
-        .profile-image {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid white;
-            display: block;
-        }
-
-        .profile-name {
-            font-weight: bold;
-            color: var(--text-dark);
-            margin-bottom: 2px;
-        }
-
-        .view-profile {
-            font-size: 12px;
-            color: var(--text-gray);
-            display: block;
-        }
-
-        .sidebar-nav {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow-y: hidden;
-        }
-
-        .nav-main {
-            flex: 1;
-        }
-
-        .nav-footer {
-            margin-bottom: 15px;
-        }
-
-        .nav-item {
-            padding: 5px 15px;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            padding: 10px 15px;
-            color: var(--text-gray);
-            border-radius: 10px;
-            transition: all 0.2s;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .nav-link i {
-            margin-right: 10px;
-            font-size: 18px;
-        }
-
-        /* Top Navbar */
-        .top-navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            margin-bottom: 20px;
-        }
-
-        .toggle-sidebar {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: var(--text-dark);
-            cursor: pointer;
-        }
-
-        @media (max-width: 992px) {
-            .toggle-sidebar {
-                display: block;
-            }
-        }
-
-        .search-bar {
-            flex-grow: 1;
-            max-width: 600px;
-            margin: 0 20px;
-        }
-
-        .search-input {
-            background-color: white;
-            border-radius: 50px;
-            border: 1px solid #e9ecef;
-            padding-left: 40px;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-gray);
-        }
-
-        .user-actions {
-            display: flex;
-            align-items: center;
-        }
-
-        .action-icon {
-            font-size: 20px;
-            color: var(--text-gray);
-            margin-left: 15px;
-            cursor: pointer;
-            transition: color 0.2s;
-            display: flex;
-            align-items: center;
-            height: 40px;
-        }
-
-        .action-icon:hover {
-            color: var(--primary);
-        }
-
-        /* Navbar user avatar styling */
-        .navbar-user-container {
-            position: relative;
-            margin-left: 15px;
-            display: flex;
-            align-items: center;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            display: block;
-            cursor: pointer;
-        }
-
-        .status-indicator {
-            position: absolute;
-            bottom: 0;
-            right: 0px;
-            width: 10px;
-            height: 10px;
-            background-color: var(--success);
-            border-radius: 50%;
-            border: 2px solid var(--success);
-}
-
-        /* Profile Page Styles */
-        .card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            margin-bottom: 20px;
-            background-color: white;
-        }
-
-        .card-body {
-            padding: 20px;
-        }
-
-        .profile-large-image-container {
-            position: relative;
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 15px;
-            border-radius: 50%;
-            overflow: hidden;
-        }
-
-        .profile-large-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .btn-rounded-pill {
-            border-radius: 50px;
-            padding: 8px 20px;
-        }
-        
-        .info-container {
-            border-radius: 8px;
-            background-color: #f8f9fa;
-            padding: 10px 15px;
-            margin-bottom: 10px;
-        }
-        
-        #edit {
-            border: 1px solid var(--primary);
-            padding: 2px 8px;
-            border-radius: 15px;
-            background-color: white;
-            color: var(--primary);
-            font-size: 12px;
-        }
-
-        /* Modern form input styling */
-        .form-control-sm {
-            height: 38px;
-            font-size: 14px;
-        }
-
-        .form-label-sm {
-            font-size: 12px;
-            color: var(--text-gray);
-            margin-bottom: 4px;
-            text-transform: uppercase;
-        }
-
-        /* Sunglasses icon for profile image */
-        .profile-image-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: rgba(0,0,0,0.1);
-            opacity: 0;
-            transition: opacity 0.3s;
-            cursor: pointer;
-        }
-        
-        .profile-image-overlay:hover {
-            opacity: 1;
-        }
-        
-        .profile-avatar {
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid white;
-        }
-    </style>
+    <link rel="stylesheet" href="profile-settings.css">
 </head>
 <body>
     <!-- Sidebar -->
@@ -353,11 +16,12 @@
         <div class="logo-container">
             <div class="logo">RUN</div>
             <div class="brand-text">POLLS</div>
+            <i class="bi bi-x-lg" id="close"></i>
         </div>
         
         <div class="profile-container">
             <!-- Improved profile image container -->
-            <div class="profile-image-container">
+            <div class="profile-image-container" id="sidebarProfileContainer" style="border-radius: 50%; width: 70px; height: 70px;">
                 <img src="/api/placeholder/70/70" alt="Profile" class="profile-image" id="userProfileImage">
                 <div class="edit-icon">
                     <i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>
@@ -371,7 +35,7 @@
         <div class="sidebar-nav">
             <ul class="nav flex-column nav-main">
                 <li class="nav-item">
-                    <a href="Voter-dashboard.html" class="nav-link active">
+                    <a href="Voter-dashboard.html" class="nav-link">
                         <i class="bi bi-grid-1x2-fill"></i> Dashboard
                     </a>
                 </li>
@@ -386,7 +50,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link active">
                         <i class="bi bi-gear-fill"></i> Profile Settings
                     </a>
                 </li>
@@ -423,9 +87,13 @@
                 <div class="action-icon">
                     <i class="bi bi-question-circle"></i>
                 </div>
-                <!-- Improved navbar user container -->
-                <div class="navbar-user-container">
-                    <img src="/api/placeholder/40/40" alt="User" class="user-avatar" id="navbarUserImage">
+                <!-- Navbar user container with default icon -->
+                <div class="navbar-user-container" id="navbarUserContainer">
+                    <div class="default-user-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                        </svg>
+                    </div>
                     <div class="status-indicator"></div>
                 </div>
             </div>
@@ -439,31 +107,36 @@
                         <div class="card-body text-center">
                             <h5 class="mb-4">PROFILE</h5>
                             
-                            <div class="profile-large-image-container mb-3">
-                                <img src="/api/placeholder/120/120" alt="Profile" class="profile-large-image" id="profileLargeImage">
+                            <!-- Large profile image container with default icon -->
+                            <div class="profile-large-image-container mb-3" id="profileLargeContainer">
+                                <div class="default-user-icon large-default-user-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                                    </svg>
+                                </div>
                                 <div class="profile-image-overlay">
                                     <i class="bi bi-sunglasses text-white fs-3"></i>
                                 </div>
                             </div>
                             
                             <div class="mb-4">
-                                <button class="btn btn-primary btn-sm rounded-pill px-4">UPLOAD</button>
-                                <button class="btn btn-outline-secondary btn-sm rounded-pill px-4 ms-2">REMOVE</button>
+                                <button class="btn btn-success btn-sm rounded-pill px-4" id="uploadProfileBtn">UPLOAD</button>
+                                <button id="removeProfileBtn" class="btn btn-danger btn-sm rounded-pill px-4">REMOVE</button>
                             </div>
                             
                             <div class="mb-3">
-                                <label class="form-label-sm d-block text-start">FIRST NAME</label>
-                                <input type="text" class="form-control form-control-sm" value="JUAN">
+                                <label class="form-label-sm d-block text-start">First Name</label>
+                                <input type="text" class="form-control form-control-sm" value="Juan" id="firstName">
                             </div>
                             
                             <div class="mb-3">
-                                <label class="form-label-sm d-block text-start">MIDDLE NAME</label>
-                                <input type="text" class="form-control form-control-sm" value="SALAZAR">
+                                <label class="form-label-sm d-block text-start">Middle Name</label>
+                                <input type="text" class="form-control form-control-sm" value="Salazar" id="middleName">
                             </div>
                             
                             <div class="mb-3">
-                                <label class="form-label-sm d-block text-start">LAST NAME</label>
-                                <input type="text" class="form-control form-control-sm" value="DELA CRUZ">
+                                <label class="form-label-sm d-block text-start">Last Name</label>
+                                <input type="text" class="form-control form-control-sm" value="Dela Cruz" id="lastName">
                             </div>
                         </div>
                     </div>
@@ -481,7 +154,7 @@
                                     <i class="bi bi-calendar me-2 text-primary"></i>
                                     <span class="text-muted small">Birthday</span>
                                 </label>
-                                <div class="info-container">
+                                <div class="info-container" id="birthdayInfo">
                                     January 1, 2000
                                 </div>
                             </div>
@@ -491,7 +164,7 @@
                                     <i class="bi bi-telephone me-2 text-primary"></i>
                                     <span class="text-muted small">Phone</span>
                                 </label>
-                                <div class="info-container">
+                                <div class="info-container" id="phoneInfo">
                                     +63 912 345 6789
                                 </div>
                             </div>
@@ -501,7 +174,7 @@
                                     <i class="bi bi-envelope me-2 text-primary"></i>
                                     <span class="text-muted small">Email</span>
                                 </label>
-                                <div class="info-container">
+                                <div class="info-container" id="emailInfo">
                                     juan.delacruz@email.com
                                 </div>
                             </div>
@@ -511,7 +184,7 @@
                                     <i class="bi bi-building me-2 text-primary"></i>
                                     <span class="text-muted small">Department</span>
                                 </label>
-                                <div class="info-container">
+                                <div class="info-container" id="departmentInfo">
                                     System Development
                                 </div>
                             </div>
@@ -525,20 +198,373 @@
     <!-- Bootstrap & Other JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Toggle Sidebar
-            document.getElementById('toggleSidebar').addEventListener('click', function() {
-                document.getElementById('sidebar').classList.toggle('active');
+// This updated script fixes the profile image styling and remove button functionality
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Toggle Sidebar
+    document.getElementById('toggleSidebar').addEventListener('click', function() {
+        document.getElementById('sidebar').classList.toggle('active');
+    });
+    document.getElementById('close').addEventListener('click', function() {
+        document.getElementById('sidebar').classList.remove('active');
+    });
+    
+    // Initialize all profile containers
+    let profileLargeContainer = document.getElementById('profileLargeContainer');
+    const sidebarProfileContainer = document.querySelector('.profile-image-container');
+    const navbarUserContainer = document.querySelector('.navbar-user-container');
+    
+    // Load user profile data including image
+    try {
+        const user = JSON.parse(localStorage.getItem('currentUser')) || {};
+        
+        // Update profile name
+        if (user.firstName && user.lastName) {
+            document.getElementById('userProfileName').textContent = `${user.firstName} ${user.lastName}`;
+            // Update welcome message if it exists
+            const welcomeHeading = document.querySelector('h2');
+            if (welcomeHeading && welcomeHeading.textContent.includes('Hello')) {
+                welcomeHeading.textContent = `Hello, ${user.firstName}!`;
+            }
+        }
+        
+        // Update profile role if exists
+        if (user.role) {
+            document.getElementById('userProfileRole').textContent = user.role;
+        }
+        
+        // Update profile images
+        updateProfileDisplays(user.profileImage);
+        
+    } catch (error) {
+        console.error('Error loading user profile:', error);
+        updateProfileDisplays(null);
+    }
+    
+    // Function to show profile image or default user icon (now includes profileLargeContainer)
+    function updateProfileDisplays(imageUrl) {
+        // Clear existing sidebar container
+        sidebarProfileContainer.innerHTML = '';
+        navbarUserContainer.innerHTML = '';
+        
+        // Also update the large profile container if it exists
+        if (profileLargeContainer) {
+            profileLargeContainer.innerHTML = '';
+        }
+        
+        if (imageUrl) {
+            // Sidebar profile image
+            const sidebarImg = document.createElement('img');
+            sidebarImg.src = imageUrl;
+            sidebarImg.alt = 'Profile';
+            sidebarImg.className = 'profile-image';
+            sidebarImg.id = 'userProfileImage';
+            sidebarImg.style.borderRadius = '50%'; // Add 50% border radius
+            sidebarImg.style.width = '100%'; // Ensure image fills container
+            sidebarImg.style.height = '100%'; // Ensure image fills container
+            sidebarImg.style.objectFit = 'cover'; // Maintain aspect ratio
+            sidebarProfileContainer.appendChild(sidebarImg);
+            
+            // Add edit icon to sidebar profile
+            const editIcon = document.createElement('div');
+            editIcon.className = 'edit-icon';
+            editIcon.innerHTML = '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
+            sidebarProfileContainer.appendChild(editIcon);
+            
+            // Navbar profile image
+            const navbarImg = document.createElement('img');
+            navbarImg.src = imageUrl;
+            navbarImg.alt = 'User';
+            navbarImg.className = 'user-avatar';
+            navbarImg.id = 'navbarUserImage';
+            navbarImg.style.borderRadius = '50%'; // Add 50% border radius
+            navbarImg.style.width = '100%'; // Ensure image fills container
+            navbarImg.style.height = '100%'; // Ensure image fills container
+            navbarImg.style.objectFit = 'cover'; // Maintain aspect ratio
+            navbarUserContainer.appendChild(navbarImg);
+            
+            // Add status indicator to navbar
+            const statusIndicator = document.createElement('div');
+            statusIndicator.className = 'status-indicator';
+            navbarUserContainer.appendChild(statusIndicator);
+            
+            // Update large profile container if it exists
+            if (profileLargeContainer) {
+                const largeImg = document.createElement('img');
+                largeImg.src = imageUrl;
+                largeImg.alt = 'Profile';
+                largeImg.className = 'profile-large-image';
+                largeImg.id = 'largeProfileImage';
+                largeImg.style.borderRadius = '50%'; // Add 50% border radius
+                largeImg.style.width = '100%'; // Ensure image fills container
+                largeImg.style.height = '100%'; // Ensure image fills container
+                largeImg.style.objectFit = 'cover'; // Maintain aspect ratio
+                profileLargeContainer.appendChild(largeImg);
+                
+                // Add the overlay for large profile
+                const overlay = document.createElement('div');
+                overlay.className = 'profile-image-overlay';
+                overlay.innerHTML = '<i class="bi bi-sunglasses text-white fs-3"></i>';
+                profileLargeContainer.appendChild(overlay);
+            }
+        } else {
+            // Sidebar profile icon
+            const sidebarIcon = document.createElement('div');
+            sidebarIcon.className = 'default-user-icon';
+            sidebarIcon.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                </svg>
+            `;
+            sidebarProfileContainer.appendChild(sidebarIcon);
+            
+            // Add edit icon to sidebar profile
+            const editIcon = document.createElement('div');
+            editIcon.className = 'edit-icon';
+            editIcon.innerHTML = '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
+            sidebarProfileContainer.appendChild(editIcon);
+            
+            // Navbar profile icon
+            const navbarIcon = document.createElement('div');
+            navbarIcon.className = 'default-user-icon';
+            navbarIcon.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                </svg>
+            `;
+            navbarUserContainer.appendChild(navbarIcon);
+            
+            // Add status indicator to navbar
+            const statusIndicator = document.createElement('div');
+            statusIndicator.className = 'status-indicator';
+            navbarUserContainer.appendChild(statusIndicator);
+            
+            // Update large profile container if it exists
+            if (profileLargeContainer) {
+                const largeIcon = document.createElement('div');
+                largeIcon.className = 'default-user-icon large-default-user-icon';
+                largeIcon.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                `;
+                profileLargeContainer.appendChild(largeIcon);
+                
+                // Add the overlay for large profile
+                const overlay = document.createElement('div');
+                overlay.className = 'profile-image-overlay';
+                overlay.innerHTML = '<i class="bi bi-sunglasses text-white fs-3"></i>';
+                profileLargeContainer.appendChild(overlay);
+            }
+        }
+        
+        // If modal is open, update modal profile image as well
+        const modalProfileContainer = document.getElementById('modalProfileContainer');
+        if (modalProfileContainer) {
+            updateModalProfileImage(modalProfileContainer, imageUrl);
+        }
+    }
+    
+    // Function to update modal profile image
+    function updateModalProfileImage(container, imageUrl) {
+        container.innerHTML = '';
+        
+        if (imageUrl) {
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.alt = 'Profile';
+            img.style.width = '100%';
+            img.style.height = '100%';
+            img.style.objectFit = 'cover';
+            img.style.borderRadius = '50%'; // Add 50% border radius
+            container.appendChild(img);
+        } else {
+            container.innerHTML = `
+                <div class="default-user-icon" style="width: 100%; height: 100%; background-color: #e9ecef; border-radius: 50%;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 80%; height: 80%; margin: 10%;">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </div>
+            `;
+        }
+    }
+    
+    // Create profile edit modal for the dashboard
+    function createProfileEditModal() {
+        // Modal HTML structure
+        const modalHTML = `
+            <div class="modal fade" id="profileEditModal" tabindex="-1" aria-labelledby="profileEditModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="profileEditModalLabel">Edit Profile Picture</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <div class="mb-4">
+                                <div class="position-relative d-inline-block">
+                                    <div id="modalProfileContainer" class="rounded-circle overflow-hidden" style="width: 150px; height: 150px;">
+                                        <!-- Image will be inserted here -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <button id="modalUploadBtn" class="btn btn-success btn-sm rounded-pill px-4">UPLOAD</button>
+                                <button id="modalRemoveBtn" class="btn btn-danger btn-sm rounded-pill px-4 ms-2">REMOVE</button>
+                            </div>
+                            <p class="text-muted small">Click upload to select a new profile picture</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Append modal to body
+        const modalDiv = document.createElement('div');
+        modalDiv.innerHTML = modalHTML;
+        document.body.appendChild(modalDiv);
+        
+        // Get current user data
+        const user = JSON.parse(localStorage.getItem('currentUser')) || {};
+        
+        // Update modal profile container with current image or default icon
+        const modalProfileContainer = document.getElementById('modalProfileContainer');
+        updateModalProfileImage(modalProfileContainer, user.profileImage);
+        
+        // Handle upload button click in modal
+        document.getElementById('modalUploadBtn').addEventListener('click', function() {
+            // Create file input element
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = 'image/*';
+            fileInput.style.display = 'none';
+            document.body.appendChild(fileInput);
+            
+            // Trigger file selection
+            fileInput.click();
+            
+            // Handle file selection
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        const imageResult = e.target.result;
+                        
+                        // Update modal image
+                        updateModalProfileImage(modalProfileContainer, imageResult);
+                        
+                        // Update profile images on page
+                        updateProfileDisplays(imageResult);
+                        
+                        // Store image in localStorage
+                        try {
+                            let user = JSON.parse(localStorage.getItem('currentUser')) || {};
+                            user.profileImage = imageResult;
+                            localStorage.setItem('currentUser', JSON.stringify(user));
+                            
+                            // Show success message
+                            showAlert('Profile picture updated successfully!', 'success');
+                        } catch (error) {
+                            console.error('Error saving profile image:', error);
+                            showAlert('Error saving profile image. Please try again.', 'danger');
+                        }
+                    };
+                    
+                    reader.readAsDataURL(this.files[0]);
+                }
+                
+                // Clean up
+                document.body.removeChild(fileInput);
             });
+        });
+        
+        // Handle remove button click in modal
+        document.getElementById('modalRemoveBtn').addEventListener('click', function() {
+            // Update both modal and page with default icons
+            updateModalProfileImage(modalProfileContainer, null);
+            updateProfileDisplays(null);
             
-            // Profile image click handlers
-            const profileLargeImage = document.getElementById('profileLargeImage');
-            const sidebarProfileImage = document.getElementById('userProfileImage');
-            const navbarUserImage = document.getElementById('navbarUserImage');
+            // Remove image from storage
+            try {
+                let user = JSON.parse(localStorage.getItem('currentUser')) || {};
+                delete user.profileImage;
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                // Show success message
+                showAlert('Profile picture removed successfully!', 'success');
+            } catch (error) {
+                console.error('Error removing profile image:', error);
+                showAlert('Error removing profile image. Please try again.', 'danger');
+            }
+        });
+        
+        return new bootstrap.Modal(document.getElementById('profileEditModal'));
+    }
+    
+    // Helper function to show alerts
+    function showAlert(message, type) {
+        const alertDiv = document.createElement('div');
+        alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+        alertDiv.role = 'alert';
+        alertDiv.style.position = 'fixed';
+        alertDiv.style.top = '20px';
+        alertDiv.style.right = '20px';
+        alertDiv.style.zIndex = '9999';
+        alertDiv.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+        
+        document.body.appendChild(alertDiv);
+        
+        // Auto dismiss after 3 seconds
+        setTimeout(() => {
+            if (alertDiv.parentNode) {
+                const bsAlert = new bootstrap.Alert(alertDiv);
+                bsAlert.close();
+            }
+        }, 3000);
+    }
+    
+    // Add profile edit functionality to both sidebar and navbar profile images
+    const profileElements = [
+        sidebarProfileContainer, 
+        navbarUserContainer,
+        ...document.querySelectorAll('.edit-icon')
+    ];
+    
+    // Add large profile container to editable elements if it exists
+    if (profileLargeContainer) {
+        profileElements.push(profileLargeContainer);
+    }
+    
+    profileElements.forEach(element => {
+        element.style.cursor = 'pointer';
+        element.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             
-            // Implement image upload functionality
-            const uploadBtn = document.querySelector('.btn-primary');
-            uploadBtn.addEventListener('click', function() {
+            // Create and show the modal
+            const profileModal = createProfileEditModal();
+            profileModal.show();
+            
+            // Clean up when modal is hidden
+            document.getElementById('profileEditModal').addEventListener('hidden.bs.modal', function() {
+                if (this.parentNode) {
+                    document.body.removeChild(this.parentNode);
+                }
+            });
+        });
+    });
+    
+    // Handle upload button click on profile page
+    document.querySelectorAll('#uploadProfileBtn').forEach(button => {
+        if (button.closest('.modal') === null) { // Only for non-modal buttons
+            button.addEventListener('click', function() {
                 // Create file input element
                 const fileInput = document.createElement('input');
                 fileInput.type = 'file';
@@ -555,18 +581,22 @@
                         const reader = new FileReader();
                         
                         reader.onload = function(e) {
-                            // Update all profile images with selected image
-                            profileLargeImage.src = e.target.result;
-                            sidebarProfileImage.src = e.target.result;
-                            navbarUserImage.src = e.target.result;
+                            const imageResult = e.target.result;
                             
-                            // Store image in localStorage (for demo purposes)
+                            // Update profile images on page
+                            updateProfileDisplays(imageResult);
+                            
+                            // Store image in localStorage
                             try {
                                 let user = JSON.parse(localStorage.getItem('currentUser')) || {};
-                                user.profileImage = e.target.result;
+                                user.profileImage = imageResult;
                                 localStorage.setItem('currentUser', JSON.stringify(user));
+                                
+                                // Show success message
+                                showAlert('Profile picture updated successfully!', 'success');
                             } catch (error) {
                                 console.error('Error saving profile image:', error);
+                                showAlert('Error saving profile image. Please try again.', 'danger');
                             }
                         };
                         
@@ -577,122 +607,69 @@
                     document.body.removeChild(fileInput);
                 });
             });
-            
-            // Implement remove image functionality
-            const removeBtn = document.querySelector('.btn-outline-secondary');
-            removeBtn.addEventListener('click', function() {
-                // Set default placeholder images
-                profileLargeImage.src = '/api/placeholder/120/120';
-                sidebarProfileImage.src = '/api/placeholder/70/70';
-                navbarUserImage.src = '/api/placeholder/40/40';
+        }
+    });
+    
+    // Fix remove button functionality on profile page
+    document.querySelectorAll('#removeProfileBtn').forEach(button => {
+        if (button.closest('.modal') === null) { // Only for non-modal buttons
+            button.addEventListener('click', function() {
+                // Update profile displays with null (default icon)
+                updateProfileDisplays(null);
                 
                 // Remove image from storage
                 try {
                     let user = JSON.parse(localStorage.getItem('currentUser')) || {};
                     delete user.profileImage;
                     localStorage.setItem('currentUser', JSON.stringify(user));
+                    
+                    // Show success message
+                    showAlert('Profile picture removed successfully!', 'success');
                 } catch (error) {
                     console.error('Error removing profile image:', error);
+                    showAlert('Error removing profile image. Please try again.', 'danger');
                 }
             });
-            
-            // Edit button functionality
-            document.getElementById('edit').addEventListener('click', function() {
-                const editBtn = this;
-                
-                if (editBtn.textContent === 'EDIT') {
-                    // Get all info containers
-                    const infoContainers = document.querySelectorAll('.info-container');
-                    
-                    // For each container, replace with input field
-                    infoContainers.forEach(container => {
-                        const currentValue = container.textContent.trim();
-                        const input = document.createElement('input');
-                        input.type = 'text';
-                        input.className = 'form-control form-control-sm';
-                        input.value = currentValue;
-                        
-                        container.parentNode.replaceChild(input, container);
-                    });
-                    
-                    // Change edit button to save button
-                    editBtn.textContent = 'SAVE';
-                    editBtn.style.backgroundColor = 'var(--primary)';
-                    editBtn.style.color = 'white';
-                } else {
-                    // Get all inputs
-                    const inputs = document.querySelectorAll('.col-md-8 .form-control-sm');
-                    
-                    // For each input, replace with info container
-                    inputs.forEach(input => {
-                        const currentValue = input.value.trim();
-                        const container = document.createElement('div');
-                        container.className = 'info-container';
-                        container.textContent = currentValue;
-                        
-                        input.parentNode.replaceChild(container, input);
-                    });
-                    
-                    // Change save button back to edit button
-                    editBtn.textContent = 'EDIT';
-                    editBtn.style.backgroundColor = 'white';
-                    editBtn.style.color = 'var(--primary)';
-                    
-                    // Save user data
-                    try {
-                        const user = JSON.parse(localStorage.getItem('currentUser')) || {};
-                        
-                        // Update user information based on form values
-                        const firstName = document.querySelector('input[value="JUAN"]').value;
-                        const middleName = document.querySelector('input[value="SALAZAR"]').value;
-                        const lastName = document.querySelector('input[value="DELA CRUZ"]').value;
-                        
-                        user.firstName = firstName;
-                        user.middleName = middleName;
-                        user.lastName = lastName;
-                        
-                        // Update display name
-                        document.getElementById('userProfileName').textContent = `${firstName} ${lastName}`;
-                        document.querySelector('.navbar-user-container span').textContent = firstName;
-                        
-                        localStorage.setItem('currentUser', JSON.stringify(user));
-                    } catch (error) {
-                        console.error('Error saving user data:', error);
-                    }
-                }
-            });
-            
-            // Load user data from localStorage if available
-            try {
-                const user = JSON.parse(localStorage.getItem('currentUser'));
-                
-                if (user) {
-                    // Update profile name
-                    if (user.firstName && user.lastName) {
-                        document.getElementById('userProfileName').textContent = `${user.firstName} ${user.lastName}`;
-                        document.querySelector('.navbar-user-container span').textContent = user.firstName;
-                    }
-                    
-                    // Update form fields if they exist
-                    const firstNameInput = document.querySelector('input[value="JUAN"]');
-                    const middleNameInput = document.querySelector('input[value="SALAZAR"]');
-                    const lastNameInput = document.querySelector('input[value="DELA CRUZ"]');
-                    
-                    if (firstNameInput && user.firstName) firstNameInput.value = user.firstName;
-                    if (middleNameInput && user.middleName) middleNameInput.value = user.middleName;
-                    if (lastNameInput && user.lastName) lastNameInput.value = user.lastName;
-                    
-                    // Update profile images if exists
-                    if (user.profileImage) {
-                        profileLargeImage.src = user.profileImage;
-                        sidebarProfileImage.src = user.profileImage;
-                        navbarUserImage.src = user.profileImage;
-                    }
-                }
-            } catch (error) {
-                console.error('Error loading user data:', error);
+        }
+    });
+    
+    // Initialize user data if not exists
+    function loadUserData() {
+        try {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (!user) {
+                // If no user exists, create default user
+                const defaultUser = {
+                    firstName: 'Juan',
+                    middleName: 'Salazar',
+                    lastName: 'Dela Cruz',
+                    birthday: 'January 1, 2000',
+                    phone: '+63 912 345 6789',
+                    email: 'juan.delacruz@email.com',
+                    department: 'System Development',
+                    role: 'Student Voter'
+                };
+                localStorage.setItem('currentUser', JSON.stringify(defaultUser));
             }
-        });
+        } catch (error) {
+            console.error('Error loading user data:', error);
+        }
+    }
+    
+    // Initialize data on first load
+    loadUserData();
+    
+    // Add event listener for logout (preserving existing functionality)
+    document.querySelector('.text-danger').addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Ask for confirmation
+        if (confirm('Are you sure you want to log out?')) {
+            // Simply redirect to login page
+            window.location.href = 'login.html';
+        }
+    });
+});
     </script>
 </body>
 </html>

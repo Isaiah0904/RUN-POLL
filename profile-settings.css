@@ -25,6 +25,9 @@ body {
   .main-content {
       margin-left: 0;
   }
+  .sidebar-nav{
+    overflow-y: scroll;
+  }
 }
 
 /* Sidebar */
@@ -46,8 +49,10 @@ body {
 .bi-x-lg{
   display: none;
   color: rgb(42, 48, 116);
+  margin-left: 45px;
+  font-size: 22px;
+  font-weight: 900;
 }
-
 @media (max-width: 992px) {
   .sidebar {
       transform: translateX(-100%);
@@ -55,10 +60,6 @@ body {
   }
   .sidebar.active {
       transform: translateX(0);
-      transition: 1s;
-  }
-  .close{
-    transform: translateX(-100%);
   }
   .bi-x-lg{
     display: block;
@@ -99,8 +100,12 @@ body {
   background-color: var(--light-gray);
   margin: 0 15px 25px;
 }
+.profile-role{
+font-size: 12px;
+color: var(--text-gray);
+}
 
-/* Improved profile image styling */
+/* Profile image styling */
 .profile-image-container {
   position: relative;
   width: 70px;
@@ -120,8 +125,8 @@ body {
 
 .edit-icon {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 0px;
+  right: 0px;
   width: 24px;
   height: 24px;
   background-color: var(--primary);
@@ -138,22 +143,16 @@ body {
   margin-bottom: 2px;
 }
 
-.profile-role {
+.view-profile {
   font-size: 12px;
   color: var(--text-gray);
+  display: block;
 }
 
 .sidebar-nav {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
-}
-
-.bi-x-lg{
-  margin-left: 45px;
-  font-size: 22px;
-  font-weight: 900;
 }
 
 .nav-main {
@@ -205,6 +204,12 @@ body {
   cursor: pointer;
 }
 
+@media (min-width: 991px) and (max-width: 1105px) {
+  .btn-success{
+    margin-bottom: 9px;
+  }
+}
+
 @media (max-width: 992px) {
   .toggle-sidebar {
       display: block;
@@ -214,7 +219,7 @@ body {
 .search-bar {
   flex-grow: 1;
   max-width: 600px;
-  margin: 0 0 0 8px;
+  margin: 0 0 0 5px;
 }
 
 .search-input {
@@ -252,17 +257,22 @@ body {
   color: var(--primary);
 }
 
-/* Improved navbar user avatar styling */
+/* Navbar user avatar styling */
 .navbar-user-container {
   position: relative;
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
   width: 40px;
   height: 40px;
-  margin-left: 14px;
+  border-radius: 50%;
+  position: relative;
+  background-color: #f0f0f0;
 }
 
 .user-avatar {
-  width: 100%;
-  height: 100%;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
   display: block;
@@ -271,287 +281,128 @@ body {
 
 .status-indicator {
   position: absolute;
-  bottom: 0;
-  right: 0px;
   width: 10px;
   height: 10px;
   background-color: var(--success);
   border-radius: 50%;
   border: 2px solid var(--success);
+  bottom: 0px;
+  right: 0px;
 }
 
-/* Dashboard Cards */
+/* Profile Page Styles */
 .card {
   border: none;
   border-radius: 15px;
   box-shadow: var(--shadow);
   margin-bottom: 20px;
-  overflow: hidden;
-}
-
-.card-header {
   background-color: white;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  font-weight: 600;
-  color: var(--text-dark);
-  padding: 15px 20px;
 }
 
 .card-body {
   padding: 20px;
 }
 
-/* Election Card */
-.election-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.election-info h4 {
-  color: var(--primary);
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.vote-btn {
-  background-color: white;
-  color: var(--primary);
-  border: 1px solid var(--primary);
-  border-radius: 20px;
-  padding: 6px 20px;
-  font-weight: 500;
-  transition: all 0.2s;
-}
-
-.vote-btn:hover {
-  background-color: var(--primary);
-  color: white;
-}
-
-.election-image {
-  max-width: 130px;
-}
-
-/* Live Results */
-.candidate-progress {
-  margin-bottom: 15px;
-}
-
-.candidate-name {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 5px;
-  font-weight: 500;
-}
-
-.progress {
-  height: 10px;
-  border-radius: 5px;
-}
-
-.progress-bar {
-  background-color: var(--primary);
-}
-
-.back-btn {
-  color: var(--text-gray);
-  margin-right: 10px;
-}
-
-/* Calendar */
-.calendar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.today-indicator {
-  font-size: 12px;
-  color: var(--text-gray);
-}
-
-.calendar-navigation {
-  display: flex;
-  gap: 5px;
-}
-
-.nav-btn {
-  background: none;
-  border: none;
-  color: var(--text-gray);
-  cursor: pointer;
-}
-
-.date-pill {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: white;
-  border-radius: 12px;
-  padding: 10px;
-  width: 60px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  margin-right: 10px;
-}
-
-.date-pill.active {
-  background-color: var(--primary);
-  color: white;
-}
-
-.day {
-  font-size: 12px;
-  margin-bottom: 5px;
-}
-
-.date {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.calendar-event {
-  background-color: #f8f9fa;
-  padding: 10px;
-  border-radius: 10px;
-  margin-top: 15px;
-  display: flex;
-  align-items: center;
-}
-
-.event-color {
-  width: 10px;
-  height: 10px;
-  background-color: var(--primary);
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-/* Voting Process */
-.stat-circle {
-  width: 120px;
-  height: 120px;
-  margin: 0 auto;
+.profile-large-image-container {
   position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.stat-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
+.profile-large-image-container:hover .profile-image-overlay {
+  opacity: 0.8;
 }
 
-.stat-number {
-  font-size: 24px;
-  font-weight: bold;
-  color: var(--text-dark);
+.profile-large-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.stat-label {
-  color: var(--text-gray);
+.btn-rounded-pill {
+  border-radius: 50px;
+  padding: 8px 20px;
+}
+
+.info-container {
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+}
+
+#edit {
+  border: 1px solid var(--primary);
+  padding: 2px 8px;
+  border-radius: 15px;
+  background-color: white;
+  color: var(--primary);
   font-size: 12px;
-  margin-bottom: 15px;
-  text-align: center;
 }
 
-/* Election Activities */
-.activity-item {
+/* Modern form input styling */
+.form-control-sm {
+  height: 38px;
+  font-size: 14px;
+}
+
+.form-label-sm {
+  font-size: 12px;
+  color: var(--text-gray);
+  margin-bottom: 4px;
+}
+
+/* Sunglasses icon for profile image */
+.profile-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
-  padding: 5px 0;
-}
-
-.activity-status {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin-right: 15px;
-}
-
-.status-ongoing {
-  background-color: var(--success);
-}
-
-.status-concluded {
-  background-color: var(--text-gray);
-}
-
-.status-pending {
-  background-color: var(--pending);
-}
-
-.activity-details {
-  flex-grow: 1;
-}
-
-.activity-name {
-  font-weight: 500;
-  color: var(--text-dark);
-}
-
-.activity-date {
-  font-size: 12px;
-  color: var(--text-gray);
-}
-
-.activity-label {
-  font-size: 12px;
-  padding: 3px 10px;
-  border-radius: 15px;
-}
-
-.label-ongoing {
-  background-color: rgba(40, 167, 69, 0.1);
-  color: var(--success);
-}
-
-.label-concluded {
-  background-color: rgba(108, 117, 125, 0.1);
-  color: var(--text-gray);
-}
-
-.label-pending {
-  background-color: rgba(255, 193, 7, 0.1);
-  color: var(--pending);
-}
-
-/* Pagination dots */
-.pagination-dots {
-  display: flex;
   justify-content: center;
-  margin-top: 10px;
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
+  background-color: rgba(0,0,0,0.1);
+  opacity: 0;
+  transition: opacity 0.3s;
+  cursor: pointer;
   border-radius: 50%;
-  background-color: #e9ecef;
-  margin: 0 3px;
 }
 
-.dot.active {
-  background-color: var(--primary);
+.profile-image-overlay:hover {
+  opacity: 1;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .election-card {
-      flex-direction: column;
-      text-align: center;
-  }
-  
-  .election-image {
-      margin-top: 15px;
-  }
-  
-  .calendar-dates {
-      overflow-x: auto;
-      white-space: nowrap;
-      padding-bottom: 10px;
-  }
+.profile-avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+}
+
+/* Default user icon styling */
+.default-user-icon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--light-gray);
+  border-radius: 50%;
+  border: 3px solid white;
+}
+
+.default-user-icon svg {
+  width: 60%;
+  height: 60%;
+  fill: var(--text-gray);
+}
+
+.large-default-user-icon svg {
+  width: 50%;
+  height: 50%;
 }
