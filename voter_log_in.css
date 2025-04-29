@@ -583,7 +583,7 @@ body {
 
 @media (max-width: 575.98px) {
   .login-options {
-      flex-direction: column;
+      flex-direction: row;
       align-items: flex-start;
       gap: 1rem;
   }

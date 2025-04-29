@@ -1,675 +1,918 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RUN POLLS | Profile</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <!-- Bootstrap Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="profile-settings.css">
-</head>
-<body>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="profile-settings.css" />
+  </head>
+  <body>
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
-        <div class="logo-container">
-            <div class="logo">RUN</div>
-            <div class="brand-text">POLLS</div>
-            <i class="bi bi-x-lg" id="close"></i>
+      <div class="logo-container">
+        <div class="logo">RUN</div>
+        <div class="brand-text">POLLS</div>
+        <i class="bi bi-x-lg" id="close"></i>
+      </div>
+
+      <div class="profile-container">
+        <!-- Improved profile image container -->
+        <div
+          class="profile-image-container"
+          id="sidebarProfileContainer"
+          style="border-radius: 50%; width: 70px; height: 70px"
+        >
+          <img
+            src="/api/placeholder/70/70"
+            alt="Profile"
+            class="profile-image"
+            id="userProfileImage"
+          />
+          <div class="edit-icon">
+            <i class="bi bi-pencil-fill text-white" style="font-size: 12px"></i>
+          </div>
         </div>
-        
-        <div class="profile-container">
-            <!-- Improved profile image container -->
-            <div class="profile-image-container" id="sidebarProfileContainer" style="border-radius: 50%; width: 70px; height: 70px;">
-                <img src="/api/placeholder/70/70" alt="Profile" class="profile-image" id="userProfileImage">
-                <div class="edit-icon">
-                    <i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>
-                </div>
-            </div>
-            <div class="profile-name" id="userProfileName">Juan Dela Cruz</div>
-            <div class="profile-role" id="userProfileRole">Student Voter</div>
-        </div>
-        
-        <!-- Sidebar Navigation with improved structure -->
-        <div class="sidebar-nav">
-            <ul class="nav flex-column nav-main">
-                <li class="nav-item">
-                    <a href="Voter-dashboard.html" class="nav-link">
-                        <i class="bi bi-grid-1x2-fill"></i> Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="bi bi-check2-square"></i> Vote
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="Voter-guidline.html" class="nav-link">
-                        <i class="bi bi-journal-text"></i> Voters Guideline
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link active">
-                        <i class="bi bi-gear-fill"></i> Profile Settings
-                    </a>
-                </li>
-            </ul>
-            
-            <!-- Logout button in footer section -->
-            <ul class="nav flex-column nav-footer">
-                <li class="nav-item">
-                    <a href="#" class="nav-link text-danger">
-                        <i class="bi bi-box-arrow-right"></i> Log out
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <div class="profile-name" id="userProfileName">Isaiah Durojaiye</div>
+        <div class="profile-role" id="userProfileRole">Student Voter</div>
+      </div>
+
+      <!-- Sidebar Navigation with improved structure -->
+      <div class="sidebar-nav">
+        <ul class="nav flex-column nav-main">
+          <li class="nav-item">
+            <a href="Voter-dashboard.html" class="nav-link">
+              <i class="bi bi-grid-1x2-fill"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="bi bi-check2-square"></i> Vote
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="Voter-guidline.html" class="nav-link">
+              <i class="bi bi-journal-text"></i> Voters Guideline
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="profile-settings.css" class="nav-link active">
+              <i class="bi bi-gear-fill"></i> Profile Settings
+            </a>
+          </li>
+        </ul>
+
+        <!-- Logout button in footer section -->
+        <ul class="nav flex-column nav-footer">
+          <li class="nav-item">
+            <a href="#" class="nav-link text-danger">
+              <i class="bi bi-box-arrow-right"></i> Log out
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
-        <!-- Top Navbar -->
-        <div class="top-navbar">
-            <button class="toggle-sidebar" id="toggleSidebar">
-                <i class="bi bi-list"></i>
-            </button>
-            
-            <div class="search-bar position-relative">
-                <i class="bi bi-search search-icon"></i>
-                <input type="text" class="form-control search-input" placeholder="Search...">
-            </div>
-            
-            <div class="user-actions">
-                <div class="action-icon">
-                    <i class="bi bi-bell"></i>
-                </div>
-                <div class="action-icon">
-                    <i class="bi bi-question-circle"></i>
-                </div>
-                <!-- Navbar user container with default icon -->
-                <div class="navbar-user-container" id="navbarUserContainer">
-                    <div class="default-user-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                        </svg>
-                    </div>
-                    <div class="status-indicator"></div>
-                </div>
-            </div>
+      <!-- Top Navbar -->
+      <div class="top-navbar">
+        <button class="toggle-sidebar" id="toggleSidebar">
+          <i class="bi bi-list"></i>
+        </button>
+
+        <div class="search-bar position-relative">
+          <i class="bi bi-search search-icon"></i>
+          <input
+            type="text"
+            class="form-control search-input"
+            placeholder="Search..."
+          />
         </div>
-        
-        <!-- Profile Content -->
-        <div class="container-fluid p-0">
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card h-100">
-                        <div class="card-body text-center">
-                            <h5 class="mb-4">PROFILE</h5>
-                            
-                            <!-- Large profile image container with default icon -->
-                            <div class="profile-large-image-container mb-3" id="profileLargeContainer">
-                                <div class="default-user-icon large-default-user-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                                    </svg>
-                                </div>
-                                <div class="profile-image-overlay">
-                                    <i class="bi bi-sunglasses text-white fs-3"></i>
-                                </div>
-                            </div>
-                            
-                            <div class="mb-4">
-                                <button class="btn btn-success btn-sm rounded-pill px-4" id="uploadProfileBtn">UPLOAD</button>
-                                <button id="removeProfileBtn" class="btn btn-danger btn-sm rounded-pill px-4">REMOVE</button>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label class="form-label-sm d-block text-start">First Name</label>
-                                <input type="text" class="form-control form-control-sm" value="Juan" id="firstName">
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label class="form-label-sm d-block text-start">Middle Name</label>
-                                <input type="text" class="form-control form-control-sm" value="Salazar" id="middleName">
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label class="form-label-sm d-block text-start">Last Name</label>
-                                <input type="text" class="form-control form-control-sm" value="Dela Cruz" id="lastName">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-8">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-end mb-4">
-                                <button id="edit" class="btn-sm">EDIT</button>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label class="d-flex align-items-center mb-1">
-                                    <i class="bi bi-calendar me-2 text-primary"></i>
-                                    <span class="text-muted small">Birthday</span>
-                                </label>
-                                <div class="info-container" id="birthdayInfo">
-                                    January 1, 2000
-                                </div>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label class="d-flex align-items-center mb-1">
-                                    <i class="bi bi-telephone me-2 text-primary"></i>
-                                    <span class="text-muted small">Phone</span>
-                                </label>
-                                <div class="info-container" id="phoneInfo">
-                                    +63 912 345 6789
-                                </div>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label class="d-flex align-items-center mb-1">
-                                    <i class="bi bi-envelope me-2 text-primary"></i>
-                                    <span class="text-muted small">Email</span>
-                                </label>
-                                <div class="info-container" id="emailInfo">
-                                    juan.delacruz@email.com
-                                </div>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label class="d-flex align-items-center mb-1">
-                                    <i class="bi bi-building me-2 text-primary"></i>
-                                    <span class="text-muted small">Department</span>
-                                </label>
-                                <div class="info-container" id="departmentInfo">
-                                    System Development
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+        <div class="user-actions">
+          <div class="action-icon">
+            <i class="bi bi-bell"></i>
+          </div>
+          <div class="action-icon">
+            <i class="bi bi-question-circle"></i>
+          </div>
+          <!-- Navbar user container with default icon -->
+          <div class="navbar-user-container" id="navbarUserContainer">
+            <div class="default-user-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"
+                />
+              </svg>
             </div>
+            <div class="status-indicator"></div>
+          </div>
         </div>
+      </div>
+
+      <!-- Profile Content -->
+      <div class="container-fluid p-0">
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card h-100">
+              <div class="card-body text-center">
+                <h5 class="mb-4">PROFILE</h5>
+
+                <!-- Large profile image container with default icon -->
+                <div
+                  class="profile-large-image-container mb-3"
+                  id="profileLargeContainer"
+                >
+                  <div class="default-user-icon large-default-user-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"
+                      />
+                    </svg>
+                  </div>
+                  <div class="profile-image-overlay">
+                    <i class="bi bi-sunglasses text-white fs-3"></i>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <button
+                    class="btn btn-success btn-sm rounded-pill px-4"
+                    id="uploadProfileBtn"
+                  >
+                    UPLOAD
+                  </button>
+                  <button
+                    id="removeProfileBtn"
+                    class="btn btn-danger btn-sm rounded-pill px-4"
+                  >
+                    REMOVE
+                  </button>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label-sm d-block text-start"
+                    >First Name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    value="Isaiah"
+                    id="firstName"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label-sm d-block text-start"
+                    >Middle Name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    value="Oluwatimilehin"
+                    id="middleName"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label-sm d-block text-start"
+                    >Last Name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    value="Durojaiye"
+                    id="lastName"
+                  />
+                </div>
+                <button id="saveProfileBtn" class="save-btn">Save</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-8">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-end mb-4">
+                  <button id="edit" class="btn-sm">EDIT</button>
+                </div>
+
+                <div class="mb-3">
+                  <label class="d-flex align-items-center mb-1">
+                    <i class="bi bi-calendar me-2 text-primary"></i>
+                    <span class="text-muted small">Birthday</span>
+                  </label>
+                  <div class="info-container" id="birthdayInfo">
+                    January 1, 2000
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="d-flex align-items-center mb-1">
+                    <i class="bi bi-telephone me-2 text-primary"></i>
+                    <span class="text-muted small">Phone</span>
+                  </label>
+                  <div class="info-container" id="phoneInfo">
+                    +234 802 960 0743
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="d-flex align-items-center mb-1">
+                    <i class="bi bi-envelope me-2 text-primary"></i>
+                    <span class="text-muted small">Email</span>
+                  </label>
+                  <div class="info-container" id="emailInfo">
+                    isaiahdurojaiye9@gmail.com
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="d-flex align-items-center mb-1">
+                    <i class="bi bi-building me-2 text-primary"></i>
+                    <span class="text-muted small">Department</span>
+                  </label>
+                  <div class="info-container" id="departmentInfo">
+                    Computer Science
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Bootstrap & Other JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-// This updated script fixes the profile image styling and remove button functionality
+      // This updated script fixes the profile image styling and remove button functionality
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Toggle Sidebar
-    document.getElementById('toggleSidebar').addEventListener('click', function() {
-        document.getElementById('sidebar').classList.toggle('active');
+      document.addEventListener("DOMContentLoaded", function () {
+  // Toggle Sidebar
+  document
+    .getElementById("toggleSidebar")
+    .addEventListener("click", function () {
+      document.getElementById("sidebar").classList.toggle("active");
     });
-    document.getElementById('close').addEventListener('click', function() {
-        document.getElementById('sidebar').classList.remove('active');
+  document.getElementById("close").addEventListener("click", function () {
+    document.getElementById("sidebar").classList.remove("active");
+  });
+
+  // Initialize all profile containers
+  let profileLargeContainer = document.getElementById("profileLargeContainer");
+  const sidebarProfileContainer = document.querySelector(".profile-image-container");
+  const navbarUserContainer = document.querySelector(".navbar-user-container");
+  
+  // Temporary storage for profile image changes before saving
+  let tempProfileImage = null;
+
+  // Load user profile data including image
+  try {
+    const user = JSON.parse(localStorage.getItem("currentUser")) || {};
+
+    // Update profile name
+    if (user.firstName && user.lastName) {
+      document.getElementById("userProfileName").textContent = 
+        `${user.firstName} ${user.lastName}`;
+      // Update welcome message if it exists
+      const welcomeHeading = document.querySelector("h2");
+      if (welcomeHeading && welcomeHeading.textContent.includes("Hello")) {
+        welcomeHeading.textContent = `Hello, ${user.firstName}!`;
+      }
+    }
+
+    // Update profile role if exists
+    if (user.role) {
+      document.getElementById("userProfileRole").textContent = user.role;
+    }
+
+    // Update profile images
+    updateProfileDisplays(user.profileImage);
+    
+    // Initialize the temporary image with the current one
+    tempProfileImage = user.profileImage;
+    
+    // Update the main profile image in the profile page
+    updateMainProfileImage(user.profileImage);
+  } catch (error) {
+    console.error("Error loading user profile:", error);
+    updateProfileDisplays(null);
+    updateMainProfileImage(null);
+  }
+
+  // Function to show profile image or default user icon for sidebar and navbar
+  function updateProfileDisplays(imageUrl) {
+    // Clear existing sidebar container
+    sidebarProfileContainer.innerHTML = "";
+    navbarUserContainer.innerHTML = "";
+
+    if (imageUrl) {
+      // Sidebar profile image
+      const sidebarImg = document.createElement("img");
+      sidebarImg.src = imageUrl;
+      sidebarImg.alt = "Profile";
+      sidebarImg.className = "profile-image";
+      sidebarImg.id = "userProfileImage";
+      sidebarImg.style.borderRadius = "50%";
+      sidebarImg.style.width = "100%";
+      sidebarImg.style.height = "100%";
+      sidebarImg.style.objectFit = "cover";
+      sidebarProfileContainer.appendChild(sidebarImg);
+
+      // Add edit icon to sidebar profile
+      const editIcon = document.createElement("div");
+      editIcon.className = "edit-icon";
+      editIcon.innerHTML = '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
+      sidebarProfileContainer.appendChild(editIcon);
+
+      // Navbar profile image
+      const navbarImg = document.createElement("img");
+      navbarImg.src = imageUrl;
+      navbarImg.alt = "User";
+      navbarImg.className = "user-avatar";
+      navbarImg.id = "navbarUserImage";
+      navbarImg.style.borderRadius = "50%";
+      navbarImg.style.width = "100%";
+      navbarImg.style.height = "100%";
+      navbarImg.style.objectFit = "cover";
+      navbarUserContainer.appendChild(navbarImg);
+
+      // Add status indicator to navbar
+      const statusIndicator = document.createElement("div");
+      statusIndicator.className = "status-indicator";
+      navbarUserContainer.appendChild(statusIndicator);
+    } else {
+      // Sidebar profile icon
+      const sidebarIcon = document.createElement("div");
+      sidebarIcon.className = "default-user-icon";
+      sidebarIcon.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+          </svg>
+      `;
+      sidebarProfileContainer.appendChild(sidebarIcon);
+
+      // Add edit icon to sidebar profile
+      const editIcon = document.createElement("div");
+      editIcon.className = "edit-icon";
+      editIcon.innerHTML = '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
+      sidebarProfileContainer.appendChild(editIcon);
+
+      // Navbar profile icon
+      const navbarIcon = document.createElement("div");
+      navbarIcon.className = "default-user-icon";
+      navbarIcon.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+          </svg>
+      `;
+      navbarUserContainer.appendChild(navbarIcon);
+
+      // Add status indicator to navbar
+      const statusIndicator = document.createElement("div");
+      statusIndicator.className = "status-indicator";
+      navbarUserContainer.appendChild(statusIndicator);
+    }
+  }
+  
+  // Function to update just the main profile image in the profile page
+  function updateMainProfileImage(imageUrl) {
+    if (profileLargeContainer) {
+      profileLargeContainer.innerHTML = "";
+      
+      if (imageUrl) {
+        const largeImg = document.createElement("img");
+        largeImg.src = imageUrl;
+        largeImg.alt = "Profile";
+        largeImg.className = "profile-large-image";
+        largeImg.id = "largeProfileImage";
+        largeImg.style.borderRadius = "50%";
+        largeImg.style.width = "100%";
+        largeImg.style.height = "100%";
+        largeImg.style.objectFit = "cover";
+        profileLargeContainer.appendChild(largeImg);
+
+        // Add the overlay for large profile
+        const overlay = document.createElement("div");
+        overlay.className = "profile-image-overlay";
+        overlay.innerHTML = '<i class="bi bi-sunglasses text-white fs-3"></i>';
+        profileLargeContainer.appendChild(overlay);
+      } else {
+        const largeIcon = document.createElement("div");
+        largeIcon.className = "default-user-icon large-default-user-icon";
+        largeIcon.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+          </svg>
+        `;
+        profileLargeContainer.appendChild(largeIcon);
+
+        // Add the overlay for large profile
+        const overlay = document.createElement("div");
+        overlay.className = "profile-image-overlay";
+        overlay.innerHTML = '<i class="bi bi-sunglasses text-white fs-3"></i>';
+        profileLargeContainer.appendChild(overlay);
+      }
+    }
+  }
+
+  // Helper function to show alerts
+  function showAlert(message, type) {
+    const alertDiv = document.createElement("div");
+    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+    alertDiv.role = "alert";
+    alertDiv.style.position = "fixed";
+    alertDiv.style.top = "20px";
+    alertDiv.style.right = "20px";
+    alertDiv.style.zIndex = "9999";
+    alertDiv.innerHTML = `
+      ${message}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+
+    document.body.appendChild(alertDiv);
+
+    // Auto dismiss after 3 seconds
+    setTimeout(() => {
+      if (alertDiv.parentNode) {
+        const bsAlert = new bootstrap.Alert(alertDiv);
+        bsAlert.close();
+      }
+    }, 3000);
+  }
+
+  // Handle upload button click (only updates the main profile image)
+  const uploadProfileBtn = document.getElementById("uploadProfileBtn");
+  if (uploadProfileBtn) {
+    uploadProfileBtn.addEventListener("click", function() {
+      // Create file input element
+      const fileInput = document.createElement("input");
+      fileInput.type = "file";
+      fileInput.accept = "image/*";
+      fileInput.style.display = "none";
+      document.body.appendChild(fileInput);
+
+      // Trigger file selection
+      fileInput.click();
+
+      // Handle file selection
+      fileInput.addEventListener("change", function() {
+        if (this.files && this.files[0]) {
+          const reader = new FileReader();
+
+          reader.onload = function(e) {
+            const imageResult = e.target.result;
+            
+            // Update only the main profile image
+            updateMainProfileImage(imageResult);
+            
+            // Store in temporary variable until save
+            tempProfileImage = imageResult;
+          };
+
+          reader.readAsDataURL(this.files[0]);
+        }
+
+        // Clean up
+        document.body.removeChild(fileInput);
+      });
+    });
+  }
+
+  // Handle remove button click (only removes from main profile image)
+  const removeProfileBtn = document.getElementById("removeProfileBtn");
+  if (removeProfileBtn) {
+    removeProfileBtn.addEventListener("click", function() {
+      // Only update the main profile image
+      updateMainProfileImage(null);
+      
+      // Store in temporary variable until save
+      tempProfileImage = null;
+    });
+  }
+
+  // Add event listener for save profile button
+  const saveProfileBtn = document.getElementById("saveProfileBtn");
+  if (saveProfileBtn) {
+    saveProfileBtn.addEventListener("click", function() {
+      // Get current user data
+      let user = JSON.parse(localStorage.getItem("currentUser")) || {};
+
+      // Update user data with current input values and temporary profile image
+      user.firstName = document.getElementById("firstName").value.trim();
+      user.middleName = document.getElementById("middleName").value.trim();
+      user.lastName = document.getElementById("lastName").value.trim();
+      user.profileImage = tempProfileImage; // Use the temporary stored image
+
+      // Update profile name display throughout the interface
+      document.getElementById("userProfileName").textContent = 
+        `${user.firstName} ${user.lastName}`;
+
+      // Save updated user data
+      localStorage.setItem("currentUser", JSON.stringify(user));
+
+      // Now update all profile displays with the saved image
+      updateProfileDisplays(tempProfileImage);
+
+      // Show success message
+      showAlert("Profile saved successfully!", "success");
+    });
+  }
+
+  // Add click event listeners for sidebar and navbar profile images
+  const profileElements = [
+    sidebarProfileContainer,
+    navbarUserContainer,
+    ...document.querySelectorAll(".edit-icon")
+  ];
+  
+  if (profileLargeContainer) {
+    profileElements.push(profileLargeContainer);
+  }
+
+  profileElements.forEach(element => {
+    element.style.cursor = "pointer";
+    element.addEventListener("click", function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      // Create and show the profile edit modal
+      const profileModal = createProfileEditModal();
+      profileModal.show();
+
+      // Clean up when modal is hidden
+      document.getElementById("profileEditModal").addEventListener("hidden.bs.modal", function() {
+        if (this.parentNode) {
+          document.body.removeChild(this.parentNode);
+        }
+      });
+    });
+  });
+
+  // Create profile edit modal for the dashboard
+  function createProfileEditModal() {
+    // Modal HTML structure
+    const modalHTML = `
+      <div class="modal fade" id="profileEditModal" tabindex="-1" aria-labelledby="profileEditModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="profileEditModalLabel">Edit Profile Picture</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+              <div class="mb-4">
+                <div class="position-relative d-inline-block">
+                  <div id="modalProfileContainer" class="rounded-circle overflow-hidden" style="width: 150px; height: 150px;">
+                    <!-- Image will be inserted here -->
+                  </div>
+                </div>
+              </div>
+              <div class="mb-4">
+                <button id="modalUploadBtn" class="btn btn-success btn-sm rounded-pill px-4">UPLOAD</button>
+                <button id="modalRemoveBtn" class="btn btn-danger btn-sm rounded-pill px-4 ms-2">REMOVE</button>
+              </div>
+              <p class="text-muted small">Click upload to select a new profile picture</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="modalSaveBtn">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Append modal to body
+    const modalDiv = document.createElement("div");
+    modalDiv.innerHTML = modalHTML;
+    document.body.appendChild(modalDiv);
+
+    // Get current user data
+    const user = JSON.parse(localStorage.getItem("currentUser")) || {};
+    
+    // Set up a temporary variable for changes in the modal
+    let modalTempImage = user.profileImage;
+
+    // Update modal profile container with current image or default icon
+    const modalProfileContainer = document.getElementById("modalProfileContainer");
+    updateModalProfileImage(modalProfileContainer, modalTempImage);
+
+    // Handle upload button click in modal
+    document.getElementById("modalUploadBtn").addEventListener("click", function() {
+      // Create file input element
+      const fileInput = document.createElement("input");
+      fileInput.type = "file";
+      fileInput.accept = "image/*";
+      fileInput.style.display = "none";
+      document.body.appendChild(fileInput);
+
+      // Trigger file selection
+      fileInput.click();
+
+      // Handle file selection
+      fileInput.addEventListener("change", function() {
+        if (this.files && this.files[0]) {
+          const reader = new FileReader();
+
+          reader.onload = function(e) {
+            const imageResult = e.target.result;
+            
+            // Only update the modal image
+            updateModalProfileImage(modalProfileContainer, imageResult);
+            
+            // Store in modal temporary variable
+            modalTempImage = imageResult;
+          };
+
+          reader.readAsDataURL(this.files[0]);
+        }
+
+        // Clean up
+        document.body.removeChild(fileInput);
+      });
+    });
+
+    // Handle remove button click in modal
+    document.getElementById("modalRemoveBtn").addEventListener("click", function() {
+      // Only update the modal display
+      updateModalProfileImage(modalProfileContainer, null);
+      
+      // Store in modal temporary variable
+      modalTempImage = null;
     });
     
-    // Initialize all profile containers
-    let profileLargeContainer = document.getElementById('profileLargeContainer');
-    const sidebarProfileContainer = document.querySelector('.profile-image-container');
-    const navbarUserContainer = document.querySelector('.navbar-user-container');
-    
-    // Load user profile data including image
-    try {
-        const user = JSON.parse(localStorage.getItem('currentUser')) || {};
+    // Handle save button click in modal
+    document.getElementById("modalSaveBtn").addEventListener("click", function() {
+      // Update user data with temporary image from modal
+      try {
+        let user = JSON.parse(localStorage.getItem("currentUser")) || {};
+        user.profileImage = modalTempImage;
+        localStorage.setItem("currentUser", JSON.stringify(user));
         
-        // Update profile name
-        if (user.firstName && user.lastName) {
-            document.getElementById('userProfileName').textContent = `${user.firstName} ${user.lastName}`;
-            // Update welcome message if it exists
-            const welcomeHeading = document.querySelector('h2');
-            if (welcomeHeading && welcomeHeading.textContent.includes('Hello')) {
-                welcomeHeading.textContent = `Hello, ${user.firstName}!`;
-            }
-        }
+        // Update all profile displays with the new image
+        updateProfileDisplays(modalTempImage);
+        updateMainProfileImage(modalTempImage);
         
-        // Update profile role if exists
-        if (user.role) {
-            document.getElementById('userProfileRole').textContent = user.role;
-        }
+        // Update the temporary variable for the main page
+        tempProfileImage = modalTempImage;
         
-        // Update profile images
-        updateProfileDisplays(user.profileImage);
+        // Close the modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById("profileEditModal"));
+        modal.hide();
         
-    } catch (error) {
-        console.error('Error loading user profile:', error);
-        updateProfileDisplays(null);
-    }
-    
-    // Function to show profile image or default user icon (now includes profileLargeContainer)
-    function updateProfileDisplays(imageUrl) {
-        // Clear existing sidebar container
-        sidebarProfileContainer.innerHTML = '';
-        navbarUserContainer.innerHTML = '';
-        
-        // Also update the large profile container if it exists
-        if (profileLargeContainer) {
-            profileLargeContainer.innerHTML = '';
-        }
-        
-        if (imageUrl) {
-            // Sidebar profile image
-            const sidebarImg = document.createElement('img');
-            sidebarImg.src = imageUrl;
-            sidebarImg.alt = 'Profile';
-            sidebarImg.className = 'profile-image';
-            sidebarImg.id = 'userProfileImage';
-            sidebarImg.style.borderRadius = '50%'; // Add 50% border radius
-            sidebarImg.style.width = '100%'; // Ensure image fills container
-            sidebarImg.style.height = '100%'; // Ensure image fills container
-            sidebarImg.style.objectFit = 'cover'; // Maintain aspect ratio
-            sidebarProfileContainer.appendChild(sidebarImg);
-            
-            // Add edit icon to sidebar profile
-            const editIcon = document.createElement('div');
-            editIcon.className = 'edit-icon';
-            editIcon.innerHTML = '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
-            sidebarProfileContainer.appendChild(editIcon);
-            
-            // Navbar profile image
-            const navbarImg = document.createElement('img');
-            navbarImg.src = imageUrl;
-            navbarImg.alt = 'User';
-            navbarImg.className = 'user-avatar';
-            navbarImg.id = 'navbarUserImage';
-            navbarImg.style.borderRadius = '50%'; // Add 50% border radius
-            navbarImg.style.width = '100%'; // Ensure image fills container
-            navbarImg.style.height = '100%'; // Ensure image fills container
-            navbarImg.style.objectFit = 'cover'; // Maintain aspect ratio
-            navbarUserContainer.appendChild(navbarImg);
-            
-            // Add status indicator to navbar
-            const statusIndicator = document.createElement('div');
-            statusIndicator.className = 'status-indicator';
-            navbarUserContainer.appendChild(statusIndicator);
-            
-            // Update large profile container if it exists
-            if (profileLargeContainer) {
-                const largeImg = document.createElement('img');
-                largeImg.src = imageUrl;
-                largeImg.alt = 'Profile';
-                largeImg.className = 'profile-large-image';
-                largeImg.id = 'largeProfileImage';
-                largeImg.style.borderRadius = '50%'; // Add 50% border radius
-                largeImg.style.width = '100%'; // Ensure image fills container
-                largeImg.style.height = '100%'; // Ensure image fills container
-                largeImg.style.objectFit = 'cover'; // Maintain aspect ratio
-                profileLargeContainer.appendChild(largeImg);
-                
-                // Add the overlay for large profile
-                const overlay = document.createElement('div');
-                overlay.className = 'profile-image-overlay';
-                overlay.innerHTML = '<i class="bi bi-sunglasses text-white fs-3"></i>';
-                profileLargeContainer.appendChild(overlay);
-            }
-        } else {
-            // Sidebar profile icon
-            const sidebarIcon = document.createElement('div');
-            sidebarIcon.className = 'default-user-icon';
-            sidebarIcon.innerHTML = `
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                </svg>
-            `;
-            sidebarProfileContainer.appendChild(sidebarIcon);
-            
-            // Add edit icon to sidebar profile
-            const editIcon = document.createElement('div');
-            editIcon.className = 'edit-icon';
-            editIcon.innerHTML = '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
-            sidebarProfileContainer.appendChild(editIcon);
-            
-            // Navbar profile icon
-            const navbarIcon = document.createElement('div');
-            navbarIcon.className = 'default-user-icon';
-            navbarIcon.innerHTML = `
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                </svg>
-            `;
-            navbarUserContainer.appendChild(navbarIcon);
-            
-            // Add status indicator to navbar
-            const statusIndicator = document.createElement('div');
-            statusIndicator.className = 'status-indicator';
-            navbarUserContainer.appendChild(statusIndicator);
-            
-            // Update large profile container if it exists
-            if (profileLargeContainer) {
-                const largeIcon = document.createElement('div');
-                largeIcon.className = 'default-user-icon large-default-user-icon';
-                largeIcon.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                    </svg>
-                `;
-                profileLargeContainer.appendChild(largeIcon);
-                
-                // Add the overlay for large profile
-                const overlay = document.createElement('div');
-                overlay.className = 'profile-image-overlay';
-                overlay.innerHTML = '<i class="bi bi-sunglasses text-white fs-3"></i>';
-                profileLargeContainer.appendChild(overlay);
-            }
-        }
-        
-        // If modal is open, update modal profile image as well
-        const modalProfileContainer = document.getElementById('modalProfileContainer');
-        if (modalProfileContainer) {
-            updateModalProfileImage(modalProfileContainer, imageUrl);
-        }
-    }
-    
+        // Show success message
+        showAlert("Profile picture updated successfully!", "success");
+      } catch (error) {
+        console.error("Error saving profile image:", error);
+        showAlert("Error saving profile image. Please try again.", "danger");
+      }
+    });
+
     // Function to update modal profile image
     function updateModalProfileImage(container, imageUrl) {
-        container.innerHTML = '';
-        
-        if (imageUrl) {
-            const img = document.createElement('img');
-            img.src = imageUrl;
-            img.alt = 'Profile';
-            img.style.width = '100%';
-            img.style.height = '100%';
-            img.style.objectFit = 'cover';
-            img.style.borderRadius = '50%'; // Add 50% border radius
-            container.appendChild(img);
-        } else {
-            container.innerHTML = `
-                <div class="default-user-icon" style="width: 100%; height: 100%; background-color: #e9ecef; border-radius: 50%;">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 80%; height: 80%; margin: 10%;">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                    </svg>
-                </div>
-            `;
-        }
-    }
-    
-    // Create profile edit modal for the dashboard
-    function createProfileEditModal() {
-        // Modal HTML structure
-        const modalHTML = `
-            <div class="modal fade" id="profileEditModal" tabindex="-1" aria-labelledby="profileEditModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="profileEditModalLabel">Edit Profile Picture</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body text-center">
-                            <div class="mb-4">
-                                <div class="position-relative d-inline-block">
-                                    <div id="modalProfileContainer" class="rounded-circle overflow-hidden" style="width: 150px; height: 150px;">
-                                        <!-- Image will be inserted here -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mb-4">
-                                <button id="modalUploadBtn" class="btn btn-success btn-sm rounded-pill px-4">UPLOAD</button>
-                                <button id="modalRemoveBtn" class="btn btn-danger btn-sm rounded-pill px-4 ms-2">REMOVE</button>
-                            </div>
-                            <p class="text-muted small">Click upload to select a new profile picture</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      container.innerHTML = "";
+
+      if (imageUrl) {
+        const img = document.createElement("img");
+        img.src = imageUrl;
+        img.alt = "Profile";
+        img.style.width = "100%";
+        img.style.height = "100%";
+        img.style.objectFit = "cover";
+        img.style.borderRadius = "50%";
+        container.appendChild(img);
+      } else {
+        container.innerHTML = `
+          <div class="default-user-icon" style="width: 100%; height: 100%; background-color: #e9ecef; border-radius: 50%;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 80%; height: 80%; margin: 10%;">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+            </svg>
+          </div>
         `;
-        
-        // Append modal to body
-        const modalDiv = document.createElement('div');
-        modalDiv.innerHTML = modalHTML;
-        document.body.appendChild(modalDiv);
-        
-        // Get current user data
-        const user = JSON.parse(localStorage.getItem('currentUser')) || {};
-        
-        // Update modal profile container with current image or default icon
-        const modalProfileContainer = document.getElementById('modalProfileContainer');
-        updateModalProfileImage(modalProfileContainer, user.profileImage);
-        
-        // Handle upload button click in modal
-        document.getElementById('modalUploadBtn').addEventListener('click', function() {
-            // Create file input element
-            const fileInput = document.createElement('input');
-            fileInput.type = 'file';
-            fileInput.accept = 'image/*';
-            fileInput.style.display = 'none';
-            document.body.appendChild(fileInput);
-            
-            // Trigger file selection
-            fileInput.click();
-            
-            // Handle file selection
-            fileInput.addEventListener('change', function() {
-                if (this.files && this.files[0]) {
-                    const reader = new FileReader();
-                    
-                    reader.onload = function(e) {
-                        const imageResult = e.target.result;
-                        
-                        // Update modal image
-                        updateModalProfileImage(modalProfileContainer, imageResult);
-                        
-                        // Update profile images on page
-                        updateProfileDisplays(imageResult);
-                        
-                        // Store image in localStorage
-                        try {
-                            let user = JSON.parse(localStorage.getItem('currentUser')) || {};
-                            user.profileImage = imageResult;
-                            localStorage.setItem('currentUser', JSON.stringify(user));
-                            
-                            // Show success message
-                            showAlert('Profile picture updated successfully!', 'success');
-                        } catch (error) {
-                            console.error('Error saving profile image:', error);
-                            showAlert('Error saving profile image. Please try again.', 'danger');
-                        }
-                    };
-                    
-                    reader.readAsDataURL(this.files[0]);
-                }
-                
-                // Clean up
-                document.body.removeChild(fileInput);
-            });
-        });
-        
-        // Handle remove button click in modal
-        document.getElementById('modalRemoveBtn').addEventListener('click', function() {
-            // Update both modal and page with default icons
-            updateModalProfileImage(modalProfileContainer, null);
-            updateProfileDisplays(null);
-            
-            // Remove image from storage
-            try {
-                let user = JSON.parse(localStorage.getItem('currentUser')) || {};
-                delete user.profileImage;
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                
-                // Show success message
-                showAlert('Profile picture removed successfully!', 'success');
-            } catch (error) {
-                console.error('Error removing profile image:', error);
-                showAlert('Error removing profile image. Please try again.', 'danger');
-            }
-        });
-        
-        return new bootstrap.Modal(document.getElementById('profileEditModal'));
+      }
     }
-    
-    // Helper function to show alerts
-    function showAlert(message, type) {
-        const alertDiv = document.createElement('div');
-        alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
-        alertDiv.role = 'alert';
-        alertDiv.style.position = 'fixed';
-        alertDiv.style.top = '20px';
-        alertDiv.style.right = '20px';
-        alertDiv.style.zIndex = '9999';
-        alertDiv.innerHTML = `
-            ${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        `;
-        
-        document.body.appendChild(alertDiv);
-        
-        // Auto dismiss after 3 seconds
-        setTimeout(() => {
-            if (alertDiv.parentNode) {
-                const bsAlert = new bootstrap.Alert(alertDiv);
-                bsAlert.close();
-            }
-        }, 3000);
+
+    return new bootstrap.Modal(document.getElementById("profileEditModal"));
+  }
+
+  // Get the edit button element for personal info
+  const editButton = document.getElementById("edit");
+  if (editButton) {
+    // Get all the info containers
+    const birthdayInfo = document.getElementById("birthdayInfo");
+    const phoneInfo = document.getElementById("phoneInfo");
+    const emailInfo = document.getElementById("emailInfo");
+    const departmentInfo = document.getElementById("departmentInfo");
+
+    // Flag to track if we're in edit mode
+    let isEditing = false;
+
+    // Store original values to allow cancellation
+    let originalValues = {};
+
+    // Add click event listener to the edit button
+    editButton.addEventListener("click", function() {
+      if (!isEditing) {
+        // Enter edit mode
+        enterEditMode();
+      } else {
+        // Save changes
+        saveChanges();
+      }
+    });
+
+    // Function to enter edit mode
+    function enterEditMode() {
+      isEditing = true;
+      editButton.textContent = "SAVE";
+      editButton.classList.add("btn-success");
+
+      // Store original values before editing
+      originalValues = {
+        birthday: birthdayInfo.textContent.trim(),
+        phone: phoneInfo.textContent.trim(),
+        email: emailInfo.textContent.trim(),
+        department: departmentInfo.textContent.trim(),
+      };
+
+      // Replace each info container with an input field
+      replaceWithInput(birthdayInfo, "birthday", originalValues.birthday);
+      replaceWithInput(phoneInfo, "phone", originalValues.phone);
+      replaceWithInput(emailInfo, "email", originalValues.email);
+      replaceWithInput(departmentInfo, "department", originalValues.department);
+
+      const cancelButton = document.createElement("button");
+      cancelButton.id = "cancel";
+      cancelButton.textContent = "CANCEL";
+
+      // Style the cancel button to be red
+      cancelButton.className = "btn-sm ms-2 text-white";
+      cancelButton.style.backgroundColor = "#dc3545"; // Bootstrap danger red
+      cancelButton.style.border = "none";
+      cancelButton.style.borderRadius = "60px";
+      cancelButton.style.padding = "0.25rem 0.5rem";
+      cancelButton.addEventListener("click", cancelEditing);
+
+      // Insert the cancel button after the edit button
+      editButton.parentNode.insertBefore(cancelButton, editButton.nextSibling);
     }
-    
-    // Add profile edit functionality to both sidebar and navbar profile images
-    const profileElements = [
-        sidebarProfileContainer, 
-        navbarUserContainer,
-        ...document.querySelectorAll('.edit-icon')
-    ];
-    
-    // Add large profile container to editable elements if it exists
-    if (profileLargeContainer) {
-        profileElements.push(profileLargeContainer);
-    }
-    
-    profileElements.forEach(element => {
-        element.style.cursor = 'pointer';
-        element.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Create and show the modal
-            const profileModal = createProfileEditModal();
-            profileModal.show();
-            
-            // Clean up when modal is hidden
-            document.getElementById('profileEditModal').addEventListener('hidden.bs.modal', function() {
-                if (this.parentNode) {
-                    document.body.removeChild(this.parentNode);
-                }
-            });
-        });
-    });
-    
-    // Handle upload button click on profile page
-    document.querySelectorAll('#uploadProfileBtn').forEach(button => {
-        if (button.closest('.modal') === null) { // Only for non-modal buttons
-            button.addEventListener('click', function() {
-                // Create file input element
-                const fileInput = document.createElement('input');
-                fileInput.type = 'file';
-                fileInput.accept = 'image/*';
-                fileInput.style.display = 'none';
-                document.body.appendChild(fileInput);
-                
-                // Trigger file selection
-                fileInput.click();
-                
-                // Handle file selection
-                fileInput.addEventListener('change', function() {
-                    if (this.files && this.files[0]) {
-                        const reader = new FileReader();
-                        
-                        reader.onload = function(e) {
-                            const imageResult = e.target.result;
-                            
-                            // Update profile images on page
-                            updateProfileDisplays(imageResult);
-                            
-                            // Store image in localStorage
-                            try {
-                                let user = JSON.parse(localStorage.getItem('currentUser')) || {};
-                                user.profileImage = imageResult;
-                                localStorage.setItem('currentUser', JSON.stringify(user));
-                                
-                                // Show success message
-                                showAlert('Profile picture updated successfully!', 'success');
-                            } catch (error) {
-                                console.error('Error saving profile image:', error);
-                                showAlert('Error saving profile image. Please try again.', 'danger');
-                            }
-                        };
-                        
-                        reader.readAsDataURL(this.files[0]);
-                    }
-                    
-                    // Clean up
-                    document.body.removeChild(fileInput);
-                });
-            });
-        }
-    });
-    
-    // Fix remove button functionality on profile page
-    document.querySelectorAll('#removeProfileBtn').forEach(button => {
-        if (button.closest('.modal') === null) { // Only for non-modal buttons
-            button.addEventListener('click', function() {
-                // Update profile displays with null (default icon)
-                updateProfileDisplays(null);
-                
-                // Remove image from storage
-                try {
-                    let user = JSON.parse(localStorage.getItem('currentUser')) || {};
-                    delete user.profileImage;
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    
-                    // Show success message
-                    showAlert('Profile picture removed successfully!', 'success');
-                } catch (error) {
-                    console.error('Error removing profile image:', error);
-                    showAlert('Error removing profile image. Please try again.', 'danger');
-                }
-            });
-        }
-    });
-    
-    // Initialize user data if not exists
-    function loadUserData() {
+
+    // Function to replace info container with input field
+    function replaceWithInput(element, fieldName, value) {
+      // Create input field
+      const input = document.createElement("input");
+      input.type = fieldName === "email" ? "email" : "text";
+      input.className = "form-control";
+      input.value = value;
+      input.dataset.field = fieldName; // Store field name for reference
+
+      // Special handling for birthday field to add date picker
+      if (fieldName === "birthday") {
+        input.type = "date";
+
+        // Try to convert the displayed date format to YYYY-MM-DD for the input
         try {
-            const user = JSON.parse(localStorage.getItem('currentUser'));
-            if (!user) {
-                // If no user exists, create default user
-                const defaultUser = {
-                    firstName: 'Juan',
-                    middleName: 'Salazar',
-                    lastName: 'Dela Cruz',
-                    birthday: 'January 1, 2000',
-                    phone: '+63 912 345 6789',
-                    email: 'juan.delacruz@email.com',
-                    department: 'System Development',
-                    role: 'Student Voter'
-                };
-                localStorage.setItem('currentUser', JSON.stringify(defaultUser));
-            }
+          const dateParts = value.split(" ");
+          const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+          ];
+
+          const month = monthNames.indexOf(dateParts[0].replace(",", "")) + 1;
+          const day = parseInt(dateParts[1].replace(",", ""));
+          const year = parseInt(dateParts[2]);
+
+          // Format date as YYYY-MM-DD
+          const formattedMonth = month < 10 ? `0${month}` : month;
+          const formattedDay = day < 10 ? `0${day}` : day;
+          input.value = `${year}-${formattedMonth}-${formattedDay}`;
         } catch (error) {
-            console.error('Error loading user data:', error);
+          console.error("Error parsing date:", error);
+          // Fallback to empty value if parsing fails
+          input.value = "";
         }
+      }
+
+      // Replace the element with the input
+      element.innerHTML = "";
+      element.appendChild(input);
     }
-    
-    // Initialize data on first load
-    loadUserData();
-    
-    // Add event listener for logout (preserving existing functionality)
-    document.querySelector('.text-danger').addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Ask for confirmation
-        if (confirm('Are you sure you want to log out?')) {
-            // Simply redirect to login page
-            window.location.href = 'login.html';
+
+    // Function to save changes
+    function saveChanges() {
+      isEditing = false;
+      editButton.textContent = "EDIT";
+      editButton.classList.remove("btn-success");
+
+      // Get current user data
+      let user = JSON.parse(localStorage.getItem("currentUser")) || {};
+
+      // Get all input fields
+      const inputs = document.querySelectorAll(".info-container input");
+
+      // Update user data with input values
+      inputs.forEach((input) => {
+        const field = input.dataset.field;
+        let value = input.value.trim();
+
+        // Special handling for date field
+        if (field === "birthday" && value) {
+          // Convert YYYY-MM-DD to Month Day, Year
+          const date = new Date(value);
+          const options = { year: "numeric", month: "long", day: "numeric" };
+          value = date.toLocaleDateString("en-US", options);
         }
+
+        // Update user object
+        user[field] = value;
+
+        // Update display
+        const container = input.parentNode;
+        container.innerHTML = value;
+      });
+
+      // Save updated user data
+      localStorage.setItem("currentUser", JSON.stringify(user));
+
+      // Remove cancel button
+      const cancelButton = document.getElementById("cancel");
+      if (cancelButton) {
+        cancelButton.remove();
+      }
+
+      // Show success message
+      showAlert("Profile updated successfully!", "success");
+    }
+
+    // Function to cancel editing
+    function cancelEditing() {
+      isEditing = false;
+      editButton.textContent = "EDIT";
+      editButton.classList.remove("btn-success");
+
+      // Restore original values
+      birthdayInfo.innerHTML = originalValues.birthday;
+      phoneInfo.innerHTML = originalValues.phone;
+      emailInfo.innerHTML = originalValues.email;
+      departmentInfo.innerHTML = originalValues.department;
+
+      // Remove cancel button
+      document.getElementById("cancel").remove();
+    }
+  }
+
+  // Initialize user data if not exists
+  function loadUserData() {
+    try {
+      const user = JSON.parse(localStorage.getItem("currentUser"));
+      if (!user) {
+        // If no user exists, create default user
+        const defaultUser = {
+          firstName: "Isaiah",
+          middleName: "Oluwatimilehin",
+          lastName: "Durojaiye",
+          birthday: "January 1, 2000",
+          phone: "+234 802 960 0743",
+          email: "isaiahdurojaiye9@gmail.com",
+          department: "Computer Science",
+          role: "Student Voter",
+        };
+        localStorage.setItem("currentUser", JSON.stringify(defaultUser));
+      }
+    } catch (error) {
+      console.error("Error loading user data:", error);
+    }
+  }
+
+  // Initialize data on first load
+  loadUserData();
+
+  // Add event listener for logout
+  const logoutLink = document.querySelector(".text-danger");
+  if (logoutLink) {
+    logoutLink.addEventListener("click", function(e) {
+      e.preventDefault();
+
+      // Ask for confirmation
+      if (confirm("Are you sure you want to log out?")) {
+        // Simply redirect to login page
+        window.location.href = "voter_log_in.html";
+      }
     });
+  }
 });
     </script>
-</body>
+  </body>
 </html>

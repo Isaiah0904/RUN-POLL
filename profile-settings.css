@@ -204,7 +204,7 @@ color: var(--text-gray);
   cursor: pointer;
 }
 
-@media (min-width: 991px) and (max-width: 1105px) {
+@media (min-width: 768px) and (max-width: 841px) {
   .btn-success{
     margin-bottom: 9px;
   }
@@ -405,4 +405,60 @@ color: var(--text-gray);
 .large-default-user-icon svg {
   width: 50%;
   height: 50%;
+}
+
+/* Save Button Styling */
+.save-btn {
+  background-color: #4954B8;
+  color: white;
+  border: none;
+  border-radius: 60px; /* Rounded pill shape to match other buttons */
+  padding: 8px 24px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(25, 135, 84, 0.3);
+  width: 100%; /* Full width button */
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background-color: #3c47ad; /* Slightly darker green on hover */
+  box-shadow: 0 4px 8px rgba(25, 135, 84, 0.4);
+  transform: translateY(-1px);
+}
+
+.save-btn:active {
+  background-color: #146c43; /* Even darker when clicked */
+  box-shadow: 0 1px 3px rgba(25, 135, 84, 0.3);
+  transform: translateY(1px);
+}
+
+/* Add a loading state for the button (optional) */
+.save-btn.loading {
+  background-color: #5a8f71;
+  cursor: not-allowed;
+  position: relative;
+}
+
+.save-btn.loading::after {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top-color: white;
+  border-radius: 50%;
+  position: absolute;
+  right: 12px;
+  top: calc(50% - 8px);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -1,480 +1,798 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RUNPOLLS | Dashboard</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <!-- Bootstrap Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
     <!-- Chart.js -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="Voter-dashboard.css">
-</head>
-<body>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="Voter-dashboard.css" />
+  </head>
+  <body>
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
-        <div class="logo-container">
-            <div class="logo">RUN</div>
-            <div class="brand-text">POLLS</div>
-            <i class="bi bi-x-lg" id="close"></i>
+      <div class="logo-container">
+        <div class="logo">RUN</div>
+        <div class="brand-text">POLLS</div>
+        <i class="bi bi-x-lg" id="close"></i>
+      </div>
+
+      <div class="profile-container">
+        <!-- Improved profile image container -->
+        <div class="profile-image-container" id="sidebarProfileContainer">
+          <img
+            src="/api/placeholder/70/70"
+            class="profile-image"
+            id="userProfileImage"
+          />
+          <div class="edit-icon">
+            <i class="bi bi-pencil-fill text-white" style="font-size: 12px"></i>
+          </div>
         </div>
-        
-        <div class="profile-container">
-            <!-- Improved profile image container -->
-            <div class="profile-image-container">
-                <img src="/api/placeholder/70/70" alt="Profile" class="profile-image" id="userProfileImage">
-                <div class="edit-icon">
-                    <i class="bi bi-pencil-fill text-white" id="userProfileImage" style="font-size: 12px;"></i>
-                </div>
-            </div>
-            <div class="profile-name" id="userProfileName">Juan Dela Cruz</div>
-            <div class="profile-role" id="userProfileRole">Student Voter</div>
-        </div>
-        
-        <!-- Sidebar Navigation with improved structure -->
-        <div class="sidebar-nav">
-            <ul class="nav flex-column nav-main">
-                <li class="nav-item">
-                    <a href="Voter-dashboard.html" class="nav-link active">
-                        <i class="bi bi-grid-1x2-fill"></i> Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="bi bi-check2-square"></i> Vote
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="Voter-guidline.html" class="nav-link">
-                        <i class="bi bi-journal-text"></i> Voters Guideline
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="profile-settings.html" class="nav-link">
-                        <i class="bi bi-gear-fill"></i> Profile Settings
-                    </a>
-                </li>
-            </ul>
-            
-            <!-- Logout button in footer section -->
-            <ul class="nav flex-column nav-footer">
-                <li class="nav-item">
-                    <a href="#" class="nav-link text-danger">
-                        <i class="bi bi-box-arrow-right"></i> Log out
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <div class="profile-name" id="userProfileName">Isaiah Durojaiye</div>
+        <div class="profile-role" id="userProfileRole">Student Voter</div>
+      </div>
+
+      <!-- Sidebar Navigation with improved structure -->
+      <div class="sidebar-nav">
+        <ul class="nav flex-column nav-main">
+          <li class="nav-item">
+            <a href="Voter-dashboard.html" class="nav-link active">
+              <i class="bi bi-grid-1x2-fill"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="bi bi-check2-square"></i> Vote
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="Voter-guidline.html" class="nav-link">
+              <i class="bi bi-journal-text"></i> Voters Guideline
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="profile-settings.html" class="nav-link">
+              <i class="bi bi-gear-fill"></i> Profile Settings
+            </a>
+          </li>
+        </ul>
+
+        <!-- Logout button in footer section -->
+        <ul class="nav flex-column nav-footer">
+          <li class="nav-item">
+            <a href="voter_log_in.html" class="nav-link text-danger">
+              <i class="bi bi-box-arrow-right"></i> Log out
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
-        <!-- Top Navbar -->
-        <div class="top-navbar">
-            <button class="toggle-sidebar" id="toggleSidebar">
-                <i class="bi bi-list"></i>
-            </button>
-            
-            <div class="search-bar position-relative">
-                <i class="bi bi-search search-icon"></i>
-                <input type="text" class="form-control search-input" placeholder="Search...">
-            </div>
-            
-            <div class="user-actions">
-                <div class="action-icon">
-                    <i class="bi bi-bell"></i>
-                </div>
-                <div class="action-icon">
-                    <i class="bi bi-question-circle"></i>
-                </div>
-                <!-- Improved navbar user container -->
-                <div class="navbar-user-container">
-                    <img src="/api/placeholder/40/40" alt="User" class="user-avatar" id="navbarUserImage">
-                    <div class="status-indicator"></div>
-                </div>
-            </div>
+      <!-- Top Navbar -->
+      <div class="top-navbar">
+        <button class="toggle-sidebar" id="toggleSidebar">
+          <i class="bi bi-list"></i>
+        </button>
+
+        <div class="search-bar position-relative">
+          <i class="bi bi-search search-icon"></i>
+          <input
+            type="text"
+            class="form-control search-input"
+            placeholder="Search..."
+          />
         </div>
-        
-        <!-- Welcome Message -->
-        <div class="mb-4">
-            <h2>Hello, Juan!</h2>
-            <p class="text-muted">Welcome to RUN's Online Voting System</p>
+
+        <div class="user-actions">
+          <div class="action-icon">
+            <i class="bi bi-bell"></i>
+          </div>
+          <div class="action-icon">
+            <i class="bi bi-question-circle"></i>
+          </div>
+          <!-- Improved navbar user container -->
+          <div class="navbar-user-container" id="navbarUserContainer">
+            <img
+              src="/api/placeholder/40/40"
+              class="user-avatar"
+              id="navbarUserImage"
+            />
+            <div class="status-indicator"></div>
+          </div>
         </div>
-        
-        <div class="row">
-            <!-- Ongoing Elections -->
-            <div class="col-lg-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-header">Ongoing Elections</div>
-                    <div class="card-body">
-                        <div class="election-card">
-                            <div class="election-info">
-                                <h4>President Student Council</h4>
-                                <button class="btn vote-btn">Vote now</button>
-                            </div>
-                            <img src="images/Voting-amico.png" alt="Election" class="election-image">
-                        </div>
-                    </div>
+      </div>
+
+      <!-- Welcome Message -->
+      <div class="mb-4">
+        <h2>Hello, Juan!</h2>
+        <p class="text-muted">Welcome to RUN's Online Voting System</p>
+      </div>
+
+      <div class="row">
+        <!-- Ongoing Elections -->
+        <div class="col-lg-6 mb-4">
+          <div class="card h-100">
+            <div class="card-header">Ongoing Elections</div>
+            <div class="card-body">
+              <div class="election-card">
+                <div class="election-info">
+                  <h4>President Student Council</h4>
+                  <button class="btn vote-btn">Vote now</button>
                 </div>
+                <img
+                  src="images/Voting-amico.png"
+                  alt="Election"
+                  class="election-image"
+                />
+              </div>
             </div>
-            
-            <!-- Calendar -->
-            <div class="col-lg-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-header">Calendar</div>
-                    <div class="card-body">
-                        <div class="calendar-header">
-                            <div class="today-indicator">Today</div>
-                            <div class="calendar-navigation">
-                                <button class="nav-btn">Next week</button>
-                                <button class="nav-btn">This Month</button>
-                            </div>
-                        </div>
-                        
-                        <div class="calendar-dates d-flex">
-                            <div class="date-pill">
-                                <span class="day">Mon</span>
-                                <span class="date">20</span>
-                            </div>
-                            <div class="date-pill">
-                                <span class="day">Tue</span>
-                                <span class="date">21</span>
-                            </div>
-                            <div class="date-pill active">
-                                <span class="day">Wed</span>
-                                <span class="date">22</span>
-                            </div>
-                            <div class="date-pill">
-                                <span class="day">Thu</span>
-                                <span class="date">23</span>
-                            </div>
-                            <div class="date-pill">
-                                <span class="day">Fri</span>
-                                <span class="date">24</span>
-                            </div>
-                        </div>
-                        
-                        <div class="calendar-event">
-                            <div class="event-color"></div>
-                            <div>President Student Council</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Live Results -->
-            <div class="col-lg-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-header">
-                        <div class="d-flex align-items-center">
-                            <a href="#" class="back-btn"><i class="bi bi-chevron-left"></i></a>
-                            <span>President Student Council</span>
-                            <i class="bi bi-chevron-right ms-auto"></i>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="candidate-progress">
-                            <div class="candidate-name">
-                                <span>Candidate #1</span>
-                                <span>56%</span>
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 56%" aria-valuenow="56" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="candidate-progress">
-                            <div class="candidate-name">
-                                <span>Candidate #2</span>
-                                <span>34%</span>
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 34%" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="candidate-progress">
-                            <div class="candidate-name">
-                                <span>Candidate #3</span>
-                                <span>10%</span>
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="d-flex justify-content-between mt-4">
-                            <div class="small text-muted">0</div>
-                            <div class="small text-muted">50</div>
-                            <div class="small text-muted">100</div>
-                            <div class="small text-muted">150</div>
-                            <div class="small text-muted">200</div>
-                        </div>
-                        <div class="small text-muted text-center mt-1">No. of Votes</div>
-                        
-                        <div class="small text-muted fst-italic mt-3">*The candidate list is not in order</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Voting Process -->
-            <div class="col-lg-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-header">Voting Process</div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <div class="stat-circle" id="registeredVotersChart"></div>
-                                <div class="stat-text">
-                                    <div class="stat-number">562</div>
-                                </div>
-                                <div class="stat-label">Total number of registered voters</div>
-                            </div>
-                            
-                            <div class="col-md-4 mb-3">
-                                <div class="stat-circle" id="totalVotesChart"></div>
-                                <div class="stat-text">
-                                    <div class="stat-number">321</div>
-                                </div>
-                                <div class="stat-label">Total number of votes</div>
-                            </div>
-                            
-                            <div class="col-md-4 mb-3">
-                                <div class="stat-circle" id="candidatesChart"></div>
-                                <div class="stat-text">
-                                    <div class="stat-number">3</div>
-                                </div>
-                                <div class="stat-label">Total number of registered candidates</div>
-                            </div>
-                        </div>
-                        
-                        <div class="pagination-dots">
-                            <div class="dot active"></div>
-                            <div class="dot"></div>
-                            <div class="dot"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Election Activities -->
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">Election Activities</div>
-                    <div class="card-body">
-                        <div class="activity-item">
-                            <div class="activity-status status-ongoing"></div>
-                            <div class="activity-details">
-                                <div class="activity-name">President Student Council</div>
-                            </div>
-                            <div class="activity-date">10/22/2022</div>
-                            <span class="activity-label label-ongoing">Ongoing</span>
-                        </div>
-                        
-                        <div class="activity-item">
-                            <div class="activity-status status-pending"></div>
-                            <div class="activity-details">
-                                <div class="activity-name">Vice President Student Council</div>
-                            </div>
-                            <div class="activity-date"></div>
-                            <span class="activity-label label-pending">Pending</span>
-                        </div>
-                        
-                        <div class="activity-item">
-                            <div class="activity-status status-concluded"></div>
-                            <div class="activity-details">
-                                <div class="activity-name">Secretary Student Council</div>
-                            </div>
-                            <div class="activity-date"></div>
-                            <span class="activity-label label-concluded">Concluded</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+
+        <!-- Calendar -->
+        <div class="col-lg-6 mb-4">
+          <div class="card h-100">
+            <div class="card-header">Calendar</div>
+            <div class="card-body">
+              <div class="calendar-header">
+                <div class="today-indicator">Today</div>
+                <div class="calendar-navigation">
+                  <button class="nav-btn">Next week</button>
+                  <button class="nav-btn">This Month</button>
+                </div>
+              </div>
+
+              <div class="calendar-dates d-flex">
+                <div class="date-pill">
+                  <span class="day">Mon</span>
+                  <span class="date">20</span>
+                </div>
+                <div class="date-pill">
+                  <span class="day">Tue</span>
+                  <span class="date">21</span>
+                </div>
+                <div class="date-pill active">
+                  <span class="day">Wed</span>
+                  <span class="date">22</span>
+                </div>
+                <div class="date-pill">
+                  <span class="day">Thu</span>
+                  <span class="date">23</span>
+                </div>
+                <div class="date-pill">
+                  <span class="day">Fri</span>
+                  <span class="date">24</span>
+                </div>
+              </div>
+
+              <div class="calendar-event">
+                <div class="event-color"></div>
+                <div>President Student Council</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Results -->
+        <div class="col-lg-6 mb-4">
+          <div class="card h-100">
+            <div class="card-header">
+              <div class="d-flex align-items-center">
+                <a href="#" class="back-btn"
+                  ><i class="bi bi-chevron-left"></i
+                ></a>
+                <span>President Student Council</span>
+                <i class="bi bi-chevron-right ms-auto"></i>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="candidate-progress">
+                <div class="candidate-name">
+                  <span>Candidate #1</span>
+                  <span>56%</span>
+                </div>
+                <div class="progress">
+                  <div
+                    class="progress-bar"
+                    role="progressbar"
+                    style="width: 56%"
+                    aria-valuenow="56"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="candidate-progress">
+                <div class="candidate-name">
+                  <span>Candidate #2</span>
+                  <span>34%</span>
+                </div>
+                <div class="progress">
+                  <div
+                    class="progress-bar"
+                    role="progressbar"
+                    style="width: 34%"
+                    aria-valuenow="34"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="candidate-progress">
+                <div class="candidate-name">
+                  <span>Candidate #3</span>
+                  <span>10%</span>
+                </div>
+                <div class="progress">
+                  <div
+                    class="progress-bar"
+                    role="progressbar"
+                    style="width: 10%"
+                    aria-valuenow="10"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between mt-4">
+                <div class="small text-muted">0</div>
+                <div class="small text-muted">50</div>
+                <div class="small text-muted">100</div>
+                <div class="small text-muted">150</div>
+                <div class="small text-muted">200</div>
+              </div>
+              <div class="small text-muted text-center mt-1">No. of Votes</div>
+
+              <div class="small text-muted fst-italic mt-3">
+                *The candidate list is not in order
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Voting Process -->
+        <div class="col-lg-6 mb-4">
+          <div class="card h-100">
+            <div class="card-header">Voting Process</div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <div class="stat-circle" id="registeredVotersChart"></div>
+                  <div class="stat-text">
+                    <div class="stat-number">562</div>
+                  </div>
+                  <div class="stat-label">
+                    Total number of registered voters
+                  </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <div class="stat-circle" id="totalVotesChart"></div>
+                  <div class="stat-text">
+                    <div class="stat-number">321</div>
+                  </div>
+                  <div class="stat-label">Total number of votes</div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <div class="stat-circle" id="candidatesChart"></div>
+                  <div class="stat-text">
+                    <div class="stat-number">3</div>
+                  </div>
+                  <div class="stat-label">
+                    Total number of registered candidates
+                  </div>
+                </div>
+              </div>
+
+              <div class="pagination-dots">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Election Activities -->
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-header">Election Activities</div>
+            <div class="card-body">
+              <div class="activity-item">
+                <div class="activity-status status-ongoing"></div>
+                <div class="activity-details">
+                  <div class="activity-name">President Student Council</div>
+                </div>
+                <div class="activity-date">10/22/2022</div>
+                <span class="activity-label label-ongoing">Ongoing</span>
+              </div>
+
+              <div class="activity-item">
+                <div class="activity-status status-pending"></div>
+                <div class="activity-details">
+                  <div class="activity-name">
+                    Vice President Student Council
+                  </div>
+                </div>
+                <div class="activity-date"></div>
+                <span class="activity-label label-pending">Pending</span>
+              </div>
+
+              <div class="activity-item">
+                <div class="activity-status status-concluded"></div>
+                <div class="activity-details">
+                  <div class="activity-name">Secretary Student Council</div>
+                </div>
+                <div class="activity-date"></div>
+                <span class="activity-label label-concluded">Concluded</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Bootstrap & Other JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize profile containers
+        const sidebarProfileContainer = document.getElementById(
+          "sidebarProfileContainer"
+        );
+        const navbarUserContainer = document.getElementById(
+          "navbarUserContainer"
+        );
+
+        // Function to show profile image or default user icon
+        function updateProfileDisplays(imageUrl) {
+          // Clear existing sidebar container
+          sidebarProfileContainer.innerHTML = "";
+          navbarUserContainer.innerHTML = "";
+
+          if (imageUrl) {
+            // Sidebar profile image
+            const sidebarImg = document.createElement("img");
+            sidebarImg.src = imageUrl;
+            sidebarImg.alt = "Profile";
+            sidebarImg.className = "profile-image";
+            sidebarImg.id = "userProfileImage";
+            sidebarImg.style.borderRadius = "50%";
+            sidebarImg.style.width = "100%";
+            sidebarImg.style.height = "100%";
+            sidebarImg.style.objectFit = "cover";
+            sidebarProfileContainer.appendChild(sidebarImg);
+
+            // Add edit icon to sidebar profile
+            const editIcon = document.createElement("div");
+            editIcon.className = "edit-icon";
+            editIcon.innerHTML =
+              '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
+            sidebarProfileContainer.appendChild(editIcon);
+
+            // Navbar profile image
+            const navbarImg = document.createElement("img");
+            navbarImg.src = imageUrl;
+            navbarImg.alt = "User";
+            navbarImg.className = "user-avatar";
+            navbarImg.id = "navbarUserImage";
+            navbarImg.style.borderRadius = "50%";
+            navbarImg.style.width = "100%";
+            navbarImg.style.height = "100%";
+            navbarImg.style.objectFit = "cover";
+            navbarUserContainer.appendChild(navbarImg);
+
+            // Add status indicator to navbar
+            const statusIndicator = document.createElement("div");
+            statusIndicator.className = "status-indicator";
+            navbarUserContainer.appendChild(statusIndicator);
+          } else {
+            // Sidebar profile icon - default user icon
+            const sidebarIcon = document.createElement("div");
+            sidebarIcon.className = "default-user-icon";
+            sidebarIcon.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path fill="#888888" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                        </svg>
+                `;
+            sidebarProfileContainer.appendChild(sidebarIcon);
+
+            // Add edit icon to sidebar profile
+            const editIcon = document.createElement("div");
+            editIcon.className = "edit-icon";
+            editIcon.innerHTML =
+              '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
+            sidebarProfileContainer.appendChild(editIcon);
+
+            // Navbar profile icon - default user icon
+            const navbarIcon = document.createElement("div");
+            navbarIcon.className = "default-user-icon";
+            navbarIcon.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path fill="#888888" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                        </svg>
+                `;
+            navbarUserContainer.appendChild(navbarIcon);
+
+            // Add status indicator to navbar
+            const statusIndicator = document.createElement("div");
+            statusIndicator.className = "status-indicator";
+            navbarUserContainer.appendChild(statusIndicator);
+          }
+
+          // If modal is open, update modal profile image as well
+          const modalProfileContainer = document.getElementById(
+            "modalProfileContainer"
+          );
+          if (modalProfileContainer) {
+            updateModalProfileImage(modalProfileContainer, imageUrl);
+          }
+        }
+
+        // Function to update modal profile image
+        function updateModalProfileImage(container, imageUrl) {
+          container.innerHTML = "";
+
+          if (imageUrl) {
+            const img = document.createElement("img");
+            img.src = imageUrl;
+            img.alt = "Profile";
+            img.style.width = "100%";
+            img.style.height = "100%";
+            img.style.objectFit = "cover";
+            img.style.borderRadius = "50%";
+            container.appendChild(img);
+          } else {
+            container.innerHTML = `
+                    <div class="default-user-icon" style="width: 100%; height: 100%; background-color: #e9ecef; border-radius: 50%;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 80%; height: 80%; margin: 10%;">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                        </svg>
+                    </div>
+                `;
+          }
+        }
+
+        // Helper function to show alerts
+        function showAlert(message, type) {
+          const alertDiv = document.createElement("div");
+          alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+          alertDiv.role = "alert";
+          alertDiv.style.position = "fixed";
+          alertDiv.style.top = "20px";
+          alertDiv.style.right = "20px";
+          alertDiv.style.zIndex = "9999";
+          alertDiv.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+
+          document.body.appendChild(alertDiv);
+
+          // Auto dismiss after 3 seconds
+          setTimeout(() => {
+            if (alertDiv.parentNode) {
+              const bsAlert = new bootstrap.Alert(alertDiv);
+              bsAlert.close();
+            }
+          }, 3000);
+        }
+
         // Load user profile data including image
         try {
-            const user = JSON.parse(localStorage.getItem('currentUser'));
-            
-            if (user) {
-                // Update profile name
-                const profileNameElements = document.querySelectorAll('#userProfileName');
-                profileNameElements.forEach(element => {
-                    element.textContent = `${user.firstName} ${user.lastName}`;
-                });
-                
-                // Update profile role if exists
-                const profileRoleElements = document.querySelectorAll('#userProfileRole');
-                if (user.role) {
-                    profileRoleElements.forEach(element => {
-                        element.textContent = user.role;
-                    });
-                }
-                
-                // Update profile images if exists
-                if (user.profileImage) {
-                    const profileImageElements = document.querySelectorAll('#userProfileImage, #navbarUserImage');
-                    profileImageElements.forEach(img => {
-                        img.src = user.profileImage;
-                        img.alt = `${user.firstName} ${user.lastName}`;
-                    });
-                }
+          const user = JSON.parse(localStorage.getItem("currentUser")) || {};
+
+          // Update profile name
+          if (user.firstName && user.lastName) {
+            document.getElementById(
+              "userProfileName"
+            ).textContent = `${user.firstName} ${user.lastName}`;
+            // Update welcome message
+            const welcomeHeading = document.querySelector("h2");
+            if (
+              welcomeHeading &&
+              welcomeHeading.textContent.includes("Hello")
+            ) {
+              welcomeHeading.textContent = `Hello, ${user.firstName}!`;
             }
+          }
+
+          // Update profile role if exists
+          if (user.role) {
+            document.getElementById("userProfileRole").textContent = user.role;
+          }
+
+          // Update profile images
+          updateProfileDisplays(user.profileImage);
         } catch (error) {
-            console.error('Error loading user profile:', error);
+          console.error("Error loading user profile:", error);
+          updateProfileDisplays(null);
         }
-        
-        // Add profile edit functionality (for demonstration)
-        const profileImages = document.querySelectorAll('#userProfileImage, #navbarUserImage');
-        profileImages.forEach(img => {
-            img.addEventListener('click', function() {
-                // Create a Bootstrap modal for profile editing
-                const modalHTML = `
-                    <div class="modal fade" id="profileEditModal" tabindex="-1" aria-labelledby="profileEditModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="profileEditModalLabel">Edit Profile</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body text-center">
-                                    <div class="mb-3">
-                                        <div class="position-relative d-inline-block">
-                                            <img src="${img.src}" alt="Profile" class="rounded-circle" style="width: 100px; height: 100px; object-fit: cover;">
-                                            <div class="position-absolute bottom-0 end-0 bg-primary rounded-circle d-flex justify-content-center align-items-center" style="width: 28px; height: 28px; cursor: pointer;">
-                                                <i class="bi bi-camera-fill text-white"></i>
-                                            </div>
+
+        // Create profile edit modal with upload and remove functionality
+        function createProfileEditModal() {
+          // Modal HTML structure
+          const modalHTML = `
+                <div class="modal fade" id="profileEditModal" tabindex="-1" aria-labelledby="profileEditModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="profileEditModalLabel">Edit Profile Picture</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <div class="mb-4">
+                                    <div class="position-relative d-inline-block">
+                                        <div id="modalProfileContainer" class="rounded-circle overflow-hidden" style="width: 150px; height: 150px;">
+                                            <!-- Image will be inserted here -->
                                         </div>
                                     </div>
-                                    <p class="text-muted">Click on the camera icon to change your profile picture</p>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                <div class="mb-4">
+                                    <button id="modalUploadBtn" class="btn btn-success btn-sm rounded-pill px-4">UPLOAD</button>
+                                    <button id="modalRemoveBtn" class="btn btn-danger btn-sm rounded-pill px-4 ms-2">REMOVE</button>
                                 </div>
+                                <p class="text-muted small">Click upload to select a new profile picture</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
-                `;
-                
-                // Append modal to body
-                const modalDiv = document.createElement('div');
-                modalDiv.innerHTML = modalHTML;
-                document.body.appendChild(modalDiv);
-                
-                // Initialize and show the modal
-                const profileModal = new bootstrap.Modal(document.getElementById('profileEditModal'));
-                profileModal.show();
-                
-                // Clean up when modal is hidden
-                document.getElementById('profileEditModal').addEventListener('hidden.bs.modal', function() {
-                    document.body.removeChild(modalDiv);
-                });
+                </div>
+            `;
+
+          // Append modal to body
+          const modalDiv = document.createElement("div");
+          modalDiv.innerHTML = modalHTML;
+          document.body.appendChild(modalDiv);
+
+          // Get current user data
+          const user = JSON.parse(localStorage.getItem("currentUser")) || {};
+
+          // Update modal profile container with current image or default icon
+          const modalProfileContainer = document.getElementById(
+            "modalProfileContainer"
+          );
+          updateModalProfileImage(modalProfileContainer, user.profileImage);
+
+          // Handle upload button click in modal
+          document
+            .getElementById("modalUploadBtn")
+            .addEventListener("click", function () {
+              // Create file input element
+              const fileInput = document.createElement("input");
+              fileInput.type = "file";
+              fileInput.accept = "image/*";
+              fileInput.style.display = "none";
+              document.body.appendChild(fileInput);
+
+              // Trigger file selection
+              fileInput.click();
+
+              // Handle file selection
+              fileInput.addEventListener("change", function () {
+                if (this.files && this.files[0]) {
+                  const reader = new FileReader();
+
+                  reader.onload = function (e) {
+                    const imageResult = e.target.result;
+
+                    // Update modal image
+                    updateModalProfileImage(modalProfileContainer, imageResult);
+
+                    // Update profile images on page
+                    updateProfileDisplays(imageResult);
+
+                    // Store image in localStorage
+                    try {
+                      let user =
+                        JSON.parse(localStorage.getItem("currentUser")) || {};
+                      user.profileImage = imageResult;
+                      localStorage.setItem("currentUser", JSON.stringify(user));
+
+                      // Show success message
+                      showAlert(
+                        "Profile picture updated successfully!",
+                        "success"
+                      );
+                    } catch (error) {
+                      console.error("Error saving profile image:", error);
+                      showAlert(
+                        "Error saving profile image. Please try again.",
+                        "danger"
+                      );
+                    }
+                  };
+
+                  reader.readAsDataURL(this.files[0]);
+                }
+
+                // Clean up
+                document.body.removeChild(fileInput);
+              });
             });
+
+          // Handle remove button click in modal
+          document
+            .getElementById("modalRemoveBtn")
+            .addEventListener("click", function () {
+              // Update both modal and page with default icons
+              updateModalProfileImage(modalProfileContainer, null);
+              updateProfileDisplays(null);
+
+              // Remove image from storage
+              try {
+                let user =
+                  JSON.parse(localStorage.getItem("currentUser")) || {};
+                delete user.profileImage;
+                localStorage.setItem("currentUser", JSON.stringify(user));
+
+                // Show success message
+                showAlert("Profile picture removed successfully!", "success");
+              } catch (error) {
+                console.error("Error removing profile image:", error);
+                showAlert(
+                  "Error removing profile image. Please try again.",
+                  "danger"
+                );
+              }
+            });
+
+          return new bootstrap.Modal(
+            document.getElementById("profileEditModal")
+          );
+        }
+
+        // Add profile edit functionality to both sidebar and navbar profile images
+        const profileElements = [sidebarProfileContainer, navbarUserContainer];
+
+        profileElements.forEach((element) => {
+          element.style.cursor = "pointer";
+          element.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Create and show the modal
+            const profileModal = createProfileEditModal();
+            profileModal.show();
+
+            // Clean up when modal is hidden
+            document
+              .getElementById("profileEditModal")
+              .addEventListener("hidden.bs.modal", function () {
+                if (this.parentNode) {
+                  document.body.removeChild(this.parentNode);
+                }
+              });
+          });
         });
-      
+
         // Toggle Sidebar
-        document.getElementById('toggleSidebar').addEventListener('click', function() {
-            document.getElementById('sidebar').classList.toggle('active');
-        });
-        document.getElementById('close').addEventListener('click', function() {
-            document.getElementById('sidebar').classList.remove('active');
+        document
+          .getElementById("toggleSidebar")
+          .addEventListener("click", function () {
+            document.getElementById("sidebar").classList.toggle("active");
+          });
+        document.getElementById("close").addEventListener("click", function () {
+          document.getElementById("sidebar").classList.remove("active");
         });
 
         // Initialize Charts
         // Registered Voters Chart
         const registeredVotersChart = new Chart(
-            document.createElement('canvas'), {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        data: [562, 0],
-                        backgroundColor: ['#4954b8', '#e9ecef'],
-                        borderWidth:  0
-                    }]
+          document.createElement("canvas"),
+          {
+            type: "doughnut",
+            data: {
+              datasets: [
+                {
+                  data: [562, 0],
+                  backgroundColor: ["#4954b8", "#e9ecef"],
+                  borderWidth: 0,
                 },
-                options: {
-                    cutout: '75%',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            enabled: false
-                        }
-                    }
-                }
-            }
+              ],
+            },
+            options: {
+              cutout: "75%",
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  display: false,
+                },
+                tooltip: {
+                  enabled: false,
+                },
+              },
+            },
+          }
         );
-        document.getElementById('registeredVotersChart').appendChild(registeredVotersChart.canvas);
-        
+        document
+          .getElementById("registeredVotersChart")
+          .appendChild(registeredVotersChart.canvas);
+
         // Total Votes Chart
-        const totalVotesChart = new Chart(
-            document.createElement('canvas'), {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        data: [321, 241],
-                        backgroundColor: ['#4954b8', '#e9ecef'],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    cutout: '75%',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            enabled: false
-                        }
-                    }
-                }
-            }
-        );
-        document.getElementById('totalVotesChart').appendChild(totalVotesChart.canvas);
-        
+        const totalVotesChart = new Chart(document.createElement("canvas"), {
+          type: "doughnut",
+          data: {
+            datasets: [
+              {
+                data: [321, 241],
+                backgroundColor: ["#4954b8", "#e9ecef"],
+                borderWidth: 0,
+              },
+            ],
+          },
+          options: {
+            cutout: "75%",
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false,
+              },
+              tooltip: {
+                enabled: false,
+              },
+            },
+          },
+        });
+        document
+          .getElementById("totalVotesChart")
+          .appendChild(totalVotesChart.canvas);
+
         // Candidates Chart
-        const candidatesChart = new Chart(
-            document.createElement('canvas'), {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        data: [3, 0],
-                        backgroundColor: ['#4954b8', '#e9ecef'],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    cutout: '75%',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            enabled: false
-                        }
-                    }
-                }
-            }
-        );
-        document.getElementById('candidatesChart').appendChild(candidatesChart.canvas);
+        const candidatesChart = new Chart(document.createElement("canvas"), {
+          type: "doughnut",
+          data: {
+            datasets: [
+              {
+                data: [3, 0],
+                backgroundColor: ["#4954b8", "#e9ecef"],
+                borderWidth: 0,
+              },
+            ],
+          },
+          options: {
+            cutout: "75%",
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false,
+              },
+              tooltip: {
+                enabled: false,
+              },
+            },
+          },
+        });
+        document
+          .getElementById("candidatesChart")
+          .appendChild(candidatesChart.canvas);
       });
     </script>
-</body>
+  </body>
 </html>
