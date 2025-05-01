@@ -55,7 +55,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="vote.html" class="nav-link">
               <i class="bi bi-check2-square"></i> Vote
             </a>
           </li>
@@ -194,76 +194,96 @@
           <div class="card h-100">
             <div class="card-header">
               <div class="d-flex align-items-center">
-                <a href="#" class="back-btn"
-                  ><i class="bi bi-chevron-left"></i
-                ></a>
+                <a href="#" class="back-btn"><i class="bi bi-chevron-left"></i></a>
                 <span>President Student Council</span>
                 <i class="bi bi-chevron-right ms-auto"></i>
               </div>
             </div>
             <div class="card-body">
-              <div class="candidate-progress">
-                <div class="candidate-name">
-                  <span>Candidate #1</span>
-                  <span>56%</span>
+              <!-- Stats row -->
+              <div class="stats-row">
+                <div class="stat-item">
+                  <div class="stat-value">3</div>
+                  <div class="stat-label">Candidates</div>
                 </div>
-                <div class="progress">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 56%"
-                    aria-valuenow="56"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
+                <div class="stat-item">
+                  <div class="stat-value">200</div>
+                  <div class="stat-label">Total Votes</div>
                 </div>
-              </div>
-
-              <div class="candidate-progress">
-                <div class="candidate-name">
-                  <span>Candidate #2</span>
-                  <span>34%</span>
-                </div>
-                <div class="progress">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 34%"
-                    aria-valuenow="34"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
+                <div class="stat-item">
+                  <div class="stat-value">57%</div>
+                  <div class="stat-label">Turnout</div>
                 </div>
               </div>
-
-              <div class="candidate-progress">
-                <div class="candidate-name">
-                  <span>Candidate #3</span>
-                  <span>10%</span>
+              
+              <!-- Tabs -->
+              <div class="card-tabs">
+                <div class="card-tab active">Results</div>
+                <div class="card-tab">Chart View</div>
+              </div>
+              
+              <!-- Candidates list with progress bars -->
+              <div id="candidates-container">
+                <!-- Candidate 1 -->
+                <div class="candidate-item leading">
+                  <div class="candidate-avatar">
+                    <i class="bi bi-person"></i>
+                  </div>
+                  <div class="candidate-info">
+                    <div class="candidate-name">
+                      Candidate #1
+                      <span class="leading-indicator">Leading</span>
+                    </div>
+                    <div class="vote-count">112 votes</div>
+                    <div class="progress-container">
+                      <div class="progress-bar" style="width: 56%; background-color: rgba(73, 84, 184, 0.8);"></div>
+                    </div>
+                  </div>
+                  <div class="vote-percentage">56%</div>
                 </div>
-                <div class="progress">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 10%"
-                    aria-valuenow="10"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
+                
+                <!-- Candidate 2 -->
+                <div class="candidate-item">
+                  <div class="candidate-avatar">
+                    <i class="bi bi-person"></i>
+                  </div>
+                  <div class="candidate-info">
+                    <div class="candidate-name">Candidate #2</div>
+                    <div class="vote-count">68 votes</div>
+                    <div class="progress-container">
+                      <div class="progress-bar" style="width: 34%; background-color: rgba(73, 84, 184, 0.6);"></div>
+                    </div>
+                  </div>
+                  <div class="vote-percentage">34%</div>
+                </div>
+                
+                <!-- Candidate 3 -->
+                <div class="candidate-item">
+                  <div class="candidate-avatar">
+                    <i class="bi bi-person"></i>
+                  </div>
+                  <div class="candidate-info">
+                    <div class="candidate-name">Candidate #3</div>
+                    <div class="vote-count">20 votes</div>
+                    <div class="progress-container">
+                      <div class="progress-bar" style="width: 10%; background-color: rgba(73, 84, 184, 0.4);"></div>
+                    </div>
+                  </div>
+                  <div class="vote-percentage">10%</div>
                 </div>
               </div>
-
-              <div class="d-flex justify-content-between mt-4">
-                <div class="small text-muted">0</div>
-                <div class="small text-muted">50</div>
-                <div class="small text-muted">100</div>
-                <div class="small text-muted">150</div>
-                <div class="small text-muted">200</div>
+              
+              <!-- Charts container (hidden initially) -->
+              <div class="results-chart-container" style="display: none;">
+                <canvas id="resultsChart"></canvas>
               </div>
-              <div class="small text-muted text-center mt-1">No. of Votes</div>
-
-              <div class="small text-muted fst-italic mt-3">
-                *The candidate list is not in order
+              
+              <div class="timestamp">Last updated: April 30, 2025 • 10:45 AM</div>
+              
+              <button class="vote-now-button">VOTE NOW</button>
+              
+              <div class="small-note">
+                *The candidate list is not in any particular order. Results are updated in real-time.
               </div>
             </div>
           </div>
@@ -288,7 +308,7 @@
                 <div class="col-md-4 mb-3">
                   <div class="stat-circle" id="totalVotesChart"></div>
                   <div class="stat-text">
-                    <div class="stat-number">321</div>
+                    <div class="stat-number">312</div>
                   </div>
                   <div class="stat-label">Total number of votes</div>
                 </div>
@@ -715,7 +735,7 @@
               ],
             },
             options: {
-              cutout: "75%",
+              cutout: "65%",
               responsive: true,
               maintainAspectRatio: false,
               plugins: {
@@ -746,7 +766,7 @@
             ],
           },
           options: {
-            cutout: "75%",
+            cutout: "65%",
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
@@ -769,14 +789,14 @@
           data: {
             datasets: [
               {
-                data: [3, 0],
+                data: [3, 10],
                 backgroundColor: ["#4954b8", "#e9ecef"],
                 borderWidth: 0,
               },
             ],
           },
           options: {
-            cutout: "75%",
+            cutout: "65%",
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
@@ -793,6 +813,124 @@
           .getElementById("candidatesChart")
           .appendChild(candidatesChart.canvas);
       });
+
+      document.addEventListener('DOMContentLoaded', function() {
+  // Check if the candidates container and tabs exist on the page
+  const candidatesContainer = document.getElementById('candidates-container');
+  const chartContainer = document.querySelector('.results-chart-container');
+  const tabs = document.querySelectorAll('.card-tab');
+  
+  if (candidatesContainer && tabs.length > 0) {
+    // Initialize tabs functionality
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        // Remove active class from all tabs
+        tabs.forEach(t => t.classList.remove('active'));
+        
+        // Add active class to clicked tab
+        this.classList.add('active');
+        
+        // Show/hide appropriate content
+        if (this.textContent === 'Results') {
+          candidatesContainer.style.display = 'block';
+          chartContainer.style.display = 'none';
+        } else {
+          candidatesContainer.style.display = 'none';
+          chartContainer.style.display = 'block';
+          
+          // Initialize chart if it's being shown
+          initResultsChart();
+        }
+      });
+    });
+    
+    // Add animation to progress bars
+    setTimeout(() => {
+      const progressBars = document.querySelectorAll('.progress-container .progress-bar');
+      progressBars.forEach(bar => {
+        const width = bar.style.width;
+        bar.style.width = '0%';
+        setTimeout(() => {
+          bar.style.width = width;
+        }, 300);
+      });
+    }, 500);
+  }
+  
+  // Function to initialize the candidate results chart
+  function initResultsChart() {
+    const ctx = document.getElementById('resultsChart');
+    
+    // Only proceed if the canvas exists
+    if (!ctx) return;
+    
+    // Get the context
+    const ctxContext = ctx.getContext('2d');
+    
+    // Check if chart already exists and destroy it to prevent duplicates
+    if (window.resultsChart instanceof Chart) {
+      window.resultsChart.destroy();
+    }
+    
+    // Create new chart
+    window.resultsChart = new Chart(ctxContext, {
+      type: 'bar',
+      data: {
+        labels: ['Candidate #1', 'Candidate #2', 'Candidate #3'],
+        datasets: [{
+          label: 'Votes',
+          data: [112, 68, 20],
+          backgroundColor: [
+            'rgba(73, 84, 184, 0.8)',
+            'rgba(73, 84, 184, 0.6)',
+            'rgba(73, 84, 184, 0.4)'
+          ],
+          borderColor: [
+            'rgba(73, 84, 184, 1)',
+            'rgba(73, 84, 184, 1)',
+            'rgba(73, 84, 184, 1)'
+          ],
+          borderWidth: 1,
+          borderRadius: 5
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const value = context.raw;
+                const total = 200; // Total votes
+                const percentage = Math.round((value / total) * 100);
+                return `${value} votes (${percentage}%)`;
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: {
+              display: true,
+              drawBorder: false,
+              color: 'rgba(0, 0, 0, 0.05)'
+            }
+          },
+          x: {
+            grid: {
+              display: false
+            }
+          }
+        }
+      }
+    });
+  }
+});
     </script>
   </body>
 </html>

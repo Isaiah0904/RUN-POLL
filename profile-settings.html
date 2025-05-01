@@ -55,7 +55,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="vote.html" class="nav-link">
               <i class="bi bi-check2-square"></i> Vote
             </a>
           </li>
@@ -65,7 +65,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="profile-settings.css" class="nav-link active">
+            <a href="profile-settings.html" class="nav-link active">
               <i class="bi bi-gear-fill"></i> Profile Settings
             </a>
           </li>
@@ -74,7 +74,7 @@
         <!-- Logout button in footer section -->
         <ul class="nav flex-column nav-footer">
           <li class="nav-item">
-            <a href="#" class="nav-link text-danger">
+            <a href="voter_log_in.html" class="nav-link text-danger">
               <i class="bi bi-box-arrow-right"></i> Log out
             </a>
           </li>
@@ -174,18 +174,6 @@
 
                 <div class="mb-3">
                   <label class="form-label-sm d-block text-start"
-                    >Middle Name</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control form-control-sm"
-                    value="Oluwatimilehin"
-                    id="middleName"
-                  />
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label-sm d-block text-start"
                     >Last Name</label
                   >
                   <input
@@ -209,8 +197,18 @@
 
                 <div class="mb-3">
                   <label class="d-flex align-items-center mb-1">
+                    <i class="bi bi-person-badge me-2 text-primary"></i>
+                    <span class="text-muted small">Student ID</span>
+                  </label>
+                  <div class="info-container" id="studentIdInfo">
+                    RUN/CMP/22/13041
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="d-flex align-items-center mb-1">
                     <i class="bi bi-calendar me-2 text-primary"></i>
-                    <span class="text-muted small">Birthday</span>
+                    <span class="text-muted small">Date of Birth</span>
                   </label>
                   <div class="info-container" id="birthdayInfo">
                     January 1, 2000
@@ -259,311 +257,327 @@
       // This updated script fixes the profile image styling and remove button functionality
 
       document.addEventListener("DOMContentLoaded", function () {
-  // Toggle Sidebar
-  document
-    .getElementById("toggleSidebar")
-    .addEventListener("click", function () {
-      document.getElementById("sidebar").classList.toggle("active");
-    });
-  document.getElementById("close").addEventListener("click", function () {
-    document.getElementById("sidebar").classList.remove("active");
-  });
+        // Toggle Sidebar
+        document
+          .getElementById("toggleSidebar")
+          .addEventListener("click", function () {
+            document.getElementById("sidebar").classList.toggle("active");
+          });
+        document.getElementById("close").addEventListener("click", function () {
+          document.getElementById("sidebar").classList.remove("active");
+        });
 
-  // Initialize all profile containers
-  let profileLargeContainer = document.getElementById("profileLargeContainer");
-  const sidebarProfileContainer = document.querySelector(".profile-image-container");
-  const navbarUserContainer = document.querySelector(".navbar-user-container");
-  
-  // Temporary storage for profile image changes before saving
-  let tempProfileImage = null;
+        // Initialize all profile containers
+        let profileLargeContainer = document.getElementById(
+          "profileLargeContainer"
+        );
+        const sidebarProfileContainer = document.querySelector(
+          ".profile-image-container"
+        );
+        const navbarUserContainer = document.querySelector(
+          ".navbar-user-container"
+        );
 
-  // Load user profile data including image
-  try {
-    const user = JSON.parse(localStorage.getItem("currentUser")) || {};
+        // Temporary storage for profile image changes before saving
+        let tempProfileImage = null;
 
-    // Update profile name
-    if (user.firstName && user.lastName) {
-      document.getElementById("userProfileName").textContent = 
-        `${user.firstName} ${user.lastName}`;
-      // Update welcome message if it exists
-      const welcomeHeading = document.querySelector("h2");
-      if (welcomeHeading && welcomeHeading.textContent.includes("Hello")) {
-        welcomeHeading.textContent = `Hello, ${user.firstName}!`;
-      }
-    }
+        // Load user profile data including image
+        try {
+          const user = JSON.parse(localStorage.getItem("currentUser")) || {};
 
-    // Update profile role if exists
-    if (user.role) {
-      document.getElementById("userProfileRole").textContent = user.role;
-    }
+          // Update profile name
+          if (user.firstName && user.lastName) {
+            document.getElementById(
+              "userProfileName"
+            ).textContent = `${user.firstName} ${user.lastName}`;
+            // Update welcome message if it exists
+            const welcomeHeading = document.querySelector("h2");
+            if (
+              welcomeHeading &&
+              welcomeHeading.textContent.includes("Hello")
+            ) {
+              welcomeHeading.textContent = `Hello, ${user.firstName}!`;
+            }
+          }
 
-    // Update profile images
-    updateProfileDisplays(user.profileImage);
-    
-    // Initialize the temporary image with the current one
-    tempProfileImage = user.profileImage;
-    
-    // Update the main profile image in the profile page
-    updateMainProfileImage(user.profileImage);
-  } catch (error) {
-    console.error("Error loading user profile:", error);
-    updateProfileDisplays(null);
-    updateMainProfileImage(null);
-  }
+          // Update profile role if exists
+          if (user.role) {
+            document.getElementById("userProfileRole").textContent = user.role;
+          }
 
-  // Function to show profile image or default user icon for sidebar and navbar
-  function updateProfileDisplays(imageUrl) {
-    // Clear existing sidebar container
-    sidebarProfileContainer.innerHTML = "";
-    navbarUserContainer.innerHTML = "";
+          // Update profile images
+          updateProfileDisplays(user.profileImage);
 
-    if (imageUrl) {
-      // Sidebar profile image
-      const sidebarImg = document.createElement("img");
-      sidebarImg.src = imageUrl;
-      sidebarImg.alt = "Profile";
-      sidebarImg.className = "profile-image";
-      sidebarImg.id = "userProfileImage";
-      sidebarImg.style.borderRadius = "50%";
-      sidebarImg.style.width = "100%";
-      sidebarImg.style.height = "100%";
-      sidebarImg.style.objectFit = "cover";
-      sidebarProfileContainer.appendChild(sidebarImg);
+          // Initialize the temporary image with the current one
+          tempProfileImage = user.profileImage;
 
-      // Add edit icon to sidebar profile
-      const editIcon = document.createElement("div");
-      editIcon.className = "edit-icon";
-      editIcon.innerHTML = '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
-      sidebarProfileContainer.appendChild(editIcon);
+          // Update the main profile image in the profile page
+          updateMainProfileImage(user.profileImage);
+        } catch (error) {
+          console.error("Error loading user profile:", error);
+          updateProfileDisplays(null);
+          updateMainProfileImage(null);
+        }
 
-      // Navbar profile image
-      const navbarImg = document.createElement("img");
-      navbarImg.src = imageUrl;
-      navbarImg.alt = "User";
-      navbarImg.className = "user-avatar";
-      navbarImg.id = "navbarUserImage";
-      navbarImg.style.borderRadius = "50%";
-      navbarImg.style.width = "100%";
-      navbarImg.style.height = "100%";
-      navbarImg.style.objectFit = "cover";
-      navbarUserContainer.appendChild(navbarImg);
+        // Function to show profile image or default user icon for sidebar and navbar
+        function updateProfileDisplays(imageUrl) {
+          // Clear existing sidebar container
+          sidebarProfileContainer.innerHTML = "";
+          navbarUserContainer.innerHTML = "";
 
-      // Add status indicator to navbar
-      const statusIndicator = document.createElement("div");
-      statusIndicator.className = "status-indicator";
-      navbarUserContainer.appendChild(statusIndicator);
-    } else {
-      // Sidebar profile icon
-      const sidebarIcon = document.createElement("div");
-      sidebarIcon.className = "default-user-icon";
-      sidebarIcon.innerHTML = `
+          if (imageUrl) {
+            // Sidebar profile image
+            const sidebarImg = document.createElement("img");
+            sidebarImg.src = imageUrl;
+            sidebarImg.alt = "Profile";
+            sidebarImg.className = "profile-image";
+            sidebarImg.id = "userProfileImage";
+            sidebarImg.style.borderRadius = "50%";
+            sidebarImg.style.width = "100%";
+            sidebarImg.style.height = "100%";
+            sidebarImg.style.objectFit = "cover";
+            sidebarProfileContainer.appendChild(sidebarImg);
+
+            // Add edit icon to sidebar profile
+            const editIcon = document.createElement("div");
+            editIcon.className = "edit-icon";
+            editIcon.innerHTML =
+              '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
+            sidebarProfileContainer.appendChild(editIcon);
+
+            // Navbar profile image
+            const navbarImg = document.createElement("img");
+            navbarImg.src = imageUrl;
+            navbarImg.alt = "User";
+            navbarImg.className = "user-avatar";
+            navbarImg.id = "navbarUserImage";
+            navbarImg.style.borderRadius = "50%";
+            navbarImg.style.width = "100%";
+            navbarImg.style.height = "100%";
+            navbarImg.style.objectFit = "cover";
+            navbarUserContainer.appendChild(navbarImg);
+
+            // Add status indicator to navbar
+            const statusIndicator = document.createElement("div");
+            statusIndicator.className = "status-indicator";
+            navbarUserContainer.appendChild(statusIndicator);
+          } else {
+            // Sidebar profile icon
+            const sidebarIcon = document.createElement("div");
+            sidebarIcon.className = "default-user-icon";
+            sidebarIcon.innerHTML = `
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
           </svg>
       `;
-      sidebarProfileContainer.appendChild(sidebarIcon);
+            sidebarProfileContainer.appendChild(sidebarIcon);
 
-      // Add edit icon to sidebar profile
-      const editIcon = document.createElement("div");
-      editIcon.className = "edit-icon";
-      editIcon.innerHTML = '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
-      sidebarProfileContainer.appendChild(editIcon);
+            // Add edit icon to sidebar profile
+            const editIcon = document.createElement("div");
+            editIcon.className = "edit-icon";
+            editIcon.innerHTML =
+              '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
+            sidebarProfileContainer.appendChild(editIcon);
 
-      // Navbar profile icon
-      const navbarIcon = document.createElement("div");
-      navbarIcon.className = "default-user-icon";
-      navbarIcon.innerHTML = `
+            // Navbar profile icon
+            const navbarIcon = document.createElement("div");
+            navbarIcon.className = "default-user-icon";
+            navbarIcon.innerHTML = `
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
           </svg>
       `;
-      navbarUserContainer.appendChild(navbarIcon);
+            navbarUserContainer.appendChild(navbarIcon);
 
-      // Add status indicator to navbar
-      const statusIndicator = document.createElement("div");
-      statusIndicator.className = "status-indicator";
-      navbarUserContainer.appendChild(statusIndicator);
-    }
-  }
-  
-  // Function to update just the main profile image in the profile page
-  function updateMainProfileImage(imageUrl) {
-    if (profileLargeContainer) {
-      profileLargeContainer.innerHTML = "";
-      
-      if (imageUrl) {
-        const largeImg = document.createElement("img");
-        largeImg.src = imageUrl;
-        largeImg.alt = "Profile";
-        largeImg.className = "profile-large-image";
-        largeImg.id = "largeProfileImage";
-        largeImg.style.borderRadius = "50%";
-        largeImg.style.width = "100%";
-        largeImg.style.height = "100%";
-        largeImg.style.objectFit = "cover";
-        profileLargeContainer.appendChild(largeImg);
+            // Add status indicator to navbar
+            const statusIndicator = document.createElement("div");
+            statusIndicator.className = "status-indicator";
+            navbarUserContainer.appendChild(statusIndicator);
+          }
+        }
 
-        // Add the overlay for large profile
-        const overlay = document.createElement("div");
-        overlay.className = "profile-image-overlay";
-        overlay.innerHTML = '<i class="bi bi-sunglasses text-white fs-3"></i>';
-        profileLargeContainer.appendChild(overlay);
-      } else {
-        const largeIcon = document.createElement("div");
-        largeIcon.className = "default-user-icon large-default-user-icon";
-        largeIcon.innerHTML = `
+        // Function to update just the main profile image in the profile page
+        function updateMainProfileImage(imageUrl) {
+          if (profileLargeContainer) {
+            profileLargeContainer.innerHTML = "";
+
+            if (imageUrl) {
+              const largeImg = document.createElement("img");
+              largeImg.src = imageUrl;
+              largeImg.alt = "Profile";
+              largeImg.className = "profile-large-image";
+              largeImg.id = "largeProfileImage";
+              largeImg.style.borderRadius = "50%";
+              largeImg.style.width = "100%";
+              largeImg.style.height = "100%";
+              largeImg.style.objectFit = "cover";
+              profileLargeContainer.appendChild(largeImg);
+
+              // Add the overlay for large profile
+              const overlay = document.createElement("div");
+              overlay.className = "profile-image-overlay";
+              overlay.innerHTML =
+                '<i class="bi bi-sunglasses text-white fs-3"></i>';
+              profileLargeContainer.appendChild(overlay);
+            } else {
+              const largeIcon = document.createElement("div");
+              largeIcon.className = "default-user-icon large-default-user-icon";
+              largeIcon.innerHTML = `
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
           </svg>
         `;
-        profileLargeContainer.appendChild(largeIcon);
+              profileLargeContainer.appendChild(largeIcon);
 
-        // Add the overlay for large profile
-        const overlay = document.createElement("div");
-        overlay.className = "profile-image-overlay";
-        overlay.innerHTML = '<i class="bi bi-sunglasses text-white fs-3"></i>';
-        profileLargeContainer.appendChild(overlay);
-      }
-    }
-  }
+              // Add the overlay for large profile
+              const overlay = document.createElement("div");
+              overlay.className = "profile-image-overlay";
+              overlay.innerHTML =
+                '<i class="bi bi-sunglasses text-white fs-3"></i>';
+              profileLargeContainer.appendChild(overlay);
+            }
+          }
+        }
 
-  // Helper function to show alerts
-  function showAlert(message, type) {
-    const alertDiv = document.createElement("div");
-    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
-    alertDiv.role = "alert";
-    alertDiv.style.position = "fixed";
-    alertDiv.style.top = "20px";
-    alertDiv.style.right = "20px";
-    alertDiv.style.zIndex = "9999";
-    alertDiv.innerHTML = `
+        // Helper function to show alerts
+        function showAlert(message, type) {
+          const alertDiv = document.createElement("div");
+          alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+          alertDiv.role = "alert";
+          alertDiv.style.position = "fixed";
+          alertDiv.style.top = "20px";
+          alertDiv.style.right = "20px";
+          alertDiv.style.zIndex = "9999";
+          alertDiv.innerHTML = `
       ${message}
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     `;
 
-    document.body.appendChild(alertDiv);
+          document.body.appendChild(alertDiv);
 
-    // Auto dismiss after 3 seconds
-    setTimeout(() => {
-      if (alertDiv.parentNode) {
-        const bsAlert = new bootstrap.Alert(alertDiv);
-        bsAlert.close();
-      }
-    }, 3000);
-  }
+          // Auto dismiss after 3 seconds
+          setTimeout(() => {
+            if (alertDiv.parentNode) {
+              const bsAlert = new bootstrap.Alert(alertDiv);
+              bsAlert.close();
+            }
+          }, 3000);
+        }
 
-  // Handle upload button click (only updates the main profile image)
-  const uploadProfileBtn = document.getElementById("uploadProfileBtn");
-  if (uploadProfileBtn) {
-    uploadProfileBtn.addEventListener("click", function() {
-      // Create file input element
-      const fileInput = document.createElement("input");
-      fileInput.type = "file";
-      fileInput.accept = "image/*";
-      fileInput.style.display = "none";
-      document.body.appendChild(fileInput);
+        // Handle upload button click (only updates the main profile image)
+        const uploadProfileBtn = document.getElementById("uploadProfileBtn");
+        if (uploadProfileBtn) {
+          uploadProfileBtn.addEventListener("click", function () {
+            // Create file input element
+            const fileInput = document.createElement("input");
+            fileInput.type = "file";
+            fileInput.accept = "image/*";
+            fileInput.style.display = "none";
+            document.body.appendChild(fileInput);
 
-      // Trigger file selection
-      fileInput.click();
+            // Trigger file selection
+            fileInput.click();
 
-      // Handle file selection
-      fileInput.addEventListener("change", function() {
-        if (this.files && this.files[0]) {
-          const reader = new FileReader();
+            // Handle file selection
+            fileInput.addEventListener("change", function () {
+              if (this.files && this.files[0]) {
+                const reader = new FileReader();
 
-          reader.onload = function(e) {
-            const imageResult = e.target.result;
-            
-            // Update only the main profile image
-            updateMainProfileImage(imageResult);
-            
+                reader.onload = function (e) {
+                  const imageResult = e.target.result;
+
+                  // Update only the main profile image
+                  updateMainProfileImage(imageResult);
+
+                  // Store in temporary variable until save
+                  tempProfileImage = imageResult;
+                };
+
+                reader.readAsDataURL(this.files[0]);
+              }
+
+              // Clean up
+              document.body.removeChild(fileInput);
+            });
+          });
+        }
+
+        // Handle remove button click (only removes from main profile image)
+        const removeProfileBtn = document.getElementById("removeProfileBtn");
+        if (removeProfileBtn) {
+          removeProfileBtn.addEventListener("click", function () {
+            // Only update the main profile image
+            updateMainProfileImage(null);
+
             // Store in temporary variable until save
-            tempProfileImage = imageResult;
-          };
-
-          reader.readAsDataURL(this.files[0]);
+            tempProfileImage = null;
+          });
         }
 
-        // Clean up
-        document.body.removeChild(fileInput);
-      });
-    });
-  }
+        // Add event listener for save profile button
+        const saveProfileBtn = document.getElementById("saveProfileBtn");
+        if (saveProfileBtn) {
+          saveProfileBtn.addEventListener("click", function () {
+            // Get current user data
+            let user = JSON.parse(localStorage.getItem("currentUser")) || {};
 
-  // Handle remove button click (only removes from main profile image)
-  const removeProfileBtn = document.getElementById("removeProfileBtn");
-  if (removeProfileBtn) {
-    removeProfileBtn.addEventListener("click", function() {
-      // Only update the main profile image
-      updateMainProfileImage(null);
-      
-      // Store in temporary variable until save
-      tempProfileImage = null;
-    });
-  }
+            // Update user data with current input values and temporary profile image
+            user.firstName = document.getElementById("firstName").value.trim();
+            user.lastName = document.getElementById("lastName").value.trim();
+            user.profileImage = tempProfileImage; // Use the temporary stored image
 
-  // Add event listener for save profile button
-  const saveProfileBtn = document.getElementById("saveProfileBtn");
-  if (saveProfileBtn) {
-    saveProfileBtn.addEventListener("click", function() {
-      // Get current user data
-      let user = JSON.parse(localStorage.getItem("currentUser")) || {};
+            // Update profile name display throughout the interface
+            document.getElementById(
+              "userProfileName"
+            ).textContent = `${user.firstName} ${user.lastName}`;
 
-      // Update user data with current input values and temporary profile image
-      user.firstName = document.getElementById("firstName").value.trim();
-      user.middleName = document.getElementById("middleName").value.trim();
-      user.lastName = document.getElementById("lastName").value.trim();
-      user.profileImage = tempProfileImage; // Use the temporary stored image
+            // Save updated user data
+            localStorage.setItem("currentUser", JSON.stringify(user));
 
-      // Update profile name display throughout the interface
-      document.getElementById("userProfileName").textContent = 
-        `${user.firstName} ${user.lastName}`;
+            // Now update all profile displays with the saved image
+            updateProfileDisplays(tempProfileImage);
 
-      // Save updated user data
-      localStorage.setItem("currentUser", JSON.stringify(user));
-
-      // Now update all profile displays with the saved image
-      updateProfileDisplays(tempProfileImage);
-
-      // Show success message
-      showAlert("Profile saved successfully!", "success");
-    });
-  }
-
-  // Add click event listeners for sidebar and navbar profile images
-  const profileElements = [
-    sidebarProfileContainer,
-    navbarUserContainer,
-    ...document.querySelectorAll(".edit-icon")
-  ];
-  
-  if (profileLargeContainer) {
-    profileElements.push(profileLargeContainer);
-  }
-
-  profileElements.forEach(element => {
-    element.style.cursor = "pointer";
-    element.addEventListener("click", function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      
-      // Create and show the profile edit modal
-      const profileModal = createProfileEditModal();
-      profileModal.show();
-
-      // Clean up when modal is hidden
-      document.getElementById("profileEditModal").addEventListener("hidden.bs.modal", function() {
-        if (this.parentNode) {
-          document.body.removeChild(this.parentNode);
+            // Show success message
+            showAlert("Profile saved successfully!", "success");
+          });
         }
-      });
-    });
-  });
 
-  // Create profile edit modal for the dashboard
-  function createProfileEditModal() {
-    // Modal HTML structure
-    const modalHTML = `
+        // Add click event listeners for sidebar and navbar profile images
+        const profileElements = [
+          sidebarProfileContainer,
+          navbarUserContainer,
+          ...document.querySelectorAll(".edit-icon"),
+        ];
+
+        if (profileLargeContainer) {
+          profileElements.push(profileLargeContainer);
+        }
+
+        profileElements.forEach((element) => {
+          element.style.cursor = "pointer";
+          element.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Create and show the profile edit modal
+            const profileModal = createProfileEditModal();
+            profileModal.show();
+
+            // Clean up when modal is hidden
+            document
+              .getElementById("profileEditModal")
+              .addEventListener("hidden.bs.modal", function () {
+                if (this.parentNode) {
+                  document.body.removeChild(this.parentNode);
+                }
+              });
+          });
+        });
+
+        // Create profile edit modal for the dashboard
+        function createProfileEditModal() {
+          // Modal HTML structure
+          const modalHTML = `
       <div class="modal fade" id="profileEditModal" tabindex="-1" aria-labelledby="profileEditModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -594,325 +608,354 @@
       </div>
     `;
 
-    // Append modal to body
-    const modalDiv = document.createElement("div");
-    modalDiv.innerHTML = modalHTML;
-    document.body.appendChild(modalDiv);
+          // Append modal to body
+          const modalDiv = document.createElement("div");
+          modalDiv.innerHTML = modalHTML;
+          document.body.appendChild(modalDiv);
 
-    // Get current user data
-    const user = JSON.parse(localStorage.getItem("currentUser")) || {};
-    
-    // Set up a temporary variable for changes in the modal
-    let modalTempImage = user.profileImage;
+          // Get current user data
+          const user = JSON.parse(localStorage.getItem("currentUser")) || {};
 
-    // Update modal profile container with current image or default icon
-    const modalProfileContainer = document.getElementById("modalProfileContainer");
-    updateModalProfileImage(modalProfileContainer, modalTempImage);
+          // Set up a temporary variable for changes in the modal
+          let modalTempImage = user.profileImage;
 
-    // Handle upload button click in modal
-    document.getElementById("modalUploadBtn").addEventListener("click", function() {
-      // Create file input element
-      const fileInput = document.createElement("input");
-      fileInput.type = "file";
-      fileInput.accept = "image/*";
-      fileInput.style.display = "none";
-      document.body.appendChild(fileInput);
+          // Update modal profile container with current image or default icon
+          const modalProfileContainer = document.getElementById(
+            "modalProfileContainer"
+          );
+          updateModalProfileImage(modalProfileContainer, modalTempImage);
 
-      // Trigger file selection
-      fileInput.click();
+          // Handle upload button click in modal
+          document
+            .getElementById("modalUploadBtn")
+            .addEventListener("click", function () {
+              // Create file input element
+              const fileInput = document.createElement("input");
+              fileInput.type = "file";
+              fileInput.accept = "image/*";
+              fileInput.style.display = "none";
+              document.body.appendChild(fileInput);
 
-      // Handle file selection
-      fileInput.addEventListener("change", function() {
-        if (this.files && this.files[0]) {
-          const reader = new FileReader();
+              // Trigger file selection
+              fileInput.click();
 
-          reader.onload = function(e) {
-            const imageResult = e.target.result;
-            
-            // Only update the modal image
-            updateModalProfileImage(modalProfileContainer, imageResult);
-            
-            // Store in modal temporary variable
-            modalTempImage = imageResult;
-          };
+              // Handle file selection
+              fileInput.addEventListener("change", function () {
+                if (this.files && this.files[0]) {
+                  const reader = new FileReader();
 
-          reader.readAsDataURL(this.files[0]);
-        }
+                  reader.onload = function (e) {
+                    const imageResult = e.target.result;
 
-        // Clean up
-        document.body.removeChild(fileInput);
-      });
-    });
+                    // Only update the modal image
+                    updateModalProfileImage(modalProfileContainer, imageResult);
 
-    // Handle remove button click in modal
-    document.getElementById("modalRemoveBtn").addEventListener("click", function() {
-      // Only update the modal display
-      updateModalProfileImage(modalProfileContainer, null);
-      
-      // Store in modal temporary variable
-      modalTempImage = null;
-    });
-    
-    // Handle save button click in modal
-    document.getElementById("modalSaveBtn").addEventListener("click", function() {
-      // Update user data with temporary image from modal
-      try {
-        let user = JSON.parse(localStorage.getItem("currentUser")) || {};
-        user.profileImage = modalTempImage;
-        localStorage.setItem("currentUser", JSON.stringify(user));
-        
-        // Update all profile displays with the new image
-        updateProfileDisplays(modalTempImage);
-        updateMainProfileImage(modalTempImage);
-        
-        // Update the temporary variable for the main page
-        tempProfileImage = modalTempImage;
-        
-        // Close the modal
-        const modal = bootstrap.Modal.getInstance(document.getElementById("profileEditModal"));
-        modal.hide();
-        
-        // Show success message
-        showAlert("Profile picture updated successfully!", "success");
-      } catch (error) {
-        console.error("Error saving profile image:", error);
-        showAlert("Error saving profile image. Please try again.", "danger");
-      }
-    });
+                    // Store in modal temporary variable
+                    modalTempImage = imageResult;
+                  };
 
-    // Function to update modal profile image
-    function updateModalProfileImage(container, imageUrl) {
-      container.innerHTML = "";
+                  reader.readAsDataURL(this.files[0]);
+                }
 
-      if (imageUrl) {
-        const img = document.createElement("img");
-        img.src = imageUrl;
-        img.alt = "Profile";
-        img.style.width = "100%";
-        img.style.height = "100%";
-        img.style.objectFit = "cover";
-        img.style.borderRadius = "50%";
-        container.appendChild(img);
-      } else {
-        container.innerHTML = `
+                // Clean up
+                document.body.removeChild(fileInput);
+              });
+            });
+
+          // Handle remove button click in modal
+          document
+            .getElementById("modalRemoveBtn")
+            .addEventListener("click", function () {
+              // Only update the modal display
+              updateModalProfileImage(modalProfileContainer, null);
+
+              // Store in modal temporary variable
+              modalTempImage = null;
+            });
+
+          // Handle save button click in modal
+          document
+            .getElementById("modalSaveBtn")
+            .addEventListener("click", function () {
+              // Update user data with temporary image from modal
+              try {
+                let user =
+                  JSON.parse(localStorage.getItem("currentUser")) || {};
+                user.profileImage = modalTempImage;
+                localStorage.setItem("currentUser", JSON.stringify(user));
+
+                // Update all profile displays with the new image
+                updateProfileDisplays(modalTempImage);
+                updateMainProfileImage(modalTempImage);
+
+                // Update the temporary variable for the main page
+                tempProfileImage = modalTempImage;
+
+                // Close the modal
+                const modal = bootstrap.Modal.getInstance(
+                  document.getElementById("profileEditModal")
+                );
+                modal.hide();
+
+                // Show success message
+                showAlert("Profile picture updated successfully!", "success");
+              } catch (error) {
+                console.error("Error saving profile image:", error);
+                showAlert(
+                  "Error saving profile image. Please try again.",
+                  "danger"
+                );
+              }
+            });
+
+          // Function to update modal profile image
+          function updateModalProfileImage(container, imageUrl) {
+            container.innerHTML = "";
+
+            if (imageUrl) {
+              const img = document.createElement("img");
+              img.src = imageUrl;
+              img.alt = "Profile";
+              img.style.width = "100%";
+              img.style.height = "100%";
+              img.style.objectFit = "cover";
+              img.style.borderRadius = "50%";
+              container.appendChild(img);
+            } else {
+              container.innerHTML = `
           <div class="default-user-icon" style="width: 100%; height: 100%; background-color: #e9ecef; border-radius: 50%;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 80%; height: 80%; margin: 10%;">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
             </svg>
           </div>
         `;
-      }
-    }
+            }
+          }
 
-    return new bootstrap.Modal(document.getElementById("profileEditModal"));
-  }
-
-  // Get the edit button element for personal info
-  const editButton = document.getElementById("edit");
-  if (editButton) {
-    // Get all the info containers
-    const birthdayInfo = document.getElementById("birthdayInfo");
-    const phoneInfo = document.getElementById("phoneInfo");
-    const emailInfo = document.getElementById("emailInfo");
-    const departmentInfo = document.getElementById("departmentInfo");
-
-    // Flag to track if we're in edit mode
-    let isEditing = false;
-
-    // Store original values to allow cancellation
-    let originalValues = {};
-
-    // Add click event listener to the edit button
-    editButton.addEventListener("click", function() {
-      if (!isEditing) {
-        // Enter edit mode
-        enterEditMode();
-      } else {
-        // Save changes
-        saveChanges();
-      }
-    });
-
-    // Function to enter edit mode
-    function enterEditMode() {
-      isEditing = true;
-      editButton.textContent = "SAVE";
-      editButton.classList.add("btn-success");
-
-      // Store original values before editing
-      originalValues = {
-        birthday: birthdayInfo.textContent.trim(),
-        phone: phoneInfo.textContent.trim(),
-        email: emailInfo.textContent.trim(),
-        department: departmentInfo.textContent.trim(),
-      };
-
-      // Replace each info container with an input field
-      replaceWithInput(birthdayInfo, "birthday", originalValues.birthday);
-      replaceWithInput(phoneInfo, "phone", originalValues.phone);
-      replaceWithInput(emailInfo, "email", originalValues.email);
-      replaceWithInput(departmentInfo, "department", originalValues.department);
-
-      const cancelButton = document.createElement("button");
-      cancelButton.id = "cancel";
-      cancelButton.textContent = "CANCEL";
-
-      // Style the cancel button to be red
-      cancelButton.className = "btn-sm ms-2 text-white";
-      cancelButton.style.backgroundColor = "#dc3545"; // Bootstrap danger red
-      cancelButton.style.border = "none";
-      cancelButton.style.borderRadius = "60px";
-      cancelButton.style.padding = "0.25rem 0.5rem";
-      cancelButton.addEventListener("click", cancelEditing);
-
-      // Insert the cancel button after the edit button
-      editButton.parentNode.insertBefore(cancelButton, editButton.nextSibling);
-    }
-
-    // Function to replace info container with input field
-    function replaceWithInput(element, fieldName, value) {
-      // Create input field
-      const input = document.createElement("input");
-      input.type = fieldName === "email" ? "email" : "text";
-      input.className = "form-control";
-      input.value = value;
-      input.dataset.field = fieldName; // Store field name for reference
-
-      // Special handling for birthday field to add date picker
-      if (fieldName === "birthday") {
-        input.type = "date";
-
-        // Try to convert the displayed date format to YYYY-MM-DD for the input
-        try {
-          const dateParts = value.split(" ");
-          const monthNames = [
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-          ];
-
-          const month = monthNames.indexOf(dateParts[0].replace(",", "")) + 1;
-          const day = parseInt(dateParts[1].replace(",", ""));
-          const year = parseInt(dateParts[2]);
-
-          // Format date as YYYY-MM-DD
-          const formattedMonth = month < 10 ? `0${month}` : month;
-          const formattedDay = day < 10 ? `0${day}` : day;
-          input.value = `${year}-${formattedMonth}-${formattedDay}`;
-        } catch (error) {
-          console.error("Error parsing date:", error);
-          // Fallback to empty value if parsing fails
-          input.value = "";
-        }
-      }
-
-      // Replace the element with the input
-      element.innerHTML = "";
-      element.appendChild(input);
-    }
-
-    // Function to save changes
-    function saveChanges() {
-      isEditing = false;
-      editButton.textContent = "EDIT";
-      editButton.classList.remove("btn-success");
-
-      // Get current user data
-      let user = JSON.parse(localStorage.getItem("currentUser")) || {};
-
-      // Get all input fields
-      const inputs = document.querySelectorAll(".info-container input");
-
-      // Update user data with input values
-      inputs.forEach((input) => {
-        const field = input.dataset.field;
-        let value = input.value.trim();
-
-        // Special handling for date field
-        if (field === "birthday" && value) {
-          // Convert YYYY-MM-DD to Month Day, Year
-          const date = new Date(value);
-          const options = { year: "numeric", month: "long", day: "numeric" };
-          value = date.toLocaleDateString("en-US", options);
+          return new bootstrap.Modal(
+            document.getElementById("profileEditModal")
+          );
         }
 
-        // Update user object
-        user[field] = value;
+        // Get the edit button element for personal info
+        const editButton = document.getElementById("edit");
+        if (editButton) {
+          // Get all the info containers
+          const studentIdInfo = document.getElementById("studentIdInfo");
+          const birthdayInfo = document.getElementById("birthdayInfo");
+          const phoneInfo = document.getElementById("phoneInfo");
+          const emailInfo = document.getElementById("emailInfo");
+          const departmentInfo = document.getElementById("departmentInfo");
 
-        // Update display
-        const container = input.parentNode;
-        container.innerHTML = value;
+          // Flag to track if we're in edit mode
+          let isEditing = false;
+
+          // Store original values to allow cancellation
+          let originalValues = {};
+
+          // Add click event listener to the edit button
+          editButton.addEventListener("click", function () {
+            if (!isEditing) {
+              // Enter edit mode
+              enterEditMode();
+            } else {
+              // Save changes
+              saveChanges();
+            }
+          });
+
+          // Function to enter edit mode
+          function enterEditMode() {
+            isEditing = true;
+            editButton.textContent = "SAVE";
+            editButton.classList.add("btn-success");
+
+            // Store original values before editing
+            originalValues = {
+              studentId: studentIdInfo.textContent.trim(),
+              birthday: birthdayInfo.textContent.trim(),
+              phone: phoneInfo.textContent.trim(),
+              email: emailInfo.textContent.trim(),
+              department: departmentInfo.textContent.trim(),
+            };
+
+            // Replace each info container with an input field
+            replaceWithInput(
+              studentIdInfo,
+              "studentId",
+              originalValues.studentId
+            );
+            replaceWithInput(birthdayInfo, "birthday", originalValues.birthday);
+            replaceWithInput(phoneInfo, "phone", originalValues.phone);
+            replaceWithInput(emailInfo, "email", originalValues.email);
+            replaceWithInput(
+              departmentInfo,
+              "department",
+              originalValues.department
+            );
+
+            const cancelButton = document.createElement("button");
+            cancelButton.id = "cancel";
+            cancelButton.textContent = "CANCEL";
+
+            // Style the cancel button to be red
+            cancelButton.className = "btn-sm ms-2 text-white";
+            cancelButton.style.backgroundColor = "#dc3545"; // Bootstrap danger red
+            cancelButton.style.border = "none";
+            cancelButton.style.borderRadius = "60px";
+            cancelButton.style.padding = "0.25rem 0.5rem";
+            cancelButton.addEventListener("click", cancelEditing);
+
+            // Insert the cancel button after the edit button
+            editButton.parentNode.insertBefore(
+              cancelButton,
+              editButton.nextSibling
+            );
+          }
+
+          // Function to replace info container with input field
+          function replaceWithInput(element, fieldName, value) {
+            // Create input field
+            const input = document.createElement("input");
+            input.type = fieldName === "email" ? "email" : "text";
+            input.className = "form-control";
+            input.value = value;
+            input.dataset.field = fieldName; // Store field name for reference
+
+            // Special handling for birthday field to add date picker
+            if (fieldName === "birthday") {
+              input.type = "date";
+
+              // Try to convert the displayed date format to YYYY-MM-DD for the input
+              try {
+                const dateParts = value.split(" ");
+                const monthNames = [
+                  "January",
+                  "February",
+                  "March",
+                  "April",
+                  "May",
+                  "June",
+                  "July",
+                  "August",
+                  "September",
+                  "October",
+                  "November",
+                  "December",
+                ];
+
+                const month =
+                  monthNames.indexOf(dateParts[0].replace(",", "")) + 1;
+                const day = parseInt(dateParts[1].replace(",", ""));
+                const year = parseInt(dateParts[2]);
+
+                // Format date as YYYY-MM-DD
+                const formattedMonth = month < 10 ? `0${month}` : month;
+                const formattedDay = day < 10 ? `0${day}` : day;
+                input.value = `${year}-${formattedMonth}-${formattedDay}`;
+              } catch (error) {
+                console.error("Error parsing date:", error);
+                // Fallback to empty value if parsing fails
+                input.value = "";
+              }
+            }
+
+            // Replace the element with the input
+            element.innerHTML = "";
+            element.appendChild(input);
+          }
+
+          // Function to save changes
+          function saveChanges() {
+            isEditing = false;
+            editButton.textContent = "EDIT";
+            editButton.classList.remove("btn-success");
+
+            // Get current user data
+            let user = JSON.parse(localStorage.getItem("currentUser")) || {};
+
+            // Get all input fields
+            const inputs = document.querySelectorAll(".info-container input");
+
+            // Update user data with input values
+            inputs.forEach((input) => {
+              const field = input.dataset.field;
+              let value = input.value.trim();
+
+              // Special handling for date field
+              if (field === "birthday" && value) {
+                // Convert YYYY-MM-DD to Month Day, Year
+                const date = new Date(value);
+                const options = {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                };
+                value = date.toLocaleDateString("en-US", options);
+              }
+
+              // Update user object
+              user[field] = value;
+
+              // Update display
+              const container = input.parentNode;
+              container.innerHTML = value;
+            });
+
+            // Save updated user data
+            localStorage.setItem("currentUser", JSON.stringify(user));
+
+            // Remove cancel button
+            const cancelButton = document.getElementById("cancel");
+            if (cancelButton) {
+              cancelButton.remove();
+            }
+
+            // Show success message
+            showAlert("Profile updated successfully!", "success");
+          }
+
+          // Function to cancel editing
+          function cancelEditing() {
+            isEditing = false;
+            editButton.textContent = "EDIT";
+            editButton.classList.remove("btn-success");
+
+            // Restore original values
+            studentIdInfo.innerHTML = originalValues.studentId;
+            birthdayInfo.innerHTML = originalValues.birthday;
+            phoneInfo.innerHTML = originalValues.phone;
+            emailInfo.innerHTML = originalValues.email;
+            departmentInfo.innerHTML = originalValues.department;
+
+            // Remove cancel button
+            document.getElementById("cancel").remove();
+          }
+        }
+
+        // Initialize user data if not exists
+        function loadUserData() {
+          try {
+            const user = JSON.parse(localStorage.getItem("currentUser"));
+            if (!user) {
+              // If no user exists, create default user
+              const defaultUser = {
+                firstName: "Isaiah",
+                lastName: "Durojaiye",
+                studentId: "RUN/CMP/22/13041",
+                birthday: "January 1, 2000",
+                phone: "+234 802 960 0743",
+                email: "isaiahdurojaiye9@gmail.com",
+                department: "Computer Science",
+                role: "Student Voter",
+              };
+              localStorage.setItem("currentUser", JSON.stringify(defaultUser));
+            }
+          } catch (error) {
+            console.error("Error loading user data:", error);
+          }
+        }
       });
-
-      // Save updated user data
-      localStorage.setItem("currentUser", JSON.stringify(user));
-
-      // Remove cancel button
-      const cancelButton = document.getElementById("cancel");
-      if (cancelButton) {
-        cancelButton.remove();
-      }
-
-      // Show success message
-      showAlert("Profile updated successfully!", "success");
-    }
-
-    // Function to cancel editing
-    function cancelEditing() {
-      isEditing = false;
-      editButton.textContent = "EDIT";
-      editButton.classList.remove("btn-success");
-
-      // Restore original values
-      birthdayInfo.innerHTML = originalValues.birthday;
-      phoneInfo.innerHTML = originalValues.phone;
-      emailInfo.innerHTML = originalValues.email;
-      departmentInfo.innerHTML = originalValues.department;
-
-      // Remove cancel button
-      document.getElementById("cancel").remove();
-    }
-  }
-
-  // Initialize user data if not exists
-  function loadUserData() {
-    try {
-      const user = JSON.parse(localStorage.getItem("currentUser"));
-      if (!user) {
-        // If no user exists, create default user
-        const defaultUser = {
-          firstName: "Isaiah",
-          middleName: "Oluwatimilehin",
-          lastName: "Durojaiye",
-          birthday: "January 1, 2000",
-          phone: "+234 802 960 0743",
-          email: "isaiahdurojaiye9@gmail.com",
-          department: "Computer Science",
-          role: "Student Voter",
-        };
-        localStorage.setItem("currentUser", JSON.stringify(defaultUser));
-      }
-    } catch (error) {
-      console.error("Error loading user data:", error);
-    }
-  }
-
-  // Initialize data on first load
-  loadUserData();
-
-  // Add event listener for logout
-  const logoutLink = document.querySelector(".text-danger");
-  if (logoutLink) {
-    logoutLink.addEventListener("click", function(e) {
-      e.preventDefault();
-
-      // Ask for confirmation
-      if (confirm("Are you sure you want to log out?")) {
-        // Simply redirect to login page
-        window.location.href = "voter_log_in.html";
-      }
-    });
-  }
-});
     </script>
   </body>
 </html>

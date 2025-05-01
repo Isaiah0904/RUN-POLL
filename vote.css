@@ -11,7 +11,7 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f5f7ff;
 }
 
@@ -23,9 +23,9 @@ body {
 
 @media (max-width: 992px) {
   .main-content {
-      margin-left: 0;
+    margin-left: 0;
   }
-  .sidebar-nav{
+  .sidebar-nav {
     overflow-y: scroll;
   }
 }
@@ -46,7 +46,7 @@ body {
   flex-direction: column;
 }
 
-.bi-x-lg{
+.bi-x-lg {
   display: none;
   color: rgb(42, 48, 116);
   margin-left: 45px;
@@ -55,13 +55,13 @@ body {
 }
 @media (max-width: 992px) {
   .sidebar {
-      transform: translateX(-100%);
-      transition: 1s;
+    transform: translateX(-100%);
+    transition: 1s;
   }
   .sidebar.active {
-      transform: translateX(0);
+    transform: translateX(0);
   }
-  .bi-x-lg{
+  .bi-x-lg {
     display: block;
   }
 }
@@ -100,9 +100,9 @@ body {
   background-color: var(--light-gray);
   margin: 0 15px 25px;
 }
-.profile-role{
-font-size: 12px;
-color: var(--text-gray);
+.profile-role {
+  font-size: 12px;
+  color: var(--text-gray);
 }
 
 /* Profile image styling */
@@ -175,7 +175,8 @@ color: var(--text-gray);
   transition: all 0.2s;
 }
 
-.nav-link:hover, .nav-link.active {
+.nav-link:hover,
+.nav-link.active {
   background-color: var(--primary);
   color: white;
 }
@@ -203,15 +204,9 @@ color: var(--text-gray);
   cursor: pointer;
 }
 
-@media (min-width: 768px) and (max-width: 841px) {
-  .btn-success{
-    margin-bottom: 9px;
-  }
-}
-
 @media (max-width: 992px) {
   .toggle-sidebar {
-      display: block;
+    display: block;
   }
 }
 
@@ -256,7 +251,7 @@ color: var(--text-gray);
   color: var(--primary);
 }
 
-/* Navbar user avatar styling */
+/* Navbar user styling */
 .navbar-user-container {
   position: relative;
   margin-left: 15px;
@@ -289,100 +284,6 @@ color: var(--text-gray);
   right: 0px;
 }
 
-/* Profile Page Styles */
-.card {
-  border: none;
-  border-radius: 15px;
-  box-shadow: var(--shadow);
-  margin-bottom: 20px;
-  background-color: white;
-}
-
-.card-body {
-  padding: 20px;
-}
-
-.profile-large-image-container {
-  position: relative;
-  width: 150px;
-  height: 150px;
-  margin: 0 auto 15px;
-  border-radius: 50%;
-  background-color: #f0f0f0;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.profile-large-image-container:hover .profile-image-overlay {
-  opacity: 0.8;
-}
-
-.profile-large-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.btn-rounded-pill {
-  border-radius: 50px;
-  padding: 8px 20px;
-}
-
-.info-container {
-  border-radius: 8px;
-  background-color: #f8f9fa;
-  padding: 10px 15px;
-  margin-bottom: 10px;
-}
-
-#edit {
-  border: 1px solid var(--primary);
-  padding: 2px 8px;
-  border-radius: 15px;
-  background-color: white;
-  color: var(--primary);
-  font-size: 12px;
-}
-
-/* Modern form input styling */
-.form-control-sm {
-  height: 38px;
-  font-size: 14px;
-}
-
-.form-label-sm {
-  font-size: 12px;
-  color: var(--text-gray);
-  margin-bottom: 4px;
-}
-
-/* Sunglasses icon for profile image */
-.profile-image-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0,0,0,0.1);
-  opacity: 0;
-  transition: opacity 0.3s;
-  cursor: pointer;
-  border-radius: 50%;
-}
-
-.profile-image-overlay:hover {
-  opacity: 1;
-}
-
-.profile-avatar {
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid white;
-}
-
 /* Default user icon styling */
 .default-user-icon {
   width: 100%;
@@ -401,63 +302,173 @@ color: var(--text-gray);
   fill: var(--text-gray);
 }
 
-.large-default-user-icon svg {
-  width: 50%;
-  height: 50%;
+/* Candidate card styles */
+.candidate-section {
+  margin-bottom: 30px;
 }
 
-/* Save Button Styling */
-.save-btn {
-  background-color: #4954B8;
-  color: white;
-  border: none;
-  border-radius: 60px; /* Rounded pill shape to match other buttons */
-  padding: 8px 24px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 5px rgba(25, 135, 84, 0.3);
-  width: 100%; /* Full width button */
-  margin-top: 10px;
+.section-header {
+  color: var(--text-dark);
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.section-subheader {
+  color: var(--text-gray);
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.candidate-card {
+  background-color: var(--light-gray);
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  height: 100%;
+  transition: transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
 }
 
-.save-btn:hover {
-  background-color: #3c47ad; /* Slightly darker green on hover */
-  box-shadow: 0 4px 8px rgba(25, 135, 84, 0.4);
-  transform: translateY(-1px);
+.candidate-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
 }
 
-.save-btn:active {
-  background-color: #146c43; /* Even darker when clicked */
-  box-shadow: 0 1px 3px rgba(25, 135, 84, 0.3);
-  transform: translateY(1px);
+.candidate-card.selected {
+  border: 2px solid var(--primary);
+  background-color: rgba(73, 84, 184, 0.1);
 }
 
-/* Add a loading state for the button (optional) */
-.save-btn.loading {
-  background-color: #5a8f71;
-  cursor: not-allowed;
+.candidate-image-container {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid white;
+  box-shadow: var(--shadow);
+}
+
+.candidate-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.candidate-name {
+  font-weight: bold;
+  color: var(--text-dark);
+  margin-bottom: 5px;
+}
+
+.candidate-info {
+  color: var(--text-gray);
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.vote-btn {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 15px;
+  font-size: 12px;
+  margin-right: 5px;
+}
+
+.view-btn {
+  background-color: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  border-radius: 20px;
+  padding: 5px 15px;
+  font-size: 12px;
+}
+
+.female-bg {
+  background-color: rgba(255, 182, 193, 0.2); /* Light pink */
+}
+
+.male-bg {
+  background-color: rgba(173, 216, 230, 0.2); /* Light blue */
+}
+
+.submit-vote-btn {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 20px;
+  transition: all 0.3s;
+}
+
+/* Default user icon styling for candidates */
+.default-candidate-icon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e9ecef;
+  border-radius: 50%;
+}
+
+/* Edit vote button */
+.edit-vote-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.candidate-card {
   position: relative;
 }
 
-.save-btn.loading::after {
-  content: "";
-  width: 16px;
-  height: 16px;
-  border: 2px solid transparent;
-  border-top-color: white;
-  border-radius: 50%;
-  position: absolute;
-  right: 12px;
-  top: calc(50% - 8px);
-  animation: spin 1s linear infinite;
+.candidate-card:hover .edit-vote-btn {
+  opacity: 1;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+.candidate-card.selected .edit-vote-btn {
+  opacity: 1;
+}
+
+/* Reset votes button */
+.reset-votes-btn {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  color: #6c757d;
+  margin-right: 15px;
+}
+
+.reset-votes-btn:hover {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.submit-vote-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.election-status {
+  font-size: 14px;
+  color: var(--text-gray);
+  text-align: center;
+  margin-bottom: 10px;
 }

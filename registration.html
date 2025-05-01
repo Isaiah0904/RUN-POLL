@@ -53,9 +53,37 @@
                     <input type="email" class="form-control" id="email" required>
                 </div>
                 
+                <!-- Phone Number Field -->
+                <div class="mb-3">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phoneNumber" placeholder="e.g., +123 456 7890" required>
+                </div>
+                
                 <div class="mb-3">
                     <label for="studentId" class="form-label">Student ID</label>
                     <input type="text" class="form-control" id="studentId" required>
+                </div>
+                
+                <!-- Department Field -->
+                <div class="mb-3">
+                    <label for="department" class="form-label">Department</label>
+                    <select class="form-select" id="department" required>
+                        <option value="" selected disabled>Select your department</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Business">Business</option>
+                        <option value="Arts">Arts</option>
+                        <option value="Sciences">Sciences</option>
+                        <option value="Medicine">Medicine</option>
+                        <option value="Law">Law</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <!-- Birthday Field -->
+                <div class="mb-3">
+                    <label for="birthday" class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" id="birthday" required>
                 </div>
                 
                 <div class="mb-3">
@@ -178,7 +206,10 @@
                 const firstName = document.getElementById('firstName').value;
                 const lastName = document.getElementById('lastName').value;
                 const email = document.getElementById('email').value;
+                const phoneNumber = document.getElementById('phoneNumber').value;
                 const studentId = document.getElementById('studentId').value;
+                const department = document.getElementById('department').value;
+                const birthday = document.getElementById('birthday').value;
                 const password = document.getElementById('password').value;
                 const confirmPassword = document.getElementById('confirmPassword').value;
                 const profileImage = localStorage.getItem('profileImage');
@@ -194,7 +225,10 @@
                     firstName,
                     lastName,
                     email,
+                    phoneNumber,
                     studentId,
+                    department,
+                    birthday,
                     profileImage
                 };
                 
