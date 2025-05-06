@@ -59,6 +59,7 @@
               <i class="bi bi-check2-square"></i> Vote
             </a>
           </li>
+          <!-- New Navigation Item -->
           <li class="nav-item">
             <a href="Voter-guidline.html" class="nav-link">
               <i class="bi bi-journal-text"></i> Voters Guideline
@@ -122,6 +123,22 @@
       <div class="mb-4">
         <h2>Hello, Juan!</h2>
         <p class="text-muted">Welcome to RUN's Online Voting System</p>
+      </div>
+
+      <!-- New Become a Candidate Banner -->
+      <div class="become-candidate-banner">
+        <div>
+          <h4>Want to make a difference?</h4>
+          <p>
+            Run for a position in the Student Council elections and represent
+            your peers.
+          </p>
+        </div>
+        <a href="candidate.html">
+          <button class="become-candidate-btn" id="becomeCandidateBtn">
+            <i class="bi bi-person-badge me-2"></i>Become a Candidate
+          </button>
+        </a>
       </div>
 
       <div class="row">
@@ -194,7 +211,9 @@
           <div class="card h-100">
             <div class="card-header">
               <div class="d-flex align-items-center">
-                <a href="#" class="back-btn"><i class="bi bi-chevron-left"></i></a>
+                <a href="#" class="back-btn"
+                  ><i class="bi bi-chevron-left"></i
+                ></a>
                 <span>President Student Council</span>
                 <i class="bi bi-chevron-right ms-auto"></i>
               </div>
@@ -215,13 +234,13 @@
                   <div class="stat-label">Turnout</div>
                 </div>
               </div>
-              
+
               <!-- Tabs -->
               <div class="card-tabs">
                 <div class="card-tab active">Results</div>
                 <div class="card-tab">Chart View</div>
               </div>
-              
+
               <!-- Candidates list with progress bars -->
               <div id="candidates-container">
                 <!-- Candidate 1 -->
@@ -236,12 +255,18 @@
                     </div>
                     <div class="vote-count">112 votes</div>
                     <div class="progress-container">
-                      <div class="progress-bar" style="width: 56%; background-color: rgba(73, 84, 184, 0.8);"></div>
+                      <div
+                        class="progress-bar"
+                        style="
+                          width: 56%;
+                          background-color: rgba(73, 84, 184, 0.8);
+                        "
+                      ></div>
                     </div>
                   </div>
                   <div class="vote-percentage">56%</div>
                 </div>
-                
+
                 <!-- Candidate 2 -->
                 <div class="candidate-item">
                   <div class="candidate-avatar">
@@ -251,12 +276,18 @@
                     <div class="candidate-name">Candidate #2</div>
                     <div class="vote-count">68 votes</div>
                     <div class="progress-container">
-                      <div class="progress-bar" style="width: 34%; background-color: rgba(73, 84, 184, 0.6);"></div>
+                      <div
+                        class="progress-bar"
+                        style="
+                          width: 34%;
+                          background-color: rgba(73, 84, 184, 0.6);
+                        "
+                      ></div>
                     </div>
                   </div>
                   <div class="vote-percentage">34%</div>
                 </div>
-                
+
                 <!-- Candidate 3 -->
                 <div class="candidate-item">
                   <div class="candidate-avatar">
@@ -266,24 +297,33 @@
                     <div class="candidate-name">Candidate #3</div>
                     <div class="vote-count">20 votes</div>
                     <div class="progress-container">
-                      <div class="progress-bar" style="width: 10%; background-color: rgba(73, 84, 184, 0.4);"></div>
+                      <div
+                        class="progress-bar"
+                        style="
+                          width: 10%;
+                          background-color: rgba(73, 84, 184, 0.4);
+                        "
+                      ></div>
                     </div>
                   </div>
                   <div class="vote-percentage">10%</div>
                 </div>
               </div>
-              
+
               <!-- Charts container (hidden initially) -->
-              <div class="results-chart-container" style="display: none;">
+              <div class="results-chart-container" style="display: none">
                 <canvas id="resultsChart"></canvas>
               </div>
-              
-              <div class="timestamp">Last updated: April 30, 2025 • 10:45 AM</div>
-              
+
+              <div class="timestamp">
+                Last updated: April 30, 2025 • 10:45 AM
+              </div>
+
               <button class="vote-now-button">VOTE NOW</button>
-              
+
               <div class="small-note">
-                *The candidate list is not in any particular order. Results are updated in real-time.
+                *The candidate list is not in any particular order. Results are
+                updated in real-time.
               </div>
             </div>
           </div>
@@ -367,6 +407,340 @@
                 <span class="activity-label label-concluded">Concluded</span>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Become a Candidate Modal -->
+    <div
+      class="modal fade"
+      id="candidateModal"
+      tabindex="-1"
+      aria-labelledby="candidateModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="candidateModalLabel">
+              Candidate Application
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form class="candidate-form">
+              <!-- Step indicator -->
+              <div class="mb-4">
+                <div class="progress" style="height: 5px">
+                  <div
+                    class="progress-bar bg-primary"
+                    id="applicationProgress"
+                    role="progressbar"
+                    style="width: 33%"
+                    aria-valuenow="33"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+                <div class="d-flex justify-content-between mt-2">
+                  <div class="step active">1. Position Details</div>
+                  <div class="step">2. Personal Statement</div>
+                  <div class="step">3. Review & Submit</div>
+                </div>
+              </div>
+
+              <!-- Step 1: Position Selection -->
+              <div id="step1" class="application-step">
+                <div class="mb-3">
+                  <label for="positionSelect" class="form-label"
+                    >Which position are you running for?</label
+                  >
+                  <select class="form-select" id="positionSelect" required>
+                    <option value="" selected disabled>
+                      Select a position
+                    </option>
+                    <option value="president">President Student Council</option>
+                    <option value="vice-president">
+                      Vice President Student Council
+                    </option>
+                    <option value="secretary">Secretary Student Council</option>
+                    <option value="treasurer">Treasurer Student Council</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="academicYear" class="form-label"
+                    >Current Academic Year</label
+                  >
+                  <select class="form-select" id="academicYear" required>
+                    <option value="" selected disabled>
+                      Select your academic year
+                    </option>
+                    <option value="1">First Year</option>
+                    <option value="2">Second Year</option>
+                    <option value="3">Third Year</option>
+                    <option value="4">Fourth Year</option>
+                    <option value="5">Postgraduate</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="facultySelect" class="form-label"
+                    >Faculty/Department</label
+                  >
+                  <select class="form-select" id="facultySelect" required>
+                    <option value="" selected disabled>
+                      Select your faculty/department
+                    </option>
+                    <option value="arts">Faculty of Arts</option>
+                    <option value="science">Faculty of Science</option>
+                    <option value="social_sciences">
+                      Faculty of Social Sciences
+                    </option>
+                    <option value="law">Faculty of Law</option>
+                    <option value="engineering">Faculty of Engineering</option>
+                    <option value="business">
+                      Faculty of Business & Economics
+                    </option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="cgpaInput" class="form-label">Current CGPA</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="cgpaInput"
+                    min="0"
+                    max="4.0"
+                    step="0.01"
+                    placeholder="Enter your CGPA (e.g., 3.5)"
+                    required
+                  />
+                  <small class="text-muted"
+                    >Minimum required CGPA for candidacy is 2.5</small
+                  >
+                </div>
+
+                <div class="text-end mt-4">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="nextToStep2"
+                  >
+                    Continue
+                  </button>
+                </div>
+              </div>
+
+              <!-- Step 2: Personal Statement -->
+              <div id="step2" class="application-step" style="display: none">
+                <div class="mb-3">
+                  <label for="campaignSlogan" class="form-label"
+                    >Campaign Slogan</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="campaignSlogan"
+                    maxlength="100"
+                    placeholder="Enter a catchy slogan for your campaign (max 100 characters)"
+                    required
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="personalStatement" class="form-label"
+                    >Personal Statement</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="personalStatement"
+                    rows="5"
+                    placeholder="Tell voters why you're running and what you hope to accomplish..."
+                    required
+                  ></textarea>
+                  <small class="text-muted"
+                    >Minimum 100 characters, maximum 500 characters</small
+                  >
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Upload Campaign Photo</label>
+                  <div class="campaign-photo-upload" id="photoUploadArea">
+                    <i class="bi bi-cloud-arrow-up upload-icon"></i>
+                    <p>Click to upload a campaign photo or drag and drop</p>
+                    <small class="text-muted"
+                      >JPG, PNG or GIF, Max size: 5MB</small
+                    >
+                  </div>
+                  <input
+                    type="file"
+                    id="campaignPhotoInput"
+                    accept="image/*"
+                    style="display: none"
+                  />
+                </div>
+
+                <div class="text-end mt-4">
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary me-2"
+                    id="backToStep1"
+                  >
+                    Back
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="nextToStep3"
+                  >
+                    Continue
+                  </button>
+                </div>
+              </div>
+
+              <!-- Step 3: Review & Submit -->
+              <div id="step3" class="application-step" style="display: none">
+                <div class="alert alert-info">
+                  <i class="bi bi-info-circle-fill me-2"></i> Please review your
+                  application details before submitting.
+                </div>
+
+                <div class="review-section p-3 mb-3 bg-light rounded">
+                  <h6 class="fw-bold">Position Information</h6>
+                  <div class="row mb-2">
+                    <div class="col-md-4 text-muted">Position:</div>
+                    <div class="col-md-8" id="reviewPosition">
+                      President Student Council
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    <div class="col-md-4 text-muted">Academic Year:</div>
+                    <div class="col-md-8" id="reviewAcademicYear">
+                      Third Year
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    <div class="col-md-4 text-muted">Faculty/Department:</div>
+                    <div class="col-md-8" id="reviewFaculty">
+                      Faculty of Engineering
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    <div class="col-md-4 text-muted">CGPA:</div>
+                    <div class="col-md-8" id="reviewCGPA">3.67</div>
+                  </div>
+                </div>
+
+                <div class="review-section p-3 mb-3 bg-light rounded">
+                  <h6 class="fw-bold">Campaign Information</h6>
+                  <div class="row mb-2">
+                    <div class="col-md-4 text-muted">Campaign Slogan:</div>
+                    <div class="col-md-8" id="reviewSlogan">
+                      Building Tomorrow Together
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    <div class="col-md-4 text-muted">Personal Statement:</div>
+                    <div class="col-md-8" id="reviewStatement">
+                      I am committed to representing student interests and
+                      improving campus life through inclusive policies and
+                      transparent leadership.
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    <div class="col-md-4 text-muted">Campaign Photo:</div>
+                    <div class="col-md-8" id="reviewPhoto">
+                      <img
+                        src="/api/placeholder/100/100"
+                        alt="Campaign photo"
+                        class="img-thumbnail"
+                        style="max-width: 100px"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-3 form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="confirmAccuracy"
+                    required
+                  />
+                  <label class="form-check-label" for="confirmAccuracy"
+                    >I confirm that all information provided is accurate and
+                    complete.</label
+                  >
+                </div>
+
+                <div class="mb-3 form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="agreeToTerms"
+                    required
+                  />
+                  <label class="form-check-label" for="agreeToTerms"
+                    >I agree to abide by all election rules and code of
+                    conduct.</label
+                  >
+                </div>
+
+                <div class="text-end mt-4">
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary me-2"
+                    id="backToStep2"
+                  >
+                    Back
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    id="candidateSubmitBtn"
+                  >
+                    Submit Application
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body text-center py-4">
+            <div class="mb-4">
+              <i
+                class="bi bi-check-circle-fill text-success"
+                style="font-size: 60px"
+              ></i>
+            </div>
+            <h5 class="mb-3">Application Submitted Successfully!</h5>
+            <p>
+              Your candidate application has been received. The election
+              committee will review your application and notify you of the
+              status within 48 hours.
+            </p>
+            <button
+              type="button"
+              class="btn btn-success mt-3"
+              data-bs-dismiss="modal"
+            >
+              Return to Dashboard
+            </button>
           </div>
         </div>
       </div>
@@ -814,123 +1188,131 @@
           .appendChild(candidatesChart.canvas);
       });
 
-      document.addEventListener('DOMContentLoaded', function() {
-  // Check if the candidates container and tabs exist on the page
-  const candidatesContainer = document.getElementById('candidates-container');
-  const chartContainer = document.querySelector('.results-chart-container');
-  const tabs = document.querySelectorAll('.card-tab');
-  
-  if (candidatesContainer && tabs.length > 0) {
-    // Initialize tabs functionality
-    tabs.forEach(tab => {
-      tab.addEventListener('click', function() {
-        // Remove active class from all tabs
-        tabs.forEach(t => t.classList.remove('active'));
-        
-        // Add active class to clicked tab
-        this.classList.add('active');
-        
-        // Show/hide appropriate content
-        if (this.textContent === 'Results') {
-          candidatesContainer.style.display = 'block';
-          chartContainer.style.display = 'none';
-        } else {
-          candidatesContainer.style.display = 'none';
-          chartContainer.style.display = 'block';
-          
-          // Initialize chart if it's being shown
-          initResultsChart();
-        }
-      });
-    });
-    
-    // Add animation to progress bars
-    setTimeout(() => {
-      const progressBars = document.querySelectorAll('.progress-container .progress-bar');
-      progressBars.forEach(bar => {
-        const width = bar.style.width;
-        bar.style.width = '0%';
-        setTimeout(() => {
-          bar.style.width = width;
-        }, 300);
-      });
-    }, 500);
-  }
-  
-  // Function to initialize the candidate results chart
-  function initResultsChart() {
-    const ctx = document.getElementById('resultsChart');
-    
-    // Only proceed if the canvas exists
-    if (!ctx) return;
-    
-    // Get the context
-    const ctxContext = ctx.getContext('2d');
-    
-    // Check if chart already exists and destroy it to prevent duplicates
-    if (window.resultsChart instanceof Chart) {
-      window.resultsChart.destroy();
-    }
-    
-    // Create new chart
-    window.resultsChart = new Chart(ctxContext, {
-      type: 'bar',
-      data: {
-        labels: ['Candidate #1', 'Candidate #2', 'Candidate #3'],
-        datasets: [{
-          label: 'Votes',
-          data: [112, 68, 20],
-          backgroundColor: [
-            'rgba(73, 84, 184, 0.8)',
-            'rgba(73, 84, 184, 0.6)',
-            'rgba(73, 84, 184, 0.4)'
-          ],
-          borderColor: [
-            'rgba(73, 84, 184, 1)',
-            'rgba(73, 84, 184, 1)',
-            'rgba(73, 84, 184, 1)'
-          ],
-          borderWidth: 1,
-          borderRadius: 5
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false
-          },
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                const value = context.raw;
-                const total = 200; // Total votes
-                const percentage = Math.round((value / total) * 100);
-                return `${value} votes (${percentage}%)`;
+      document.addEventListener("DOMContentLoaded", function () {
+        // Check if the candidates container and tabs exist on the page
+        const candidatesContainer = document.getElementById(
+          "candidates-container"
+        );
+        const chartContainer = document.querySelector(
+          ".results-chart-container"
+        );
+        const tabs = document.querySelectorAll(".card-tab");
+
+        if (candidatesContainer && tabs.length > 0) {
+          // Initialize tabs functionality
+          tabs.forEach((tab) => {
+            tab.addEventListener("click", function () {
+              // Remove active class from all tabs
+              tabs.forEach((t) => t.classList.remove("active"));
+
+              // Add active class to clicked tab
+              this.classList.add("active");
+
+              // Show/hide appropriate content
+              if (this.textContent === "Results") {
+                candidatesContainer.style.display = "block";
+                chartContainer.style.display = "none";
+              } else {
+                candidatesContainer.style.display = "none";
+                chartContainer.style.display = "block";
+
+                // Initialize chart if it's being shown
+                initResultsChart();
               }
-            }
-          }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            grid: {
-              display: true,
-              drawBorder: false,
-              color: 'rgba(0, 0, 0, 0.05)'
-            }
-          },
-          x: {
-            grid: {
-              display: false
-            }
-          }
+            });
+          });
+
+          // Add animation to progress bars
+          setTimeout(() => {
+            const progressBars = document.querySelectorAll(
+              ".progress-container .progress-bar"
+            );
+            progressBars.forEach((bar) => {
+              const width = bar.style.width;
+              bar.style.width = "0%";
+              setTimeout(() => {
+                bar.style.width = width;
+              }, 300);
+            });
+          }, 500);
         }
-      }
-    });
-  }
-});
+
+        // Function to initialize the candidate results chart
+        function initResultsChart() {
+          const ctx = document.getElementById("resultsChart");
+
+          // Only proceed if the canvas exists
+          if (!ctx) return;
+
+          // Get the context
+          const ctxContext = ctx.getContext("2d");
+
+          // Check if chart already exists and destroy it to prevent duplicates
+          if (window.resultsChart instanceof Chart) {
+            window.resultsChart.destroy();
+          }
+
+          // Create new chart
+          window.resultsChart = new Chart(ctxContext, {
+            type: "bar",
+            data: {
+              labels: ["Candidate #1", "Candidate #2", "Candidate #3"],
+              datasets: [
+                {
+                  label: "Votes",
+                  data: [112, 68, 20],
+                  backgroundColor: [
+                    "rgba(73, 84, 184, 0.8)",
+                    "rgba(73, 84, 184, 0.6)",
+                    "rgba(73, 84, 184, 0.4)",
+                  ],
+                  borderColor: [
+                    "rgba(73, 84, 184, 1)",
+                    "rgba(73, 84, 184, 1)",
+                    "rgba(73, 84, 184, 1)",
+                  ],
+                  borderWidth: 1,
+                  borderRadius: 5,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  display: false,
+                },
+                tooltip: {
+                  callbacks: {
+                    label: function (context) {
+                      const value = context.raw;
+                      const total = 200; // Total votes
+                      const percentage = Math.round((value / total) * 100);
+                      return `${value} votes (${percentage}%)`;
+                    },
+                  },
+                },
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  grid: {
+                    display: true,
+                    drawBorder: false,
+                    color: "rgba(0, 0, 0, 0.05)",
+                  },
+                },
+                x: {
+                  grid: {
+                    display: false,
+                  },
+                },
+              },
+            },
+          });
+        }
+      });
     </script>
   </body>
 </html>

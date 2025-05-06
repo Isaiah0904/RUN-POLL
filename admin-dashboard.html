@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RUNPOLLS | Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <!-- Chart.js -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Core styles */
+      :root {
+        --primary-color: #4954b8;
+        --primary-light: rgba(73, 84, 184, 0.1);
+        --primary-dark: #394298;
+        --secondary-color: #f8f9fa;
+        --text-color: #212529;
+        --text-muted: #6c757d;
+        --border-color: #e9ecef;
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+        --info-color: #3b82f6;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f7fb;
+        margin: 0;
+        padding: 0;
+        color: var(--text-color);
+        overflow-x: hidden;
+      }
+
+      /* Sidebar styles */
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 260px;
+        background: white;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        z-index: 1000;
+        overflow-y: auto;
+      }
+
+      .sidebar.active {
+        left: 0;
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        border-bottom: 1px solid var(--border-color);
+        position: relative;
+      }
+
+      .logo {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--primary-color);
+      }
+
+      .brand-text {
+        font-size: 22px;
+        font-weight: 500;
+        margin-left: 4px;
+      }
+
+      #close {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        cursor: pointer;
+        display: none;
+      }
+
+      .profile-container {
+        padding: 20px;
+        text-align: center;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .profile-image-container {
+        position: relative;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        margin: 0 auto 15px;
+        background-color: var(--secondary-color);
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      .profile-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .edit-icon {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--primary-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .profile-name {
+        font-weight: 600;
+        font-size: 16px;
+        margin-bottom: 5px;
+      }
+
+      .profile-role {
+        color: var(--text-muted);
+        font-size: 14px;
+      }
+
+      .sidebar-nav {
+        display: flex;
+        flex-direction: column;
+        height: calc(100% - 200px);
+        justify-content: space-between;
+      }
+
+      .nav-main {
+        margin-top: 10px;
+      }
+
+      .nav-item {
+        padding: 0;
+        margin: 5px 0;
+      }
+
+      .nav-link {
+        color: var(--text-color);
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        transition: all 0.2s ease;
+      }
+
+      .nav-link i {
+        font-size: 18px;
+        margin-right: 10px;
+        width: 24px;
+      }
+
+      .nav-link:hover,
+      .nav-link:focus {
+        background-color: var(--primary-light);
+        color: var(--primary-color);
+      }
+
+      .nav-link.active {
+        background-color: var(--primary-light);
+        color: var(--primary-color);
+        font-weight: 600;
+      }
+
+      .nav-footer {
+        margin-top: auto;
+        padding-bottom: 20px;
+      }
+
+      /* Main content styles */
+      .main-content {
+        margin-left: 260px;
+        padding: 20px;
+        transition: all 0.3s ease;
+      }
+
+      /* Top navbar styles */
+      .top-navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        margin-bottom: 30px;
+      }
+
+      .toggle-sidebar {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: var(--text-color);
+        display: none;
+      }
+
+      .search-bar {
+        position: relative;
+        width: 300px;
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+      }
+
+      .search-input {
+        padding-left: 35px;
+        border-radius: 20px;
+        border: 1px solid var(--border-color);
+        background-color: white;
+      }
+
+      .user-actions {
+        display: flex;
+        align-items: center;
+      }
+
+      .action-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 10px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .action-icon:hover {
+        background-color: var(--primary-light);
+        color: var(--primary-color);
+      }
+
+      .navbar-user-container {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-left: 10px;
+        cursor: pointer;
+        overflow: hidden;
+        background-color: var(--secondary-color);
+      }
+
+      .user-avatar {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .status-indicator {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: var(--success-color);
+        border: 2px solid white;
+        bottom: 0;
+        right: 0;
+      }
+
+      /* Card styles */
+      .card {
+        border: none;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+
+      .card-header {
+        background-color: white;
+        border-bottom: 1px solid var(--border-color);
+        padding: 15px 20px;
+        font-weight: 600;
+        border-radius: 10px 10px 0 0 !important;
+      }
+
+      .card-body {
+        padding: 20px;
+      }
+
+      /* Election stats card */
+      .stats-card {
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .stats-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: var(--primary-light);
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin-bottom: 15px;
+      }
+
+      .stats-value {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+
+      .stats-label {
+        color: var(--text-muted);
+        font-size: 14px;
+      }
+
+      /* Quick actions card */
+      .quick-action {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        background-color: white;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .quick-action:hover {
+        background-color: var(--primary-light);
+      }
+
+      .quick-action-icon {
+        width: 45px;
+        height: 45px;
+        border-radius: 10px;
+        background-color: var(--primary-light);
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        margin-right: 15px;
+      }
+
+      .quick-action-text {
+        font-weight: 500;
+      }
+
+      /* Table styles */
+      .table th {
+        font-weight: 600;
+        color: var(--text-muted);
+        border-bottom-width: 1px;
+      }
+
+      .table td {
+        vertical-align: middle;
+      }
+
+      .election-status {
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .status-active {
+        background-color: rgba(16, 185, 129, 0.1);
+        color: var(--success-color);
+      }
+
+      .status-pending {
+        background-color: rgba(245, 158, 11, 0.1);
+        color: var(--warning-color);
+      }
+
+      .status-ended {
+        background-color: rgba(239, 68, 68, 0.1);
+        color: var(--danger-color);
+      }
+
+      .status-draft {
+        background-color: rgba(107, 114, 128, 0.1);
+        color: var(--text-muted);
+      }
+
+      .action-button {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        background-color: var(--primary-light);
+        color: var(--primary-color);
+        border: none;
+      }
+
+      .action-button:hover {
+        background-color: var(--primary-color);
+        color: white;
+      }
+
+      .action-button.edit {
+        background-color: rgba(59, 130, 246, 0.1);
+        color: var(--info-color);
+      }
+
+      .action-button.edit:hover {
+        background-color: var(--info-color);
+        color: white;
+      }
+
+      .action-button.delete {
+        background-color: rgba(239, 68, 68, 0.1);
+        color: var(--danger-color);
+      }
+
+      .action-button.delete:hover {
+        background-color: var(--danger-color);
+        color: white;
+      }
+
+      /* Activities styles */
+      .activity-item {
+        display: flex;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .activity-item:last-child {
+        border-bottom: none;
+      }
+
+      .activity-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        margin-right: 15px;
+      }
+
+      .activity-icon.create {
+        background-color: rgba(16, 185, 129, 0.1);
+        color: var(--success-color);
+      }
+
+      .activity-icon.edit {
+        background-color: rgba(59, 130, 246, 0.1);
+        color: var(--info-color);
+      }
+
+      .activity-icon.delete {
+        background-color: rgba(239, 68, 68, 0.1);
+        color: var(--danger-color);
+      }
+
+      .activity-details {
+        flex: 1;
+      }
+
+      .activity-text {
+        font-weight: 500;
+        margin-bottom: 5px;
+      }
+
+      .activity-time {
+        color: var(--text-muted);
+        font-size: 12px;
+      }
+
+      /* Admin specific styles */
+      .admin-badge {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-left: 10px;
+      }
+
+      .voter-count {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+
+      .voter-category {
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+
+      .chart-container {
+        position: relative;
+        height: 250px;
+      }
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+      }
+
+      .btn-primary:hover,
+      .btn-primary:focus {
+        background-color: var(--primary-dark);
+        border-color: var(--primary-dark);
+      }
+
+      .election-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: var(--primary-light);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .election-info {
+        flex: 1;
+      }
+
+      .election-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+
+      .election-date {
+        font-size: 14px;
+        color: var(--text-muted);
+        margin-bottom: 10px;
+      }
+
+      .election-image {
+        width: 80px;
+        object-fit: contain;
+      }
+
+      .candidate-item {
+        display: flex;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .candidate-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: var(--primary-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+      }
+
+      .candidate-info {
+        flex: 1;
+      }
+
+      .candidate-name {
+        font-weight: 600;
+      }
+
+      .candidate-position {
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+
+      .tab-container {
+        display: flex;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 20px;
+      }
+
+      .tab {
+        padding: 15px 20px;
+        font-weight: 600;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+      }
+
+      .tab.active {
+        color: var(--primary-color);
+        border-bottom-color: var(--primary-color);
+      }
+
+      .settings-section {
+        margin-bottom: 30px;
+      }
+
+      .settings-header {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+
+      .settings-description {
+        color: var(--text-muted);
+        margin-bottom: 20px;
+      }
+
+      .form-switch .form-check-input {
+        width: 45px;
+        height: 24px;
+      }
+
+      .form-switch .form-check-input:checked {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+      }
+
+      .system-info {
+        padding: 15px;
+        background-color: var(--secondary-color);
+        border-radius: 10px;
+        margin-bottom: 15px;
+      }
+
+      .system-info-label {
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+
+      /* Responsive styles */
+      @media (max-width: 992px) {
+        .sidebar {
+          left: -260px;
+        }
+
+        #close {
+          display: block;
+        }
+
+        .main-content {
+          margin-left: 0;
+        }
+
+        .toggle-sidebar {
+          display: block;
+        }
+
+        .search-bar {
+          width: 200px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .search-bar {
+          display: none;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .top-navbar {
+          flex-wrap: wrap;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="logo-container">
+        <div class="logo">RUN</div>
+        <div class="brand-text">POLLS</div>
+        <i class="bi bi-x-lg" id="close"></i>
+      </div>
+
+      <div class="profile-container">
+        <!-- Improved profile image container -->
+        <div class="profile-image-container" id="sidebarProfileContainer">
+          <img
+            src="/api/placeholder/70/70"
+            class="profile-image"
+            id="userProfileImage"
+          />
+          <div class="edit-icon">
+            <i class="bi bi-pencil-fill text-white" style="font-size: 12px"></i>
+          </div>
+        </div>
+        <div class="profile-name" id="userProfileName">
+          John Smith <span class="admin-badge">Admin</span>
+        </div>
+        <div class="profile-role" id="userProfileRole">Election Administrator</div>
+      </div>
+
+      <!-- Sidebar Navigation with improved structure -->
+      <div class="sidebar-nav">
+        <ul class="nav flex-column nav-main">
+          <li class="nav-item">
+            <a href="#" class="nav-link active">
+              <i class="bi bi-grid-1x2-fill"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="admin-elections.html" class="nav-link">
+              <i class="bi bi-calendar2-check"></i> Elections
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="admin-candidates.html" class="nav-link">
+              <i class="bi bi-person-badge"></i> Candidates
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="admin-voters.html" class="nav-link">
+              <i class="bi bi-people-fill"></i> Voters
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="admin-results.html" class="nav-link">
+              <i class="bi bi-bar-chart-fill"></i> Results
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="admin-settings.html" class="nav-link">
+              <i class="bi bi-gear-fill"></i> Settings
+            </a>
+          </li>
+        </ul>
+
+        <!-- Logout button in footer section -->
+        <ul class="nav flex-column nav-footer">
+          <li class="nav-item">
+            <a href="admin-login.html" class="nav-link text-danger">
+              <i class="bi bi-box-arrow-right"></i> Log out
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+      <!-- Top Navbar -->
+      <div class="top-navbar">
+        <button class="toggle-sidebar" id="toggleSidebar">
+          <i class="bi bi-list"></i>
+        </button>
+
+        <div class="search-bar position-relative">
+          <i class="bi bi-search search-icon"></i>
+          <input
+            type="text"
+            class="form-control search-input"
+            placeholder="Search elections, candidates, voters..."
+          />
+        </div>
+
+        <div class="user-actions">
+          <div class="action-icon">
+            <i class="bi bi-bell"></i>
+          </div>
+          <div class="action-icon">
+            <i class="bi bi-question-circle"></i>
+          </div>
+          <!-- Improved navbar user container -->
+          <div class="navbar-user-container" id="navbarUserContainer">
+            <img
+              src="/api/placeholder/40/40"
+              class="user-avatar"
+              id="navbarUserImage"
+            />
+            <div class="status-indicator"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Welcome Message -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h2>Admin Dashboard</h2>
+          <p class="text-muted">Manage elections, candidates, and voters</p>
+        </div>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createElectionModal">
+          <i class="bi bi-plus-circle me-2"></i>Create New Election
+        </button>
+      </div>
+
+      <!-- Stats Section -->
+      <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="stats-card">
+            <div class="stats-icon">
+              <i class="bi bi-calendar-check"></i>
+            </div>
+            <div class="stats-value" id="activeElectionsCount">3</div>
+            <div class="stats-label">Active Elections</div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="stats-card">
+            <div class="stats-icon">
+              <i class="bi bi-person"></i>
+            </div>
+            <div class="stats-value" id="registeredCandidatesCount">12</div>
+            <div class="stats-label">Registered Candidates</div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="stats-card">
+            <div class="stats-icon">
+              <i class="bi bi-people"></i>
+            </div>
+            <div class="stats-value" id="registeredVotersCount">562</div>
+            <div class="stats-label">Registered Voters</div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="stats-card">
+            <div class="stats-icon">
+              <i class="bi bi-check2-square"></i>
+            </div>
+            <div class="stats-value" id="totalVotesCount">312</div>
+            <div class="stats-label">Total Votes Cast</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Dashboard Content -->
+      <div class="row">
+        <!-- Elections Overview -->
+        <div class="col-lg-8 mb-4">
+          <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <div>Recent Elections</div>
+              <a href="admin-elections.html" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Election Title</th>
+                      <th>Start Date</th>
+                      <th>End Date</th>
+                      <th>Status</th>
+                      <th>Votes</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>President Student Council</td>
+                      <td>Apr 20, 2025</td>
+                      <td>Apr 30, 2025</td>
+                      <td><span class="election-status status-active">Active</span></td>
+                      <td>200</td>
+                      <td>
+                        <button class="action-button view" title="View Results">
+                          <i class="bi bi-bar-chart"></i>
+                        </button>
+                        <button class="action-button edit" title="Edit Election">
+                          <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="action-button delete" title="Delete Election">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Vice President Student Council</td>
+                      <td>May 05, 2025</td>
+                      <td>May 15, 2025</td>
+                      <td><span class="election-status status-pending">Pending</span></td>
+                      <td>0</td>
+                      <td>
+                        <button class="action-button view" title="View Details">
+                          <i class="bi bi-eye"></i>
+                        </button>
+                        <button class="action-button edit" title="Edit Election">
+                          <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="action-button delete" title="Delete Election">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Secretary Student Council</td>
+                      <td>Apr 01, 2025</td>
+                      <td>Apr 10, 2025</td>
+                      <td><span class="election-status status-ended">Ended</span></td>
+                      <td>483</td>
+                      <td>
+                        <button class="action-button view" title="View Results">
+                          <i class="bi bi-bar-chart"></i>
+                        </button>
+                        <button class="action-button" title="Export Results">
+                          <i class="bi bi-download"></i>
+                        </button>
+                        <button class="action-button delete" title="Archive Election">
+                          <i class="bi bi-archive"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Treasurer Student Council</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td><span class="election-status status-draft">Draft</span></td>
+                      <td>0</td>
+                      <td>
+                        <button class="action-button view" title="View Details">
+                          <i class="bi bi-eye"></i>
+                        </button>
+                        <button class="action-button edit" title="Edit Election">
+                          <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="action-button delete" title="Delete Election">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions & Recent Activities -->
+        <div class="col-lg-4 mb-4">
+          <div class="card h-100">
+            <div class="card-header">Quick Actions</div>
+            <div class="card-body">
+              <div class="quick-action" data-bs-toggle="modal" data-bs-target="#createElectionModal">
+                <div class="quick-action-icon">
+                  <i class="bi bi-calendar-plus"></i>
+                </div>
+                <div class="quick-action-text">Create New Election</div>
+              </div>
+              <div class="quick-action" data-bs-toggle="modal" data-bs-target="#addVoterModal">
+                <div class="quick-action-icon">
+                  <i class="bi bi-person-plus"></i>
+                </div>
+                <div class="quick-action-text">Add New Voter</div>
+              </div>
+              <div class="quick-action" data-bs-toggle="modal" data-bs-target="#importVotersModal">
+                <div class="quick-action-icon">
+                  <i class="bi bi-file-earmark-spreadsheet"></i>
+                </div>
+              </div>
+  </body>
+</html>

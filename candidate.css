@@ -1,0 +1,457 @@
+:root {
+  --primary: #4954b8;
+  --primary-dark: #3a429b;
+  --secondary: #f5f7ff;
+  --light-gray: #f8f9fa;
+  --text-dark: #2a3074;
+  --text-gray: #6c757d;
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  --primary: #0d6efd;
+  --primary-hover: #0b5ed7;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.candidate-container {
+  max-width: 800px;
+  width: 100%;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.candidate-header {
+  background-color: var(--primary);
+  color: white;
+  padding: 25px 30px;
+  text-align: center;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+.logo {
+  background-color: white;
+  color: var(--primary);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.brand-text {
+  font-weight: bold;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.candidate-title {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+.candidate-form {
+  padding: 30px;
+}
+
+.form-label {
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.form-control {
+  border-radius: 8px;
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+}
+
+.form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.25rem rgba(73, 84, 184, 0.25);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  border-radius: 8px;
+  padding: 12px 25px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.form-select {
+  border-radius: 8px;
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+}
+
+.form-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.25rem rgba(73, 84, 184, 0.25);
+}
+
+/* Profile picture upload styling */
+.profile-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.profile-preview {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: var(--light-gray);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 15px;
+  border: 3px solid var(--primary);
+}
+
+.profile-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-icon {
+  font-size: 70px;
+  color: var(--text-gray);
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.upload-btn {
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.upload-btn:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.upload-btn-wrapper input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.form-text {
+  font-size: 12px;
+  color: var(--text-gray);
+}
+
+.file-upload-container {
+  border: 2px dashed #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  transition: all 0.3s;
+}
+
+.file-upload-container:hover {
+  border-color: var(--primary);
+}
+
+.file-preview {
+  display: none;
+  margin-top: 15px;
+  padding: 10px;
+  background-color: var(--light-gray);
+  border-radius: 8px;
+  text-align: left;
+}
+
+.file-name {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.file-icon {
+  color: var(--primary);
+  font-size: 18px;
+  margin-right: 8px;
+}
+
+.rules-container {
+  background-color: var(--light-gray);
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.rules-title {
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+/* Pink color scheme */
+.pink-theme {
+  --primary: #d63384;
+  --primary-hover: #bb2d72;
+}
+
+/* Apply theme colors to elements */
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+.form-check-input:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.border-primary {
+  border-color: var(--primary) !important;
+}
+
+.rules-list {
+  font-size: 14px;
+  color: var(--text-gray);
+  margin-bottom: 15px;
+}
+
+.form-check-input:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.cancel-link {
+  color: var(--text-gray);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.cancel-link:hover {
+  color: var(--text-dark);
+  text-decoration: underline;
+}
+
+.badge-available {
+  background-color: #d1e7dd;
+  color: #0f5132;
+  font-weight: 500;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-left: 8px;
+}
+
+.badge-limited {
+  background-color: #fff3cd;
+  color: #664d03;
+  font-weight: 500;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-left: 8px;
+}
+.terms {
+  font-weight: bold;
+  color: var(--text-dark);
+}
+
+.payment-section {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 30px;
+  border: 1px solid #dee2e6;
+}
+
+.payment-section h5 {
+  color: var(--primary);
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.payment-method-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.payment-method-option {
+  flex: 1;
+  min-width: 140px;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.payment-method-option:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.payment-method-option.selected {
+  border-color: var(--primary);
+  background-color: rgba(var(--primary-rgb), 0.05);
+  box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.2);
+}
+
+.payment-method-option img {
+  height: 30px;
+  margin-bottom: 8px;
+}
+
+.payment-form {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+.payment-amount {
+  background-color: #f0f7ff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.payment-amount .fee {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.payment-amount .description {
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.form-check-input:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.pink-theme .payment-method-option.selected {
+  border-color: var(--pink-primary);
+  background-color: rgba(var(--pink-primary-rgb), 0.05);
+  box-shadow: 0 0 0 2px rgba(var(--pink-primary-rgb), 0.2);
+}
+
+.pink-theme .payment-amount .fee {
+  color: var(--pink-primary);
+}
+
+.receipt-info {
+  font-size: 14px;
+  color: #6c757d;
+  margin-top: 15px;
+}
+
+.payment-status {
+  display: none;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.payment-status.success {
+  background-color: #d1e7dd;
+  color: #146c43;
+  border: 1px solid #a3cfbb;
+}
+
+.payment-status.processing {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+}
+
+.payment-status i {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.card-input-container {
+  position: relative;
+}
+
+.card-type-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 375px) {
+  .btn-primary {
+    font-size: 12px;
+  }
+  .form-actions {
+    gap: 20px;
+  }
+}

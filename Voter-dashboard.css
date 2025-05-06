@@ -150,7 +150,99 @@ body {
   color: var(--text-gray);
 }
 
-/* Add these styles to your Voter-dashboard.css file */
+/* Styling for the Become a Candidate button on the dashboard */
+.become-candidate-banner {
+  background: linear-gradient(135deg, #4954b8, #8158c5);
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  gap: 10px;
+}
+
+.become-candidate-banner h4 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.become-candidate-banner p {
+  margin: 5px 0 0;
+  opacity: 0.9;
+}
+
+.become-candidate-btn {
+  background-color: white;
+  color: #4954b8;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.become-candidate-btn:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the candidate application modal */
+.candidate-form .form-label {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.candidate-form .form-control,
+.candidate-form .form-select {
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+}
+
+.candidate-form .form-control:focus,
+.candidate-form .form-select:focus {
+  border-color: #4954b8;
+  box-shadow: 0 0 0 0.2rem rgba(73, 84, 184, 0.25);
+}
+
+.campaign-photo-upload {
+  border: 2px dashed #ced4da;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.campaign-photo-upload:hover {
+  border-color: #4954b8;
+  background-color: rgba(73, 84, 184, 0.05);
+}
+
+.upload-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+  color: #6c757d;
+}
+
+#candidateSubmitBtn {
+  background-color: #4954b8;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 25px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+#candidateSubmitBtn:hover {
+  background-color: #3a439a;
+  transform: translateY(-2px);
+}
 
 /* Candidate Results Styling */
 .candidate-item {

@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RUNPOLLS | Become a Candidate</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="candidate.css" />
+  </head>
+  <body>
+    <div class="candidate-container">
+      <div class="candidate-header">
+        <div class="logo-container">
+          <div class="logo">RUN</div>
+          <div class="brand-text">POLLS</div>
+        </div>
+        <h1 class="candidate-title">Become a Candidate</h1>
+      </div>
+
+      <div class="candidate-form">
+        <form id="candidateForm">
+          <!-- Profile Picture Upload -->
+          <div class="profile-upload-container">
+            <div class="profile-preview" id="profilePreview">
+              <i class="bi bi-person-fill profile-icon" id="profileIcon"></i>
+              <!-- Preview image will be shown here -->
+            </div>
+            <div class="upload-btn-wrapper">
+              <button type="button" class="upload-btn">
+                <i class="bi bi-camera"></i> Upload Campaign Photo
+              </button>
+              <input
+                type="file"
+                id="profilePicture"
+                accept="image/*"
+                required
+              />
+            </div>
+            <div class="form-text mt-2">
+              Professional photo recommended, max 2MB
+            </div>
+          </div>
+
+          <!-- Name Field -->
+          <div class="mb-4">
+            <label for="fullName" class="form-label">Full Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="fullName"
+              placeholder="Enter your full name"
+              required
+            />
+            <div class="form-text">
+              Your name as it will appear on the ballot
+            </div>
+          </div>
+
+          <!-- Gender Selection -->
+          <div class="mb-4">
+            <label class="form-label">Gender</label>
+            <div class="d-flex">
+              <div class="form-check me-4">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="gender"
+                  id="genderMale"
+                  value="male"
+                  checked
+                />
+                <label class="form-check-label" for="genderMale"> Male </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="gender"
+                  id="genderFemale"
+                  value="female"
+                />
+                <label class="form-check-label" for="genderFemale">
+                  Female
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Position Selection -->
+          <div class="mb-4">
+            <label for="position" class="form-label">Position to Contest</label>
+            <select class="form-select" id="position" required>
+              <option value="" selected disabled>Select a position</option>
+              <option value="student_president">Student Union President</option>
+              <option value="vice_president">Vice President</option>
+              <option value="treasurer">Treasurer</option>
+              <option value="secretary">Secretary</option>
+              <option value="social_director">Social Director</option>
+              <option value="academic_rep">Academic Representative</option>
+              <option value="sports_director">Sports Director</option>
+              <option value="welfare_officer">Welfare Officer</option>
+            </select>
+            <div class="form-text mt-2">
+              Available positions for the upcoming election
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="department" class="form-label">Department</label>
+            <input
+              type="text"
+              class="form-control"
+              id="department"
+              placeholder="Department you're contesting in"
+              required
+            />
+            <div class="form-text">What department you are contesting in?</div>
+          </div>
+
+          <!-- Campaign Slogan -->
+          <div class="mb-4">
+            <label for="slogan" class="form-label">Campaign Slogan</label>
+            <input
+              type="text"
+              class="form-control"
+              id="slogan"
+              placeholder="Your catchy campaign slogan"
+              required
+            />
+            <div class="form-text">
+              A short, memorable phrase that represents your campaign
+            </div>
+          </div>
+
+          <!-- Bio/Manifesto -->
+          <div class="mb-4">
+            <label for="manifesto" class="form-label"
+              >Personal Bio & Manifesto</label
+            >
+            <textarea
+              class="form-control"
+              id="manifesto"
+              rows="6"
+              placeholder="Share your background, experience, and what you plan to accomplish if elected..."
+              required
+            ></textarea>
+            <div class="form-text">
+              Minimum 200 characters, maximum 1000 characters
+            </div>
+          </div>
+
+          <!-- Campaign PDF Upload -->
+          <div class="mb-4">
+            <label class="form-label">Campaign Details (Optional)</label>
+            <div class="file-upload-container" id="pdfUploadContainer">
+              <i
+                class="bi bi-file-earmark-pdf fs-3 mb-2"
+                style="color: var(--primary)"
+              ></i>
+              <p class="mb-2">
+                Drag and drop your campaign PDF here, or click to browse
+              </p>
+              <div class="upload-btn-wrapper mx-auto">
+                <button type="button" class="upload-btn">
+                  <i class="bi bi-upload"></i> Choose PDF
+                </button>
+                <input type="file" id="campaignPdf" accept=".pdf" />
+              </div>
+              <div class="form-text mt-2">Max file size: 5MB</div>
+
+              <!-- PDF Preview (initially hidden) -->
+              <div class="file-preview" id="pdfPreview">
+                <div class="file-name">
+                  <i class="bi bi-file-earmark-pdf file-icon"></i>
+                  <span id="pdfName">filename.pdf</span>
+                  <button
+                    type="button"
+                    class="btn btn-sm text-danger ms-2"
+                    id="removePdf"
+                  >
+                    <i class="bi bi-x-circle"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PAYMENT SECTION - NEW -->
+          <div class="payment-section">
+            <h5><i class="bi bi-credit-card"></i> Registration Payment</h5>
+
+            <div class="payment-amount">
+              <div class="fee" id="registrationFee">$25.00</div>
+              <div class="description">
+                Non-refundable candidate registration fee
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Select Payment Method</label>
+              <div class="payment-method-options">
+                <div class="payment-method-option" data-method="credit-card">
+                  <i class="bi bi-credit-card fs-3"></i>
+                  <p class="mb-0">Credit Card</p>
+                </div>
+                <div class="payment-method-option" data-method="paypal">
+                  <i class="bi bi-paypal fs-3"></i>
+                  <p class="mb-0">PayPal</p>
+                </div>
+                <div class="payment-method-option" data-method="bank-transfer">
+                  <i class="bi bi-bank fs-3"></i>
+                  <p class="mb-0">Bank Transfer</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Credit Card Form (initially hidden) -->
+            <div class="payment-form" id="creditCardForm">
+              <div class="mb-3">
+                <label for="cardName" class="form-label">Cardholder Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="cardName"
+                  placeholder="Name as it appears on card"
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="cardNumber" class="form-label">Card Number</label>
+                <div class="card-input-container">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="cardNumber"
+                    placeholder="1234 5678 9012 3456"
+                    maxlength="19"
+                    required
+                  />
+                  <div class="card-type-icon">
+                    <i class="bi bi-credit-card" id="cardTypeIcon"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="cardExpiry" class="form-label"
+                    >Expiration Date</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="cardExpiry"
+                    placeholder="MM/YY"
+                    maxlength="5"
+                    required
+                  />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="cardCvv" class="form-label">CVV</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="cardCvv"
+                    placeholder="123"
+                    maxlength="3"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- PayPal Form (initially hidden) -->
+            <div class="payment-form" id="paypalForm" style="display: none">
+              <div class="text-center mb-3">
+                <i class="bi bi-paypal fs-1" style="color: #003087"></i>
+                <p>
+                  You will be redirected to PayPal to complete your payment
+                  securely.
+                </p>
+              </div>
+              <div class="mb-3">
+                <label for="paypalEmail" class="form-label">PayPal Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="paypalEmail"
+                  placeholder="your.email@example.com"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- Bank Transfer Form (initially hidden) -->
+            <div
+              class="payment-form"
+              id="bankTransferForm"
+              style="display: none"
+            >
+              <div class="alert alert-info mb-3">
+                <h6 class="mb-2">
+                  <i class="bi bi-info-circle"></i> Bank Transfer Details
+                </h6>
+                <p class="mb-2">
+                  Please transfer the registration fee to the following account:
+                </p>
+                <ul class="mb-0 ps-3">
+                  <li>Bank Name: University Bank</li>
+                  <li>Account Name: Student Union Elections</li>
+                  <li>Account Number: 1234567890</li>
+                  <li>Sort Code: 12-34-56</li>
+                  <li>Reference: Your Full Name</li>
+                </ul>
+              </div>
+
+              <div class="mb-3">
+                <label for="transferDate" class="form-label"
+                  >Date of Transfer</label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  id="transferDate"
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="transferReference" class="form-label"
+                  >Transfer Reference</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="transferReference"
+                  placeholder="The reference you used for the transfer"
+                  required
+                />
+              </div>
+
+              <!-- Transfer Receipt Upload -->
+              <div class="mb-3">
+                <label for="transferReceipt" class="form-label"
+                  >Upload Transfer Receipt (Optional)</label
+                >
+                <input
+                  type="file"
+                  class="form-control"
+                  id="transferReceipt"
+                  accept="image/*,.pdf"
+                />
+                <div class="form-text">
+                  Upload a screenshot or PDF of your transfer confirmation
+                </div>
+              </div>
+            </div>
+
+            <div class="payment-status" id="paymentStatus">
+              <!-- Payment status message will appear here -->
+            </div>
+
+            <div class="receipt-info mt-3">
+              <i class="bi bi-info-circle"></i> A payment receipt will be
+              emailed to you after submission
+            </div>
+          </div>
+
+          <!-- Election Rules Agreement -->
+          <div class="rules-container">
+            <h6 class="rules-title">Election Rules & Guidelines</h6>
+            <div class="rules-list">
+              <ol>
+                <li>
+                  Candidates must maintain academic standards as specified in
+                  the student handbook.
+                </li>
+                <li>
+                  Campaign materials must be approved by the election committee
+                  before distribution.
+                </li>
+                <li>
+                  Negative campaigning against other candidates is strictly
+                  prohibited.
+                </li>
+                <li>
+                  Candidates must attend a mandatory orientation session on
+                  [date].
+                </li>
+                <li>
+                  Campaign spending is limited to $150, with receipts to be
+                  submitted after the election.
+                </li>
+              </ol>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="rulesAgreement"
+                required
+              />
+              <label class="form-check-label terms" for="rulesAgreement">
+                I have read and agree to abide by the election rules and
+                guidelines
+              </label>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <a href="Voter-dashboard.html" class="cancel-link">Cancel</a>
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+              Pay & Submit Candidacy
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Bootstrap & Other JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Gender selection color theme change
+        const genderMale = document.getElementById("genderMale");
+        const genderFemale = document.getElementById("genderFemale");
+        const body = document.body;
+
+        // Function to toggle pink theme
+        function togglePinkTheme(isPink) {
+          if (isPink) {
+            body.classList.add("pink-theme");
+          } else {
+            body.classList.remove("pink-theme");
+          }
+        }
+
+        // Add event listeners for gender selection
+        genderMale.addEventListener("change", function () {
+          if (this.checked) {
+            togglePinkTheme(false);
+          }
+        });
+
+        genderFemale.addEventListener("change", function () {
+          if (this.checked) {
+            togglePinkTheme(true);
+          }
+        });
+
+        // Profile picture preview functionality
+        const profilePictureInput = document.getElementById("profilePicture");
+        const profilePreview = document.getElementById("profilePreview");
+        const profileIcon = document.getElementById("profileIcon");
+
+        profilePictureInput.addEventListener("change", function (event) {
+          const file = event.target.files[0];
+
+          if (file) {
+            // Validate file size (max 2MB)
+            if (file.size > 2 * 1024 * 1024) {
+              alert("File size exceeds 2MB. Please choose a smaller image.");
+              return;
+            }
+
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+              // Hide the icon
+              profileIcon.style.display = "none";
+
+              // Create or update image element
+              let img = profilePreview.querySelector("img");
+              if (!img) {
+                img = document.createElement("img");
+                profilePreview.appendChild(img);
+              }
+
+              img.src = e.target.result;
+
+              // Store the image data in localStorage for demo purposes
+              localStorage.setItem("candidateImage", e.target.result);
+            };
+
+            reader.readAsDataURL(file);
+          }
+        });
+
+        // PDF upload preview functionality
+        const pdfInput = document.getElementById("campaignPdf");
+        const pdfPreview = document.getElementById("pdfPreview");
+        const pdfName = document.getElementById("pdfName");
+        const removePdf = document.getElementById("removePdf");
+
+        pdfInput.addEventListener("change", function (event) {
+          const file = event.target.files[0];
+
+          if (file) {
+            // Validate file size (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+              alert("File size exceeds 5MB. Please choose a smaller PDF.");
+              return;
+            }
+
+            // Display file name in preview
+            pdfName.textContent = file.name;
+            pdfPreview.style.display = "block";
+
+            // Store the file name in localStorage for demo purposes
+            localStorage.setItem("candidatePdfName", file.name);
+          }
+        });
+
+        // Remove PDF functionality
+        removePdf.addEventListener("click", function () {
+          pdfInput.value = "";
+          pdfPreview.style.display = "none";
+          localStorage.removeItem("candidatePdfName");
+        });
+
+        // Position-based fee calculation
+        const positionSelect = document.getElementById("position");
+        const feeDisplay = document.getElementById("registrationFee");
+
+        // Set fees based on position importance
+        const positionFees = {
+          student_president: 50,
+          vice_president: 40,
+          treasurer: 35,
+          secretary: 35,
+          social_director: 30,
+          academic_rep: 25,
+          sports_director: 30,
+          welfare_officer: 30,
+        };
+
+        // Update fee when position changes
+        positionSelect.addEventListener("change", function () {
+          const selectedPosition = this.value;
+          const fee = positionFees[selectedPosition] || 25;
+          feeDisplay.textContent = `$${fee.toFixed(2)}`;
+        });
+
+        // Payment method selection
+        const paymentMethods = document.querySelectorAll(
+          ".payment-method-option"
+        );
+        const creditCardForm = document.getElementById("creditCardForm");
+        const paypalForm = document.getElementById("paypalForm");
+        const bankTransferForm = document.getElementById("bankTransferForm");
+
+        // Hide all payment forms initially
+        function hideAllPaymentForms() {
+          creditCardForm.style.display = "none";
+          paypalForm.style.display = "none";
+          bankTransferForm.style.display = "none";
+        }
+
+        // Show selected payment form
+        function showPaymentForm(method) {
+          hideAllPaymentForms();
+
+          switch (method) {
+            case "credit-card":
+              creditCardForm.style.display = "block";
+              break;
+            case "paypal":
+              paypalForm.style.display = "block";
+              break;
+            case "bank-transfer":
+              bankTransferForm.style.display = "block";
+              break;
+          }
+        }
+
+        // Add event listeners to payment method options
+        paymentMethods.forEach((option) => {
+          option.addEventListener("click", function () {
+            // Remove selected class from all options
+            paymentMethods.forEach((opt) => opt.classList.remove("selected"));
+
+            // Add selected class to clicked option
+            this.classList.add("selected");
+
+            // Show corresponding payment form
+            const method = this.getAttribute("data-method");
+            showPaymentForm(method);
+
+            // Store selected method
+            localStorage.setItem("selectedPaymentMethod", method);
+          });
+        });
+
+        // Select credit card by default
+        const defaultMethod = document.querySelector(
+          '[data-method="credit-card"]'
+        );
+        if (defaultMethod) {
+          defaultMethod.classList.add("selected");
+          showPaymentForm("credit-card");
+        }
+
+        // Credit card input formatting
+        const cardNumberInput = document.getElementById("cardNumber");
+        const cardExpiryInput = document.getElementById("cardExpiry");
+        const cardTypeIcon = document.getElementById("cardTypeIcon");
+
+        // Format card number with spaces
+        cardNumberInput.addEventListener("input", function (e) {
+          // Remove non-digits
+          let value = this.value.replace(/\D/g, "");
+
+          // Add spaces after every 4 digits
+          let formatted = "";
+          for (let i = 0; i < value.length; i++) {
+            if (i > 0 && i % 4 === 0) {
+              formatted += " ";
+            }
+            formatted += value[i];
+          }
+
+          this.value = formatted;
+
+          // Update card type icon based on first digits
+          updateCardType(value);
+        });
+
+        // Format expiry date as MM/YY
+        cardExpiryInput.addEventListener("input", function (e) {
+          let value = this.value.replace(/\D/g, "");
+
+          if (value.length > 2) {
+            this.value = value.substring(0, 2) + "/" + value.substring(2, 4);
+          } else {
+            this.value = value;
+          }
+        });
+
+        // Update card type icon based on first digits
+        function updateCardType(cardNumber) {
+          const firstDigit = cardNumber.charAt(0);
+          const firstTwoDigits = parseInt(cardNumber.substring(0, 2));
+
+          // Clear existing classes
+          cardTypeIcon.className = "bi";
+
+          // Add appropriate card type class
+          if (firstDigit === "4") {
+            cardTypeIcon.classList.add("bi-credit-card");
+            cardTypeIcon.setAttribute("title", "Visa");
+          } else if (firstDigit === "5") {
+            cardTypeIcon.classList.add("bi-credit-card-2-front");
+            cardTypeIcon.setAttribute("title", "MasterCard");
+          } else if (
+            firstDigit === "3" &&
+            (firstTwoDigits === 34 || firstTwoDigits === 37)
+          ) {
+            cardTypeIcon.classList.add("bi-credit-card-2-back");
+            cardTypeIcon.setAttribute("title", "American Express");
+          } else if (firstDigit === "6") {
+            cardTypeIcon.classList.add("bi-credit-card-fill");
+            cardTypeIcon.setAttribute("title", "Discover");
+          } else {
+            cardTypeIcon.classList.add("bi-credit-card");
+            cardTypeIcon.setAttribute("title", "Credit Card");
+          }
+        }
+
+        // Add badges to position options
+        const options = positionSelect.querySelectorAll("option");
+
+        options.forEach((option) => {
+          if (option.value === "student_president") {
+            option.textContent += " (3 spots)";
+            option.classList.add("badge-limited");
+          } else if (option.value && option.value !== "") {
+            if (["vice_president", "social_director"].includes(option.value)) {
+              option.textContent += " (2 spots)";
+            } else if (option.value === "academic_rep") {
+              option.textContent += " (4 spots)";
+            } else {
+              option.textContent += " (1 spot)";
+            }
+            option.classList.add("badge-available");
+          }
+        });
+
+        // Form submission with payment processing
+        const candidateForm = document.getElementById("candidateForm");
+        const paymentStatus = document.getElementById("paymentStatus");
+        const submitBtn = document.getElementById("submitBtn");
+
+        candidateForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Check manifesto length
+          const manifesto = document.getElementById("manifesto").value;
+          if (manifesto.length < 200) {
+            alert("Your manifesto must be at least 200 characters long.");
+            return;
+          }
+
+          if (manifesto.length > 1000) {
+            alert("Your manifesto exceeds the maximum 1000 characters limit.");
+            return;
+          }
+
+          // Get form data
+          const fullName = document.getElementById("fullName").value;
+          const gender = document.querySelector(
+            'input[name="gender"]:checked'
+          ).value;
+          const position = document.getElementById("position").value;
+          const slogan = document.getElementById("slogan").value;
+          const department = document.getElementById("department").value;
+          const rulesAgreement =
+            document.getElementById("rulesAgreement").checked;
+          const candidateImage = localStorage.getItem("candidateImage");
+          const pdfName = localStorage.getItem("candidatePdfName") || null;
+
+          // Validate required fields
+          if (!candidateImage) {
+            alert("Please upload a campaign photo.");
+            return;
+          }
+
+          if (!rulesAgreement) {
+            alert("You must agree to the election rules to proceed.");
+            return;
+          }
+
+          // Validate payment details based on selected method
+          const selectedMethod =
+            localStorage.getItem("selectedPaymentMethod") || "credit-card";
+
+          if (selectedMethod === "credit-card") {
+            const cardName = document.getElementById("cardName").value;
+            const cardNumber = document.getElementById("cardNumber").value;
+            const cardExpiry = document.getElementById("cardExpiry").value;
+            const cardCvv = document.getElementById("cardCvv").value;
+
+            if (!cardName || !cardNumber || !cardExpiry || !cardCvv) {
+              alert("Please fill in all payment details.");
+              return;
+            }
+
+            // Validate card number (simple check)
+            if (cardNumber.replace(/\s/g, "").length < 16) {
+              alert("Please enter a valid card number.");
+              return;
+            }
+
+            // Validate expiry date
+            const expiryParts = cardExpiry.split("/");
+            if (
+              expiryParts.length !== 2 ||
+              expiryParts[0].length !== 2 ||
+              expiryParts[1].length !== 2
+            ) {
+              alert("Please enter a valid expiry date (MM/YY).");
+              return;
+            }
+
+            // Validate CVV
+            if (cardCvv.length < 3) {
+              alert("Please enter a valid CVV code.");
+              return;
+            }
+          } else if (selectedMethod === "paypal") {
+            const paypalEmail = document.getElementById("paypalEmail").value;
+
+            if (!paypalEmail || !/^\S+@\S+\.\S+$/.test(paypalEmail)) {
+              alert("Please enter a valid email address for PayPal.");
+              return;
+            }
+          } else if (selectedMethod === "bank-transfer") {
+            const transferDate = document.getElementById("transferDate").value;
+            const transferReference =
+              document.getElementById("transferReference").value;
+
+            if (!transferDate || !transferReference) {
+              alert(
+                "Please provide the date and reference of your bank transfer."
+              );
+              return;
+            }
+          }
+
+          // Disable submit button and show processing
+          submitBtn.disabled = true;
+          submitBtn.innerHTML =
+            '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+
+          // Show processing status
+          paymentStatus.className = "payment-status processing";
+          paymentStatus.innerHTML =
+            '<i class="bi bi-hourglass-split"></i><div>Processing your payment...</div>';
+          paymentStatus.style.display = "block";
+
+          // Get fee amount
+          const fee = parseFloat(feeDisplay.textContent.replace("$", ""));
+
+          // Simulate payment processing (would be replaced with actual payment gateway API)
+          setTimeout(function () {
+            // Create payment object
+            const payment = {
+              amount: fee,
+              method: selectedMethod,
+              status: "completed",
+              transactionId: "TRX" + Math.floor(Math.random() * 1000000),
+              timestamp: new Date().toISOString(),
+            };
+
+            // Create candidate object with payment info
+            const candidate = {
+              fullName,
+              gender,
+              position,
+              department,
+              slogan,
+              manifesto,
+              candidateImage,
+              pdfName,
+              payment: payment,
+              submissionDate: new Date().toISOString(),
+              status: "pending_approval", // requires admin approval
+            };
+
+            // Store candidate data in localStorage (for demo purposes)
+            // In a real app, you would send this to the server
+            localStorage.setItem(
+              "candidateApplication",
+              JSON.stringify(candidate)
+            );
+
+            // Update payment status to success
+            paymentStatus.className = "payment-status success";
+            paymentStatus.innerHTML =
+              '<i class="bi bi-check-circle"></i><div>Payment successful! Your registration has been submitted for admin approval.</div>';
+
+            // Enable submit button
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = "Submit Candidacy";
+
+            // Show success message with delay and redirect
+            setTimeout(function () {
+              alert(
+                "Your candidacy application and payment have been successfully submitted! The election committee will review your application."
+              );
+              window.location.href = "dashboard.html";
+            }, 2000);
+          }, 3000); // Simulate 3-second payment processing
+        });
+
+        // Handle different positions and their fees
+        function updatePositionFees() {
+          const positions = document.querySelectorAll("#position option");
+          positions.forEach((option) => {
+            const value = option.value;
+            if (value && value !== "") {
+              const fee = positionFees[value];
+              // Update the option text to include fee
+              const baseText = option.textContent.split("(")[0].trim();
+              let spotsText = "";
+
+              // Check if text contains information about spots
+              if (option.textContent.includes("spot")) {
+                spotsText = " (" + option.textContent.split("(")[1];
+              }
+
+              option.textContent = `${baseText} - $${fee}${spotsText}`;
+            }
+          });
+        }
+
+        // Call the function to update position fees in the dropdown
+        updatePositionFees();
+      });
+    </script>
+  </body>
+</html>
