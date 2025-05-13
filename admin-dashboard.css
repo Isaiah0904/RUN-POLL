@@ -322,6 +322,7 @@ body {
 
 .dashboard-header h3 {
   font-weight: 600;
+  font-size: 32px;
   margin-bottom: 8px;
   color: var(--text-primary);
 }
@@ -366,6 +367,7 @@ body {
   background-color: rgba(0, 0, 0, 0.02);
   border-top: 1px solid rgba(0, 0, 0, 0.05);
   padding: 15px 20px;
+  color: var(--primary);
 }
 
 /* Statistics Cards */
