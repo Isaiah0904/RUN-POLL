@@ -164,6 +164,7 @@ body {
 
 .nav-item {
   padding: 5px 15px;
+  font-weight: 500;
 }
 
 .nav-link {

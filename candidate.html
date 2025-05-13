@@ -65,6 +65,20 @@
             </div>
           </div>
 
+          <div class="mb-4">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="text"
+              class="form-control"
+              id="email"
+              placeholder="Enter your email"
+              required
+            />
+            <div class="form-text">
+              Your verification will be sent to your email
+            </div>
+          </div>
+
           <!-- Gender Selection -->
           <div class="mb-4">
             <label class="form-label">Gender</label>
@@ -194,12 +208,12 @@
             </div>
           </div>
 
-          <!-- PAYMENT SECTION - NEW -->
+          <!-- PAYMENT SECTION - UPDATED -->
           <div class="payment-section">
             <h5><i class="bi bi-credit-card"></i> Registration Payment</h5>
 
             <div class="payment-amount">
-              <div class="fee" id="registrationFee">$25.00</div>
+              <div class="fee" id="registrationFee">₦10,000.00</div>
               <div class="description">
                 Non-refundable candidate registration fee
               </div>
@@ -398,7 +412,7 @@
                   [date].
                 </li>
                 <li>
-                  Campaign spending is limited to $150, with receipts to be
+                  Campaign spending is limited to ₦60,000, with receipts to be
                   submitted after the election.
                 </li>
               </ol>
@@ -435,6 +449,7 @@
         const genderMale = document.getElementById("genderMale");
         const genderFemale = document.getElementById("genderFemale");
         const body = document.body;
+        const paymentSection = document.querySelector(".payment-section");
 
         // Function to toggle pink theme
         function togglePinkTheme(isPink) {
@@ -528,27 +543,32 @@
           localStorage.removeItem("candidatePdfName");
         });
 
-        // Position-based fee calculation
+        // Position-based fee calculation with Naira
         const positionSelect = document.getElementById("position");
         const feeDisplay = document.getElementById("registrationFee");
 
-        // Set fees based on position importance
+        // Set fees based on position importance (in Naira)
         const positionFees = {
-          student_president: 50,
-          vice_president: 40,
-          treasurer: 35,
-          secretary: 35,
-          social_director: 30,
-          academic_rep: 25,
-          sports_director: 30,
-          welfare_officer: 30,
+          student_president: 20000,
+          vice_president: 16000,
+          treasurer: 14000,
+          secretary: 14000,
+          social_director: 12000,
+          academic_rep: 10000,
+          sports_director: 12000,
+          welfare_officer: 12000,
         };
+
+        // Function to format Naira amount with commas
+        function formatNairaAmount(amount) {
+          return "₦" + amount.toLocaleString("en-NG") + ".00";
+        }
 
         // Update fee when position changes
         positionSelect.addEventListener("change", function () {
           const selectedPosition = this.value;
-          const fee = positionFees[selectedPosition] || 25;
-          feeDisplay.textContent = `$${fee.toFixed(2)}`;
+          const fee = positionFees[selectedPosition] || 10000;
+          feeDisplay.textContent = formatNairaAmount(fee);
         });
 
         // Payment method selection
@@ -676,7 +696,7 @@
           }
         }
 
-        // Add badges to position options
+        // Add badges to position options with Naira fees
         const options = positionSelect.querySelectorAll("option");
 
         options.forEach((option) => {
@@ -717,6 +737,7 @@
 
           // Get form data
           const fullName = document.getElementById("fullName").value;
+          const email = document.getElementById("email").value;
           const gender = document.querySelector(
             'input[name="gender"]:checked'
           ).value;
@@ -807,14 +828,16 @@
             '<i class="bi bi-hourglass-split"></i><div>Processing your payment...</div>';
           paymentStatus.style.display = "block";
 
-          // Get fee amount
-          const fee = parseFloat(feeDisplay.textContent.replace("$", ""));
+          // Get fee amount - extract the numerical value from the fee display
+          const feeText = feeDisplay.textContent;
+          const feeValue = parseInt(feeText.replace(/[^\d]/g, ""));
 
           // Simulate payment processing (would be replaced with actual payment gateway API)
           setTimeout(function () {
             // Create payment object
             const payment = {
-              amount: fee,
+              amount: feeValue,
+              currency: "NGN",
               method: selectedMethod,
               status: "completed",
               transactionId: "TRX" + Math.floor(Math.random() * 1000000),
@@ -824,6 +847,7 @@
             // Create candidate object with payment info
             const candidate = {
               fullName,
+              email,
               gender,
               position,
               department,

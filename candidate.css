@@ -401,7 +401,7 @@ body {
   box-shadow: 0 0 0 2px rgba(var(--pink-primary-rgb), 0.2);
 }
 
-.pink-theme .payment-amount .fee {
+.pink-theme .payment-section h5 {
   color: var(--pink-primary);
 }
 
@@ -445,6 +445,46 @@ body {
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
+}
+
+/* Additional styles for pink payment theme */
+.pink-theme .payment-section {
+  background-color: #fff0f5;
+  border-color: #ffb6c1;
+}
+
+.pink-theme .payment-section h5 {
+  color: #ff69b4;
+}
+
+.pink-theme .payment-method-option.selected {
+  background-color: rgb(255, 240, 245);
+  border-color: #ff69b4;
+}
+
+.pink-theme .payment-method-option:hover {
+  border-color: #ff69b4;
+}
+
+.pink-theme .form-actions button {
+  background-color: #ff69b4;
+  border-color: #ff69b4;
+}
+
+.pink-theme .form-actions button:hover {
+  background-color: #ff1493;
+  border-color: #ff1493;
+}
+
+
+.pink-theme .payment-amount {
+  background-color: rgb(255, 205, 230);
+}
+
+.pink-theme .alert-info {
+  border-color: var(--primary);
+  background-color: rgb(255, 205, 230);
+  color: var(--primary);
 }
 
 @media (max-width: 375px) {
