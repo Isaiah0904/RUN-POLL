@@ -1,0 +1,475 @@
+:root {
+  --primary: #4954b8;
+  --primary-dark: #3a429b;
+  --secondary: #f5f7ff;
+  --light-gray: #f8f9fa;
+  --text-dark: #2a3074;
+  --text-gray: #6c757d;
+  --success: #28a745;
+  --pending: #ffc107;
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7ff;
+}
+
+.main-content {
+  margin-left: 240px;
+  padding: 20px;
+  transition: margin-left 0.3s;
+}
+
+@media (max-width: 992px) {
+  .main-content {
+      margin-left: 0;
+  }
+  .sidebar-nav{
+    overflow-y: scroll;
+  }
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100%;
+  background-color: white;
+  box-shadow: var(--shadow);
+  z-index: 1000;
+  transition: transform 0.3s;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.bi-x-lg{
+  display: none;
+  color: rgb(42, 48, 116);
+  margin-left: 45px;
+  font-size: 22px;
+  font-weight: 900;
+}
+@media (max-width: 992px) {
+  .sidebar {
+      transform: translateX(-100%);
+      transition: 1s;
+  }
+  .sidebar.active {
+      transform: translateX(0);
+  }
+  .bi-x-lg{
+    display: block;
+  }
+}
+
+.logo-container {
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logo {
+  background-color: var(--primary);
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.brand-text {
+  color: var(--text-dark);
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.profile-container {
+  padding: 15px;
+  text-align: center;
+  border-radius: 12px;
+  background-color: var(--light-gray);
+  margin: 0 15px 25px;
+}
+.profile-role{
+font-size: 12px;
+color: var(--text-gray);
+}
+
+/* Profile image styling */
+.profile-image-container {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 10px;
+  cursor: pointer;
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+  display: block;
+}
+
+.edit-icon {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 24px;
+  height: 24px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid white;
+}
+
+.profile-name {
+  font-weight: bold;
+  color: var(--text-dark);
+  margin-bottom: 2px;
+}
+
+.view-profile {
+  font-size: 12px;
+  color: var(--text-gray);
+  display: block;
+}
+
+.sidebar-nav {
+  overflow-y: scroll;
+  padding: 5px 15px;
+}
+
+.nav-main {
+  flex: 1;
+}
+
+.nav-footer {
+  margin-bottom: 15px;
+}
+
+.nav-item {
+  padding: 0px 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  background-color: var(--primary);
+  color: white;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  color: var(--text-gray);
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.nav-link i {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.nav-item.active .nav-link {
+  color: white;
+}
+
+.nav-item.active .nav-link i {
+  color: white;
+}
+
+/* Top Navbar */
+.top-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+
+.toggle-sidebar {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--text-dark);
+  cursor: pointer;
+}
+
+@media (min-width: 768px) and (max-width: 841px) {
+  .btn-success{
+    margin-bottom: 9px;
+  }
+}
+
+@media (max-width: 992px) {
+  .toggle-sidebar {
+      display: block;
+  }
+}
+
+.search-bar {
+  flex-grow: 1;
+  max-width: 600px;
+  margin: 0 0 0 5px;
+}
+
+.search-input {
+  background-color: white;
+  border-radius: 50px;
+  border: 1px solid #e9ecef;
+  padding-left: 40px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-gray);
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+}
+
+.action-icon {
+  font-size: 20px;
+  color: var(--text-gray);
+  margin-left: 15px;
+  cursor: pointer;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+
+.action-icon:hover {
+  color: var(--primary);
+}
+
+/* Navbar user avatar styling */
+.navbar-user-container {
+  position: relative;
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: relative;
+  background-color: #f0f0f0;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
+}
+
+.status-indicator {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: var(--success);
+  border-radius: 50%;
+  border: 2px solid var(--success);
+  bottom: 0px;
+  right: 0px;
+}
+
+/* Profile Page Styles */
+.card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+  background-color: white;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.profile-large-image-container {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile-large-image-container:hover .profile-image-overlay {
+  opacity: 0.8;
+}
+
+.profile-large-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btn-rounded-pill {
+  border-radius: 50px;
+  padding: 8px 20px;
+}
+
+.info-container {
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+}
+
+#edit {
+  border: 1px solid var(--primary);
+  padding: 2px 8px;
+  border-radius: 15px;
+  background-color: white;
+  color: var(--primary);
+  font-size: 12px;
+}
+
+/* Modern form input styling */
+.form-control-sm {
+  height: 38px;
+  font-size: 14px;
+}
+
+.form-label-sm {
+  font-size: 12px;
+  color: var(--text-gray);
+  margin-bottom: 4px;
+}
+
+/* Sunglasses icon for profile image */
+.profile-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0,0,0,0.1);
+  opacity: 0;
+  transition: opacity 0.3s;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.profile-image-overlay:hover {
+  opacity: 1;
+}
+
+.profile-avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+}
+
+/* Default user icon styling */
+.default-user-icon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--light-gray);
+  border-radius: 50%;
+  border: 3px solid white;
+}
+
+.default-user-icon svg {
+  width: 60%;
+  height: 60%;
+  fill: var(--text-gray);
+}
+
+.large-default-user-icon svg {
+  width: 50%;
+  height: 50%;
+}
+
+/* Save Button Styling */
+.save-btn {
+  background-color: #4954B8;
+  color: white;
+  border: none;
+  border-radius: 60px; /* Rounded pill shape to match other buttons */
+  padding: 8px 24px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(25, 135, 84, 0.3);
+  width: 100%; /* Full width button */
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background-color: #3c47ad; /* Slightly darker green on hover */
+  box-shadow: 0 4px 8px rgba(25, 135, 84, 0.4);
+  transform: translateY(-1px);
+}
+
+.save-btn:active {
+  background-color: #146c43; /* Even darker when clicked */
+  box-shadow: 0 1px 3px rgba(25, 135, 84, 0.3);
+  transform: translateY(1px);
+}
+
+/* Add a loading state for the button (optional) */
+.save-btn.loading {
+  background-color: #5a8f71;
+  cursor: not-allowed;
+  position: relative;
+}
+
+.save-btn.loading::after {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top-color: white;
+  border-radius: 50%;
+  position: absolute;
+  right: 12px;
+  top: calc(50% - 8px);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
