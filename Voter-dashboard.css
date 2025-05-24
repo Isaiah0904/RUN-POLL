@@ -82,9 +82,6 @@ body {
 .logo {
   background-color: var(--primary);
   color: white;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -422,7 +419,7 @@ body {
 }
 
 .bi-x-lg{
-  margin-left: 45px;
+  margin-left: 15px;
   font-size: 22px;
   font-weight: 900;
 }
