@@ -140,6 +140,18 @@
             <div class="form-text">What department you are contesting in?</div>
           </div>
 
+          <div class="mb-4">
+            <label for="level" class="form-label">Level</label>
+            <input
+              type="text"
+              class="form-control"
+              id="level"
+              placeholder="Level you're contesting in"
+              required
+            />
+            <div class="form-text">What level are you in?</div>
+          </div>
+
           <!-- Campaign Slogan -->
           <div class="mb-4">
             <label for="slogan" class="form-label">Campaign Slogan</label>
@@ -744,6 +756,7 @@
           const position = document.getElementById("position").value;
           const slogan = document.getElementById("slogan").value;
           const department = document.getElementById("department").value;
+          const level = document.getElementById("level").value;
           const rulesAgreement =
             document.getElementById("rulesAgreement").checked;
           const candidateImage = localStorage.getItem("candidateImage");
@@ -851,6 +864,7 @@
               gender,
               position,
               department,
+              level,
               slogan,
               manifesto,
               candidateImage,

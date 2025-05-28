@@ -20,7 +20,7 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
       <div class="logo-container">
-        <img class="logo" src="images/Logo.png">
+        <img class="logo" src="images/Logo.png" />
         <i class="bi bi-x-lg" id="close"></i>
       </div>
 
@@ -54,7 +54,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="vote.html" class="nav-link">
+            <a href="election-page.html" class="nav-link">
               <i class="bi bi-check2-square"></i> Vote
             </a>
           </li>
@@ -98,11 +98,15 @@
           />
         </div>
 
-        <div class="user-actions">
+        <div
+          class="user-actions"
+          data-bs-toggle="tooltip"
+          title="Notifications"
+        >
           <div class="action-icon">
             <i class="bi bi-bell"></i>
           </div>
-          <div class="action-icon">
+          <div class="action-icon" data-bs-toggle="tooltip" title="Help">
             <i class="bi bi-question-circle"></i>
           </div>
           <!-- Navbar user container with default icon -->
@@ -254,6 +258,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
       // This updated script fixes the profile image styling and remove button functionality
+      // Initialize the page
+      document.addEventListener("DOMContentLoaded", function () {
+        updateStats();
+        initializeEventListeners();
+        initializeTooltips();
+      });
+
+      // Initialize Bootstrap tooltips
+      function initializeTooltips() {
+        const tooltipTriggerList = [].slice.call(
+          document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        );
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+      }
 
       document.addEventListener("DOMContentLoaded", function () {
         // Toggle Sidebar

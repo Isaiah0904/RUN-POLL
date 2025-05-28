@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RUN POLLS | Voting</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="election-page.css" />
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="logo-container">
+        <img class="logo" src="images/Logo.png"  width="150px"/>
+        <i class="bi bi-x-lg" id="close"></i>
+      </div>
+
+      <div class="profile-container">
+        <!-- Profile image container -->
+        <div class="profile-image-container" id="sidebarProfileContainer">
+          <div class="default-user-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                fill="#888888"
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"
+              />
+            </svg>
+          </div>
+          <div class="edit-icon">
+            <i class="bi bi-pencil-fill text-white" style="font-size: 12px"></i>
+          </div>
+        </div>
+        <div class="profile-name" id="userProfileName">Isaiah Durojaiye</div>
+        <div class="profile-role" id="userProfileRole">Student Voter</div>
+      </div>
+
+      <!-- Sidebar Navigation -->
+      <div class="sidebar-nav">
+        <ul class="nav flex-column nav-main">
+          <li class="nav-item">
+            <a href="Voter-dashboard.html" class="nav-link">
+              <i class="bi bi-grid-1x2-fill"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link active">
+              <i class="bi bi-check2-square"></i> Vote
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="Voter-guidline.html" class="nav-link">
+              <i class="bi bi-journal-text"></i> Voters Guideline
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="profile-settings.html" class="nav-link">
+              <i class="bi bi-gear-fill"></i> Profile Settings
+            </a>
+          </li>
+        </ul>
+
+        <!-- Logout button -->
+        <ul class="nav flex-column nav-footer">
+          <li class="nav-item">
+            <a href="#" class="nav-link text-danger">
+              <i class="bi bi-box-arrow-right"></i> Log out
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+      <!-- Top Navbar -->
+      <div class="top-navbar">
+        <button class="toggle-sidebar" id="toggleSidebar">
+          <i class="bi bi-list"></i>
+        </button>
+
+        <div class="search-bar position-relative">
+          <i class="bi bi-search search-icon"></i>
+          <input
+            type="text"
+            class="form-control search-input"
+            placeholder="Search elections, departments..."
+            id="searchInput"
+          />
+        </div>
+
+        <div class="user-actions">
+          <div
+            class="action-icon"
+            data-bs-toggle="tooltip"
+            title="Notifications"
+          >
+            <i class="bi bi-bell"></i>
+            <span class="notification-badge">3</span>
+          </div>
+          <div class="action-icon" data-bs-toggle="tooltip" title="Help">
+            <i class="bi bi-question-circle"></i>
+          </div>
+          <!-- Navbar user container -->
+          <div class="navbar-user-container" id="navbarUserContainer">
+            <div class="default-user-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"
+                />
+              </svg>
+            </div>
+            <div class="status-indicator"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Voting Content -->
+      <div class="container-fluid p-0">
+        <!-- Heading -->
+        <div class="row mb-4">
+          <div class="col-12 text-center">
+            <h2 class="page-title">YOU MAY NOW CAST YOUR VOTES!</h2>
+            <p class="text-muted">
+              Select your preferred candidates for each available election
+            </p>
+          </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="row mb-4">
+          <div class="col-md-3">
+            <div class="stats-card">
+              <div class="stats-number" id="availableElections">6</div>
+              <div class="stats-label">Available Elections</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              class="stats-card"
+              style="
+                background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+              "
+            >
+              <div class="stats-number" id="votedElections">0</div>
+              <div class="stats-label">Votes Cast</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              class="stats-card"
+              style="
+                background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+                color: #333;
+              "
+            >
+              <div class="stats-number" id="ongoingElections">4</div>
+              <div class="stats-label">Ongoing Now</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              class="stats-card"
+              style="
+                background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+                color: #333;
+              "
+            >
+              <div class="stats-number" id="completionRate">0%</div>
+              <div class="stats-label">Completion Rate</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ongoing Elections -->
+        <div class="row g-4 mb-5" id="electionsContainer">
+          <!-- Computer Science Election -->
+          <div
+            class="col-xl-4 col-lg-6 mb-4"
+            data-department="computer science"
+          >
+            <div class="card h-100 dept-cs">
+              <div
+                class="card-header d-flex justify-content-between align-items-center"
+              >
+                <span>Computer Science Department</span>
+                <span class="election-status status-ongoing">Ongoing</span>
+              </div>
+              <div class="card-body">
+                <div class="election-card">
+                  <div class="election-info">
+                    <h5 class="mb-2">Student Council Election</h5>
+                    <p class="text-muted small mb-3">
+                      Vote for President, Vice President & Secretary
+                    </p>
+                    <button
+                      class="btn vote-btn"
+                      data-bs-toggle="modal"
+                      data-bs-target="#votingModal"
+                      onclick="openVotingModal('Computer Science Student Council')"
+                    >
+                      <i class="bi bi-check2-square me-2"></i>Vote Now
+                    </button>
+                  </div>
+                  <div class="text-end">
+                    <svg
+                      width="100"
+                      height="80"
+                      viewBox="0 0 100 80"
+                      fill="none"
+                    >
+                      <rect
+                        x="10"
+                        y="20"
+                        width="80"
+                        height="50"
+                        rx="8"
+                        fill="#e3f2fd"
+                      />
+                      <circle cx="30" cy="35" r="8" fill="#2196f3" />
+                      <rect
+                        x="45"
+                        y="30"
+                        width="35"
+                        height="4"
+                        rx="2"
+                        fill="#2196f3"
+                      />
+                      <rect
+                        x="45"
+                        y="38"
+                        width="25"
+                        height="3"
+                        rx="1.5"
+                        fill="#90caf9"
+                      />
+                      <rect
+                        x="20"
+                        y="55"
+                        width="15"
+                        height="8"
+                        rx="4"
+                        fill="#4caf50"
+                      />
+                      <rect
+                        x="40"
+                        y="55"
+                        width="15"
+                        height="8"
+                        rx="4"
+                        fill="#ff9800"
+                      />
+                      <rect
+                        x="60"
+                        y="55"
+                        width="15"
+                        height="8"
+                        rx="4"
+                        fill="#f44336"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Engineering Election -->
+          <div class="col-xl-4 col-lg-6 mb-4" data-department="engineering">
+            <div class="card h-100 dept-eng">
+              <div
+                class="card-header d-flex justify-content-between align-items-center"
+              >
+                <span>Engineering Department</span>
+                <span class="election-status status-ongoing">Ongoing</span>
+              </div>
+              <div class="card-body">
+                <div class="election-card">
+                  <div class="election-info">
+                    <h5 class="mb-2">Engineering Society Election</h5>
+                    <p class="text-muted small mb-3">
+                      Choose your representatives for the academic year
+                    </p>
+                    <button
+                      class="btn vote-btn"
+                      data-bs-toggle="modal"
+                      data-bs-target="#votingModal"
+                      onclick="openVotingModal('Engineering Society')"
+                    >
+                      <i class="bi bi-gear-fill me-2"></i>Vote Now
+                    </button>
+                  </div>
+                  <div class="text-end">
+                    <svg
+                      width="100"
+                      height="80"
+                      viewBox="0 0 100 80"
+                      fill="none"
+                    >
+                      <circle cx="50" cy="40" r="25" fill="#e8f5e8" />
+                      <circle cx="50" cy="40" r="15" fill="#4caf50" />
+                      <rect
+                        x="45"
+                        y="15"
+                        width="10"
+                        height="50"
+                        fill="#2e7d32"
+                      />
+                      <rect
+                        x="25"
+                        y="35"
+                        width="50"
+                        height="10"
+                        fill="#2e7d32"
+                      />
+                      <circle cx="35" cy="25" r="3" fill="#81c784" />
+                      <circle cx="65" cy="25" r="3" fill="#81c784" />
+                      <circle cx="35" cy="55" r="3" fill="#81c784" />
+                      <circle cx="65" cy="55" r="3" fill="#81c784" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Medical School Election -->
+          <div class="col-xl-4 col-lg-6 mb-4" data-department="medical">
+            <div class="card h-100 dept-med">
+              <div
+                class="card-header d-flex justify-content-between align-items-center"
+              >
+                <span>Medical School</span>
+                <span class="election-status status-ongoing">Ongoing</span>
+              </div>
+              <div class="card-body">
+                <div class="election-card">
+                  <div class="election-info">
+                    <h5 class="mb-2">Medical Students Association</h5>
+                    <p class="text-muted small mb-3">
+                      Elect your medical student representatives
+                    </p>
+                    <button
+                      class="btn vote-btn"
+                      data-bs-toggle="modal"
+                      data-bs-target="#votingModal"
+                      onclick="openVotingModal('Medical Students Association')"
+                    >
+                      <i class="bi bi-heart-pulse-fill me-2"></i>Vote Now
+                    </button>
+                  </div>
+                  <div class="text-end">
+                    <svg
+                      width="100"
+                      height="80"
+                      viewBox="0 0 100 80"
+                      fill="none"
+                    >
+                      <rect
+                        x="20"
+                        y="25"
+                        width="60"
+                        height="35"
+                        rx="5"
+                        fill="#ffebee"
+                      />
+                      <rect
+                        x="45"
+                        y="15"
+                        width="10"
+                        height="55"
+                        fill="#f44336"
+                      />
+                      <rect
+                        x="25"
+                        y="37"
+                        width="50"
+                        height="10"
+                        fill="#f44336"
+                      />
+                      <circle cx="35" cy="50" r="2" fill="#e57373" />
+                      <circle cx="50" cy="50" r="2" fill="#e57373" />
+                      <circle cx="65" cy="50" r="2" fill="#e57373" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Business School Election -->
+          <div class="col-xl-4 col-lg-6 mb-4" data-department="business">
+            <div class="card h-100 dept-bus">
+              <div
+                class="card-header d-flex justify-content-between align-items-center"
+              >
+                <span>Business School</span>
+                <span class="election-status status-ongoing">Ongoing</span>
+              </div>
+              <div class="card-body">
+                <div class="election-card">
+                  <div class="election-info">
+                    <h5 class="mb-2">Business Student Council</h5>
+                    <p class="text-muted small mb-3">
+                      Leadership elections for business students
+                    </p>
+                    <button
+                      class="btn vote-btn"
+                      data-bs-toggle="modal"
+                      data-bs-target="#votingModal"
+                      onclick="openVotingModal('Business Student Council')"
+                    >
+                      <i class="bi bi-briefcase-fill me-2"></i>Vote Now
+                    </button>
+                  </div>
+                  <div class="text-end">
+                    <svg
+                      width="100"
+                      height="80"
+                      viewBox="0 0 100 80"
+                      fill="none"
+                    >
+                      <rect
+                        x="25"
+                        y="30"
+                        width="50"
+                        height="35"
+                        rx="3"
+                        fill="#fff8e1"
+                      />
+                      <rect
+                        x="30"
+                        y="20"
+                        width="40"
+                        height="8"
+                        rx="4"
+                        fill="#ffc107"
+                      />
+                      <rect
+                        x="35"
+                        y="40"
+                        width="30"
+                        height="3"
+                        rx="1.5"
+                        fill="#ff8f00"
+                      />
+                      <rect
+                        x="35"
+                        y="47"
+                        width="20"
+                        height="3"
+                        rx="1.5"
+                        fill="#ff6f00"
+                      />
+                      <circle cx="45" cy="52" r="2" fill="#ffb300" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Arts & Humanities Election -->
+          <div class="col-xl-4 col-lg-6 mb-4" data-department="arts">
+            <div class="card h-100 dept-art">
+              <div
+                class="card-header d-flex justify-content-between align-items-center"
+              >
+                <span>Arts & Humanities</span>
+                <span class="election-status status-upcoming">Upcoming</span>
+              </div>
+              <div class="card-body">
+                <div class="election-card">
+                  <div class="election-info">
+                    <h5 class="mb-2">Creative Arts Council</h5>
+                    <p class="text-muted small mb-3">
+                      Elections begin tomorrow at 9:00 AM
+                    </p>
+                    <button class="btn vote-btn" disabled>
+                      <i class="bi bi-clock me-2"></i>Coming Soon
+                    </button>
+                  </div>
+                  <div class="text-end">
+                    <svg
+                      width="100"
+                      height="80"
+                      viewBox="0 0 100 80"
+                      fill="none"
+                    >
+                      <rect
+                        x="20"
+                        y="20"
+                        width="60"
+                        height="40"
+                        rx="8"
+                        fill="#fce4ec"
+                      />
+                      <circle cx="35" cy="30" r="5" fill="#e91e63" />
+                      <circle cx="50" cy="30" r="5" fill="#9c27b0" />
+                      <circle cx="65" cy="30" r="5" fill="#673ab7" />
+                      <path
+                        d="M25 45 Q50 35 75 45"
+                        stroke="#e91e63"
+                        stroke-width="3"
+                        fill="none"
+                      />
+                      <path
+                        d="M25 50 Q50 40 75 50"
+                        stroke="#9c27b0"
+                        stroke-width="2"
+                        fill="none"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Law School Election -->
+          <div class="col-xl-4 col-lg-6 mb-4" data-department="law">
+            <div class="card h-100 dept-law">
+              <div
+                class="card-header d-flex justify-content-between align-items-center"
+              >
+                <span>Law School</span>
+                <span class="election-status status-ended">Ended</span>
+              </div>
+              <div class="card-body">
+                <div class="election-card">
+                  <div class="election-info">
+                    <h5 class="mb-2">Law Students Association</h5>
+                    <p class="text-muted small mb-3">
+                      Results will be announced soon
+                    </p>
+                    <button
+                      class="btn vote-btn"
+                      disabled
+                      style="
+                        background-color: #6c757d;
+                        border-color: #6c757d;
+                        color: white;
+                      "
+                    >
+                      <i class="bi bi-check-circle me-2"></i>Completed
+                    </button>
+                  </div>
+                  <div class="text-end">
+                    <svg
+                      width="100"
+                      height="80"
+                      viewBox="0 0 100 80"
+                      fill="none"
+                    >
+                      <rect
+                        x="30"
+                        y="20"
+                        width="40"
+                        height="50"
+                        rx="5"
+                        fill="#f3e5f5"
+                      />
+                      <rect
+                        x="35"
+                        y="25"
+                        width="30"
+                        height="3"
+                        rx="1.5"
+                        fill="#673ab7"
+                      />
+                      <rect
+                        x="35"
+                        y="32"
+                        width="25"
+                        height="2"
+                        rx="1"
+                        fill="#9c27b0"
+                      />
+                      <rect
+                        x="35"
+                        y="38"
+                        width="20"
+                        height="2"
+                        rx="1"
+                        fill="#9c27b0"
+                      />
+                      <rect
+                        x="35"
+                        y="44"
+                        width="30"
+                        height="2"
+                        rx="1"
+                        fill="#9c27b0"
+                      />
+                      <circle cx="40" cy="58" r="3" fill="#673ab7" />
+                      <circle cx="50" cy="58" r="3" fill="#673ab7" />
+                      <circle cx="60" cy="58" r="3" fill="#673ab7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Voting Modal -->
+    <div
+      class="modal fade"
+      id="votingModal"
+      tabindex="-1"
+      aria-labelledby="votingModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="votingModalLabel">Cast Your Vote</h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="votingModalBody">
+            <!-- Dynamic content will be loaded here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // Global variables for managing state
+      let votedElections = new Set();
+      let currentElection = null;
+      let selectedCandidates = {};
+
+      // Sample candidate data
+      const candidateData = {
+        "Computer Science Student Council": {
+          positions: [
+            {
+              title: "President",
+              candidates: [
+                {
+                  id: "cs-pres-1",
+                  name: "Alex Johnson",
+                  year: "Senior",
+                  gpa: "3.8",
+                  platform: "Improving lab facilities and tech resources",
+                },
+                {
+                  id: "cs-pres-2",
+                  name: "Sarah Chen",
+                  year: "Junior",
+                  gpa: "3.9",
+                  platform:
+                    "Enhanced career services and industry partnerships",
+                },
+                {
+                  id: "cs-pres-3",
+                  name: "Michael Davis",
+                  year: "Senior",
+                  gpa: "3.7",
+                  platform: "Better student-faculty communication channels",
+                },
+              ],
+            },
+            {
+              title: "Vice President",
+              candidates: [
+                {
+                  id: "cs-vp-1",
+                  name: "Emma Wilson",
+                  year: "Junior",
+                  gpa: "3.8",
+                  platform: "Organizing hackathons and coding competitions",
+                },
+                {
+                  id: "cs-vp-2",
+                  name: "James Rodriguez",
+                  year: "Sophomore",
+                  gpa: "3.6",
+                  platform: "Peer tutoring and study group programs",
+                },
+              ],
+            },
+            {
+              title: "Secretary",
+              candidates: [
+                {
+                  id: "cs-sec-1",
+                  name: "Lisa Park",
+                  year: "Sophomore",
+                  gpa: "3.9",
+                  platform: "Digital communication and transparency",
+                },
+                {
+                  id: "cs-sec-2",
+                  name: "David Kim",
+                  year: "Junior",
+                  gpa: "3.7",
+                  platform: "Event planning and student engagement",
+                },
+              ],
+            },
+          ],
+        },
+        "Engineering Society": {
+          positions: [
+            {
+              title: "President",
+              candidates: [
+                {
+                  id: "eng-pres-1",
+                  name: "Robert Thompson",
+                  year: "Senior",
+                  gpa: "3.8",
+                  platform: "Advanced lab equipment and research opportunities",
+                },
+                {
+                  id: "eng-pres-2",
+                  name: "Jennifer Lee",
+                  year: "Junior",
+                  gpa: "3.9",
+                  platform: "Industry internship programs",
+                },
+              ],
+            },
+            {
+              title: "Vice President",
+              candidates: [
+                {
+                  id: "eng-vp-1",
+                  name: "Marcus Johnson",
+                  year: "Junior",
+                  gpa: "3.7",
+                  platform: "Engineering competitions and innovation",
+                },
+                {
+                  id: "eng-vp-2",
+                  name: "Amanda Foster",
+                  year: "Sophomore",
+                  gpa: "3.8",
+                  platform: "Collaborative projects with other departments",
+                },
+              ],
+            },
+          ],
+        },
+        "Medical Students Association": {
+          positions: [
+            {
+              title: "President",
+              candidates: [
+                {
+                  id: "med-pres-1",
+                  name: "Dr. Patricia Williams",
+                  year: "4th Year",
+                  gpa: "3.9",
+                  platform: "Clinical training enhancements",
+                },
+                {
+                  id: "med-pres-2",
+                  name: "Dr. Kevin Martinez",
+                  year: "3rd Year",
+                  gpa: "3.8",
+                  platform: "Mental health support for students",
+                },
+              ],
+            },
+            {
+              title: "Vice President",
+              candidates: [
+                {
+                  id: "med-vp-1",
+                  name: "Dr. Rachel Green",
+                  year: "3rd Year",
+                  gpa: "3.8",
+                  platform: "Research opportunities expansion",
+                },
+                {
+                  id: "med-vp-2",
+                  name: "Dr. Thomas Brown",
+                  year: "2nd Year",
+                  gpa: "3.7",
+                  platform: "Community outreach programs",
+                },
+              ],
+            },
+          ],
+        },
+        "Business Student Council": {
+          positions: [
+            {
+              title: "President",
+              candidates: [
+                {
+                  id: "bus-pres-1",
+                  name: "Victoria Adams",
+                  year: "Senior",
+                  gpa: "3.8",
+                  platform: "Corporate partnerships and networking",
+                },
+                {
+                  id: "bus-pres-2",
+                  name: "Daniel Cooper",
+                  year: "Junior",
+                  gpa: "3.7",
+                  platform: "Entrepreneurship support and startup incubator",
+                },
+              ],
+            },
+            {
+              title: "Vice President",
+              candidates: [
+                {
+                  id: "bus-vp-1",
+                  name: "Sophia Taylor",
+                  year: "Junior",
+                  gpa: "3.9",
+                  platform: "International exchange programs",
+                },
+                {
+                  id: "bus-vp-2",
+                  name: "Andrew Clark",
+                  year: "Sophomore",
+                  gpa: "3.6",
+                  platform: "Financial literacy workshops",
+                },
+              ],
+            },
+          ],
+        },
+      };
+
+      // Initialize the page
+      document.addEventListener("DOMContentLoaded", function () {
+        updateStats();
+        initializeEventListeners();
+        initializeTooltips();
+        initializeProfileFunctionality();
+      });
+
+      // Initialize Bootstrap tooltips
+      function initializeTooltips() {
+        const tooltipTriggerList = [].slice.call(
+          document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        );
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+      }
+
+      // Initialize event listeners
+      function initializeEventListeners() {
+        // Sidebar toggle
+        const toggleSidebar = document.getElementById("toggleSidebar");
+        const sidebar = document.getElementById("sidebar");
+        const closeBtn = document.getElementById("close");
+
+        toggleSidebar.addEventListener("click", function () {
+          sidebar.classList.add("active");
+        });
+
+        closeBtn.addEventListener("click", function () {
+          sidebar.classList.remove("active");
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById("searchInput");
+        searchInput.addEventListener("input", handleSearch);
+
+        // Click outside sidebar to close
+        document.addEventListener("click", function (event) {
+          if (window.innerWidth <= 992) {
+            if (
+              !sidebar.contains(event.target) &&
+              !toggleSidebar.contains(event.target)
+            ) {
+              sidebar.classList.remove("active");
+            }
+          }
+        });
+      }
+
+      // Initialize profile functionality (from dashboard)
+      function initializeProfileFunctionality() {
+        const sidebarProfileContainer = document.getElementById(
+          "sidebarProfileContainer"
+        );
+        const navbarUserContainer = document.getElementById(
+          "navbarUserContainer"
+        );
+
+        if (!sidebarProfileContainer || !navbarUserContainer) return;
+
+        // Function to show profile image or default user icon
+        function updateProfileDisplays(imageUrl) {
+          // Clear existing containers
+          sidebarProfileContainer.innerHTML = "";
+          navbarUserContainer.innerHTML = "";
+
+          if (imageUrl) {
+            // Sidebar profile image
+            const sidebarImg = document.createElement("img");
+            sidebarImg.src = imageUrl;
+            sidebarImg.alt = "Profile";
+            sidebarImg.className = "profile-image";
+            sidebarImg.id = "userProfileImage";
+            sidebarImg.style.borderRadius = "50%";
+            sidebarImg.style.width = "100%";
+            sidebarImg.style.height = "100%";
+            sidebarImg.style.objectFit = "cover";
+            sidebarProfileContainer.appendChild(sidebarImg);
+
+            // Add edit icon to sidebar profile
+            const editIcon = document.createElement("div");
+            editIcon.className = "edit-icon";
+            editIcon.innerHTML =
+              '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
+            sidebarProfileContainer.appendChild(editIcon);
+
+            // Navbar profile image
+            const navbarImg = document.createElement("img");
+            navbarImg.src = imageUrl;
+            navbarImg.alt = "User";
+            navbarImg.className = "user-avatar";
+            navbarImg.id = "navbarUserImage";
+            navbarImg.style.borderRadius = "50%";
+            navbarImg.style.width = "100%";
+            navbarImg.style.height = "100%";
+            navbarImg.style.objectFit = "cover";
+            navbarUserContainer.appendChild(navbarImg);
+
+            // Add status indicator to navbar
+            const statusIndicator = document.createElement("div");
+            statusIndicator.className = "status-indicator";
+            navbarUserContainer.appendChild(statusIndicator);
+          } else {
+            // Sidebar profile icon - default user icon
+            const sidebarIcon = document.createElement("div");
+            sidebarIcon.className = "default-user-icon";
+            sidebarIcon.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path fill="#888888" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+        </svg>
+      `;
+            sidebarProfileContainer.appendChild(sidebarIcon);
+
+            // Add edit icon to sidebar profile
+            const editIcon = document.createElement("div");
+            editIcon.className = "edit-icon";
+            editIcon.innerHTML =
+              '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
+            sidebarProfileContainer.appendChild(editIcon);
+
+            // Navbar profile icon - default user icon
+            const navbarIcon = document.createElement("div");
+            navbarIcon.className = "default-user-icon";
+            navbarIcon.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path fill="#888888" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+        </svg>
+      `;
+            navbarUserContainer.appendChild(navbarIcon);
+
+            // Add status indicator to navbar
+            const statusIndicator = document.createElement("div");
+            statusIndicator.className = "status-indicator";
+            navbarUserContainer.appendChild(statusIndicator);
+          }
+
+          // If modal is open, update modal profile image as well
+          const modalProfileContainer = document.getElementById(
+            "modalProfileContainer"
+          );
+          if (modalProfileContainer) {
+            updateModalProfileImage(modalProfileContainer, imageUrl);
+          }
+        }
+
+        // Function to update modal profile image
+        function updateModalProfileImage(container, imageUrl) {
+          container.innerHTML = "";
+
+          if (imageUrl) {
+            const img = document.createElement("img");
+            img.src = imageUrl;
+            img.alt = "Profile";
+            img.style.width = "100%";
+            img.style.height = "100%";
+            img.style.objectFit = "cover";
+            img.style.borderRadius = "50%";
+            container.appendChild(img);
+          } else {
+            container.innerHTML = `
+        <div class="default-user-icon" style="width: 100%; height: 100%; background-color: #e9ecef; border-radius: 50%;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 80%; height: 80%; margin: 10%;">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+          </svg>
+        </div>
+      `;
+          }
+        }
+
+        // Helper function to show alerts
+        function showAlert(message, type) {
+          const alertDiv = document.createElement("div");
+          alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+          alertDiv.role = "alert";
+          alertDiv.style.position = "fixed";
+          alertDiv.style.top = "20px";
+          alertDiv.style.right = "20px";
+          alertDiv.style.zIndex = "9999";
+          alertDiv.innerHTML = `
+      ${message}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+
+          document.body.appendChild(alertDiv);
+
+          // Auto dismiss after 3 seconds
+          setTimeout(() => {
+            if (alertDiv.parentNode) {
+              const bsAlert = new bootstrap.Alert(alertDiv);
+              bsAlert.close();
+            }
+          }, 3000);
+        }
+
+        // Load user profile data including image
+        try {
+          const user = JSON.parse(localStorage.getItem("currentUser")) || {};
+
+          // Update profile name
+          if (user.firstName && user.lastName) {
+            const profileNameElement =
+              document.getElementById("userProfileName");
+            if (profileNameElement) {
+              profileNameElement.textContent = `${user.firstName} ${user.lastName}`;
+            }
+            // Update welcome message
+            const welcomeHeading = document.querySelector("h2");
+            if (
+              welcomeHeading &&
+              welcomeHeading.textContent.includes("Hello")
+            ) {
+              welcomeHeading.textContent = `Hello, ${user.firstName}!`;
+            }
+          }
+
+          // Update profile role if exists
+          if (user.role) {
+            const profileRoleElement =
+              document.getElementById("userProfileRole");
+            if (profileRoleElement) {
+              profileRoleElement.textContent = user.role;
+            }
+          }
+
+          // Update profile images
+          updateProfileDisplays(user.profileImage);
+        } catch (error) {
+          console.error("Error loading user profile:", error);
+          updateProfileDisplays(null);
+        }
+
+        // Create profile edit modal with upload and remove functionality
+        function createProfileEditModal() {
+          // Modal HTML structure
+          const modalHTML = `
+      <div class="modal fade" id="profileEditModal" tabindex="-1" aria-labelledby="profileEditModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="profileEditModalLabel">View Profile Picture</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+              <div class="mb-4">
+                <div class="position-relative d-inline-block">
+                  <div id="modalProfileContainer" class="rounded-circle overflow-hidden" style="width: 150px; height: 150px;">
+                    <!-- Image will be inserted here -->
+                  </div>
+                </div>
+              </div>
+              <div class="mb-4">
+                <button id="modalUploadBtn" class="btn btn-success btn-sm rounded-pill px-4" style="display: none;">UPLOAD</button>
+                <button id="modalRemoveBtn" class="btn btn-danger btn-sm rounded-pill px-4 ms-2" style="display: none;">REMOVE</button>
+              </div>
+              <p class="text-muted small">Go to Profile Settings to change your profile picture</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+          // Append modal to body
+          const modalDiv = document.createElement("div");
+          modalDiv.innerHTML = modalHTML;
+          document.body.appendChild(modalDiv);
+
+          // Get current user data
+          const user = JSON.parse(localStorage.getItem("currentUser")) || {};
+
+          // Update modal profile container with current image or default icon
+          const modalProfileContainer = document.getElementById(
+            "modalProfileContainer"
+          );
+          updateModalProfileImage(modalProfileContainer, user.profileImage);
+
+          // Handle upload button click in modal
+          document
+            .getElementById("modalUploadBtn")
+            .addEventListener("click", function () {
+              // Create file input element
+              const fileInput = document.createElement("input");
+              fileInput.type = "file";
+              fileInput.accept = "image/*";
+              fileInput.style.display = "none";
+              document.body.appendChild(fileInput);
+
+              // Trigger file selection
+              fileInput.click();
+
+              // Handle file selection
+              fileInput.addEventListener("change", function () {
+                if (this.files && this.files[0]) {
+                  const reader = new FileReader();
+
+                  reader.onload = function (e) {
+                    const imageResult = e.target.result;
+
+                    // Update modal image
+                    updateModalProfileImage(modalProfileContainer, imageResult);
+
+                    // Update profile images on page
+                    updateProfileDisplays(imageResult);
+
+                    // Store image in memory storage
+                    try {
+                      let user =
+                        JSON.parse(localStorage.getItem("currentUser")) || {};
+                      user.profileImage = imageResult;
+                      localStorage.setItem("currentUser", JSON.stringify(user));
+
+                      // Show success message
+                      showAlert(
+                        "Profile picture updated successfully!",
+                        "success"
+                      );
+                    } catch (error) {
+                      console.error("Error saving profile image:", error);
+                      showAlert(
+                        "Error saving profile image. Please try again.",
+                        "danger"
+                      );
+                    }
+                  };
+
+                  reader.readAsDataURL(this.files[0]);
+                }
+
+                // Clean up
+                document.body.removeChild(fileInput);
+              });
+            });
+
+          // Handle remove button click in modal
+          document
+            .getElementById("modalRemoveBtn")
+            .addEventListener("click", function () {
+              // Update both modal and page with default icons
+              updateModalProfileImage(modalProfileContainer, null);
+              updateProfileDisplays(null);
+
+              // Remove image from storage
+              try {
+                let user =
+                  JSON.parse(localStorage.getItem("currentUser")) || {};
+                delete user.profileImage;
+                localStorage.setItem("currentUser", JSON.stringify(user));
+
+                // Show success message
+                showAlert("Profile picture removed successfully!", "success");
+              } catch (error) {
+                console.error("Error removing profile image:", error);
+                showAlert(
+                  "Error removing profile image. Please try again.",
+                  "danger"
+                );
+              }
+            });
+
+          return new bootstrap.Modal(
+            document.getElementById("profileEditModal")
+          );
+        }
+
+        // Add profile edit functionality to both sidebar and navbar profile images
+        const profileElements = [sidebarProfileContainer, navbarUserContainer];
+
+        profileElements.forEach((element) => {
+          element.style.cursor = "pointer";
+          element.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Create and show the modal
+            const profileModal = createProfileEditModal();
+            profileModal.show();
+
+            // Clean up when modal is hidden
+            document
+              .getElementById("profileEditModal")
+              .addEventListener("hidden.bs.modal", function () {
+                if (this.parentNode) {
+                  document.body.removeChild(this.parentNode);
+                }
+              });
+          });
+        });
+      }
+
+      // Handle search functionality
+      function handleSearch(event) {
+        const searchTerm = event.target.value.toLowerCase();
+        const electionCards = document.querySelectorAll("[data-department]");
+
+        electionCards.forEach((card) => {
+          const department = card.getAttribute("data-department");
+          const cardText = card.textContent.toLowerCase();
+
+          if (searchTerm === "" || cardText.includes(searchTerm)) {
+            card.style.display = "block";
+            // Remove previous highlights
+            const highlights = card.querySelectorAll(".search-highlight");
+            highlights.forEach((highlight) => {
+              highlight.outerHTML = highlight.innerHTML;
+            });
+
+            // Add new highlights if search term exists
+            if (searchTerm !== "") {
+              highlightSearchTerm(card, searchTerm);
+            }
+          } else {
+            card.style.display = "none";
+          }
+        });
+      }
+
+      // Highlight search terms
+      function highlightSearchTerm(element, term) {
+        const walker = document.createTreeWalker(
+          element,
+          NodeFilter.SHOW_TEXT,
+          null,
+          false
+        );
+
+        const textNodes = [];
+        let node;
+        while ((node = walker.nextNode())) {
+          textNodes.push(node);
+        }
+
+        textNodes.forEach((textNode) => {
+          const text = textNode.textContent;
+          const regex = new RegExp(`(${term})`, "gi");
+          if (regex.test(text)) {
+            const highlightedText = text.replace(
+              regex,
+              '<span class="search-highlight">$1</span>'
+            );
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = highlightedText;
+            while (tempDiv.firstChild) {
+              textNode.parentNode.insertBefore(tempDiv.firstChild, textNode);
+            }
+            textNode.remove();
+          }
+        });
+      }
+
+      // Open registration modal (changed from voting modal)
+      function openVotingModal(electionName) {
+        currentElection = electionName;
+        selectedCandidates = {};
+
+        const modalTitle = document.getElementById("votingModalLabel");
+        const modalBody = document.getElementById("votingModalBody");
+
+        modalTitle.textContent = `Register for ${electionName}`;
+
+        if (votedElections.has(electionName)) {
+          modalBody.innerHTML = `
+      <div class="vote-confirmation">
+        <i class="bi bi-check-circle-fill" style="font-size: 3rem; margin-bottom: 15px;"></i>
+        <h4>Already Registered!</h4>
+        <p>You have already registered for this election. Please wait for admin approval.</p>
+      </div>
+    `;
+          return;
+        }
+
+        const election = candidateData[electionName];
+        if (!election) {
+          modalBody.innerHTML =
+            '<p class="text-center">Election data not available.</p>';
+          return;
+        }
+
+        // Show registration form instead of candidate selection
+        modalBody.innerHTML = `
+    <div class="registration-form">
+      <div class="text-center mb-4">
+        <i class="bi bi-person-plus" style="font-size: 3rem; color: #4954b8; margin-bottom: 15px;"></i>
+        <h5>Election Registration</h5>
+        <p class="text-muted">Register to participate in the ${electionName} election.</p>
+      </div>
+      
+      <div class="alert alert-info">
+        <i class="bi bi-info-circle me-2"></i>
+        Your registration will be sent to the admin for approval. You will be notified once your registration is processed.
+      </div>
+      
+      <div class="election-info mb-4">
+        <h6 class="text-primary mb-3">Available Positions:</h6>
+        <ul class="list-unstyled">
+          ${election.positions
+            .map(
+              (position) => `
+            <li class="mb-2">
+              <i class="bi bi-person-badge me-2"></i>
+              <strong>${position.title}</strong> - ${position.candidates.length} candidate(s)
+            </li>
+          `
+            )
+            .join("")}
+        </ul>
+      </div>
+      
+      <div class="d-flex justify-content-between mt-4">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="submitRegistration()">
+          <i class="bi bi-person-plus me-2"></i>Register to Vote
+        </button>
+      </div>
+    </div>
+  `;
+      }
+
+      // Submit registration (changed from submitVote)
+      function submitRegistration() {
+        // Mark as registered (pending approval)
+        votedElections.add(currentElection);
+
+        // Create registration request object
+        const registrationRequest = {
+          electionName: currentElection,
+          userId: getCurrentUserId(),
+          userInfo: getCurrentUserInfo(),
+          timestamp: new Date().toISOString(),
+          status: "pending",
+        };
+
+        // Store registration request
+        storeRegistrationRequest(registrationRequest);
+
+        // Update the registration button
+        updateElectionButton(currentElection, "registered");
+
+        // Update stats
+        updateStats();
+
+        // Show confirmation
+        showRegistrationConfirmation();
+
+        // Send notification to admin
+        sendAdminNotification(registrationRequest);
+      }
+
+      // Helper functions for registration system
+      function getCurrentUserId() {
+        const user = JSON.parse(localStorage.getItem("currentUser")) || {};
+        return user.id || "user_" + Date.now();
+      }
+
+      function getCurrentUserInfo() {
+        const user = JSON.parse(localStorage.getItem("currentUser")) || {};
+        return {
+          name: `${user.firstName || "Unknown"} ${user.lastName || "User"}`,
+          email: user.email || "No email provided",
+          role: user.role || "Student",
+        };
+      }
+
+      function storeRegistrationRequest(request) {
+        // Store in memory (in real app, send to server)
+        let registrations =
+          JSON.parse(localStorage.getItem("registrationRequests")) || [];
+        registrations.push(request);
+        localStorage.setItem(
+          "registrationRequests",
+          JSON.stringify(registrations)
+        );
+        console.log("Registration stored:", request);
+      }
+
+      function sendAdminNotification(request) {
+        // Store notification for admin dashboard
+        let notifications =
+          JSON.parse(localStorage.getItem("adminNotifications")) || [];
+        notifications.push({
+          id: "notif_" + Date.now(),
+          type: "registration_request",
+          title: "New Election Registration",
+          message: `${request.userInfo.name} has requested to register for ${request.electionName}`,
+          timestamp: request.timestamp,
+          data: request,
+          read: false,
+        });
+        localStorage.setItem(
+          "adminNotifications",
+          JSON.stringify(notifications)
+        );
+        console.log("Admin notification sent:", request);
+      }
+
+      function updateElectionButton(electionName, status) {
+        const electionCards = document.querySelectorAll("[data-department]");
+        electionCards.forEach((card) => {
+          const h5 = card.querySelector("h5");
+          if (
+            h5 &&
+            h5.textContent.includes(electionName.split(" ").slice(-2).join(" "))
+          ) {
+            const button = card.querySelector(".vote-btn");
+            if (button && status === "registered") {
+              button.innerHTML =
+                '<i class="bi bi-clock-fill me-2"></i>Pending Approval';
+              button.classList.remove("vote-btn");
+              button.classList.add("btn-warning");
+              button.onclick = null;
+              button.style.cursor = "default";
+            }
+          }
+        });
+      }
+
+      function showRegistrationConfirmation() {
+        const modalBody = document.getElementById("votingModalBody");
+        modalBody.innerHTML = `
+    <div class="vote-confirmation">
+      <i class="bi bi-check-circle-fill" style="font-size: 3rem; margin-bottom: 15px; color: #28a745;"></i>
+      <h4>Registration Submitted!</h4>
+      <p>Your registration has been sent to the admin for approval. You will be notified once your registration is processed.</p>
+      <div class="alert alert-success mt-3">
+        <i class="bi bi-info-circle me-2"></i>
+        Check your notifications for updates on your registration status.
+      </div>
+      <div class="mt-3">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  `;
+      }
+
+      // Update statistics (now shows registrations instead of votes)
+      function updateStats() {
+        const totalElections = 6;
+        const registeredCount = votedElections.size;
+        const ongoingCount = 4;
+        const completionRate = Math.round(
+          (registeredCount / totalElections) * 100
+        );
+
+        document.getElementById("availableElections").textContent =
+          totalElections;
+        document.getElementById("votedElections").textContent = registeredCount;
+        document.getElementById("ongoingElections").textContent = ongoingCount;
+        document.getElementById("completionRate").textContent =
+          completionRate + "%";
+      }
+
+      // Handle window resize
+      window.addEventListener("resize", function () {
+        const sidebar = document.getElementById("sidebar");
+        if (window.innerWidth > 992) {
+          sidebar.classList.remove("active");
+        }
+      });
+
+      // Simulate real-time updates for registration status
+      setInterval(function () {
+        const ongoingBadges = document.querySelectorAll(".status-ongoing");
+        ongoingBadges.forEach((badge) => {
+          badge.style.transform = "scale(1.05)";
+          setTimeout(() => {
+            badge.style.transform = "scale(1)";
+          }, 500);
+        });
+      }, 30000); // Every 30 seconds
+    </script>
+  </body>
+</html>
