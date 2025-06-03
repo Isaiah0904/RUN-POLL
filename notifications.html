@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RUN Voting System - Notifications</title>
+     <!-- Bootstrap CSS -->
+     <link
+     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+     rel="stylesheet"
+   />
+   <!-- Bootstrap Icons -->
+   <link
+     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
+     rel="stylesheet"
+   />
+   <!-- Chart.js -->
+   <link
+     href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.css"
+     rel="stylesheet"
+   />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #28369e;
+        --primary-dark: #3a429b;
+        --secondary: #f5f7ff;
+        --light-gray: #f8f9fa;
+        --text-dark: #2a3074;
+        --text-gray: #6c757d;
+        --success: #28a745;
+        --pending: #ffc107;
+        --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f7ff;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      /* Sidebar Styles */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 240px;
+        height: 100%;
+        background-color: white;
+        box-shadow: var(--shadow);
+        z-index: 1000;
+        transition: transform 0.3s;
+        padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .bi-x-lg {
+        display: none;
+        color: rgb(42, 48, 116);
+        margin-left: 15px;
+        font-size: 22px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .sidebar-nav {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow-y: auto;
+      }
+
+      @media (max-width: 992px) {
+        .sidebar {
+          transform: translateX(-100%);
+          transition: 1s;
+        }
+        .sidebar.active {
+          transform: translateX(0);
+        }
+        .bi-x-lg {
+          display: block;
+        }
+      }
+
+      .logo-container {
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .logo {
+        background-color: var(--primary);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        font-size: 18px;
+        margin-right: 10px;
+        border-radius: 8px;
+      }
+
+      .brand-text {
+        color: var(--text-dark);
+        font-weight: bold;
+        font-size: 22px;
+      }
+
+      .profile-container {
+        padding: 15px;
+        text-align: center;
+        border-radius: 12px;
+        background-color: var(--light-gray);
+        margin: 0 15px 25px;
+      }
+
+      .profile-image-container {
+        position: relative;
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 10px;
+        cursor: pointer;
+      }
+
+      .profile-image {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid white;
+        display: block;
+      }
+
+      .default-user-icon {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--primary);
+        border-radius: 50%;
+        border: 3px solid white;
+      }
+
+      .default-user-icon i {
+        font-size: 32px;
+        color: white;
+      }
+
+      .edit-icon {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 24px;
+        height: 24px;
+        background-color: var(--primary);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid white;
+      }
+
+      .edit-icon i {
+        font-size: 12px;
+        color: white;
+      }
+
+      .profile-name {
+        font-weight: bold;
+        color: var(--text-dark);
+        margin-bottom: 2px;
+      }
+
+      .profile-role {
+        font-size: 12px;
+        color: var(--text-gray);
+      }
+
+      .nav-item {
+        padding: 5px 15px;
+        font-weight: 500;
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        color: var(--text-gray);
+        border-radius: 10px;
+        transition: all 0.2s;
+        position: relative;
+        text-decoration: none;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .nav-link i {
+        margin-right: 10px;
+        font-size: 18px;
+      }
+
+      /* Main Content */
+      .main-content {
+        margin-left: 240px;
+        padding: 20px;
+        transition: margin-left 0.3s;
+      }
+
+      @media (max-width: 992px) {
+        .main-content {
+          margin-left: 0;
+        }
+      }
+
+      /* Top Navbar */
+      .top-navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 10px;
+        margin-bottom: 0px;
+      }
+
+      .toggle-sidebar {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: var(--text-dark);
+        cursor: pointer;
+      }
+
+      @media (max-width: 992px) {
+        .toggle-sidebar {
+          display: block;
+        }
+      }
+
+      .search-bar {
+        visibility: hidden;
+        flex-grow: 1;
+        max-width: 600px;
+        margin: 0 0 0 8px;
+        position: relative;
+      }
+
+      .search-input {
+        background-color: white;
+        border-radius: 50px;
+        border: 1px solid #e9ecef;
+        padding: 8px 15px 8px 40px;
+        width: 100%;
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-gray);
+      }
+
+      .user-actions {
+        display: flex;
+        align-items: center;
+      }
+
+      .action-icon {
+        font-size: 20px;
+        color: var(--text-gray);
+        margin-left: 15px;
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+
+      .action-icon:hover {
+        color: var(--primary);
+      }
+
+      .navbar-user-container {
+        position: relative;
+        margin-left: 15px;
+        display: flex;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--primary);
+      }
+
+      .navbar-user-container i {
+        color: white;
+        font-size: 20px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .status-indicator {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: var(--success);
+        border-radius: 50%;
+        border: 2px solid var(--success);
+        bottom: 0px;
+        right: 0px;
+      }
+
+      /* Notifications Content */
+      .page-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .page-header h1 {
+        font-size: 2.2rem;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+
+      .page-header p {
+        color: var(--text-gray);
+        font-size: 1rem;
+      }
+
+      .notification {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid;
+        transition: transform 0.2s ease;
+      }
+
+      .notification:hover {
+        transform: translateY(-1px);
+      }
+
+      .notification.ongoing {
+        border-left-color: #e74c3c;
+      }
+
+      .notification.upcoming {
+        border-left-color: #3498db;
+      }
+
+      .notification.ended {
+        border-left-color: #95a5a6;
+      }
+
+      .notification.approval {
+        border-left-color: #2ecc71;
+      }
+
+      .notification.profile {
+        border-left-color: #f39c12;
+      }
+
+      .notification-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-right: 12px;
+        flex-shrink: 0;
+      }
+
+      .ongoing .status-dot {
+        background-color: #e74c3c;
+      }
+
+      .upcoming .status-dot {
+        background-color: #3498db;
+      }
+
+      .ended .status-dot {
+        background-color: #95a5a6;
+      }
+
+      .approval .status-dot {
+        background-color: #2ecc71;
+      }
+
+      .profile .status-dot {
+        background-color: #f39c12;
+      }
+
+      .notification-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        flex: 1;
+      }
+
+      .notification-time {
+        font-size: 0.85rem;
+        color: #bdc3c7;
+      }
+
+      .notification-message {
+        color: var(--text-gray);
+        margin-bottom: 16px;
+      }
+
+      .notification-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        text-decoration: none;
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-dark);
+      }
+
+      .btn-secondary {
+        background-color: #f8f9fa;
+        color: #6c757d;
+        border: 1px solid #dee2e6;
+      }
+
+      .btn-secondary:hover {
+        background-color: #e9ecef;
+      }
+
+      .section-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin: 30px 0 16px 0;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #ecf0f1;
+      }
+
+      .section-title:first-child {
+        margin-top: 0;
+      }
+
+      @media (max-width: 768px) {
+        .main-content {
+          padding: 16px;
+        }
+
+        .page-header h1 {
+          font-size: 1.8rem;
+        }
+
+        .notification {
+          padding: 16px;
+        }
+
+        .notification-actions {
+          flex-direction: column;
+        }
+
+        .btn {
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="logo-container">
+        <img class="logo" src="images/Logo.png" width="150px"/>
+        <i class="bi bi-x-lg" id="close"></i>
+      </div>
+
+      <div class="profile-container">
+        <!-- Improved profile image container -->
+        <div class="profile-image-container" id="sidebarProfileContainer">
+          <img
+            src="/api/placeholder/70/70"
+            class="profile-image"
+            id="userProfileImage"
+          />
+          <div class="edit-icon">
+            <i class="bi bi-pencil-fill text-white" style="font-size: 12px"></i>
+          </div>
+        </div>
+        <div class="profile-name" id="userProfileName">Isaiah Durojaiye</div>
+        <div class="profile-role" id="userProfileRole">Student Voter</div>
+      </div>
+
+      <!-- Sidebar Navigation with improved structure -->
+      <div class="sidebar-nav">
+        <ul class="nav flex-column nav-main">
+          <li class="nav-item">
+            <a href="Voter-dashboard.html" class="nav-link active">
+              <i class="bi bi-grid-1x2-fill"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="election-page.html" class="nav-link">
+              <i class="bi bi-check2-square"></i> Vote
+            </a>
+          </li>
+          <!-- New Navigation Item -->
+          <li class="nav-item">
+            <a href="Voter-guidline.html" class="nav-link">
+              <i class="bi bi-journal-text"></i> Voters Guideline
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="profile-settings.html" class="nav-link">
+              <i class="bi bi-gear-fill"></i> Profile Settings
+            </a>
+          </li>
+        </ul>
+
+        <!-- Logout button in footer section -->
+        <ul class="nav flex-column nav-footer">
+          <li class="nav-item">
+            <a href="voter_log_in.html" class="nav-link text-danger">
+              <i class="bi bi-box-arrow-right"></i> Log out
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Top Navbar -->
+      <div class="top-navbar">
+        <button class="toggle-sidebar" onclick="toggleSidebar()">
+          <i class="bi bi-list"></i>
+        </button>
+
+        <div class="search-bar">
+          <div style="position: relative">
+            <input type="text" class="search-input" placeholder="Search..." />
+            <i class="bi bi-search search-icon"></i>
+          </div>
+        </div>
+
+        <div class="user-actions">
+          <i class="bi bi-bell action-icon"></i>
+          <i class="bi bi-question-circle action-icon"></i>
+          <div class="navbar-user-container">
+            <i class="bi bi-person-fill"></i>
+            <div class="status-indicator"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notifications Content -->
+      <div class="page-header">
+        <h1>Notifications</h1>
+        <p>Stay updated with your voting activities</p>
+      </div>
+
+      <!-- Ongoing Elections -->
+      <h2 class="section-title">Ongoing Elections</h2>
+
+      <div class="notification ongoing">
+        <div class="notification-header">
+          <div class="status-dot"></div>
+          <div class="notification-title">
+            President Student Council Election
+          </div>
+          <div class="notification-time">2 hours ago</div>
+        </div>
+        <div class="notification-message">
+          The election is currently ongoing. Cast your vote now to make your
+          voice heard. Voting ends in 2 days.
+        </div>
+        <div class="notification-actions">
+          <button class="btn btn-primary">Vote Now</button>
+          <button class="btn btn-secondary">View Details</button>
+        </div>
+      </div>
+
+      <div class="notification ongoing">
+        <div class="notification-header">
+          <div class="status-dot"></div>
+          <div class="notification-title">Faculty Representative Election</div>
+          <div class="notification-time">5 hours ago</div>
+        </div>
+        <div class="notification-message">
+          Vote for your Faculty Representative. Deadline: June 5th, 2025.
+        </div>
+        <div class="notification-actions">
+          <button class="btn btn-primary">Cast Vote</button>
+          <button class="btn btn-secondary">Learn More</button>
+        </div>
+      </div>
+
+      <!-- Upcoming Elections -->
+      <h2 class="section-title">Upcoming Elections</h2>
+
+      <div class="notification upcoming">
+        <div class="notification-header">
+          <div class="status-dot"></div>
+          <div class="notification-title">Sports Director Election</div>
+          <div class="notification-time">1 day ago</div>
+        </div>
+        <div class="notification-message">
+          Election begins June 10th, 2025. Candidate registration open until
+          June 8th.
+        </div>
+        <div class="notification-actions">
+          <button class="btn btn-secondary">Set Reminder</button>
+        </div>
+      </div>
+
+      <div class="notification upcoming">
+        <div class="notification-header">
+          <div class="status-dot"></div>
+          <div class="notification-title">Senate Elections</div>
+          <div class="notification-time">2 days ago</div>
+        </div>
+        <div class="notification-message">
+          Student Senate elections scheduled for June 15th, 2025. Make sure
+          you're registered.
+        </div>
+        <div class="notification-actions">
+          <button class="btn btn-secondary">Check Eligibility</button>
+        </div>
+      </div>
+
+      <!-- Approvals -->
+      <h2 class="section-title">Voting Approvals</h2>
+
+      <div class="notification approval">
+        <div class="notification-header">
+          <div class="status-dot"></div>
+          <div class="notification-title">
+            Approved - President Student Council
+          </div>
+          <div class="notification-time">3 hours ago</div>
+        </div>
+        <div class="notification-message">
+          Your eligibility has been verified and you are approved to vote.
+        </div>
+        <div class="notification-actions">
+          <button class="btn btn-primary">Vote Now</button>
+        </div>
+      </div>
+
+      <div class="notification approval">
+        <div class="notification-header">
+          <div class="status-dot"></div>
+          <div class="notification-title">
+            Voting Access Granted - Faculty Rep
+          </div>
+          <div class="notification-time">1 day ago</div>
+        </div>
+        <div class="notification-message">
+          You have been granted access to vote in the Faculty Representative
+          election.
+        </div>
+        <div class="notification-actions">
+          <button class="btn btn-primary">Proceed to Vote</button>
+        </div>
+      </div>
+
+      <!-- Profile Updates -->
+      <h2 class="section-title">Profile Updates</h2>
+
+      <div class="notification profile">
+        <div class="notification-header">
+          <div class="status-dot"></div>
+          <div class="notification-title">Profile Information Updated</div>
+          <div class="notification-time">4 hours ago</div>
+        </div>
+        <div class="notification-message">
+          Your profile information has been modified. Contact admin if you
+          didn't make these changes.
+        </div>
+        <div class="notification-actions">
+          <button class="btn btn-primary">Review Changes</button>
+          <button class="btn btn-secondary">Report Issue</button>
+        </div>
+      </div>
+
+      <!-- Recent Results -->
+      <h2 class="section-title">Recent Results</h2>
+
+      <div class="notification ended">
+        <div class="notification-header">
+          <div class="status-dot"></div>
+          <div class="notification-title">
+            Social Director Election Concluded
+          </div>
+          <div class="notification-time">2 days ago</div>
+        </div>
+        <div class="notification-message">
+          The election has ended. Results are now available.
+        </div>
+        <div class="notification-actions">
+          <button class="btn btn-secondary">View Results</button>
+        </div>
+      </div>
+
+      <div class="notification ended">
+        <div class="notification-header">
+          <div class="status-dot"></div>
+          <div class="notification-title">
+            Class Representative Elections Completed
+          </div>
+          <div class="notification-time">1 week ago</div>
+        </div>
+        <div class="notification-message">
+          All positions have been filled. Congratulations to the newly elected
+          representatives.
+        </div>
+        <div class="notification-actions">
+          <button class="btn btn-secondary">View Summary</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.querySelector(".sidebar");
+        sidebar.classList.toggle("active");
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const buttons = document.querySelectorAll(".btn");
+
+        buttons.forEach((button) => {
+          button.addEventListener("click", function () {
+            const originalText = this.textContent;
+            this.textContent = "Loading...";
+            this.disabled = true;
+
+            setTimeout(() => {
+              this.textContent = originalText;
+              this.disabled = false;
+            }, 800);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

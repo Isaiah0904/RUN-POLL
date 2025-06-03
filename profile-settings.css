@@ -1,5 +1,5 @@
 :root {
-  --primary: #4954b8;
+  --primary: #28369e;
   --primary-dark: #3a429b;
   --secondary: #f5f7ff;
   --light-gray: #f8f9fa;
@@ -26,7 +26,7 @@ body {
       margin-left: 0;
   }
   .sidebar-nav{
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 }
 
@@ -150,6 +150,7 @@ color: var(--text-gray);
 .sidebar-nav {
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 
 .nav-main {

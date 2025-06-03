@@ -1,5 +1,5 @@
 :root {
-  --primary: #4954b8;
+  --primary: #28369e;
   --primary-dark: #3a429b;
   --secondary: #f5f7ff;
   --light-gray: #f8f9fa;
@@ -149,7 +149,7 @@ body {
 
 /* Styling for the Become a Candidate button on the dashboard */
 .become-candidate-banner {
-  background: linear-gradient(135deg, #4954b8, #8158c5);
+  background: linear-gradient(135deg, #28369e, #8158c5);
   border-radius: 10px;
   padding: 15px 20px;
   margin-bottom: 20px;
@@ -416,6 +416,7 @@ body {
 .sidebar-nav {
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 
 .bi-x-lg{
@@ -461,8 +462,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
-  margin-bottom: 20px;
+  padding-top: 10px;
 }
 
 .toggle-sidebar {
@@ -484,6 +484,7 @@ body {
   flex-grow: 1;
   max-width: 600px;
   margin: 0 0 0 8px;
+  visibility: hidden;
 }
 
 .search-input {
@@ -504,9 +505,10 @@ body {
 .user-actions {
   display: flex;
   align-items: center;
+  padding-top: -20px;
 }
 
-.action-icon {
+.action-icon, .user-actions a {
   font-size: 20px;
   color: var(--text-gray);
   margin-left: 15px;
@@ -517,7 +519,7 @@ body {
   height: 40px;
 }
 
-.action-icon:hover {
+.action-icon:hover, .user-actions a:hover {
   color: var(--primary);
 }
 

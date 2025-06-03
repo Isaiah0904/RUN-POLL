@@ -20,7 +20,7 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
       <div class="logo-container">
-        <img class="logo" src="images/Logo.png"  width="150px"/>
+        <img class="logo" src="images/Logo.png" width="150px" />
         <i class="bi bi-x-lg" id="close"></i>
       </div>
 
@@ -71,7 +71,7 @@
         <!-- Logout button -->
         <ul class="nav flex-column nav-footer">
           <li class="nav-item">
-            <a href="#" class="nav-link text-danger">
+            <a href="Login.html" class="nav-link text-danger">
               <i class="bi bi-box-arrow-right"></i> Log out
             </a>
           </li>
@@ -98,6 +98,46 @@
         </div>
 
         <div class="user-actions">
+          <!-- Filter Dropdown -->
+          <div class="filter-dropdown dropdown">
+            <button
+              class="btn filter-btn dropdown-toggle"
+              type="button"
+              id="filterDropdown"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="bi bi-funnel-fill"></i>
+              <span id="filterText">All Elections</span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+              <li>
+                <a class="dropdown-item active" href="#" data-filter="all">
+                  <i class="bi bi-grid-3x3-gap-fill"></i>
+                  All Elections
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" data-filter="ongoing">
+                  <span class="status-badge status-ongoing">●</span>
+                  Ongoing
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" data-filter="upcoming">
+                  <span class="status-badge status-upcoming">●</span>
+                  Upcoming
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" data-filter="ended">
+                  <span class="status-badge status-ended">●</span>
+                  Ended
+                </a>
+              </li>
+            </ul>
+          </div>
+
           <div
             class="action-icon"
             data-bs-toggle="tooltip"
@@ -128,7 +168,7 @@
         <!-- Heading -->
         <div class="row mb-4">
           <div class="col-12 text-center">
-            <h2 class="page-title">YOU MAY NOW CAST YOUR VOTES!</h2>
+            <h2 class="page-title">You may now cast your votes!</h2>
             <p class="text-muted">
               Select your preferred candidates for each available election
             </p>
@@ -184,8 +224,9 @@
         <div class="row g-4 mb-5" id="electionsContainer">
           <!-- Computer Science Election -->
           <div
-            class="col-xl-4 col-lg-6 mb-4"
+            class="col-xl-4 col-lg-6 mb-4 election-card"
             data-department="computer science"
+            data-status="ongoing"
           >
             <div class="card h-100 dept-cs">
               <div
@@ -274,7 +315,11 @@
           </div>
 
           <!-- Engineering Election -->
-          <div class="col-xl-4 col-lg-6 mb-4" data-department="engineering">
+          <div
+            class="col-xl-4 col-lg-6 mb-4 election-card"
+            data-department="engineering"
+            data-status="ongoing"
+          >
             <div class="card h-100 dept-eng">
               <div
                 class="card-header d-flex justify-content-between align-items-center"
@@ -333,7 +378,11 @@
           </div>
 
           <!-- Medical School Election -->
-          <div class="col-xl-4 col-lg-6 mb-4" data-department="medical">
+          <div
+            class="col-xl-4 col-lg-6 mb-4 election-card"
+            data-department="medical"
+            data-status="ongoing"
+          >
             <div class="card h-100 dept-med">
               <div
                 class="card-header d-flex justify-content-between align-items-center"
@@ -397,7 +446,11 @@
           </div>
 
           <!-- Business School Election -->
-          <div class="col-xl-4 col-lg-6 mb-4" data-department="business">
+          <div
+            class="col-xl-4 col-lg-6 mb-4 election-card"
+            data-department="business"
+            data-status="ongoing"
+          >
             <div class="card h-100 dept-bus">
               <div
                 class="card-header d-flex justify-content-between align-items-center"
@@ -469,7 +522,11 @@
           </div>
 
           <!-- Arts & Humanities Election -->
-          <div class="col-xl-4 col-lg-6 mb-4" data-department="arts">
+          <div
+            class="col-xl-4 col-lg-6 mb-4 election-card"
+            data-department="arts"
+            data-status="upcoming"
+          >
             <div class="card h-100 dept-art">
               <div
                 class="card-header d-flex justify-content-between align-items-center"
@@ -526,7 +583,11 @@
           </div>
 
           <!-- Law School Election -->
-          <div class="col-xl-4 col-lg-6 mb-4" data-department="law">
+          <div
+            class="col-xl-4 col-lg-6 mb-4 election-card"
+            data-department="law"
+            data-status="ended"
+          >
             <div class="card h-100 dept-law">
               <div
                 class="card-header d-flex justify-content-between align-items-center"
@@ -643,6 +704,47 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
     <script>
+      // Filter functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const filterItems = document.querySelectorAll("[data-filter]");
+        const electionCards = document.querySelectorAll(".election-card");
+        const filterText = document.getElementById("filterText");
+
+        filterItems.forEach((item) => {
+          item.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            // Remove active class from all items
+            filterItems.forEach((filterItem) => {
+              filterItem.classList.remove("active");
+            });
+
+            // Add active class to clicked item
+            this.classList.add("active");
+
+            // Get filter value
+            const filterValue = this.getAttribute("data-filter");
+
+            // Update filter text
+            filterText.textContent = this.textContent.trim();
+
+            // Filter elections
+            electionCards.forEach((card) => {
+              if (filterValue === "all") {
+                card.style.display = "block";
+              } else {
+                const cardStatus = card.getAttribute("data-status");
+                if (cardStatus === filterValue) {
+                  card.style.display = "block";
+                } else {
+                  card.style.display = "none";
+                }
+              }
+            });
+          });
+        });
+      });
+
       // Global variables for managing state
       let votedElections = new Set();
       let currentElection = null;

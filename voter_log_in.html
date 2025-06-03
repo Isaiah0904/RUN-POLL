@@ -1,120 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RUNPOLLS - Online Voting System</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <!-- Bootstrap Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="voter_log_in.css">
-</head>
-<body>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Sign-In -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <link rel="stylesheet" href="voter_log_in.css" />
+  </head>
+  <body>
     <div class="container">
-        <div class="login-container row g-0">
-            <!-- Left side: Login form -->
-            <div class="col-lg-6">
-                <div class="login-form-wrapper h-100 d-flex flex-column">
-                    <div class="brand-logo animate-fadeInUp">
-                        <div class="logo-circle">RUN</div>
-                        <div class="logo-text">POLLS</div>
-                    </div>
-                    
-                    <div class="welcome-text animate-fadeInUp delay-100">
-                        <h2>Welcome Back!</h2>
-                        <p>Log in to RUNPOLLS secure platform and exercise your right to vote. Your voice matters in shaping our future.</p>
-                    </div>
-                    
-                    <form id="loginForm" class="animate-fadeInUp delay-200">
-                        <div class="form-floating">
-                            <input type="text" class="form-control" id="voterID" placeholder="Voter ID Number" required>
-                            <label for="voterID">Voter's Email</label>
-                        </div>
-                        
-                        <div class="form-floating password-field">
-                            <input type="password" class="form-control" id="password" placeholder="Password" required>
-                            <label for="password">Password</label>
-                            <button type="button" class="password-toggle" id="togglePassword">
-                                <i class="bi bi-eye"></i>
-                            </button>
-                        </div>
-                        
-                        <div class="login-options">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="rememberPassword">
-                                <label class="form-check-label" for="rememberPassword">
-                                    Remember me
-                                </label>
-                            </div>
-                            <a href="#" class="forgot-link">Forgot Password?</a>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary btn-login w-100">
-                            <i class="bi bi-box-arrow-in-right"></i> SIGN IN TO VOTE
-                        </button>
-                    </form>
-                    
-                    <div class="divider animate-fadeInUp delay-300">or continue with</div>
-                    
-                    <div class="biometric-options animate-fadeInUp delay-400" style="display: none">
-                        <button type="button" class="biometric-btn" title="Fingerprint Login">
-                            <i class="bi bi-fingerprint"></i>
-                        </button>
-                        <button type="button" class="biometric-btn" title="Face ID">
-                            <i class="bi bi-person-badge"></i>
-                        </button>
-                        <button type="button" class="biometric-btn" title="QR Code">
-                            <i class="bi bi-qr-code-scan"></i>
-                        </button>
-                    </div>
-                    
-                    <div class="login-footer mt-auto animate-fadeInUp delay-500">
-                        <a href="admin_log_in.html" class="admin-link">
-                            <i class="bi bi-shield-lock"></i> Sign in as an Admin
-                        </a>
-                        <p class="register-text">
-                            Don't have an account? <a href="registration.html" class="register-link">Register here</a>
-                        </p>
-                    </div>
-                </div>
+      <div class="login-container row g-0">
+        <!-- Left side: Login form -->
+        <div class="col-lg-6">
+          <div class="login-form-wrapper h-100 d-flex flex-column">
+            <div class="brand-logo animate-fadeInUp">
+              <img width="150px" src="images/Logo.png">
             </div>
-            
-            <!-- Right side: Image -->
-            <div class="col-lg-6 d-flex">
-                <div class="login-image w-100">
-                    <div class="image-gallery">
-                        <div class="gallery-top">
-                            <div class="circle-accents">
-                                <div class="circle circle-1"></div>
-                                <div class="circle circle-2"></div>
-                                <div class="circle circle-3 animate-float"></div>
-                                <div class="circle circle-4 animate-float delay-200"></div>
-                            </div>
-                        </div>
-                        <div class="gallery-bottom"></div>
-                    </div>
-                    
-                    <div class="voting-icons">
-                        <div class="voting-icon"><i class="bi bi-check2-square"></i></div>
-                        <div class="voting-icon"><i class="bi bi-bar-chart"></i></div>
-                    </div>
-                    
-                    <div class="voting-quote animate-fadeInUp">
-                        <h3>Make Your Voice Count</h3>
-                        <p>"The ballot is stronger than the bullet. Your vote is your voice in democracy – use it wisely to shape our collective future."</p>
-                    </div>
-                </div>
+
+            <div class="welcome-text animate-fadeInUp delay-100">
+              <h2>Welcome Back!</h2>
+              <p>
+                Log in to RUNPOLLS secure platform and exercise your right to
+                vote. Your voice matters in shaping our future.
+              </p>
             </div>
+
+            <form id="loginForm" class="animate-fadeInUp delay-200">
+              <div class="form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="voterID"
+                  placeholder="Voter ID Number"
+                  required
+                />
+                <label for="voterID">Matric Number</label>
+              </div>
+
+              <div class="form-floating password-field">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  placeholder="Password"
+                  required
+                />
+                <label for="password">Password</label>
+                <button
+                  type="button"
+                  class="password-toggle"
+                  id="togglePassword"
+                >
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+
+              <div class="login-options">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="rememberPassword"
+                  />
+                  <label class="form-check-label" for="rememberPassword">
+                    Remember me
+                  </label>
+                </div>
+                <a href="#" class="forgot-link">Forgot Password?</a>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-login w-100">
+                <i class="bi bi-box-arrow-in-right"></i> SIGN IN TO VOTE
+              </button>
+            </form>
+
+            <div class="divider animate-fadeInUp delay-300">
+              or
+            </div>
+
+            <div
+              class="biometric-options animate-fadeInUp delay-400"
+              style="display: none"
+            >
+              <button
+                type="button"
+                class="biometric-btn"
+                title="Fingerprint Login"
+              >
+                <i class="bi bi-fingerprint"></i>
+              </button>
+              <button type="button" class="biometric-btn" title="Face ID">
+                <i class="bi bi-person-badge"></i>
+              </button>
+              <button type="button" class="biometric-btn" title="QR Code">
+                <i class="bi bi-qr-code-scan"></i>
+              </button>
+            </div>
+
+            <div class="login-footer mt-auto animate-fadeInUp delay-500">
+              <!-- Updated Google Voter Authentication Section -->
+              <div class="google-voter-section">
+                <div class="d-flex justify-content-center">
+                  <button id="googleVoterSignIn" class="google-voter-btn">
+                    <div class="google-logo"></div>
+                    Continue with Google
+                  </button>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <div class="voter-security-badge">
+                    <i class="bi bi-shield-check"></i>
+                    Secure Voter Access
+                  </div>
+                </div>
+              </div>
+
+              <p class="register-text">
+                Don't have an account?
+                <a href="registration.html" class="register-link"
+                  >Register here</a
+                >
+              </p>
+            </div>
+          </div>
         </div>
+
+        <!-- Right side: Image -->
+        <div class="col-lg-6 d-flex">
+          <div class="login-image w-100">
+            <div class="image-gallery">
+              <div class="gallery-top">
+                <div class="circle-accents">
+                  <div class="circle circle-1"></div>
+                  <div class="circle circle-2"></div>
+                  <div class="circle circle-3 animate-float"></div>
+                  <div class="circle circle-4 animate-float delay-200"></div>
+                </div>
+              </div>
+              <div class="gallery-bottom"></div>
+            </div>
+
+            <div class="voting-icons">
+              <div class="voting-icon"><i class="bi bi-check2-square"></i></div>
+              <div class="voting-icon"><i class="bi bi-bar-chart"></i></div>
+            </div>
+
+            <div class="voting-quote animate-fadeInUp">
+              <h3>Make Your Voice Count</h3>
+              <p>
+                "The ballot is stronger than the bullet. Your vote is your voice
+                in democracy – use it wisely to shape our collective future."
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Bootstrap JS with Popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    
+
     <!-- Custom Script -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+     document.addEventListener('DOMContentLoaded', function() {
             // Password toggle functionality
             const togglePassword = document.getElementById('togglePassword');
             const password = document.getElementById('password');
@@ -158,5 +216,5 @@
             });
         });
     </script>
-</body>
+  </body>
 </html>

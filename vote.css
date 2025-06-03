@@ -150,6 +150,7 @@ body {
 .sidebar-nav {
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
 }
 
 .nav-main {

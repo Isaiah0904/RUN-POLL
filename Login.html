@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RUNPOLLS - Online Voting System</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Sign-In -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <link rel="stylesheet" href="Login.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="login-container row g-0">
+        <!-- Left side: Login form -->
+        <div class="col-lg-6">
+          <div class="login-form-wrapper h-100 d-flex flex-column">
+            <div class="brand-logo animate-fadeInUp">
+              <img width="150px" src="images/Logo.png" alt="RUNPOLLS Logo">
+            </div>
+
+            <!-- Login Mode Toggle - moved below logo -->
+            <div class="login-mode-toggle animate-fadeInUp delay-100">
+              <div class="toggle-wrapper">
+                <div class="toggle-slider" id="toggleSlider"></div>
+                <div class="toggle-option active" data-mode="voter">
+                  <i class="bi bi-person-check me-1"></i>Voter
+                </div>
+                <div class="toggle-option" data-mode="admin">
+                  <i class="bi bi-shield-lock me-1"></i>Admin
+                </div>
+              </div>
+            </div>
+
+            <!-- Voter Content -->
+            <div class="voter-form-content">
+              <div class="welcome-text animate-fadeInUp delay-200">
+                <h2>Welcome Back!</h2>
+                <p>
+                  Log in to RUNPOLLS secure platform and exercise your right to
+                  vote. Your voice matters in shaping our future.
+                </p>
+              </div>
+
+              <form id="voterLoginForm" class="animate-fadeInUp delay-300">
+                <div class="form-floating">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="voterID"
+                    placeholder="Voter ID Number"
+                    required
+                  />
+                  <label for="voterID">Matric Number</label>
+                </div>
+
+                <div class="form-floating password-field">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="voterPassword"
+                    placeholder="Password"
+                    required
+                  />
+                  <label for="voterPassword">Password</label>
+                  <button
+                    type="button"
+                    class="password-toggle"
+                    id="toggleVoterPassword"
+                  >
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+
+                <div class="login-options">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="rememberVoterPassword"
+                    />
+                    <label class="form-check-label" for="rememberVoterPassword">
+                      Remember me
+                    </label>
+                  </div>
+                  <a href="#" class="forgot-link">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-login w-100">
+                  <i class="bi bi-box-arrow-in-right"></i> SIGN IN TO VOTE
+                </button>
+              </form>
+
+              <div class="divider animate-fadeInUp delay-400"></div>
+
+              <div class="google-voter-section animate-fadeInUp delay-500">
+                <div class="d-flex justify-content-center">
+                  <button id="googleVoterSignIn" class="google-voter-btn">
+                    <div class="google-logo"></div>
+                    Continue with Google
+                  </button>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <div class="voter-security-badge">
+                    <i class="bi bi-shield-check"></i>
+                    Secure Voter Access
+                  </div>
+                </div>
+              </div>
+
+              <div class="login-footer mt-auto animate-fadeInUp delay-500">
+                <p class="register-text">
+                  Don't have an account?
+                  <a href="registration.html" class="register-link"
+                    >Register here</a
+                  >
+                </p>
+              </div>
+            </div>
+
+            <!-- Admin Content -->
+            <div class="admin-form-content">
+              <div class="welcome-text animate-fadeInUp delay-200">
+                <h2>Admin Log in</h2>
+                <p>
+                  Please sign in to access the admin dashboard and manage the online voting system.
+                </p>
+              </div>
+
+              <form id="adminLoginForm" class="animate-fadeInUp delay-300">
+                <div class="form-floating">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="adminEmail"
+                    placeholder="Enter your Admin Email"
+                    required
+                  />
+                  <label for="adminEmail">Admin Email</label>
+                </div>
+
+                <div class="form-floating password-field">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="adminPassword"
+                    placeholder="Enter your password"
+                    required
+                  />
+                  <label for="adminPassword">Password</label>
+                  <button
+                    type="button"
+                    class="password-toggle"
+                    id="toggleAdminPassword"
+                  >
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+
+                <div class="login-options">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="rememberAdminPassword"
+                    />
+                    <label class="form-check-label" for="rememberAdminPassword">
+                      Remember me
+                    </label>
+                  </div>
+                  <a href="#" class="forgot-link">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-login admin-mode w-100">
+                  <i class="bi bi-box-arrow-in-right"></i> LOGIN TO DASHBOARD
+                </button>
+              </form>
+
+              <div class="login-footer mt-auto animate-fadeInUp delay-500">
+                <p class="register-text">
+                  Need help? <a href="#" class="register-link">Contact Support</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right side: Image -->
+        <div class="col-lg-6 d-flex">
+          <div class="login-image w-100">
+            <div class="image-gallery">
+              <div class="circle-accents">
+                <div class="circle circle-1"></div>
+                <div class="circle circle-2"></div>
+                <div class="circle circle-3"></div>
+                <div class="circle circle-4"></div>
+              </div>
+            </div>
+
+            <div class="voting-icons">
+              <div class="voting-icon" title="Vote Selection">
+                <i class="bi bi-check2-square"></i>
+              </div>
+              <div class="voting-icon" title="Election Results">
+                <i class="bi bi-bar-chart"></i>
+              </div>
+            </div>
+
+            <div class="voting-quote animate-fadeInUp" id="votingQuote">
+              <h3>Make Your Voice Count</h3>
+              <p>
+                "The ballot is stronger than the bullet. Your vote is your voice
+                in democracy – use it wisely to shape our collective future."
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom Script -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Mode toggle functionality
+        const toggleOptions = document.querySelectorAll('.toggle-option');
+        const toggleSlider = document.getElementById('toggleSlider');
+        const loginContainer = document.querySelector('.login-container');
+        const loginImage = document.querySelector('.login-image');
+        const votingQuote = document.getElementById('votingQuote');
+
+        toggleOptions.forEach(option => {
+          option.addEventListener('click', function() {
+            const mode = this.dataset.mode;
+            
+            // Update active states
+            toggleOptions.forEach(opt => opt.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Move slider
+            if (mode === 'admin') {
+              toggleSlider.classList.add('admin');
+              loginContainer.classList.add('admin-mode');
+              loginImage.classList.add('admin-mode');
+              
+              // Update quote for admin
+              votingQuote.innerHTML = `
+                <h3>Admin Dashboard</h3>
+                <p>"Democracy is not just about voting. It's about transparent governance, secure systems, and ensuring every voice is heard and counted accurately."</p>
+              `;
+            } else {
+              toggleSlider.classList.remove('admin');
+              loginContainer.classList.remove('admin-mode');
+              loginImage.classList.remove('admin-mode');
+              
+              // Update quote for voter
+              votingQuote.innerHTML = `
+                <h3>Make Your Voice Count</h3>
+                <p>"The ballot is stronger than the bullet. Your vote is your voice in democracy – use it wisely to shape our collective future."</p>
+              `;
+            }
+          });
+        });
+
+        // Voter password toggle functionality
+        const toggleVoterPassword = document.getElementById('toggleVoterPassword');
+        const voterPassword = document.getElementById('voterPassword');
+        
+        if (toggleVoterPassword && voterPassword) {
+          toggleVoterPassword.addEventListener('click', function() {
+            const type = voterPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+            voterPassword.setAttribute('type', type);
+            
+            if (type === 'text') {
+              this.innerHTML = '<i class="bi bi-eye-slash"></i>';
+            } else {
+              this.innerHTML = '<i class="bi bi-eye"></i>';
+            }
+          });
+        }
+
+        // Admin password toggle functionality
+        const toggleAdminPassword = document.getElementById('toggleAdminPassword');
+        const adminPassword = document.getElementById('adminPassword');
+        
+        if (toggleAdminPassword && adminPassword) {
+          toggleAdminPassword.addEventListener('click', function() {
+            const type = adminPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+            adminPassword.setAttribute('type', type);
+            
+            if (type === 'text') {
+              this.innerHTML = '<i class="bi bi-eye-slash"></i>';
+            } else {
+              this.innerHTML = '<i class="bi bi-eye"></i>';
+            }
+          });
+        }
+        
+        // Voter form submission
+        const voterLoginForm = document.getElementById('voterLoginForm');
+        if (voterLoginForm) {
+          voterLoginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const voterID = document.getElementById('voterID').value;
+            const passwordValue = voterPassword.value;
+            
+            console.log('Voter login attempt:', { voterID, passwordValue });
+            alert('Voter login successful! Redirecting to voting page...');
+            window.location.href = "Voter-dashboard.html";
+          });
+        }
+
+        // Admin form submission
+        const adminLoginForm = document.getElementById('adminLoginForm');
+        if (adminLoginForm) {
+          adminLoginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const adminEmail = document.getElementById('adminEmail').value;
+            const passwordValue = adminPassword.value;
+            
+            console.log('Admin login attempt:', { adminEmail, passwordValue });
+            alert('Admin login successful! Redirecting to admin dashboard...');
+            window.location.href = "admin-dashboard.html";
+          });
+        }
+
+        // Google Sign-In for voters only
+        const googleVoterBtn = document.getElementById('googleVoterSignIn');
+        if (googleVoterBtn) {
+          googleVoterBtn.addEventListener('click', function() {
+            alert('Google authentication initiated for voter login...');
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
