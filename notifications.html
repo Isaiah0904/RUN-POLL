@@ -4,507 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RUN Voting System - Notifications</title>
-     <!-- Bootstrap CSS -->
-     <link
-     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
-     rel="stylesheet"
-   />
-   <!-- Bootstrap Icons -->
-   <link
-     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
-     rel="stylesheet"
-   />
-   <!-- Chart.js -->
-   <link
-     href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.css"
-     rel="stylesheet"
-   />
+    <!-- Bootstrap CSS -->
+        <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
       rel="stylesheet"
     />
-    <style>
-      :root {
-        --primary: #28369e;
-        --primary-dark: #3a429b;
-        --secondary: #f5f7ff;
-        --light-gray: #f8f9fa;
-        --text-dark: #2a3074;
-        --text-gray: #6c757d;
-        --success: #28a745;
-        --pending: #ffc107;
-        --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f5f7ff;
-        color: #333;
-        line-height: 1.6;
-      }
-
-      /* Sidebar Styles */
-      .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 240px;
-        height: 100%;
-        background-color: white;
-        box-shadow: var(--shadow);
-        z-index: 1000;
-        transition: transform 0.3s;
-        padding: 20px 0;
-        display: flex;
-        flex-direction: column;
-      }
-
-      .bi-x-lg {
-        display: none;
-        color: rgb(42, 48, 116);
-        margin-left: 15px;
-        font-size: 22px;
-        font-weight: 900;
-        cursor: pointer;
-      }
-
-      .sidebar-nav {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        overflow-y: auto;
-      }
-
-      @media (max-width: 992px) {
-        .sidebar {
-          transform: translateX(-100%);
-          transition: 1s;
-        }
-        .sidebar.active {
-          transform: translateX(0);
-        }
-        .bi-x-lg {
-          display: block;
-        }
-      }
-
-      .logo-container {
-        padding: 10px 15px;
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-      }
-
-      .logo {
-        background-color: var(--primary);
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-weight: bold;
-        font-size: 18px;
-        margin-right: 10px;
-        border-radius: 8px;
-      }
-
-      .brand-text {
-        color: var(--text-dark);
-        font-weight: bold;
-        font-size: 22px;
-      }
-
-      .profile-container {
-        padding: 15px;
-        text-align: center;
-        border-radius: 12px;
-        background-color: var(--light-gray);
-        margin: 0 15px 25px;
-      }
-
-      .profile-image-container {
-        position: relative;
-        width: 70px;
-        height: 70px;
-        margin: 0 auto 10px;
-        cursor: pointer;
-      }
-
-      .profile-image {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid white;
-        display: block;
-      }
-
-      .default-user-icon {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: var(--primary);
-        border-radius: 50%;
-        border: 3px solid white;
-      }
-
-      .default-user-icon i {
-        font-size: 32px;
-        color: white;
-      }
-
-      .edit-icon {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: 24px;
-        height: 24px;
-        background-color: var(--primary);
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: 2px solid white;
-      }
-
-      .edit-icon i {
-        font-size: 12px;
-        color: white;
-      }
-
-      .profile-name {
-        font-weight: bold;
-        color: var(--text-dark);
-        margin-bottom: 2px;
-      }
-
-      .profile-role {
-        font-size: 12px;
-        color: var(--text-gray);
-      }
-
-      .nav-item {
-        padding: 5px 15px;
-        font-weight: 500;
-      }
-
-      .nav-link {
-        display: flex;
-        align-items: center;
-        padding: 10px 15px;
-        color: var(--text-gray);
-        border-radius: 10px;
-        transition: all 0.2s;
-        position: relative;
-        text-decoration: none;
-      }
-
-      .nav-link:hover,
-      .nav-link.active {
-        background-color: var(--primary);
-        color: white;
-      }
-
-      .nav-link i {
-        margin-right: 10px;
-        font-size: 18px;
-      }
-
-      /* Main Content */
-      .main-content {
-        margin-left: 240px;
-        padding: 20px;
-        transition: margin-left 0.3s;
-      }
-
-      @media (max-width: 992px) {
-        .main-content {
-          margin-left: 0;
-        }
-      }
-
-      /* Top Navbar */
-      .top-navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding-top: 10px;
-        margin-bottom: 0px;
-      }
-
-      .toggle-sidebar {
-        display: none;
-        background: none;
-        border: none;
-        font-size: 24px;
-        color: var(--text-dark);
-        cursor: pointer;
-      }
-
-      @media (max-width: 992px) {
-        .toggle-sidebar {
-          display: block;
-        }
-      }
-
-      .search-bar {
-        visibility: hidden;
-        flex-grow: 1;
-        max-width: 600px;
-        margin: 0 0 0 8px;
-        position: relative;
-      }
-
-      .search-input {
-        background-color: white;
-        border-radius: 50px;
-        border: 1px solid #e9ecef;
-        padding: 8px 15px 8px 40px;
-        width: 100%;
-      }
-
-      .search-icon {
-        position: absolute;
-        left: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: var(--text-gray);
-      }
-
-      .user-actions {
-        display: flex;
-        align-items: center;
-      }
-
-      .action-icon {
-        font-size: 20px;
-        color: var(--text-gray);
-        margin-left: 15px;
-        cursor: pointer;
-        transition: color 0.2s;
-      }
-
-      .action-icon:hover {
-        color: var(--primary);
-      }
-
-      .navbar-user-container {
-        position: relative;
-        margin-left: 15px;
-        display: flex;
-        align-items: center;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: var(--primary);
-      }
-
-      .navbar-user-container i {
-        color: white;
-        font-size: 20px;
-        width: 100%;
-        text-align: center;
-      }
-
-      .status-indicator {
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        background-color: var(--success);
-        border-radius: 50%;
-        border: 2px solid var(--success);
-        bottom: 0px;
-        right: 0px;
-      }
-
-      /* Notifications Content */
-      .page-header {
-        text-align: center;
-        margin-bottom: 40px;
-      }
-
-      .page-header h1 {
-        font-size: 2.2rem;
-        color: var(--text-dark);
-        margin-bottom: 8px;
-        font-weight: 600;
-      }
-
-      .page-header p {
-        color: var(--text-gray);
-        font-size: 1rem;
-      }
-
-      .notification {
-        background: white;
-        border-radius: 8px;
-        padding: 20px;
-        margin-bottom: 16px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        border-left: 4px solid;
-        transition: transform 0.2s ease;
-      }
-
-      .notification:hover {
-        transform: translateY(-1px);
-      }
-
-      .notification.ongoing {
-        border-left-color: #e74c3c;
-      }
-
-      .notification.upcoming {
-        border-left-color: #3498db;
-      }
-
-      .notification.ended {
-        border-left-color: #95a5a6;
-      }
-
-      .notification.approval {
-        border-left-color: #2ecc71;
-      }
-
-      .notification.profile {
-        border-left-color: #f39c12;
-      }
-
-      .notification-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 12px;
-      }
-
-      .status-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        margin-right: 12px;
-        flex-shrink: 0;
-      }
-
-      .ongoing .status-dot {
-        background-color: #e74c3c;
-      }
-
-      .upcoming .status-dot {
-        background-color: #3498db;
-      }
-
-      .ended .status-dot {
-        background-color: #95a5a6;
-      }
-
-      .approval .status-dot {
-        background-color: #2ecc71;
-      }
-
-      .profile .status-dot {
-        background-color: #f39c12;
-      }
-
-      .notification-title {
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: var(--text-dark);
-        flex: 1;
-      }
-
-      .notification-time {
-        font-size: 0.85rem;
-        color: #bdc3c7;
-      }
-
-      .notification-message {
-        color: var(--text-gray);
-        margin-bottom: 16px;
-      }
-
-      .notification-actions {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-
-      .btn {
-        padding: 8px 16px;
-        border: none;
-        border-radius: 4px;
-        font-size: 0.875rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        text-decoration: none;
-      }
-
-      .btn-primary {
-        background-color: var(--primary);
-        color: white;
-      }
-
-      .btn-primary:hover {
-        background-color: var(--primary-dark);
-      }
-
-      .btn-secondary {
-        background-color: #f8f9fa;
-        color: #6c757d;
-        border: 1px solid #dee2e6;
-      }
-
-      .btn-secondary:hover {
-        background-color: #e9ecef;
-      }
-
-      .section-title {
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: var(--text-dark);
-        margin: 30px 0 16px 0;
-        padding-bottom: 8px;
-        border-bottom: 1px solid #ecf0f1;
-      }
-
-      .section-title:first-child {
-        margin-top: 0;
-      }
-
-      @media (max-width: 768px) {
-        .main-content {
-          padding: 16px;
-        }
-
-        .page-header h1 {
-          font-size: 1.8rem;
-        }
-
-        .notification {
-          padding: 16px;
-        }
-
-        .notification-actions {
-          flex-direction: column;
-        }
-
-        .btn {
-          text-align: center;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="notification.css" />
   </head>
   <body>
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
       <div class="logo-container">
-        <img class="logo" src="images/Logo.png" width="150px"/>
+        <img class="logo" src="images/Logo.png" width="150px" />
         <i class="bi bi-x-lg" id="close"></i>
       </div>
 
@@ -553,7 +73,7 @@
         <!-- Logout button in footer section -->
         <ul class="nav flex-column nav-footer">
           <li class="nav-item">
-            <a href="voter_log_in.html" class="nav-link text-danger">
+            <a href="Login.html" class="nav-link text-danger">
               <i class="bi bi-box-arrow-right"></i> Log out
             </a>
           </li>
@@ -565,7 +85,7 @@
     <div class="main-content">
       <!-- Top Navbar -->
       <div class="top-navbar">
-        <button class="toggle-sidebar" onclick="toggleSidebar()">
+        <button class="toggle-sidebar" id="toggleSidebar">
           <i class="bi bi-list"></i>
         </button>
 
@@ -577,10 +97,7 @@
         </div>
 
         <div class="user-actions">
-          <i class="bi bi-bell action-icon"></i>
-          <i class="bi bi-question-circle action-icon"></i>
           <div class="navbar-user-container">
-            <i class="bi bi-person-fill"></i>
             <div class="status-indicator"></div>
           </div>
         </div>
@@ -592,8 +109,7 @@
         <p>Stay updated with your voting activities</p>
       </div>
 
-      <!-- Ongoing Elections -->
-      <h2 class="section-title">Ongoing Elections</h2>
+
 
       <div class="notification ongoing">
         <div class="notification-header">
@@ -609,7 +125,6 @@
         </div>
         <div class="notification-actions">
           <button class="btn btn-primary">Vote Now</button>
-          <button class="btn btn-secondary">View Details</button>
         </div>
       </div>
 
@@ -624,12 +139,10 @@
         </div>
         <div class="notification-actions">
           <button class="btn btn-primary">Cast Vote</button>
-          <button class="btn btn-secondary">Learn More</button>
+          <button style="color: #6c757d;" class="btn btn-secondary">Learn More</button>
         </div>
       </div>
 
-      <!-- Upcoming Elections -->
-      <h2 class="section-title">Upcoming Elections</h2>
 
       <div class="notification upcoming">
         <div class="notification-header">
@@ -640,9 +153,6 @@
         <div class="notification-message">
           Election begins June 10th, 2025. Candidate registration open until
           June 8th.
-        </div>
-        <div class="notification-actions">
-          <button class="btn btn-secondary">Set Reminder</button>
         </div>
       </div>
 
@@ -656,13 +166,8 @@
           Student Senate elections scheduled for June 15th, 2025. Make sure
           you're registered.
         </div>
-        <div class="notification-actions">
-          <button class="btn btn-secondary">Check Eligibility</button>
-        </div>
       </div>
 
-      <!-- Approvals -->
-      <h2 class="section-title">Voting Approvals</h2>
 
       <div class="notification approval">
         <div class="notification-header">
@@ -673,10 +178,10 @@
           <div class="notification-time">3 hours ago</div>
         </div>
         <div class="notification-message">
-          Your eligibility has been verified and you are approved to vote.
+          Your eligibility has been verified and you are approved to contest as a candidate.
         </div>
         <div class="notification-actions">
-          <button class="btn btn-primary">Vote Now</button>
+          <button class="btn btn-primary">View Election</button>
         </div>
       </div>
 
@@ -689,16 +194,13 @@
           <div class="notification-time">1 day ago</div>
         </div>
         <div class="notification-message">
-          You have been granted access to vote in the Faculty Representative
-          election.
+          You have been verified and granted access to vote.
         </div>
         <div class="notification-actions">
           <button class="btn btn-primary">Proceed to Vote</button>
         </div>
       </div>
 
-      <!-- Profile Updates -->
-      <h2 class="section-title">Profile Updates</h2>
 
       <div class="notification profile">
         <div class="notification-header">
@@ -711,13 +213,11 @@
           didn't make these changes.
         </div>
         <div class="notification-actions">
-          <button class="btn btn-primary">Review Changes</button>
-          <button class="btn btn-secondary">Report Issue</button>
+          <button class="btn btn-primary"><a href="profile-settings.html">Review Changes</a></button>
+          <button class="btn btn-secondary "><a style="color: #6c757d;" href="mailto:isaiahdurojaiye9@gmail.com">Report Issue</a></button>
         </div>
       </div>
 
-      <!-- Recent Results -->
-      <h2 class="section-title">Recent Results</h2>
 
       <div class="notification ended">
         <div class="notification-header">
@@ -731,7 +231,7 @@
           The election has ended. Results are now available.
         </div>
         <div class="notification-actions">
-          <button class="btn btn-secondary">View Results</button>
+          <button style="color: #6c757d;" class="btn btn-secondary">View Results</button>
         </div>
       </div>
 
@@ -748,20 +248,453 @@
           representatives.
         </div>
         <div class="notification-actions">
-          <button class="btn btn-secondary">View Summary</button>
+          <button style="color: #6c757d;" class="btn btn-secondary">View Summary</button>
         </div>
       </div>
     </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
+      
       function toggleSidebar() {
         const sidebar = document.querySelector(".sidebar");
         sidebar.classList.toggle("active");
       }
 
       document.addEventListener("DOMContentLoaded", function () {
-        const buttons = document.querySelectorAll(".btn");
+        // Initialize profile containers
+        const sidebarProfileContainer = document.getElementById(
+          "sidebarProfileContainer"
+        );
+        const navbarUserContainer = document.querySelector(
+          ".navbar-user-container"
+        );
 
+        // Function to show profile image or default user icon
+        function updateProfileDisplays(imageUrl) {
+          // Clear existing sidebar container
+          if (sidebarProfileContainer) {
+            sidebarProfileContainer.innerHTML = "";
+          }
+          if (navbarUserContainer) {
+            navbarUserContainer.innerHTML = "";
+          }
+
+          if (imageUrl) {
+            // Sidebar profile image
+            if (sidebarProfileContainer) {
+              const sidebarImg = document.createElement("img");
+              sidebarImg.src = imageUrl;
+              sidebarImg.alt = "Profile";
+              sidebarImg.className = "profile-image";
+              sidebarImg.id = "userProfileImage";
+              sidebarImg.style.borderRadius = "50%";
+              sidebarImg.style.width = "100%";
+              sidebarImg.style.height = "100%";
+              sidebarImg.style.objectFit = "cover";
+              sidebarProfileContainer.appendChild(sidebarImg);
+
+              // Add edit icon to sidebar profile
+              const editIcon = document.createElement("div");
+              editIcon.className = "edit-icon";
+              editIcon.innerHTML =
+                '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
+              sidebarProfileContainer.appendChild(editIcon);
+            }
+
+            // Navbar profile image
+            if (navbarUserContainer) {
+              const navbarImg = document.createElement("img");
+              navbarImg.src = imageUrl;
+              navbarImg.alt = "User";
+              navbarImg.className = "user-avatar";
+              navbarImg.id = "navbarUserImage";
+              navbarImg.style.borderRadius = "50%";
+              navbarImg.style.width = "40px";
+              navbarImg.style.height = "40px";
+              navbarImg.style.objectFit = "cover";
+              navbarImg.style.cursor = "pointer";
+              navbarUserContainer.appendChild(navbarImg);
+
+              // Add status indicator to navbar
+              const statusIndicator = document.createElement("div");
+              statusIndicator.className = "status-indicator";
+              navbarUserContainer.appendChild(statusIndicator);
+            }
+          } else {
+            // Sidebar profile icon - default user icon
+            if (sidebarProfileContainer) {
+              const sidebarIcon = document.createElement("div");
+              sidebarIcon.className = "default-user-icon";
+              sidebarIcon.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path fill="#888888" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+          </svg>
+        `;
+              sidebarProfileContainer.appendChild(sidebarIcon);
+
+              // Add edit icon to sidebar profile
+              const editIcon = document.createElement("div");
+              editIcon.className = "edit-icon";
+              editIcon.innerHTML =
+                '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
+              sidebarProfileContainer.appendChild(editIcon);
+            }
+
+            // Navbar profile icon - default user icon
+            if (navbarUserContainer) {
+              const navbarIcon = document.createElement("div");
+              navbarIcon.className = "default-user-icon";
+              navbarIcon.style.width = "40px";
+              navbarIcon.style.height = "40px";
+              navbarIcon.style.borderRadius = "50%";
+              navbarIcon.style.backgroundColor = "#e9ecef";
+              navbarIcon.style.cursor = "pointer";
+              navbarIcon.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 30px; height: 30px; margin: 5px;">
+            <path fill="#888888" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+          </svg>
+        `;
+              navbarUserContainer.appendChild(navbarIcon);
+
+              // Add status indicator to navbar
+              const statusIndicator = document.createElement("div");
+              statusIndicator.className = "status-indicator";
+              navbarUserContainer.appendChild(statusIndicator);
+            }
+          }
+
+          // If modal is open, update modal profile image as well
+          const modalProfileContainer = document.getElementById(
+            "modalProfileContainer"
+          );
+          if (modalProfileContainer) {
+            updateModalProfileImage(modalProfileContainer, imageUrl);
+          }
+        }
+
+        // Function to update modal profile image
+        function updateModalProfileImage(container, imageUrl) {
+          container.innerHTML = "";
+
+          if (imageUrl) {
+            const img = document.createElement("img");
+            img.src = imageUrl;
+            img.alt = "Profile";
+            img.style.width = "100%";
+            img.style.height = "100%";
+            img.style.objectFit = "cover";
+            img.style.borderRadius = "50%";
+            container.appendChild(img);
+          } else {
+            container.innerHTML = `
+        <div class="default-user-icon" style="width: 100%; height: 100%; background-color: #e9ecef; border-radius: 50%;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 80%; height: 80%; margin: 10%;">
+            <path fill="#888888" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+          </svg>
+        </div>
+      `;
+          }
+        }
+
+        // Helper function to show alerts
+        function showAlert(message, type) {
+          const alertDiv = document.createElement("div");
+          alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+          alertDiv.role = "alert";
+          alertDiv.style.position = "fixed";
+          alertDiv.style.top = "20px";
+          alertDiv.style.right = "20px";
+          alertDiv.style.zIndex = "9999";
+          alertDiv.innerHTML = `
+      ${message}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+
+          document.body.appendChild(alertDiv);
+
+          // Auto dismiss after 3 seconds
+          setTimeout(() => {
+            if (alertDiv.parentNode) {
+              if (typeof bootstrap !== "undefined" && bootstrap.Alert) {
+                const bsAlert = new bootstrap.Alert(alertDiv);
+                bsAlert.close();
+              } else {
+                alertDiv.remove();
+              }
+            }
+          }, 3000);
+        }
+
+        // Load user profile data including image
+        try {
+          const user = JSON.parse(localStorage.getItem("currentUser")) || {};
+
+          // Update profile name
+          if (user.firstName && user.lastName) {
+            const profileNameElement =
+              document.getElementById("userProfileName");
+            if (profileNameElement) {
+              profileNameElement.textContent = `${user.firstName} ${user.lastName}`;
+            }
+
+            // Update welcome message
+            const welcomeHeading = document.querySelector("h2");
+            if (
+              welcomeHeading &&
+              welcomeHeading.textContent.includes("Hello")
+            ) {
+              welcomeHeading.textContent = `Hello, ${user.firstName}!`;
+            }
+          }
+
+          // Update profile role if exists
+          if (user.role) {
+            const profileRoleElement =
+              document.getElementById("userProfileRole");
+            if (profileRoleElement) {
+              profileRoleElement.textContent = user.role;
+            }
+          }
+
+          // Update profile images
+          updateProfileDisplays(user.profileImage);
+        } catch (error) {
+          console.error("Error loading user profile:", error);
+          updateProfileDisplays(null);
+        }
+
+        // Function to close modal properly
+        function closeModal(modalElement) {
+          if (typeof bootstrap !== "undefined" && bootstrap.Modal) {
+            const modalInstance = bootstrap.Modal.getInstance(modalElement);
+            if (modalInstance) {
+              modalInstance.hide();
+            }
+          } else {
+            // Fallback for manual modal handling
+            modalElement.style.display = "none";
+            modalElement.classList.remove("show");
+            document.body.classList.remove("modal-open");
+
+            // Remove backdrop
+            const backdrop = document.querySelector(".modal-backdrop");
+            if (backdrop) {
+              backdrop.remove();
+            }
+          }
+
+          // Clean up modal from DOM after animation
+          setTimeout(() => {
+            if (modalElement && modalElement.parentNode) {
+              document.body.removeChild(modalElement.parentNode);
+            }
+          }, 300);
+        }
+
+        // Create profile edit modal with upload and remove functionality
+        function createProfileEditModal() {
+          // Remove any existing modal first
+          const existingModal = document.getElementById("profileEditModal");
+          if (existingModal) {
+            existingModal.remove();
+          }
+
+          // Modal HTML structure
+          const modalHTML = `
+      <div class="modal fade" id="profileEditModal" tabindex="-1" aria-labelledby="profileEditModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="profileEditModalLabel">View Profile Picture</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <div class="mb-4">
+                                    <div class="position-relative d-inline-block">
+                                        <div id="modalProfileContainer" class="rounded-circle overflow-hidden" style="width: 150px; height: 150px;">
+                                            <!-- Image will be inserted here -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <button id="modalUploadBtn" class="btn btn-success btn-sm rounded-pill px-4" style="display: none;">UPLOAD</button>
+                                    <button id="modalRemoveBtn" class="btn btn-danger btn-sm rounded-pill px-4 ms-2" style="display: none;">REMOVE</button>
+                                </div>
+                                <p class="text-muted small">Go to Profile Settings to change your profile picture</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button style="background: #6c757d; color: white;" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+          // Append modal to body
+          const modalDiv = document.createElement("div");
+          modalDiv.innerHTML = modalHTML;
+          document.body.appendChild(modalDiv);
+
+          const modalElement = document.getElementById("profileEditModal");
+
+          // Get current user data
+          const user = JSON.parse(localStorage.getItem("currentUser")) || {};
+
+          // Update modal profile container with current image or default icon
+          const modalProfileContainer = document.getElementById(
+            "modalProfileContainer"
+          );
+          updateModalProfileImage(modalProfileContainer, user.profileImage);
+
+          // Handle close button clicks (both X and Close buttons)
+          const closeButtons = modalElement.querySelectorAll(
+            '[data-bs-dismiss="modal"], #modalCloseBtn'
+          );
+          closeButtons.forEach((button) => {
+            button.addEventListener("click", function (e) {
+              e.preventDefault();
+              closeModal(modalElement);
+            });
+          });
+
+          // Handle backdrop click to close modal
+          modalElement.addEventListener("click", function (e) {
+            if (e.target === modalElement) {
+              closeModal(modalElement);
+            }
+          });
+
+          // Handle ESC key to close modal
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && modalElement.style.display !== "none") {
+              closeModal(modalElement);
+            }
+          });
+
+          // Handle upload button click in modal
+          document
+            .getElementById("modalUploadBtn")
+            .addEventListener("click", function () {
+              // Create file input element
+              const fileInput = document.createElement("input");
+              fileInput.type = "file";
+              fileInput.accept = "image/*";
+              fileInput.style.display = "none";
+              document.body.appendChild(fileInput);
+
+              // Trigger file selection
+              fileInput.click();
+
+              // Handle file selection
+              fileInput.addEventListener("change", function () {
+                if (this.files && this.files[0]) {
+                  const reader = new FileReader();
+
+                  reader.onload = function (e) {
+                    const imageResult = e.target.result;
+
+                    // Update modal image
+                    updateModalProfileImage(modalProfileContainer, imageResult);
+
+                    // Update profile images on page
+                    updateProfileDisplays(imageResult);
+
+                    // Store image in localStorage
+                    try {
+                      let user =
+                        JSON.parse(localStorage.getItem("currentUser")) || {};
+                      user.profileImage = imageResult;
+                      localStorage.setItem("currentUser", JSON.stringify(user));
+
+                      // Show success message
+                      showAlert(
+                        "Profile picture updated successfully!",
+                        "success"
+                      );
+                    } catch (error) {
+                      console.error("Error saving profile image:", error);
+                      showAlert(
+                        "Error saving profile image. Please try again.",
+                        "danger"
+                      );
+                    }
+                  };
+
+                  reader.readAsDataURL(this.files[0]);
+                }
+
+                // Clean up
+                document.body.removeChild(fileInput);
+              });
+            });
+
+          // Handle remove button click in modal
+          document
+            .getElementById("modalRemoveBtn")
+            .addEventListener("click", function () {
+              // Update both modal and page with default icons
+              updateModalProfileImage(modalProfileContainer, null);
+              updateProfileDisplays(null);
+
+              // Remove image from storage
+              try {
+                let user =
+                  JSON.parse(localStorage.getItem("currentUser")) || {};
+                delete user.profileImage;
+                localStorage.setItem("currentUser", JSON.stringify(user));
+
+                // Show success message
+                showAlert("Profile picture removed successfully!", "success");
+              } catch (error) {
+                console.error("Error removing profile image:", error);
+                showAlert(
+                  "Error removing profile image. Please try again.",
+                  "danger"
+                );
+              }
+            });
+
+          // Return modal element for further manipulation
+          return modalElement;
+        }
+
+        // Function to show modal
+        function showProfileModal() {
+          const modalElement = createProfileEditModal();
+
+          if (typeof bootstrap !== "undefined" && bootstrap.Modal) {
+            const modalInstance = new bootstrap.Modal(modalElement);
+            modalInstance.show();
+          } else {
+            // Fallback for manual modal handling
+            modalElement.style.display = "block";
+            modalElement.classList.add("show");
+            document.body.classList.add("modal-open");
+
+            // Add backdrop
+            const backdrop = document.createElement("div");
+            backdrop.className = "modal-backdrop fade show";
+            document.body.appendChild(backdrop);
+          }
+        }
+
+        // Add profile edit functionality to both sidebar and navbar profile images
+        const profileElements = [];
+        if (sidebarProfileContainer)
+          profileElements.push(sidebarProfileContainer);
+        if (navbarUserContainer) profileElements.push(navbarUserContainer);
+
+        profileElements.forEach((element) => {
+          element.style.cursor = "pointer";
+          element.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            showProfileModal();
+          });
+        });
+
+        // Button loading functionality for notification buttons
+        const buttons = document.querySelectorAll(".notification .btn");
         buttons.forEach((button) => {
           button.addEventListener("click", function () {
             const originalText = this.textContent;
@@ -775,6 +708,14 @@
           });
         });
       });
+      document
+          .getElementById("toggleSidebar")
+          .addEventListener("click", function () {
+            document.getElementById("sidebar").classList.toggle("active");
+          });
+        document.getElementById("close").addEventListener("click", function () {
+          document.getElementById("sidebar").classList.remove("active");
+        });
     </script>
   </body>
 </html>

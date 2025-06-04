@@ -190,8 +190,8 @@ color: var(--text-gray);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
-  margin-bottom: 20px;
+  padding-top: 10px;
+  margin-bottom: 10px;
 }
 
 .toggle-sidebar {
@@ -219,6 +219,7 @@ color: var(--text-gray);
   flex-grow: 1;
   max-width: 600px;
   margin: 0 0 0 5px;
+  visibility: hidden;
 }
 
 .search-input {
@@ -236,12 +237,12 @@ color: var(--text-gray);
   color: var(--text-gray);
 }
 
-.user-actions {
+.user-actions, .user-actions a {
   display: flex;
   align-items: center;
 }
 
-.action-icon {
+.action-icon, .user-actions a:hover {
   font-size: 20px;
   color: var(--text-gray);
   margin-left: 15px;

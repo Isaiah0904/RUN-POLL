@@ -383,7 +383,7 @@ body {
   align-items: center;
 }
 
-.action-icon {
+.action-icon, .user-actions a {
   font-size: 20px;
   color: var(--text-gray);
   margin-left: 15px;
@@ -395,7 +395,7 @@ body {
   position: relative;
 }
 
-.action-icon:hover {
+.action-icon:hover, .user-actions a:hover {
   color: var(--primary);
 }
 
