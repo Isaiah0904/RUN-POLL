@@ -237,12 +237,12 @@ color: var(--text-gray);
   color: var(--text-gray);
 }
 
-.user-actions, .user-actions a {
+.user-actions {
   display: flex;
   align-items: center;
 }
 
-.action-icon, .user-actions a:hover {
+.action-icon, .user-actions a  {
   font-size: 20px;
   color: var(--text-gray);
   margin-left: 15px;
@@ -253,7 +253,7 @@ color: var(--text-gray);
   height: 40px;
 }
 
-.action-icon:hover {
+.action-icon:hover, .user-actions a:hover {
   color: var(--primary);
 }
 
