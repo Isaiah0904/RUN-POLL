@@ -194,7 +194,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding-top: 10px;
-  margin-bottom: 0px;
+  margin-bottom: 10px;
 }
 
 .toggle-sidebar {
@@ -209,6 +209,9 @@ body {
 @media (max-width: 992px) {
   .toggle-sidebar {
     display: block;
+  }
+  .top-navbar {
+    margin-bottom: 10px;
   }
 }
 

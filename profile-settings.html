@@ -73,7 +73,7 @@
         <!-- Logout button in footer section -->
         <ul class="nav flex-column nav-footer">
           <li class="nav-item">
-            <a href="voter_log_in.html" class="nav-link text-danger">
+            <a href="Login.html" class="nav-link text-danger">
               <i class="bi bi-box-arrow-right"></i> Log out
             </a>
           </li>
@@ -100,13 +100,18 @@
 
         <div
           class="user-actions"
-          data-bs-toggle="tooltip"
           title="Notifications"
         >
           <div class="action-icon">
             <a href="notifications.html"><i class="bi bi-bell"></i></a>
           </div>
-          <div class="action-icon" data-bs-toggle="tooltip" title="Help">
+          <div
+            class="action-icon"
+            title="Help"
+            data-bs-toggle="modal"
+            data-bs-target="#helpModal"
+            style="cursor: pointer"
+          >
             <i class="bi bi-question-circle"></i>
           </div>
           <!-- Navbar user container with default icon -->
@@ -254,9 +259,182 @@
       </div>
     </div>
 
+    <!-- Help Modal -->
+    <div
+      class="modal fade help-modal"
+      id="helpModal"
+      tabindex="-1"
+      aria-labelledby="helpModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5
+              class="modal-title d-flex align-items-center"
+              id="helpModalLabel"
+            >
+              <i class="bi bi-headset me-2"></i>
+              Need Help? We're Here for You!
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!-- Contact Methods -->
+            <div class="mb-4">
+              <h6 class="text-primary mb-3">
+                <i class="bi bi-telephone-fill me-2"></i>Contact Our Support
+                Team
+              </h6>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="card contact-card p-3 text-center">
+                    <div class="contact-icon phone-icon mx-auto">
+                      <i class="bi bi-telephone-fill"></i>
+                    </div>
+                    <h6 class="fw-bold">Phone Support</h6>
+                    <p class="text-muted mb-2">
+                      Call us directly for immediate assistance
+                    </p>
+                    <p class="fw-bold text-success mb-0">+234 803 123 4567</p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card contact-card p-3 text-center">
+                    <div class="contact-icon email-icon mx-auto">
+                      <i class="bi bi-envelope-fill"></i>
+                    </div>
+                    <h6 class="fw-bold">Email Support</h6>
+                    <p class="text-muted mb-2">
+                      Send us detailed questions anytime
+                    </p>
+                    <p class="fw-bold text-primary mb-0">
+                      support@runpolls.edu.ng
+                    </p>
+                  </div>
+                </div>
+
+            <!-- Emergency Contact -->
+            <div class="alert alert-warning mb-4">
+              <h6 class="alert-heading">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>Emergency
+                Support
+              </h6>
+              <p class="mb-1">
+                For urgent election-related issues during voting periods:
+              </p>
+              <p class="mb-0">
+                <strong>Emergency Hotline:</strong> +234 805 987 6543
+              </p>
+              <small>Available 24/7 during active election periods only</small>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="mb-4">
+              <h6 class="text-primary mb-3">
+                <i class="bi bi-question-circle-fill me-2"></i>Frequently Asked
+                Questions
+              </h6>
+              <div class="faq-item">
+                <div class="faq-question">How do I reset my password?</div>
+                <div class="faq-answer">
+                  Click on "Forgot Password" on the login page and follow the
+                  instructions sent to your registered email.
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-question">
+                  Can I change my vote after submitting?
+                </div>
+                <div class="faq-answer">
+                  No, votes are final once submitted. Please review your choices
+                  carefully before confirming.
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-question">
+                  What if I'm having trouble logging in?
+                </div>
+                <div class="faq-answer">
+                  Ensure you're using your correct Student ID and password.
+                  Clear your browser cache or try a different browser. If issues
+                  persist, contact support.
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-question">
+                  How do I update my profile information?
+                </div>
+                <div class="faq-answer">
+                  You can update your profile from the Profile Settings page.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Bootstrap & Other JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
+      // Help icon click handler - Fixed to properly show modal
+        const helpIcon = document.getElementById("helpIcon");
+        if (helpIcon) {
+          helpIcon.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            helpModal.show();
+          });
+        }
+
+        // Additional close button handler (redundant but ensures functionality)
+        const closeModalBtn = document.getElementById("closeModalBtn");
+        if (closeModalBtn) {
+          closeModalBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            helpModal.hide();
+          });
+        }
+
+        // Ensure modal closes when clicking outside or pressing ESC
+        const helpModalElement = document.getElementById("helpModal");
+        if (helpModalElement) {
+          helpModalElement.addEventListener("hidden.bs.modal", function () {
+            console.log("Help modal closed");
+          });
+
+          // Handle ESC key press
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && helpModalElement.classList.contains("show")) {
+              helpModal.hide();
+            }
+          });
+        }
+
+        // Initialize tooltips
+        const tooltipTriggerList = [].slice.call(
+          document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        );
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
+
       // This updated script fixes the profile image styling and remove button functionality
       // Initialize the page
       document.addEventListener("DOMContentLoaded", function () {

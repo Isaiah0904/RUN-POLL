@@ -11,7 +11,7 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f5f7ff;
 }
 
@@ -23,9 +23,9 @@ body {
 
 @media (max-width: 992px) {
   .main-content {
-      margin-left: 0;
+    margin-left: 0;
   }
-  .card-body .row{
+  .card-body .row {
     display: flex;
     flex-direction: row;
   }
@@ -47,27 +47,27 @@ body {
   flex-direction: column;
 }
 
-.bi-x-lg{
+.bi-x-lg {
   display: none;
   color: rgb(42, 48, 116);
 }
 
 @media (max-width: 992px) {
   .sidebar {
-      transform: translateX(-100%);
-      transition: 1s;
+    transform: translateX(-100%);
+    transition: 1s;
   }
-  .sidebar-nav{
+  .sidebar-nav {
     overflow-y: scroll;
   }
   .sidebar.active {
-      transform: translateX(0);
-      transition: 1s;
+    transform: translateX(0);
+    transition: 1s;
   }
-  .close{
+  .close {
     transform: translateX(-100%);
   }
-  .bi-x-lg{
+  .bi-x-lg {
     display: block;
   }
 }
@@ -273,7 +273,7 @@ body {
   font-weight: bold;
   color: var(--primary);
   border: 2px solid white;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .candidate-info {
@@ -346,7 +346,7 @@ body {
   background-color: white;
   color: var(--primary);
   font-weight: 600;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 /* Stats row styling */
@@ -419,7 +419,7 @@ body {
   overflow-y: auto;
 }
 
-.bi-x-lg{
+.bi-x-lg {
   margin-left: 15px;
   font-size: 22px;
   font-weight: 900;
@@ -447,7 +447,8 @@ body {
   transition: all 0.2s;
 }
 
-.nav-link:hover, .nav-link.active {
+.nav-link:hover,
+.nav-link.active {
   background-color: var(--primary);
   color: white;
 }
@@ -474,9 +475,87 @@ body {
   cursor: pointer;
 }
 
+/* Custom styles for the help modal */
+.help-modal .modal-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-bottom: none;
+}
+
+.help-modal .modal-header .btn-close {
+  filter: brightness(0) invert(1);
+}
+
+.contact-card {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 15px;
+  border: none;
+  transition: transform 0.2s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.contact-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.phone-icon {
+  background: linear-gradient(135deg, #11998e, #38ef7d);
+}
+.email-icon {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+.chat-icon {
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+}
+.office-icon {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+}
+
+.faq-item {
+  border-bottom: 1px solid #e9ecef;
+  padding: 1rem 0;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-question {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+.faq-answer {
+  color: #6c757d;
+  margin-bottom: 0;
+}
+
+.support-hours {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
 @media (max-width: 992px) {
   .toggle-sidebar {
-      display: block;
+    display: block;
+  }
+  .top-navbar {
+    margin-bottom: 10px;
   }
 }
 
@@ -508,7 +587,8 @@ body {
   padding-top: -20px;
 }
 
-.action-icon, .user-actions a {
+.action-icon,
+.user-actions a {
   font-size: 20px;
   color: var(--text-gray);
   margin-left: 15px;
@@ -519,7 +599,8 @@ body {
   height: 40px;
 }
 
-.action-icon:hover, .user-actions a:hover {
+.action-icon:hover,
+.user-actions a:hover {
   color: var(--primary);
 }
 
@@ -830,26 +911,26 @@ body {
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .election-card {
-      flex-direction: column;
-      text-align: center;
+    flex-direction: column;
+    text-align: center;
   }
-  
+
   .election-image {
-      margin-top: 15px;
+    margin-top: 15px;
   }
-  
+
   .calendar-dates {
-      overflow-x: auto;
-      white-space: nowrap;
-      padding-bottom: 10px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 10px;
   }
 }
 
 @media (min-width: 992px) {
-  .card-body{
+  .card-body {
     justify-content: center;
   }
-  .card-body .row{
+  .card-body .row {
     display: flex;
     flex-direction: column;
     justify-content: center;

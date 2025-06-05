@@ -105,7 +105,7 @@
             <i class="bi bi-bell"></i>
           </a>
           </div>
-          <div class="action-icon" data-bs-toggle="tooltip" title="Help">
+          <div class="action-icon" title="Help">
             <i class="bi bi-question-circle"></i>
           </div>
           <!-- Improved navbar user container -->
@@ -333,7 +333,15 @@
         <!-- Voting Process -->
         <div class="col-lg-6 mb-4">
           <div class="card h-100">
-            <div class="card-header">Voting Process</div>
+            <div class="card-header">
+              <div class="d-flex align-items-center">
+                <a href="#" class="back-btn"
+                  ><i class="bi bi-chevron-left"></i
+                ></a>
+                <span>Voting Process</span>
+                <i class="bi bi-chevron-right ms-auto"></i>
+              </div>
+            </div>
             <div class="card-body">
               <div class="row">
                 <div class="col-md-4 mb-3">
@@ -364,12 +372,6 @@
                   </div>
                 </div>
               </div>
-
-              <div class="pagination-dots">
-                <div class="dot active"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-              </div>
             </div>
           </div>
         </div>
@@ -384,7 +386,6 @@
                 <div class="activity-details">
                   <div class="activity-name">President Student Council</div>
                 </div>
-                <div class="activity-date">10/22/2022</div>
                 <span class="activity-label label-ongoing">Ongoing</span>
               </div>
 
@@ -741,6 +742,136 @@
               data-bs-dismiss="modal"
             >
               Return to Dashboard
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Help Modal -->
+    <div
+      class="modal fade help-modal"
+      id="helpModal"
+      tabindex="-1"
+      aria-labelledby="helpModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5
+              class="modal-title d-flex align-items-center"
+              id="helpModalLabel"
+            >
+              <i class="bi bi-headset me-2"></i>
+              Need Help? We're Here for You!
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!-- Contact Methods -->
+            <div class="mb-4">
+              <h6 class="text-primary mb-3">
+                <i class="bi bi-telephone-fill me-2"></i>Contact Our Support
+                Team
+              </h6>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="card contact-card p-3 text-center">
+                    <div class="contact-icon phone-icon mx-auto">
+                      <i class="bi bi-telephone-fill"></i>
+                    </div>
+                    <h6 class="fw-bold">Phone Support</h6>
+                    <p class="text-muted mb-2">
+                      Call us directly for immediate assistance
+                    </p>
+                    <p class="fw-bold text-success mb-0">+234 803 123 4567</p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card contact-card p-3 text-center">
+                    <div class="contact-icon email-icon mx-auto">
+                      <i class="bi bi-envelope-fill"></i>
+                    </div>
+                    <h6 class="fw-bold">Email Support</h6>
+                    <p class="text-muted mb-2">
+                      Send us detailed questions anytime
+                    </p>
+                    <p class="fw-bold text-primary mb-0">
+                      support@runpolls.edu.ng
+                    </p>
+                  </div>
+                </div>
+
+            <!-- Emergency Contact -->
+            <div class="alert alert-warning mb-4">
+              <h6 class="alert-heading">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>Emergency
+                Support
+              </h6>
+              <p class="mb-1">
+                For urgent election-related issues during voting periods:
+              </p>
+              <p class="mb-0">
+                <strong>Emergency Hotline:</strong> +234 805 987 6543
+              </p>
+              <small>Available 24/7 during active election periods only</small>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="mb-4">
+              <h6 class="text-primary mb-3">
+                <i class="bi bi-question-circle-fill me-2"></i>Frequently Asked
+                Questions
+              </h6>
+              <div class="faq-item">
+                <div class="faq-question">How do I reset my password?</div>
+                <div class="faq-answer">
+                  Click on "Forgot Password" on the login page and follow the
+                  instructions sent to your registered email.
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-question">
+                  Can I change my vote after submitting?
+                </div>
+                <div class="faq-answer">
+                  No, votes are final once submitted. Please review your choices
+                  carefully before confirming.
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-question">
+                  What if I'm having trouble logging in?
+                </div>
+                <div class="faq-answer">
+                  Ensure you're using your correct Student ID and password.
+                  Clear your browser cache or try a different browser. If issues
+                  persist, contact support.
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-question">
+                  How do I update my profile information?
+                </div>
+                <div class="faq-answer">
+                  You can update your profile from the Profile Settings page.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
             </button>
           </div>
         </div>

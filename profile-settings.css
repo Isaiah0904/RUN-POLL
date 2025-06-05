@@ -11,7 +11,7 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f5f7ff;
 }
 
@@ -23,9 +23,9 @@ body {
 
 @media (max-width: 992px) {
   .main-content {
-      margin-left: 0;
+    margin-left: 0;
   }
-  .sidebar-nav{
+  .sidebar-nav {
     overflow-y: auto;
   }
 }
@@ -46,7 +46,7 @@ body {
   flex-direction: column;
 }
 
-.bi-x-lg{
+.bi-x-lg {
   display: none;
   color: rgb(42, 48, 116);
   margin-left: 15px;
@@ -55,13 +55,13 @@ body {
 }
 @media (max-width: 992px) {
   .sidebar {
-      transform: translateX(-100%);
-      transition: 1s;
+    transform: translateX(-100%);
+    transition: 1s;
   }
   .sidebar.active {
-      transform: translateX(0);
+    transform: translateX(0);
   }
-  .bi-x-lg{
+  .bi-x-lg {
     display: block;
   }
 }
@@ -98,9 +98,9 @@ body {
   background-color: var(--light-gray);
   margin: 0 15px 25px;
 }
-.profile-role{
-font-size: 12px;
-color: var(--text-gray);
+.profile-role {
+  font-size: 12px;
+  color: var(--text-gray);
 }
 
 /* Profile image styling */
@@ -175,7 +175,8 @@ color: var(--text-gray);
   transition: all 0.2s;
 }
 
-.nav-link:hover, .nav-link.active {
+.nav-link:hover,
+.nav-link.active {
   background-color: var(--primary);
   color: white;
 }
@@ -203,15 +204,93 @@ color: var(--text-gray);
   cursor: pointer;
 }
 
+/* Custom styles for the help modal */
+.help-modal .modal-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-bottom: none;
+}
+
+.help-modal .modal-header .btn-close {
+  filter: brightness(0) invert(1);
+}
+
+.contact-card {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 15px;
+  border: none;
+  transition: transform 0.2s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.contact-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.phone-icon {
+  background: linear-gradient(135deg, #11998e, #38ef7d);
+}
+.email-icon {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+.chat-icon {
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+}
+.office-icon {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+}
+
+.faq-item {
+  border-bottom: 1px solid #e9ecef;
+  padding: 1rem 0;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-question {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+.faq-answer {
+  color: #6c757d;
+  margin-bottom: 0;
+}
+
+.support-hours {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
 @media (min-width: 768px) and (max-width: 841px) {
-  .btn-success{
+  .btn-success {
     margin-bottom: 9px;
   }
 }
 
 @media (max-width: 992px) {
   .toggle-sidebar {
-      display: block;
+    display: block;
+  }
+  .top-navbar {
+    margin-bottom: 10px;
   }
 }
 
@@ -242,7 +321,8 @@ color: var(--text-gray);
   align-items: center;
 }
 
-.action-icon, .user-actions a  {
+.action-icon,
+.user-actions a {
   font-size: 20px;
   color: var(--text-gray);
   margin-left: 15px;
@@ -253,7 +333,8 @@ color: var(--text-gray);
   height: 40px;
 }
 
-.action-icon:hover, .user-actions a:hover {
+.action-icon:hover,
+.user-actions a:hover {
   color: var(--primary);
 }
 
@@ -367,7 +448,7 @@ color: var(--text-gray);
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0, 0, 0, 0.1);
   opacity: 0;
   transition: opacity 0.3s;
   cursor: pointer;
@@ -409,7 +490,7 @@ color: var(--text-gray);
 
 /* Save Button Styling */
 .save-btn {
-  background-color: #4954B8;
+  background-color: #4954b8;
   color: white;
   border: none;
   border-radius: 60px; /* Rounded pill shape to match other buttons */
