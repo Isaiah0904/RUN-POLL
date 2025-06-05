@@ -414,341 +414,7 @@
       </div>
     </div>
 
-    <!-- Become a Candidate Modal -->
-    <div
-      class="modal fade"
-      id="candidateModal"
-      tabindex="-1"
-      aria-labelledby="candidateModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="candidateModalLabel">
-              Candidate Application
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form class="candidate-form">
-              <!-- Step indicator -->
-              <div class="mb-4">
-                <div class="progress" style="height: 5px">
-                  <div
-                    class="progress-bar bg-primary"
-                    id="applicationProgress"
-                    role="progressbar"
-                    style="width: 33%"
-                    aria-valuenow="33"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-                <div class="d-flex justify-content-between mt-2">
-                  <div class="step active">1. Position Details</div>
-                  <div class="step">2. Personal Statement</div>
-                  <div class="step">3. Review & Submit</div>
-                </div>
-              </div>
-
-              <!-- Step 1: Position Selection -->
-              <div id="step1" class="application-step">
-                <div class="mb-3">
-                  <label for="positionSelect" class="form-label"
-                    >Which position are you running for?</label
-                  >
-                  <select class="form-select" id="positionSelect" required>
-                    <option value="" selected disabled>
-                      Select a position
-                    </option>
-                    <option value="president">President Student Council</option>
-                    <option value="vice-president">
-                      Vice President Student Council
-                    </option>
-                    <option value="secretary">Secretary Student Council</option>
-                    <option value="treasurer">Treasurer Student Council</option>
-                  </select>
-                </div>
-
-                <div class="mb-3">
-                  <label for="academicYear" class="form-label"
-                    >Current Academic Year</label
-                  >
-                  <select class="form-select" id="academicYear" required>
-                    <option value="" selected disabled>
-                      Select your academic year
-                    </option>
-                    <option value="1">First Year</option>
-                    <option value="2">Second Year</option>
-                    <option value="3">Third Year</option>
-                    <option value="4">Fourth Year</option>
-                    <option value="5">Postgraduate</option>
-                  </select>
-                </div>
-
-                <div class="mb-3">
-                  <label for="facultySelect" class="form-label"
-                    >Faculty/Department</label
-                  >
-                  <select class="form-select" id="facultySelect" required>
-                    <option value="" selected disabled>
-                      Select your faculty/department
-                    </option>
-                    <option value="arts">Faculty of Arts</option>
-                    <option value="science">Faculty of Science</option>
-                    <option value="social_sciences">
-                      Faculty of Social Sciences
-                    </option>
-                    <option value="law">Faculty of Law</option>
-                    <option value="engineering">Faculty of Engineering</option>
-                    <option value="business">
-                      Faculty of Business & Economics
-                    </option>
-                  </select>
-                </div>
-
-                <div class="mb-3">
-                  <label for="cgpaInput" class="form-label">Current CGPA</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="cgpaInput"
-                    min="0"
-                    max="4.0"
-                    step="0.01"
-                    placeholder="Enter your CGPA (e.g., 3.5)"
-                    required
-                  />
-                  <small class="text-muted"
-                    >Minimum required CGPA for candidacy is 2.5</small
-                  >
-                </div>
-
-                <div class="text-end mt-4">
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    id="nextToStep2"
-                  >
-                    Continue
-                  </button>
-                </div>
-              </div>
-
-              <!-- Step 2: Personal Statement -->
-              <div id="step2" class="application-step" style="display: none">
-                <div class="mb-3">
-                  <label for="campaignSlogan" class="form-label"
-                    >Campaign Slogan</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="campaignSlogan"
-                    maxlength="100"
-                    placeholder="Enter a catchy slogan for your campaign (max 100 characters)"
-                    required
-                  />
-                </div>
-
-                <div class="mb-3">
-                  <label for="personalStatement" class="form-label"
-                    >Personal Statement</label
-                  >
-                  <textarea
-                    class="form-control"
-                    id="personalStatement"
-                    rows="5"
-                    placeholder="Tell voters why you're running and what you hope to accomplish..."
-                    required
-                  ></textarea>
-                  <small class="text-muted"
-                    >Minimum 100 characters, maximum 500 characters</small
-                  >
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label">Upload Campaign Photo</label>
-                  <div class="campaign-photo-upload" id="photoUploadArea">
-                    <i class="bi bi-cloud-arrow-up upload-icon"></i>
-                    <p>Click to upload a campaign photo or drag and drop</p>
-                    <small class="text-muted"
-                      >JPG, PNG or GIF, Max size: 5MB</small
-                    >
-                  </div>
-                  <input
-                    type="file"
-                    id="campaignPhotoInput"
-                    accept="image/*"
-                    style="display: none"
-                  />
-                </div>
-
-                <div class="text-end mt-4">
-                  <button
-                    type="button"
-                    class="btn btn-outline-secondary me-2"
-                    id="backToStep1"
-                  >
-                    Back
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    id="nextToStep3"
-                  >
-                    Continue
-                  </button>
-                </div>
-              </div>
-
-              <!-- Step 3: Review & Submit -->
-              <div id="step3" class="application-step" style="display: none">
-                <div class="alert alert-info">
-                  <i class="bi bi-info-circle-fill me-2"></i> Please review your
-                  application details before submitting.
-                </div>
-
-                <div class="review-section p-3 mb-3 bg-light rounded">
-                  <h6 class="fw-bold">Position Information</h6>
-                  <div class="row mb-2">
-                    <div class="col-md-4 text-muted">Position:</div>
-                    <div class="col-md-8" id="reviewPosition">
-                      President Student Council
-                    </div>
-                  </div>
-                  <div class="row mb-2">
-                    <div class="col-md-4 text-muted">Academic Year:</div>
-                    <div class="col-md-8" id="reviewAcademicYear">
-                      Third Year
-                    </div>
-                  </div>
-                  <div class="row mb-2">
-                    <div class="col-md-4 text-muted">Faculty/Department:</div>
-                    <div class="col-md-8" id="reviewFaculty">
-                      Faculty of Engineering
-                    </div>
-                  </div>
-                  <div class="row mb-2">
-                    <div class="col-md-4 text-muted">CGPA:</div>
-                    <div class="col-md-8" id="reviewCGPA">3.67</div>
-                  </div>
-                </div>
-
-                <div class="review-section p-3 mb-3 bg-light rounded">
-                  <h6 class="fw-bold">Campaign Information</h6>
-                  <div class="row mb-2">
-                    <div class="col-md-4 text-muted">Campaign Slogan:</div>
-                    <div class="col-md-8" id="reviewSlogan">
-                      Building Tomorrow Together
-                    </div>
-                  </div>
-                  <div class="row mb-2">
-                    <div class="col-md-4 text-muted">Personal Statement:</div>
-                    <div class="col-md-8" id="reviewStatement">
-                      I am committed to representing student interests and
-                      improving campus life through inclusive policies and
-                      transparent leadership.
-                    </div>
-                  </div>
-                  <div class="row mb-2">
-                    <div class="col-md-4 text-muted">Campaign Photo:</div>
-                    <div class="col-md-8" id="reviewPhoto">
-                      <img
-                        src="/api/placeholder/100/100"
-                        alt="Campaign photo"
-                        class="img-thumbnail"
-                        style="max-width: 100px"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="mb-3 form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="confirmAccuracy"
-                    required
-                  />
-                  <label class="form-check-label" for="confirmAccuracy"
-                    >I confirm that all information provided is accurate and
-                    complete.</label
-                  >
-                </div>
-
-                <div class="mb-3 form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="agreeToTerms"
-                    required
-                  />
-                  <label class="form-check-label" for="agreeToTerms"
-                    >I agree to abide by all election rules and code of
-                    conduct.</label
-                  >
-                </div>
-
-                <div class="text-end mt-4">
-                  <button
-                    type="button"
-                    class="btn btn-outline-secondary me-2"
-                    id="backToStep2"
-                  >
-                    Back
-                  </button>
-                  <button
-                    type="submit"
-                    class="btn btn-primary"
-                    id="candidateSubmitBtn"
-                  >
-                    Submit Application
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Success Modal -->
-    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-body text-center py-4">
-            <div class="mb-4">
-              <i
-                class="bi bi-check-circle-fill text-success"
-                style="font-size: 60px"
-              ></i>
-            </div>
-            <h5 class="mb-3">Application Submitted Successfully!</h5>
-            <p>
-              Your candidate application has been received. The election
-              committee will review your application and notify you of the
-              status within 48 hours.
-            </p>
-            <button
-              type="button"
-              class="btn btn-success mt-3"
-              data-bs-dismiss="modal"
-            >
-              Return to Dashboard
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-        <!-- Help Modal -->
+    <!-- Help Modal -->
     <div
       class="modal fade help-modal"
       id="helpModal"
@@ -882,7 +548,694 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script>
+      // Help Modal Implementation
+document.addEventListener("DOMContentLoaded", function () {
+  // Initialize help modal
+  const helpModal = new bootstrap.Modal(document.getElementById("helpModal"));
+  
+  // Get help icon - it's in the user-actions div with question-circle class
+  const helpIcon = document.querySelector('.action-icon[title="Help"]');
+  
+  // Help icon click handler
+  if (helpIcon) {
+    helpIcon.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log("Help icon clicked");
+      helpModal.show();
+    });
     
+    // Add pointer cursor to help icon
+    helpIcon.style.cursor = "pointer";
+  }
+
+  // Additional event handlers for modal
+  const helpModalElement = document.getElementById("helpModal");
+  
+  if (helpModalElement) {
+    // Modal shown event
+    helpModalElement.addEventListener("shown.bs.modal", function () {
+      console.log("Help modal opened");
+    });
+
+    // Modal hidden event
+    helpModalElement.addEventListener("hidden.bs.modal", function () {
+      console.log("Help modal closed");
+    });
+
+    // Handle ESC key press to close modal
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && helpModalElement.classList.contains("show")) {
+        helpModal.hide();
+      }
+    });
+  }
+
+  // FAQ accordion functionality (if you want expandable FAQ items)
+  const faqItems = document.querySelectorAll('.faq-item');
+  
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+    
+    if (question && answer) {
+      // Initially hide answers
+      answer.style.display = 'none';
+      question.style.cursor = 'pointer';
+      
+      // Add click handler to questions
+      question.addEventListener('click', function() {
+        const isVisible = answer.style.display === 'block';
+        
+        // Hide all other answers first
+        faqItems.forEach(otherItem => {
+          const otherAnswer = otherItem.querySelector('.faq-answer');
+          if (otherAnswer && otherAnswer !== answer) {
+            otherAnswer.style.display = 'none';
+            otherItem.querySelector('.faq-question').classList.remove('active');
+          }
+        });
+        
+        // Toggle current answer
+        if (isVisible) {
+          answer.style.display = 'none';
+          question.classList.remove('active');
+        } else {
+          answer.style.display = 'block';
+          question.classList.add('active');
+        }
+      });
+    }
+  });
+
+  // Contact card click handlers (optional - for better UX)
+  const phoneCard = document.querySelector('.contact-card .phone-icon').closest('.contact-card');
+  const emailCard = document.querySelector('.contact-card .email-icon').closest('.contact-card');
+  
+  if (phoneCard) {
+    phoneCard.addEventListener('click', function() {
+      const phoneNumber = this.querySelector('.text-success').textContent;
+      window.location.href = `tel:${phoneNumber}`;
+    });
+    phoneCard.style.cursor = 'pointer';
+  }
+  
+  if (emailCard) {
+    emailCard.addEventListener('click', function() {
+      const email = this.querySelector('.text-primary').textContent;
+      window.location.href = `mailto:${email}`;
+    });
+    emailCard.style.cursor = 'pointer';
+  }
+
+  // Initialize tooltips for the help section
+  const tooltipTriggerList = [].slice.call(
+    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  );
+  tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+
+  console.log("Help modal functionality initialized");
+});
+
+// Alternative method if the above doesn't work due to timing issues
+function initializeHelpModal() {
+  const helpModal = new bootstrap.Modal(document.getElementById("helpModal"));
+  const helpIcon = document.querySelector('.action-icon[title="Help"]');
+  
+  if (helpIcon) {
+    helpIcon.onclick = function(e) {
+      e.preventDefault();
+      helpModal.show();
+    };
+  }
+}
+
+ document.addEventListener("DOMContentLoaded", function () {
+        // Initialize profile containers
+        const sidebarProfileContainer = document.getElementById(
+          "sidebarProfileContainer"
+        );
+        const navbarUserContainer = document.getElementById(
+          "navbarUserContainer"
+        );
+
+        // Function to show profile image or default user icon
+        function updateProfileDisplays(imageUrl) {
+          // Clear existing sidebar container
+          sidebarProfileContainer.innerHTML = "";
+          navbarUserContainer.innerHTML = "";
+
+          if (imageUrl) {
+            // Sidebar profile image
+            const sidebarImg = document.createElement("img");
+            sidebarImg.src = imageUrl;
+            sidebarImg.alt = "Profile";
+            sidebarImg.className = "profile-image";
+            sidebarImg.id = "userProfileImage";
+            sidebarImg.style.borderRadius = "50%";
+            sidebarImg.style.width = "100%";
+            sidebarImg.style.height = "100%";
+            sidebarImg.style.objectFit = "cover";
+            sidebarProfileContainer.appendChild(sidebarImg);
+
+            // Add edit icon to sidebar profile
+            const editIcon = document.createElement("div");
+            editIcon.className = "edit-icon";
+            editIcon.innerHTML =
+              '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
+            sidebarProfileContainer.appendChild(editIcon);
+
+            // Navbar profile image
+            const navbarImg = document.createElement("img");
+            navbarImg.src = imageUrl;
+            navbarImg.alt = "User";
+            navbarImg.className = "user-avatar";
+            navbarImg.id = "navbarUserImage";
+            navbarImg.style.borderRadius = "50%";
+            navbarImg.style.width = "100%";
+            navbarImg.style.height = "100%";
+            navbarImg.style.objectFit = "cover";
+            navbarUserContainer.appendChild(navbarImg);
+
+            // Add status indicator to navbar
+            const statusIndicator = document.createElement("div");
+            statusIndicator.className = "status-indicator";
+            navbarUserContainer.appendChild(statusIndicator);
+          } else {
+            // Sidebar profile icon - default user icon
+            const sidebarIcon = document.createElement("div");
+            sidebarIcon.className = "default-user-icon";
+            sidebarIcon.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path fill="#888888" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                        </svg>
+                `;
+            sidebarProfileContainer.appendChild(sidebarIcon);
+
+            // Add edit icon to sidebar profile
+            const editIcon = document.createElement("div");
+            editIcon.className = "edit-icon";
+            editIcon.innerHTML =
+              '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
+            sidebarProfileContainer.appendChild(editIcon);
+
+            // Navbar profile icon - default user icon
+            const navbarIcon = document.createElement("div");
+            navbarIcon.className = "default-user-icon";
+            navbarIcon.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path fill="#888888" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                        </svg>
+                `;
+            navbarUserContainer.appendChild(navbarIcon);
+
+            // Add status indicator to navbar
+            const statusIndicator = document.createElement("div");
+            statusIndicator.className = "status-indicator";
+            navbarUserContainer.appendChild(statusIndicator);
+          }
+
+          // If modal is open, update modal profile image as well
+          const modalProfileContainer = document.getElementById(
+            "modalProfileContainer"
+          );
+          if (modalProfileContainer) {
+            updateModalProfileImage(modalProfileContainer, imageUrl);
+          }
+        }
+
+        // Function to update modal profile image
+        function updateModalProfileImage(container, imageUrl) {
+          container.innerHTML = "";
+
+          if (imageUrl) {
+            const img = document.createElement("img");
+            img.src = imageUrl;
+            img.alt = "Profile";
+            img.style.width = "100%";
+            img.style.height = "100%";
+            img.style.objectFit = "cover";
+            img.style.borderRadius = "50%";
+            container.appendChild(img);
+          } else {
+            container.innerHTML = `
+                    <div class="default-user-icon" style="width: 100%; height: 100%; background-color: #e9ecef; border-radius: 50%;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 80%; height: 80%; margin: 10%;">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                        </svg>
+                    </div>
+                `;
+          }
+        }
+
+        // Helper function to show alerts
+        function showAlert(message, type) {
+          const alertDiv = document.createElement("div");
+          alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+          alertDiv.role = "alert";
+          alertDiv.style.position = "fixed";
+          alertDiv.style.top = "20px";
+          alertDiv.style.right = "20px";
+          alertDiv.style.zIndex = "9999";
+          alertDiv.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+
+          document.body.appendChild(alertDiv);
+
+          // Auto dismiss after 3 seconds
+          setTimeout(() => {
+            if (alertDiv.parentNode) {
+              const bsAlert = new bootstrap.Alert(alertDiv);
+              bsAlert.close();
+            }
+          }, 3000);
+        }
+
+        // Load user profile data including image
+        try {
+          const user = JSON.parse(localStorage.getItem("currentUser")) || {};
+
+          // Update profile name
+          if (user.firstName && user.lastName) {
+            document.getElementById(
+              "userProfileName"
+            ).textContent = `${user.firstName} ${user.lastName}`;
+            // Update welcome message
+            const welcomeHeading = document.querySelector("h2");
+            if (
+              welcomeHeading &&
+              welcomeHeading.textContent.includes("Hello")
+            ) {
+              welcomeHeading.textContent = `Hello, ${user.firstName}!`;
+            }
+          }
+
+          // Update profile role if exists
+          if (user.role) {
+            document.getElementById("userProfileRole").textContent = user.role;
+          }
+
+          // Update profile images
+          updateProfileDisplays(user.profileImage);
+        } catch (error) {
+          console.error("Error loading user profile:", error);
+          updateProfileDisplays(null);
+        }
+
+        // Create profile edit modal with upload and remove functionality
+        function createProfileEditModal() {
+          // Modal HTML structure
+          const modalHTML = `
+                <div class="modal fade" id="profileEditModal" tabindex="-1" aria-labelledby="profileEditModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="profileEditModalLabel">View Profile Picture</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <div class="mb-4">
+                                    <div class="position-relative d-inline-block">
+                                        <div id="modalProfileContainer" class="rounded-circle overflow-hidden" style="width: 150px; height: 150px;">
+                                            <!-- Image will be inserted here -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <button id="modalUploadBtn" class="btn btn-success btn-sm rounded-pill px-4" style="display: none;">UPLOAD</button>
+                                    <button id="modalRemoveBtn" class="btn btn-danger btn-sm rounded-pill px-4 ms-2" style="display: none;">REMOVE</button>
+                                </div>
+                                <p class="text-muted small">Go to Profile Settings to change your profile picture</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+          // Append modal to body
+          const modalDiv = document.createElement("div");
+          modalDiv.innerHTML = modalHTML;
+          document.body.appendChild(modalDiv);
+
+          // Get current user data
+          const user = JSON.parse(localStorage.getItem("currentUser")) || {};
+
+          // Update modal profile container with current image or default icon
+          const modalProfileContainer = document.getElementById(
+            "modalProfileContainer"
+          );
+          updateModalProfileImage(modalProfileContainer, user.profileImage);
+
+          // Handle upload button click in modal
+          document
+            .getElementById("modalUploadBtn")
+            .addEventListener("click", function () {
+              // Create file input element
+              const fileInput = document.createElement("input");
+              fileInput.type = "file";
+              fileInput.accept = "image/*";
+              fileInput.style.display = "none";
+              document.body.appendChild(fileInput);
+
+              // Trigger file selection
+              fileInput.click();
+
+              // Handle file selection
+              fileInput.addEventListener("change", function () {
+                if (this.files && this.files[0]) {
+                  const reader = new FileReader();
+
+                  reader.onload = function (e) {
+                    const imageResult = e.target.result;
+
+                    // Update modal image
+                    updateModalProfileImage(modalProfileContainer, imageResult);
+
+                    // Update profile images on page
+                    updateProfileDisplays(imageResult);
+
+                    // Store image in localStorage
+                    try {
+                      let user =
+                        JSON.parse(localStorage.getItem("currentUser")) || {};
+                      user.profileImage = imageResult;
+                      localStorage.setItem("currentUser", JSON.stringify(user));
+
+                      // Show success message
+                      showAlert(
+                        "Profile picture updated successfully!",
+                        "success"
+                      );
+                    } catch (error) {
+                      console.error("Error saving profile image:", error);
+                      showAlert(
+                        "Error saving profile image. Please try again.",
+                        "danger"
+                      );
+                    }
+                  };
+
+                  reader.readAsDataURL(this.files[0]);
+                }
+
+                // Clean up
+                document.body.removeChild(fileInput);
+              });
+            });
+
+          // Handle remove button click in modal
+          document
+            .getElementById("modalRemoveBtn")
+            .addEventListener("click", function () {
+              // Update both modal and page with default icons
+              updateModalProfileImage(modalProfileContainer, null);
+              updateProfileDisplays(null);
+
+              // Remove image from storage
+              try {
+                let user =
+                  JSON.parse(localStorage.getItem("currentUser")) || {};
+                delete user.profileImage;
+                localStorage.setItem("currentUser", JSON.stringify(user));
+
+                // Show success message
+                showAlert("Profile picture removed successfully!", "success");
+              } catch (error) {
+                console.error("Error removing profile image:", error);
+                showAlert(
+                  "Error removing profile image. Please try again.",
+                  "danger"
+                );
+              }
+            });
+
+          return new bootstrap.Modal(
+            document.getElementById("profileEditModal")
+          );
+        }
+
+        // Add profile edit functionality to both sidebar and navbar profile images
+        const profileElements = [sidebarProfileContainer, navbarUserContainer];
+
+        profileElements.forEach((element) => {
+          element.style.cursor = "pointer";
+          element.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Create and show the modal
+            const profileModal = createProfileEditModal();
+            profileModal.show();
+
+            // Clean up when modal is hidden
+            document
+              .getElementById("profileEditModal")
+              .addEventListener("hidden.bs.modal", function () {
+                if (this.parentNode) {
+                  document.body.removeChild(this.parentNode);
+                }
+              });
+          });
+        });
+
+        // Toggle Sidebar
+        document
+          .getElementById("toggleSidebar")
+          .addEventListener("click", function () {
+            document.getElementById("sidebar").classList.toggle("active");
+          });
+        document.getElementById("close").addEventListener("click", function () {
+          document.getElementById("sidebar").classList.remove("active");
+        });
+
+        // Initialize Charts
+        // Registered Voters Chart
+        const registeredVotersChart = new Chart(
+          document.createElement("canvas"),
+          {
+            type: "doughnut",
+            data: {
+              datasets: [
+                {
+                  data: [562, 0],
+                  backgroundColor: ["#4954b8", "#e9ecef"],
+                  borderWidth: 0,
+                },
+              ],
+            },
+            options: {
+              cutout: "65%",
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  display: false,
+                },
+                tooltip: {
+                  enabled: false,
+                },
+              },
+            },
+          }
+        );
+        document
+          .getElementById("registeredVotersChart")
+          .appendChild(registeredVotersChart.canvas);
+
+        // Total Votes Chart
+        const totalVotesChart = new Chart(document.createElement("canvas"), {
+          type: "doughnut",
+          data: {
+            datasets: [
+              {
+                data: [321, 241],
+                backgroundColor: ["#4954b8", "#e9ecef"],
+                borderWidth: 0,
+              },
+            ],
+          },
+          options: {
+            cutout: "65%",
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false,
+              },
+              tooltip: {
+                enabled: false,
+              },
+            },
+          },
+        });
+        document
+          .getElementById("totalVotesChart")
+          .appendChild(totalVotesChart.canvas);
+
+        // Candidates Chart
+        const candidatesChart = new Chart(document.createElement("canvas"), {
+          type: "doughnut",
+          data: {
+            datasets: [
+              {
+                data: [3, 10],
+                backgroundColor: ["#4954b8", "#e9ecef"],
+                borderWidth: 0,
+              },
+            ],
+          },
+          options: {
+            cutout: "65%",
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false,
+              },
+              tooltip: {
+                enabled: false,
+              },
+            },
+          },
+        });
+        document
+          .getElementById("candidatesChart")
+          .appendChild(candidatesChart.canvas);
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Check if the candidates container and tabs exist on the page
+        const candidatesContainer = document.getElementById(
+          "candidates-container"
+        );
+        const chartContainer = document.querySelector(
+          ".results-chart-container"
+        );
+        const tabs = document.querySelectorAll(".card-tab");
+
+        if (candidatesContainer && tabs.length > 0) {
+          // Initialize tabs functionality
+          tabs.forEach((tab) => {
+            tab.addEventListener("click", function () {
+              // Remove active class from all tabs
+              tabs.forEach((t) => t.classList.remove("active"));
+
+              // Add active class to clicked tab
+              this.classList.add("active");
+
+              // Show/hide appropriate content
+              if (this.textContent === "Results") {
+                candidatesContainer.style.display = "block";
+                chartContainer.style.display = "none";
+              } else {
+                candidatesContainer.style.display = "none";
+                chartContainer.style.display = "block";
+
+                // Initialize chart if it's being shown
+                initResultsChart();
+              }
+            });
+          });
+
+          // Add animation to progress bars
+          setTimeout(() => {
+            const progressBars = document.querySelectorAll(
+              ".progress-container .progress-bar"
+            );
+            progressBars.forEach((bar) => {
+              const width = bar.style.width;
+              bar.style.width = "0%";
+              setTimeout(() => {
+                bar.style.width = width;
+              }, 300);
+            });
+          }, 500);
+        }
+
+        // Function to initialize the candidate results chart
+        function initResultsChart() {
+          const ctx = document.getElementById("resultsChart");
+
+          // Only proceed if the canvas exists
+          if (!ctx) return;
+
+          // Get the context
+          const ctxContext = ctx.getContext("2d");
+
+          // Check if chart already exists and destroy it to prevent duplicates
+          if (window.resultsChart instanceof Chart) {
+            window.resultsChart.destroy();
+          }
+
+          // Create new chart
+          window.resultsChart = new Chart(ctxContext, {
+            type: "bar",
+            data: {
+              labels: ["Candidate #1", "Candidate #2", "Candidate #3"],
+              datasets: [
+                {
+                  label: "Votes",
+                  data: [112, 68, 20],
+                  backgroundColor: [
+                    "rgba(73, 84, 184, 0.8)",
+                    "rgba(73, 84, 184, 0.6)",
+                    "rgba(73, 84, 184, 0.4)",
+                  ],
+                  borderColor: [
+                    "rgba(73, 84, 184, 1)",
+                    "rgba(73, 84, 184, 1)",
+                    "rgba(73, 84, 184, 1)",
+                  ],
+                  borderWidth: 1,
+                  borderRadius: 5,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  display: false,
+                },
+                tooltip: {
+                  callbacks: {
+                    label: function (context) {
+                      const value = context.raw;
+                      const total = 200; // Total votes
+                      const percentage = Math.round((value / total) * 100);
+                      return `${value} votes (${percentage}%)`;
+                    },
+                  },
+                },
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  grid: {
+                    display: true,
+                    drawBorder: false,
+                    color: "rgba(0, 0, 0, 0.05)",
+                  },
+                },
+                x: {
+                  grid: {
+                    display: false,
+                  },
+                },
+              },
+            },
+          });
+        }
+      });
+
     </script>
   </body>
 </html>
