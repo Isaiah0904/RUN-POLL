@@ -301,7 +301,7 @@
                     <p class="text-muted mb-2">
                       Call us directly for immediate assistance
                     </p>
-                    <p class="fw-bold text-success mb-0">+234 803 123 4567</p>
+                    <p class="fw-bold text-success mb-0">+234 802 960 0743</p>
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -314,7 +314,7 @@
                       Send us detailed questions anytime
                     </p>
                     <p class="fw-bold text-primary mb-0">
-                      support@runpolls.edu.ng
+                      isaiahdurojaiye9@gmail.com
                     </p>
                   </div>
                 </div>
@@ -392,66 +392,129 @@
     <!-- Bootstrap & Other JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Help icon click handler - Fixed to properly show modal
-        const helpIcon = document.getElementById("helpIcon");
-        if (helpIcon) {
-          helpIcon.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            helpModal.show();
-          });
-        }
+       // Help Modal Implementation
+document.addEventListener("DOMContentLoaded", function () {
+  // Initialize help modal
+  const helpModal = new bootstrap.Modal(document.getElementById("helpModal"));
+  
+  // Get help icon - it's in the user-actions div with question-circle class
+  const helpIcon = document.querySelector('.action-icon[title="Help"]');
+  
+  // Help icon click handler
+  if (helpIcon) {
+    helpIcon.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log("Help icon clicked");
+      helpModal.show();
+    });
+    
+    // Add pointer cursor to help icon
+    helpIcon.style.cursor = "pointer";
+  }
 
-        // Additional close button handler (redundant but ensures functionality)
-        const closeModalBtn = document.getElementById("closeModalBtn");
-        if (closeModalBtn) {
-          closeModalBtn.addEventListener("click", function (e) {
-            e.preventDefault();
-            helpModal.hide();
-          });
-        }
+  // Additional event handlers for modal
+  const helpModalElement = document.getElementById("helpModal");
+  
+  if (helpModalElement) {
+    // Modal shown event
+    helpModalElement.addEventListener("shown.bs.modal", function () {
+      console.log("Help modal opened");
+    });
 
-        // Ensure modal closes when clicking outside or pressing ESC
-        const helpModalElement = document.getElementById("helpModal");
-        if (helpModalElement) {
-          helpModalElement.addEventListener("hidden.bs.modal", function () {
-            console.log("Help modal closed");
-          });
+    // Modal hidden event
+    helpModalElement.addEventListener("hidden.bs.modal", function () {
+      console.log("Help modal closed");
+    });
 
-          // Handle ESC key press
-          document.addEventListener("keydown", function (e) {
-            if (e.key === "Escape" && helpModalElement.classList.contains("show")) {
-              helpModal.hide();
-            }
-          });
-        }
-
-        // Initialize tooltips
-        const tooltipTriggerList = [].slice.call(
-          document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        );
-        tooltipTriggerList.map(function (tooltipTriggerEl) {
-          return new bootstrap.Tooltip(tooltipTriggerEl);
-        });
-
-
-      // This updated script fixes the profile image styling and remove button functionality
-      // Initialize the page
-      document.addEventListener("DOMContentLoaded", function () {
-        updateStats();
-        initializeEventListeners();
-        initializeTooltips();
-      });
-
-      // Initialize Bootstrap tooltips
-      function initializeTooltips() {
-        const tooltipTriggerList = [].slice.call(
-          document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        );
-        tooltipTriggerList.map(function (tooltipTriggerEl) {
-          return new bootstrap.Tooltip(tooltipTriggerEl);
-        });
+    // Handle ESC key press to close modal
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && helpModalElement.classList.contains("show")) {
+        helpModal.hide();
       }
+    });
+  }
+
+  // FAQ accordion functionality (if you want expandable FAQ items)
+  const faqItems = document.querySelectorAll('.faq-item');
+  
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+    
+    if (question && answer) {
+      // Initially hide answers
+      answer.style.display = 'none';
+      question.style.cursor = 'pointer';
+      
+      // Add click handler to questions
+      question.addEventListener('click', function() {
+        const isVisible = answer.style.display === 'block';
+        
+        // Hide all other answers first
+        faqItems.forEach(otherItem => {
+          const otherAnswer = otherItem.querySelector('.faq-answer');
+          if (otherAnswer && otherAnswer !== answer) {
+            otherAnswer.style.display = 'none';
+            otherItem.querySelector('.faq-question').classList.remove('active');
+          }
+        });
+        
+        // Toggle current answer
+        if (isVisible) {
+          answer.style.display = 'none';
+          question.classList.remove('active');
+        } else {
+          answer.style.display = 'block';
+          question.classList.add('active');
+        }
+      });
+    }
+  });
+
+  // Contact card click handlers (optional - for better UX)
+  const phoneCard = document.querySelector('.contact-card .phone-icon').closest('.contact-card');
+  const emailCard = document.querySelector('.contact-card .email-icon').closest('.contact-card');
+  
+  if (phoneCard) {
+    phoneCard.addEventListener('click', function() {
+      const phoneNumber = this.querySelector('.text-success').textContent;
+      window.location.href = `tel:${phoneNumber}`;
+    });
+    phoneCard.style.cursor = 'pointer';
+  }
+  
+  if (emailCard) {
+    emailCard.addEventListener('click', function() {
+      const email = this.querySelector('.text-primary').textContent;
+      window.location.href = `mailto:${email}`;
+    });
+    emailCard.style.cursor = 'pointer';
+  }
+
+  // Initialize tooltips for the help section
+  const tooltipTriggerList = [].slice.call(
+    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  );
+  tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+
+  console.log("Help modal functionality initialized");
+});
+
+// Alternative method if the above doesn't work due to timing issues
+function initializeHelpModal() {
+  const helpModal = new bootstrap.Modal(document.getElementById("helpModal"));
+  const helpIcon = document.querySelector('.action-icon[title="Help"]');
+  
+  if (helpIcon) {
+    helpIcon.onclick = function(e) {
+      e.preventDefault();
+      helpModal.show();
+    };
+  }
+}
 
       document.addEventListener("DOMContentLoaded", function () {
         // Toggle Sidebar

@@ -477,7 +477,7 @@ body {
 
 /* Custom styles for the help modal */
 .help-modal .modal-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #3a429b;
   color: white;
   border-bottom: none;
 }
@@ -515,12 +515,6 @@ body {
 }
 .email-icon {
   background: linear-gradient(135deg, #667eea, #764ba2);
-}
-.chat-icon {
-  background: linear-gradient(135deg, #f093fb, #f5576c);
-}
-.office-icon {
-  background: linear-gradient(135deg, #4facfe, #00f2fe);
 }
 
 .faq-item {
