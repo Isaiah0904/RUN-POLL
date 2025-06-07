@@ -192,7 +192,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .toggle-sidebar {
@@ -204,9 +204,8 @@ body {
   cursor: pointer;
 }
 
-/* Custom styles for the help modal */
 .help-modal .modal-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #3a429b;
   color: white;
   border-bottom: none;
 }
@@ -244,12 +243,6 @@ body {
 }
 .email-icon {
   background: linear-gradient(135deg, #667eea, #764ba2);
-}
-.chat-icon {
-  background: linear-gradient(135deg, #f093fb, #f5576c);
-}
-.office-icon {
-  background: linear-gradient(135deg, #4facfe, #00f2fe);
 }
 
 .faq-item {
@@ -290,7 +283,7 @@ body {
     display: block;
   }
   .top-navbar {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 }
 
@@ -331,11 +324,28 @@ body {
   display: flex;
   align-items: center;
   height: 40px;
+  position: relative;
 }
 
 .action-icon:hover,
 .user-actions a:hover {
   color: var(--primary);
+}
+
+.notification-badge {
+  position: absolute;
+  top: 7px;
+  right: -4px;
+  background-color: var(--primary);
+  color: white;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
 }
 
 /* Navbar user avatar styling */

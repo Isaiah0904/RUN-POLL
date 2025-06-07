@@ -112,10 +112,7 @@
 
         <div class="user-actions">
           <div class="action-icon">
-            <i class="bi bi-bell"></i>
-          </div>
-          <div class="action-icon">
-            <i class="bi bi-question-circle"></i>
+            <a href="admin-notification.html"><i class="bi bi-bell"></i></a>
           </div>
           <!-- Improved navbar user container -->
           <div class="navbar-user-container" id="navbarUserContainer">
@@ -135,9 +132,6 @@
             <p class="text-muted">Welcome to RUN POLLS Admin Panel!</p>
           </div>
           <div class="col-md-6 text-md-end">
-            <button class="export btn btn-outline-secondary me-2">
-              <i class="fas fa-download me-1"></i> Export Reports
-            </button>
             <button class="btn btn-primary">
               <i class="fas fa-plus me-1"></i> Create New Election
             </button>
@@ -233,7 +227,6 @@
                       <th>End Date</th>
                       <th>Status</th>
                       <th>Participation</th>
-                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -259,17 +252,6 @@
                         </div>
                         <small class="text-muted">78% (438/562)</small>
                       </td>
-                      <td>
-                        <button class="action-btn view">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="action-btn edit">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="action-btn delete">
-                          <i class="fas fa-trash"></i>
-                        </button>
-                      </td>
                     </tr>
                     <tr>
                       <td>Vice President Student Council</td>
@@ -292,17 +274,6 @@
                           ></div>
                         </div>
                         <small class="text-muted">Starts in 2 days</small>
-                      </td>
-                      <td>
-                        <button class="action-btn view">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="action-btn edit">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="action-btn delete">
-                          <i class="fas fa-trash"></i>
-                        </button>
                       </td>
                     </tr>
                     <tr>
@@ -327,17 +298,6 @@
                         </div>
                         <small class="text-muted">65% (365/562)</small>
                       </td>
-                      <td>
-                        <button class="action-btn view">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="action-btn edit">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="action-btn delete">
-                          <i class="fas fa-trash"></i>
-                        </button>
-                      </td>
                     </tr>
                     <tr>
                       <td>Treasurer Student Council</td>
@@ -360,17 +320,6 @@
                           ></div>
                         </div>
                         <small class="text-muted">Starts in 10 days</small>
-                      </td>
-                      <td>
-                        <button class="action-btn view">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="action-btn edit">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="action-btn delete">
-                          <i class="fas fa-trash"></i>
-                        </button>
                       </td>
                     </tr>
                   </tbody>
@@ -440,156 +389,6 @@
                     election
                   </div>
                   <div class="activity-time">Oct 14, 3:45 PM</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <!-- Live Results -->
-        <div class="col-xl-6 mb-4">
-          <div class="card h-100">
-            <div
-              class="card-header d-flex justify-content-between align-items-center"
-            >
-              <span>Live Results: President Student Council</span>
-              <button class="btn btn-sm btn-outline-secondary">
-                <i class="fas fa-download me-1"></i> Export
-              </button>
-            </div>
-            <div class="card-body">
-              <div class="candidate-progress">
-                <div class="candidate-info">
-                  <strong>Candidate #1</strong>
-                </div>
-                <div class="progress-container">
-                  <div class="progress">
-                    <div
-                      class="progress-bar bg-primary"
-                      role="progressbar"
-                      style="width: 45%"
-                      aria-valuenow="45"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
-                  </div>
-                </div>
-                <div class="voters-count">45%</div>
-              </div>
-
-              <div class="candidate-progress">
-                <div class="candidate-info">
-                  <strong>Candidate #2</strong>
-                </div>
-                <div class="progress-container">
-                  <div class="progress">
-                    <div
-                      class="progress-bar bg-success"
-                      role="progressbar"
-                      style="width: 30%"
-                      aria-valuenow="30"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
-                  </div>
-                </div>
-                <div class="voters-count">30%</div>
-              </div>
-
-              <div class="candidate-progress">
-                <div class="candidate-info">
-                  <strong>Candidate #3</strong>
-                </div>
-                <div class="progress-container">
-                  <div class="progress">
-                    <div
-                      class="progress-bar bg-info"
-                      role="progressbar"
-                      style="width: 25%"
-                      aria-valuenow="25"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
-                  </div>
-                </div>
-                <div class="voters-count">25%</div>
-              </div>
-
-              <div class="mt-4">
-                <small class="text-muted"
-                  >Total votes: 438 • Last updated: Today, 10:32 AM</small
-                >
-              </div>
-
-              <div class="chart-container mt-4">
-                <canvas id="resultsChart"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Voter Statistics -->
-        <div class="col-xl-6 mb-4">
-          <div class="card h-100">
-            <div class="card-header">Voter Statistics</div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-6 mb-4">
-                  <div class="text-center">
-                    <div class="h4 mb-0">562</div>
-                    <div class="small text-muted">Total registered voters</div>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                  <div class="text-center">
-                    <div class="h4 mb-0">413</div>
-                    <div class="small text-muted">Total number of votes</div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="chart-container">
-                <canvas id="voterChart"></canvas>
-              </div>
-
-              <hr class="my-4" />
-
-              <div class="row">
-                <div class="col-6">
-                  <div class="d-flex align-items-center mb-2">
-                    <div class="flex-shrink-0 me-2">
-                      <div
-                        style="
-                          width: 12px;
-                          height: 12px;
-                          background-color: #4e73df;
-                          border-radius: 50%;
-                        "
-                      ></div>
-                    </div>
-                    <div class="small">Has Voted</div>
-                  </div>
-                  <h4 class="mb-0">73.5%</h4>
-                  <div class="small text-muted">413 voters</div>
-                </div>
-                <div class="col-6">
-                  <div class="d-flex align-items-center mb-2">
-                    <div class="flex-shrink-0 me-2">
-                      <div
-                        style="
-                          width: 12px;
-                          height: 12px;
-                          background-color: #e74a3b;
-                          border-radius: 50%;
-                        "
-                      ></div>
-                    </div>
-                    <div class="small">Not Voted</div>
-                  </div>
-                  <h4 class="mb-0">26.5%</h4>
-                  <div class="small text-muted">149 voters</div>
                 </div>
               </div>
             </div>

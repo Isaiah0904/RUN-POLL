@@ -188,9 +188,8 @@ body {
   border-radius: 0 4px 4px 0;
 }
 
-/* Custom styles for the help modal */
 .help-modal .modal-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #3a429b;
   color: white;
   border-bottom: none;
 }
@@ -228,12 +227,6 @@ body {
 }
 .email-icon {
   background: linear-gradient(135deg, #667eea, #764ba2);
-}
-.chat-icon {
-  background: linear-gradient(135deg, #f093fb, #f5576c);
-}
-.office-icon {
-  background: linear-gradient(135deg, #4facfe, #00f2fe);
 }
 
 .faq-item {
@@ -324,11 +317,31 @@ body {
   margin-left: 15px;
   cursor: pointer;
   transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  position: relative;
 }
 
 .action-icon:hover,
 .user-actions a:hover {
   color: var(--primary);
+}
+
+.notification-badge {
+  position: absolute;
+  top: 7px;
+  right: -4px;
+  background-color: var(--primary);
+  color: white;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
 }
 
 .user-avatar {
@@ -488,22 +501,6 @@ body {
 .tooltip-custom {
   position: relative;
   cursor: pointer;
-}
-
-.tooltip-custom:hover::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  left: 0;
-  top: 100%;
-  margin-top: 5px;
-  background-color: var(--text-dark);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 12px;
-  z-index: 100;
-  width: 200px;
-  white-space: normal;
 }
 
 /* Print style button */

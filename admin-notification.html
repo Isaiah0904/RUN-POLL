@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RUN Voting System - Notifications</title>
+    <title>RUN Voting System - Admin Notifications</title>
     <!-- Bootstrap CSS -->
-        <link
+    <link
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
       rel="stylesheet"
     />
@@ -18,7 +18,11 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="notification.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="admin-notification.css" />
   </head>
   <body>
     <!-- Sidebar -->
@@ -40,32 +44,34 @@
             <i class="bi bi-pencil-fill text-white" style="font-size: 12px"></i>
           </div>
         </div>
-        <div class="profile-name" id="userProfileName">Isaiah Durojaiye</div>
-        <div class="profile-role" id="userProfileRole">Student Voter</div>
+        <div class="profile-name" id="userProfileName">Admin User</div>
+        <div class="profile-role" id="userProfileRole">
+          System Administrator
+        </div>
       </div>
 
       <!-- Sidebar Navigation with improved structure -->
       <div class="sidebar-nav">
         <ul class="nav flex-column nav-main">
-          <li class="nav-item">
-            <a href="Voter-dashboard.html" class="nav-link">
-              <i class="bi bi-grid-1x2-fill"></i> Dashboard
+          <li class="nav-item active">
+            <a href="#" class="nav-link">
+              <i class="fas fa-tachometer-alt"></i>
+              <span>Dashboard</span>
             </a>
           </li>
           <li class="nav-item">
-            <a href="election-page.html" class="nav-link">
-              <i class="bi bi-check2-square"></i> Vote
-            </a>
-          </li>
-          <!-- New Navigation Item -->
-          <li class="nav-item">
-            <a href="Voter-guidline.html" class="nav-link">
-              <i class="bi bi-journal-text"></i> Voters Guideline
+            <a href="manage-elections.html" class="nav-link">
+              <i class="bi bi-check2-square"></i> Manage Elections
             </a>
           </li>
           <li class="nav-item">
-            <a href="profile-settings.html" class="nav-link">
-              <i class="bi bi-gear-fill"></i> Profile Settings
+            <a href="candidate-management.html" class="nav-link">
+              <i class="bi bi-people-fill"></i> Candidates
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="voter-management.html" class="nav-link">
+              <i class="bi bi-person-check-fill"></i> Voters
             </a>
           </li>
         </ul>
@@ -91,7 +97,11 @@
 
         <div class="search-bar">
           <div style="position: relative">
-            <input type="text" class="search-input" placeholder="Search..." />
+            <input
+              type="text"
+              class="search-input"
+              placeholder="Search notifications..."
+            />
             <i class="bi bi-search search-icon"></i>
           </div>
         </div>
@@ -105,82 +115,127 @@
 
       <!-- Notifications Content -->
       <div class="page-header">
-        <h1>Notifications</h1>
-        <p>Stay updated with your voting activities</p>
+        <h1>Admin Notification Board</h1>
+        <p>
+          Manage candidacy requests, voting permissions, and election activities
+        </p>
       </div>
 
-
+      <!-- Candidacy Requests - Pending Actions -->
+      <div class="notification ongoing">
+        <div class="notification-header">
+          <div class="status-dot"></div>
+          <div class="notification-title">
+            New Candidacy Request - President Student Council
+          </div>
+          <div class="notification-time">30 minutes ago</div>
+        </div>
+        <div class="notification-message">
+          <strong>John Adebayo (Matric Number: RUN/CMP/22/13000)</strong> has submitted a
+          candidacy request for President Student Council. Documents pending
+          review.
+        </div>
+        <div class="notification-actions">
+          <button class="btn btn-success btn-sm">Approve</button>
+          <button class="btn btn-danger btn-sm">Reject</button>
+        </div>
+      </div>
 
       <div class="notification ongoing">
         <div class="notification-header">
           <div class="status-dot"></div>
           <div class="notification-title">
-            President Student Council Election
+            Voting Access Request - Faculty Representative
+          </div>
+          <div class="notification-time">1 hour ago</div>
+        </div>
+        <div class="notification-message">
+          <strong>Sarah Okonkwo (Matric Number: RUN/CVE/21/1200)</strong> requests voting access
+          for Faculty Representative election. Eligibility verification
+          required.
+        </div>
+        <div class="notification-actions">
+          <button class="btn btn-success btn-sm">Grant Access</button>
+          <button class="btn btn-danger btn-sm">Deny</button>
+        </div>
+      </div>
+
+      <div class="notification ongoing">
+        <div class="notification-header">
+          <div class="status-dot"></div>
+          <div class="notification-title">
+            Multiple Candidacy Requests - Sports Director
           </div>
           <div class="notification-time">2 hours ago</div>
         </div>
         <div class="notification-message">
-          The election is currently ongoing. Cast your vote now to make your
-          voice heard. Voting ends in 2 days.
+          5 new candidacy requests received for Sports Director position. Batch
+          review required before election opens.
         </div>
         <div class="notification-actions">
-          <button class="btn btn-primary">Vote Now</button>
+          <button class="btn btn-primary">Review All (5)</button>
+          <button class="btn btn-outline-secondary btn-sm">View List</button>
         </div>
       </div>
 
-      <div class="notification ongoing">
-        <div class="notification-header">
-          <div class="status-dot"></div>
-          <div class="notification-title">Faculty Representative Election</div>
-          <div class="notification-time">5 hours ago</div>
-        </div>
-        <div class="notification-message">
-          Vote for your Faculty Representative. Deadline: June 5th, 2025.
-        </div>
-        <div class="notification-actions">
-          <button class="btn btn-primary">Cast Vote</button>
-        </div>
-      </div>
-
-
+      <!-- Election Status Updates -->
       <div class="notification upcoming">
-        <div class="notification-header">
-          <div class="status-dot"></div>
-          <div class="notification-title">Sports Director Election</div>
-          <div class="notification-time">1 day ago</div>
-        </div>
-        <div class="notification-message">
-          Election begins June 10th, 2025. Candidate registration open until
-          June 8th.
-        </div>
-      </div>
-
-      <div class="notification upcoming">
-        <div class="notification-header">
-          <div class="status-dot"></div>
-          <div class="notification-title">Senate Elections</div>
-          <div class="notification-time">2 days ago</div>
-        </div>
-        <div class="notification-message">
-          Student Senate elections scheduled for June 15th, 2025. Make sure
-          you're registered.
-        </div>
-      </div>
-
-
-      <div class="notification approval">
         <div class="notification-header">
           <div class="status-dot"></div>
           <div class="notification-title">
-            Approved - President Student Council
+            Election Opening Scheduled - Senate Elections
           </div>
           <div class="notification-time">3 hours ago</div>
         </div>
         <div class="notification-message">
-          Your eligibility has been verified and you are approved to contest as a candidate.
+          Senate Elections scheduled to open June 15th, 2025 at 9:00 AM. 12
+          candidates approved, 156 eligible voters confirmed.
         </div>
         <div class="notification-actions">
-          <button class="btn btn-primary">View Election</button>
+          <button class="btn btn-outline-primary btn-sm">View Details</button>
+          <button class="btn btn-outline-secondary btn-sm">
+            Edit Schedule
+          </button>
+        </div>
+      </div>
+
+      <div class="notification upcoming">
+        <div class="notification-header">
+          <div class="status-dot"></div>
+          <div class="notification-title">
+            Candidate Registration Deadline Approaching
+          </div>
+          <div class="notification-time">4 hours ago</div>
+        </div>
+        <div class="notification-message">
+          Sports Director election candidate registration closes in 24 hours
+          (June 8th, 2025). Currently 3 approved candidates.
+        </div>
+        <div class="notification-actions">
+          <button class="btn btn-outline-warning btn-sm">
+            Extend Deadline
+          </button>
+          <button class="btn btn-outline-primary btn-sm">Send Reminder</button>
+        </div>
+      </div>
+
+      <!-- Approval Notifications -->
+      <div class="notification approval">
+        <div class="notification-header">
+          <div class="status-dot"></div>
+          <div class="notification-title">
+            Candidate Approved - Faculty Representative
+          </div>
+          <div class="notification-time">5 hours ago</div>
+        </div>
+        <div class="notification-message">
+          <strong>Michael Okafor (Matric Number: RUN/IFT/21/1200)</strong> has been approved as
+          candidate for Faculty Representative. Notification sent to candidate.
+        </div>
+        <div class="notification-actions">
+          <button class="btn btn-outline-primary btn-sm">
+            View Candidate Profile
+          </button>
         </div>
       </div>
 
@@ -188,49 +243,83 @@
         <div class="notification-header">
           <div class="status-dot"></div>
           <div class="notification-title">
-            Voting Access Granted - Faculty Rep
+            Bulk Voter Access Granted - President Election
+          </div>
+          <div class="notification-time">6 hours ago</div>
+        </div>
+        <div class="notification-message">
+          Voting access granted to 234 verified students for President Student
+          Council election. Election now ready to commence.
+        </div>
+        <div class="notification-actions">
+          <button class="btn btn-success">Open Election</button>
+          <button class="btn btn-outline-primary btn-sm">
+            View Voter List
+          </button>
+        </div>
+      </div>
+
+      <!-- System Alerts -->
+      <div class="notification profile">
+        <div class="notification-header">
+          <div class="status-dot"></div>
+          <div class="notification-title">
+            System Alert - High Voting Activity
           </div>
           <div class="notification-time">1 day ago</div>
         </div>
         <div class="notification-message">
-          You have been verified and granted access to vote.
+          Unusual voting activity detected in Faculty Representative election.
+          89% voter turnout in first 2 hours. System performance stable.
         </div>
         <div class="notification-actions">
-          <button class="btn btn-primary">Proceed to Vote</button>
+          <button class="btn btn-outline-primary btn-sm">View Analytics</button>
+          <button class="btn btn-outline-warning btn-sm">Monitor System</button>
         </div>
       </div>
-
 
       <div class="notification profile">
         <div class="notification-header">
           <div class="status-dot"></div>
-          <div class="notification-title">Profile Information Updated</div>
-          <div class="notification-time">4 hours ago</div>
+          <div class="notification-title">Document Verification Alert</div>
+          <div class="notification-time">1 day ago</div>
         </div>
         <div class="notification-message">
-          Your profile information has been modified. Contact admin if you
-          didn't make these changes.
+          3 candidacy applications have incomplete documentation. Automatic
+          rejection scheduled in 48 hours if not resolved.
         </div>
         <div class="notification-actions">
-          <button class="btn btn-primary"><a href="profile-settings.html">Review Changes</a></button>
-          <button class="btn btn-secondary "><a style="color: #6c757d;" href="mailto:isaiahdurojaiye9@gmail.com">Report Issue</a></button>
+          <button class="btn btn-warning btn-sm">Review Applications</button>
+          <button class="btn btn-outline-secondary btn-sm">
+            Send Reminders
+          </button>
         </div>
       </div>
 
-
+      <!-- Completed Elections -->
       <div class="notification ended">
         <div class="notification-header">
           <div class="status-dot"></div>
           <div class="notification-title">
-            Social Director Election Concluded
+            Election Concluded - Social Director
           </div>
           <div class="notification-time">2 days ago</div>
         </div>
         <div class="notification-message">
-          The election has ended. Results are now available.
+          Social Director election completed successfully. Winner:
+          <strong>Grace Ikechukwu</strong> with 67% of votes (145/216 votes
+          cast).
         </div>
         <div class="notification-actions">
-          <button style="color: #6c757d;" class="btn btn-secondary">View Results</button>
+          <button class="btn btn-outline-success btn-sm">
+            View Full Results
+          </button>
+          <button class="btn btn-outline-primary btn-sm">
+            Generate Report
+          </button>
+          <button class="btn btn-outline-secondary btn-sm">
+            Archive Election
+          </button>
         </div>
       </div>
 
@@ -238,22 +327,50 @@
         <div class="notification-header">
           <div class="status-dot"></div>
           <div class="notification-title">
-            Class Representative Elections Completed
+            Class Representative Elections - Batch Completed
           </div>
           <div class="notification-time">1 week ago</div>
         </div>
         <div class="notification-message">
-          All positions have been filled. Congratulations to the newly elected
-          representatives.
+          All 8 Class Representative positions filled successfully. Total
+          participation: 892 students across all classes. Reports generated and
+          archived.
         </div>
         <div class="notification-actions">
-          <button style="color: #6c757d;" class="btn btn-secondary">View Summary</button>
+          <button class="btn btn-outline-secondary btn-sm">
+            View Summary Report
+          </button>
+          <button class="btn btn-outline-info btn-sm">Export Data</button>
+        </div>
+      </div>
+
+      <!-- Rejected/Denied Notifications -->
+      <div class="notification" style="border-left: 4px solid #dc3545">
+        <div class="notification-header">
+          <div class="status-dot" style="background-color: #dc3545"></div>
+          <div class="notification-title">
+            Candidacy Request Rejected - Treasury
+          </div>
+          <div class="notification-time">3 days ago</div>
+        </div>
+        <div class="notification-message">
+          <strong>David Akinyemi (Matric Number: RUN/MEE/21/1200)</strong> - Candidacy rejected
+          due to incomplete academic requirements. Notification sent with appeal
+          process information.
+        </div>
+        <div class="notification-actions">
+          <button class="btn btn-outline-danger btn-sm">
+            View Rejection Details
+          </button>
+          <button class="btn btn-outline-secondary btn-sm">
+            Contact Student
+          </button>
         </div>
       </div>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-      
       function toggleSidebar() {
         const sidebar = document.querySelector(".sidebar");
         sidebar.classList.toggle("active");
@@ -428,31 +545,20 @@
         try {
           const user = JSON.parse(localStorage.getItem("currentUser")) || {};
 
-          // Update profile name
-          if (user.firstName && user.lastName) {
-            const profileNameElement =
-              document.getElementById("userProfileName");
-            if (profileNameElement) {
-              profileNameElement.textContent = `${user.firstName} ${user.lastName}`;
-            }
-
-            // Update welcome message
-            const welcomeHeading = document.querySelector("h2");
-            if (
-              welcomeHeading &&
-              welcomeHeading.textContent.includes("Hello")
-            ) {
-              welcomeHeading.textContent = `Hello, ${user.firstName}!`;
-            }
+          // Update profile name for admin
+          const profileNameElement = document.getElementById("userProfileName");
+          if (profileNameElement) {
+            profileNameElement.textContent =
+              user.firstName && user.lastName
+                ? `${user.firstName} ${user.lastName}`
+                : "Admin User";
           }
 
-          // Update profile role if exists
-          if (user.role) {
-            const profileRoleElement =
-              document.getElementById("userProfileRole");
-            if (profileRoleElement) {
-              profileRoleElement.textContent = user.role;
-            }
+          // Update profile role
+          const profileRoleElement = document.getElementById("userProfileRole");
+          if (profileRoleElement) {
+            profileRoleElement.textContent =
+              user.role || "System Administrator";
           }
 
           // Update profile images
@@ -519,7 +625,7 @@
                                     <button id="modalUploadBtn" class="btn btn-success btn-sm rounded-pill px-4" style="display: none;">UPLOAD</button>
                                     <button id="modalRemoveBtn" class="btn btn-danger btn-sm rounded-pill px-4 ms-2" style="display: none;">REMOVE</button>
                                 </div>
-                                <p class="text-muted small">Go to Profile Settings to change your profile picture</p>
+                                <p class="text-muted small">Go to System Settings to change your profile picture</p>
                             </div>
                             <div class="modal-footer">
                                 <button style="background: #6c757d; color: white;" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -570,89 +676,6 @@
             }
           });
 
-          // Handle upload button click in modal
-          document
-            .getElementById("modalUploadBtn")
-            .addEventListener("click", function () {
-              // Create file input element
-              const fileInput = document.createElement("input");
-              fileInput.type = "file";
-              fileInput.accept = "image/*";
-              fileInput.style.display = "none";
-              document.body.appendChild(fileInput);
-
-              // Trigger file selection
-              fileInput.click();
-
-              // Handle file selection
-              fileInput.addEventListener("change", function () {
-                if (this.files && this.files[0]) {
-                  const reader = new FileReader();
-
-                  reader.onload = function (e) {
-                    const imageResult = e.target.result;
-
-                    // Update modal image
-                    updateModalProfileImage(modalProfileContainer, imageResult);
-
-                    // Update profile images on page
-                    updateProfileDisplays(imageResult);
-
-                    // Store image in localStorage
-                    try {
-                      let user =
-                        JSON.parse(localStorage.getItem("currentUser")) || {};
-                      user.profileImage = imageResult;
-                      localStorage.setItem("currentUser", JSON.stringify(user));
-
-                      // Show success message
-                      showAlert(
-                        "Profile picture updated successfully!",
-                        "success"
-                      );
-                    } catch (error) {
-                      console.error("Error saving profile image:", error);
-                      showAlert(
-                        "Error saving profile image. Please try again.",
-                        "danger"
-                      );
-                    }
-                  };
-
-                  reader.readAsDataURL(this.files[0]);
-                }
-
-                // Clean up
-                document.body.removeChild(fileInput);
-              });
-            });
-
-          // Handle remove button click in modal
-          document
-            .getElementById("modalRemoveBtn")
-            .addEventListener("click", function () {
-              // Update both modal and page with default icons
-              updateModalProfileImage(modalProfileContainer, null);
-              updateProfileDisplays(null);
-
-              // Remove image from storage
-              try {
-                let user =
-                  JSON.parse(localStorage.getItem("currentUser")) || {};
-                delete user.profileImage;
-                localStorage.setItem("currentUser", JSON.stringify(user));
-
-                // Show success message
-                showAlert("Profile picture removed successfully!", "success");
-              } catch (error) {
-                console.error("Error removing profile image:", error);
-                showAlert(
-                  "Error removing profile image. Please try again.",
-                  "danger"
-                );
-              }
-            });
-
           // Return modal element for further manipulation
           return modalElement;
         }
@@ -697,24 +720,41 @@
         buttons.forEach((button) => {
           button.addEventListener("click", function () {
             const originalText = this.textContent;
-            this.textContent = "Loading...";
+            this.textContent = "Processing...";
             this.disabled = true;
 
+            // Simulate admin action processing time
             setTimeout(() => {
               this.textContent = originalText;
               this.disabled = false;
-            }, 800);
+
+              // Show success message for admin actions
+              if (
+                originalText.includes("Approve") ||
+                originalText.includes("Grant")
+              ) {
+                showAlert("Action completed successfully!", "success");
+              } else if (
+                originalText.includes("Reject") ||
+                originalText.includes("Deny")
+              ) {
+                showAlert("Request rejected.", "warning");
+              } else {
+                showAlert("Action processed.", "info");
+              }
+            }, 1200);
           });
         });
       });
+
       document
-          .getElementById("toggleSidebar")
-          .addEventListener("click", function () {
-            document.getElementById("sidebar").classList.toggle("active");
-          });
-        document.getElementById("close").addEventListener("click", function () {
-          document.getElementById("sidebar").classList.remove("active");
+        .getElementById("toggleSidebar")
+        .addEventListener("click", function () {
+          document.getElementById("sidebar").classList.toggle("active");
         });
+      document.getElementById("close").addEventListener("click", function () {
+        document.getElementById("sidebar").classList.remove("active");
+      });
     </script>
   </body>
 </html>

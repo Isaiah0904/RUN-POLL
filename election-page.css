@@ -404,7 +404,7 @@ body {
   position: absolute;
   top: 7px;
   right: -4px;
-  background-color: #dc3545;
+  background-color: var(--primary);
   color: white;
   border-radius: 50%;
   width: 16px;
@@ -425,7 +425,6 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  position: relative;
   background-color: #f0f0f0;
 }
 
