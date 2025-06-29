@@ -98,7 +98,7 @@ body {
 
 .brand-logo {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .welcome-text {
@@ -107,7 +107,7 @@ body {
 }
 
 .welcome-text h2 {
-  color: rgb(5, 3, 73);
+  color: rgb(18, 16, 71);
   font-weight: 600;
   margin-bottom: 10px;
 }
@@ -519,7 +519,7 @@ body {
 
   .description {
     margin: 20px 0 7px 0;
-    color: rgb(5, 3, 73);
+    color: rgb(18, 16, 71);
     font-weight: 600;
     font-size: 25px;
   }
