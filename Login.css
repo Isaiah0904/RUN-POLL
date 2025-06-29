@@ -107,7 +107,7 @@ body {
 }
 
 .welcome-text h2 {
-  color: rgb(18, 16, 71);
+  color: #130c5e;
   font-weight: 600;
   margin-bottom: 10px;
 }
@@ -519,7 +519,7 @@ body {
 
   .description {
     margin: 20px 0 7px 0;
-    color: rgb(18, 16, 71);
+    color: #130c5e;;
     font-weight: 600;
     font-size: 25px;
   }
