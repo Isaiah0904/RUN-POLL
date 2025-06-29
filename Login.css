@@ -18,7 +18,7 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -107,7 +107,7 @@ body {
 }
 
 .welcome-text h2 {
-  color: var(--dark-text);
+  color: rgb(5, 3, 73);
   font-weight: 600;
   margin-bottom: 10px;
 }
@@ -207,7 +207,7 @@ body {
 }
 
 .divider::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 0;
@@ -218,7 +218,7 @@ body {
 }
 
 .divider::after {
-  content: 'or';
+  content: "or";
   background: white;
   padding: 0 20px;
   position: relative;
@@ -357,8 +357,13 @@ body {
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
 }
 
 .voting-icons {
@@ -382,9 +387,15 @@ body {
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .voting-quote {
@@ -421,11 +432,21 @@ body {
   animation: fadeInUp 0.6s ease-out forwards;
 }
 
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-400 { animation-delay: 0.4s; }
-.delay-500 { animation-delay: 0.5s; }
+.delay-100 {
+  animation-delay: 0.1s;
+}
+.delay-200 {
+  animation-delay: 0.2s;
+}
+.delay-300 {
+  animation-delay: 0.3s;
+}
+.delay-400 {
+  animation-delay: 0.4s;
+}
+.delay-500 {
+  animation-delay: 0.5s;
+}
 
 /* Mode-specific styles */
 .admin-form-content {
@@ -460,39 +481,66 @@ body {
   padding: 4px;
 }
 
+.description,
+.campus {
+  display: none;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .container {
     margin: 10px;
   }
-  
+
   .login-container {
     border-radius: 15px;
     min-height: auto;
     flex-direction: column-reverse;
   }
-  
+
   .login-form-wrapper {
     padding: 30px 20px;
   }
-  
+
   .login-image {
     min-height: 300px;
     padding: 30px 20px;
+    display: none;
   }
-  
+
+  .brand-logo img {
+    width: 200px;
+  }
+
+  .description,
+  .campus {
+    display: block;
+  }
+
+  .description {
+    margin: 20px 0 7px 0;
+    color: rgb(5, 3, 73);
+    font-weight: 600;
+    font-size: 25px;
+  }
+
+  .campus {
+    color: gray;
+    font-weight: 500;
+  }
+
   .login-mode-toggle {
     margin-bottom: 20px;
   }
-  
+
   .toggle-wrapper {
     width: 200px;
   }
-  
+
   .voting-quote h3 {
     font-size: 22px;
   }
-  
+
   .voting-quote p {
     font-size: 14px;
   }
