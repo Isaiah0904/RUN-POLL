@@ -107,7 +107,7 @@ body {
 }
 
 .welcome-text h2 {
-  color: #130c5e;
+  color: #2A3074;
   font-weight: 600;
   margin-bottom: 10px;
 }
@@ -182,7 +182,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   transition: all 0.3s ease;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .btn-login:hover {
@@ -201,7 +201,7 @@ body {
 
 .divider {
   text-align: center;
-  margin: 20px 0;
+  margin: 0 0 15px 0;
   position: relative;
   color: #6c757d;
 }
@@ -519,7 +519,7 @@ body {
 
   .description {
     margin: 20px 0 7px 0;
-    color: #130c5e;;
+    color: #2A3074;
     font-weight: 600;
     font-size: 25px;
   }

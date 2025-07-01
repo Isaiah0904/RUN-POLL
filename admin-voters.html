@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RUNPOLLS | Voters Management</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="admin-dashboard.css" />
+    <style>
+      /* Additional styles specific to voters page */
+      .voter-status {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 5px;
+      }
+      .status-active {
+        background-color: #28a745;
+      }
+      .status-pending {
+        background-color: #ffc107;
+      }
+      .status-inactive {
+        background-color: #dc3545;
+      }
+      .access-toggle {
+        cursor: pointer;
+      }
+      .filter-container {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+      .election-select {
+        max-width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="logo-container">
+        <img class="logo" src="images/Logo.png">
+        <i class="bi bi-x-lg" id="close"></i>
+      </div>
+
+      <div class="profile-container">
+        <div class="profile-image-container" id="sidebarProfileContainer">
+          <img
+            src="/api/placeholder/70/70"
+            class="profile-image"
+            id="userProfileImage"
+          />
+          <div class="edit-icon">
+            <i class="bi bi-pencil-fill text-white" style="font-size: 12px"></i>
+          </div>
+        </div>
+        <div class="profile-name" id="userProfileName">Isaiah Durojaiye</div>
+        <div class="profile-role" id="userProfileRole">
+          System Administrator
+        </div>
+      </div>
+
+      <ul class="sidebar-nav list-unstyled">
+        <li class="nav-item">
+          <a href="admin-dashboard.html" class="nav-link">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="admin-elections.html" class="nav-link">
+            <i class="fas fa-vote-yea"></i>
+            <span>Elections</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a href="admin-voters.html" class="nav-link">
+            <i class="fas fa-users"></i>
+            <span>Voters</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="admin-candidates.html" class="nav-link">
+            <i class="fas fa-user-tie"></i>
+            <span>Candidates</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="admin-results.html" class="nav-link">
+            <i class="fas fa-chart-bar"></i>
+            <span>Results</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="Login.html" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Log out</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="top-navbar">
+        <button class="toggle-sidebar" id="toggleSidebar">
+          <i class="bi bi-list"></i>
+        </button>
+
+        <div class="search-bar position-relative">
+          <i class="bi bi-search search-icon"></i>
+          <input
+            type="text"
+            class="form-control search-input"
+            placeholder="Search..."
+          />
+        </div>
+
+        <div class="user-actions">
+          <div class="action-icon">
+            <a href="admin-notification.html"><i class="bi bi-bell"></i></a>
+          </div>
+          <div class="navbar-user-container" id="navbarUserContainer">
+            <img
+              src="/api/placeholder/40/40"
+              class="user-avatar"
+              id="navbarUserImage"
+            />
+            <div class="status-indicator"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="dashboard-header">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <h3>Voters Management</h3>
+            <p class="text-muted">Manage registered voters and their election access</p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <button class="btn btn-primary me-2">
+              <i class="fas fa-file-export me-1"></i> Export
+            </button>
+            <button class="btn btn-success">
+              <i class="fas fa-user-plus me-1"></i> Add Voter
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="filter-container">
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Filter by Election</label>
+            <select class="form-select election-select">
+              <option value="">All Elections</option>
+              <option value="1">President Student Council</option>
+              <option value="2">Vice President Student Council</option>
+              <option value="3">Secretary Student Council</option>
+              <option value="4">Treasurer Student Council</option>
+            </select>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Filter by Status</label>
+            <select class="form-select">
+              <option value="">All Statuses</option>
+              <option value="active">Active</option>
+              <option value="pending">Pending Verification</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Filter by Department</label>
+            <select class="form-select">
+              <option value="">All Departments</option>
+              <option value="cs">Computer Science</option>
+              <option value="eng">Engineering</option>
+              <option value="bus">Business</option>
+              <option value="art">Arts</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 text-end">
+            <button class="btn btn-outline-secondary me-2">
+              <i class="fas fa-filter"></i> Apply Filters
+            </button>
+            <button class="btn btn-outline-danger">
+              <i class="fas fa-times"></i> Clear Filters
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Voters Table -->
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span>Registered Voters</span>
+          <div>
+            <span class="me-3">Total: 562 voters</span>
+            <div class="btn-group">
+              <button class="btn btn-sm btn-outline-secondary">
+                <i class="fas fa-th-list"></i>
+              </button>
+              <button class="btn btn-sm btn-outline-secondary">
+                <i class="fas fa-th-large"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table custom-table">
+              <thead>
+                <tr>
+                  <th>Voter ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Department</th>
+                  <th>Status</th>
+                  <th>Election Access</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>V1001</td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="voter-avatar me-2 bg-primary text-white">
+                        EW
+                      </div>
+                      <span>Emma Wilson</span>
+                    </div>
+                  </td>
+                  <td>emma.w@student.run.edu</td>
+                  <td>Computer Science</td>
+                  <td>
+                    <span class="voter-status status-active"></span>
+                    <span>Active</span>
+                  </td>
+                  <td>
+                    <div class="form-check form-switch access-toggle">
+                      <input class="form-check-input" type="checkbox" id="access1" checked>
+                      <label class="form-check-label" for="access1">President SC</label>
+                    </div>
+                    <div class="form-check form-switch access-toggle">
+                      <input class="form-check-input" type="checkbox" id="access2">
+                      <label class="form-check-label" for="access2">Vice President SC</label>
+                    </div>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-primary me-1" title="Edit">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" title="Delete">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>V1002</td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="voter-avatar me-2 bg-success text-white">
+                        JW
+                      </div>
+                      <span>James Wilson</span>
+                    </div>
+                  </td>
+                  <td>james.w@student.run.edu</td>
+                  <td>Engineering</td>
+                  <td>
+                    <span class="voter-status status-active"></span>
+                    <span>Active</span>
+                  </td>
+                  <td>
+                    <div class="form-check form-switch access-toggle">
+                      <input class="form-check-input" type="checkbox" id="access3" checked>
+                      <label class="form-check-label" for="access3">President SC</label>
+                    </div>
+                    <div class="form-check form-switch access-toggle">
+                      <input class="form-check-input" type="checkbox" id="access4" checked>
+                      <label class="form-check-label" for="access4">Vice President SC</label>
+                    </div>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-primary me-1" title="Edit">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" title="Delete">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>V1003</td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="voter-avatar me-2 bg-warning text-white">
+                        SA
+                      </div>
+                      <span>Sarah Ahmed</span>
+                    </div>
+                  </td>
+                  <td>sarah.a@student.run.edu</td>
+                  <td>Business</td>
+                  <td>
+                    <span class="voter-status status-pending"></span>
+                    <span>Pending</span>
+                  </td>
+                  <td>
+                    <div class="form-check form-switch access-toggle">
+                      <input class="form-check-input" type="checkbox" id="access5" disabled>
+                      <label class="form-check-label" for="access5">President SC</label>
+                    </div>
+                    <div class="form-check form-switch access-toggle">
+                      <input class="form-check-input" type="checkbox" id="access6" disabled>
+                      <label class="form-check-label" for="access6">Vice President SC</label>
+                    </div>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-primary me-1" title="Edit">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" title="Delete">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>V1004</td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="voter-avatar me-2 bg-danger text-white">
+                        DK
+                      </div>
+                      <span>David Kim</span>
+                    </div>
+                  </td>
+                  <td>david.k@student.run.edu</td>
+                  <td>Arts</td>
+                  <td>
+                    <span class="voter-status status-inactive"></span>
+                    <span>Inactive</span>
+                  </td>
+                  <td>
+                    <div class="form-check form-switch access-toggle">
+                      <input class="form-check-input" type="checkbox" id="access7">
+                      <label class="form-check-label" for="access7">President SC</label>
+                    </div>
+                    <div class="form-check form-switch access-toggle">
+                      <input class="form-check-input" type="checkbox" id="access8">
+                      <label class="form-check-label" for="access8">Vice President SC</label>
+                    </div>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-primary me-1" title="Edit">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" title="Delete">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>V1005</td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="voter-avatar me-2 bg-info text-white">
+                        LC
+                      </div>
+                      <span>Lisa Chen</span>
+                    </div>
+                  </td>
+                  <td>lisa.c@student.run.edu</td>
+                  <td>Computer Science</td>
+                  <td>
+                    <span class="voter-status status-active"></span>
+                    <span>Active</span>
+                  </td>
+                  <td>
+                    <div class="form-check form-switch access-toggle">
+                      <input class="form-check-input" type="checkbox" id="access9" checked>
+                      <label class="form-check-label" for="access9">President SC</label>
+                    </div>
+                    <div class="form-check form-switch access-toggle">
+                      <input class="form-check-input" type="checkbox" id="access10">
+                      <label class="form-check-label" for="access10">Vice President SC</label>
+                    </div>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-primary me-1" title="Edit">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" title="Delete">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <!-- Pagination -->
+          <nav aria-label="Voter pagination">
+            <ul class="pagination justify-content-center">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+              </li>
+              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Bulk Actions Card -->
+      <div class="card mt-4">
+        <div class="card-header">
+          Bulk Actions
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Select Election</label>
+              <select class="form-select">
+                <option selected disabled>Choose election...</option>
+                <option>President Student Council</option>
+                <option>Vice President Student Council</option>
+                <option>Secretary Student Council</option>
+              </select>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Action</label>
+              <select class="form-select">
+                <option selected disabled>Choose action...</option>
+                <option>Grant Access</option>
+                <option>Revoke Access</option>
+                <option>Activate Accounts</option>
+                <option>Deactivate Accounts</option>
+              </select>
+            </div>
+            <div class="col-md-4 mb-3 d-flex align-items-end">
+              <button class="btn btn-primary w-100">
+                <i class="fas fa-play me-2"></i>Execute Action
+              </button>
+            </div>
+          </div>
+          <div class="alert alert-info mt-3">
+            <i class="fas fa-info-circle me-2"></i>
+            Select voters from the table above to perform bulk actions. If no voters are selected, the action will apply to all filtered voters.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <div class="action-circle" data-bs-toggle="tooltip" data-bs-placement="left" title="Add New Voter">
+        <i class="fas fa-user-plus"></i>
+      </div>
+      <div class="action-circle" data-bs-toggle="tooltip" data-bs-placement="left" title="Import Voters">
+        <i class="fas fa-file-import"></i>
+      </div>
+    </div>
+
+    <!-- Add Voter Modal -->
+    <div class="modal fade" id="addVoterModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add New Voter</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Form would go here -->
+            <p>Voter registration form would appear here...</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary">Save Voter</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Initialize tooltips
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+      });
+      
+      // Toggle sidebar functionality
+      document.getElementById('toggleSidebar').addEventListener('click', function() {
+        document.getElementById('sidebar').classList.toggle('active');
+      });
+      
+      document.getElementById('close').addEventListener('click', function() {
+        document.getElementById('sidebar').classList.remove('active');
+      });
+      
+      // Access toggle functionality
+      document.querySelectorAll('.access-toggle input').forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+          const label = this.nextElementSibling;
+          if(this.checked) {
+            label.classList.add('text-success');
+            label.classList.remove('text-muted');
+          } else {
+            label.classList.add('text-muted');
+            label.classList.remove('text-success');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

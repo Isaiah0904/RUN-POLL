@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RUNPOLLS | Elections Management</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="admin-election.css" />
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="logo-container">
+        <img class="logo" src="images/Logo.png" />
+        <i class="bi bi-x-lg" id="closeSidebar"></i>
+      </div>
+
+      <div class="profile-container">
+        <div class="profile-image-container">
+          <div class="profile-image default-avatar">
+            <i class="fas fa-user fa-2x"></i>
+          </div>
+          <div class="edit-icon">
+            <i class="bi bi-pencil-fill text-white" style="font-size: 12px"></i>
+          </div>
+        </div>
+        <div class="profile-name">Isaiah Durojaiye</div>
+        <div class="profile-role">System Administrator</div>
+      </div>
+
+      <ul class="sidebar-nav list-unstyled">
+        <li class="nav-item">
+          <a href="admin-dashboard.html" class="nav-link">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a href="#" class="nav-link">
+            <i class="fas fa-vote-yea"></i>
+            <span>Elections</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-users"></i>
+            <span>Voters</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-user-tie"></i>
+            <span>Candidates</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-chart-bar"></i>
+            <span>Results</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Log out</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="top-navbar">
+        <button class="toggle-sidebar" id="toggleSidebar">
+          <i class="bi bi-list"></i>
+        </button>
+
+        <div class="search-bar position-relative">
+          <i class="bi bi-search search-icon"></i>
+          <input
+            type="text"
+            class="form-control search-input"
+            placeholder="Search..."
+          />
+        </div>
+
+        <div class="user-actions">
+          <a href="#" class="action-icon">
+            <i class="bi bi-bell"></i>
+          </a>
+          <div class="navbar-user-container">
+            <div class="user-avatar default-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="status-indicator"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-header">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <h3>Elections Management</h3>
+            <p class="text-muted">Create and manage all elections</p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <button
+              class="btn btn-create"
+              data-bs-toggle="modal"
+              data-bs-target="#createElectionModal"
+            >
+              <i class="fas fa-plus me-2"></i>Create Election
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter Container -->
+      <div class="filter-container">
+        <div class="row">
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Status</label>
+            <select class="form-select" id="statusFilter">
+              <option value="">All Statuses</option>
+              <option value="active">Active</option>
+              <option value="upcoming">Upcoming</option>
+              <option value="completed">Completed</option>
+              <option value="draft">Draft</option>
+            </select>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Date From</label>
+            <input type="date" class="form-control" id="dateFrom" />
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Date To</label>
+            <input type="date" class="form-control" id="dateTo" />
+          </div>
+          <div class="col-md-3 mb-3 d-flex align-items-end">
+            <button
+              class="btn btn-outline-secondary me-2"
+              onclick="applyFilters()"
+            >
+              <i class="fas fa-filter"></i> Filter
+            </button>
+            <button class="btn btn-outline-danger" onclick="clearFilters()">
+              <i class="fas fa-times"></i> Clear
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Elections Table -->
+      <div class="card">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <span>All Elections</span>
+          <span id="electionsCount"
+            >Showing <span id="electionsTotal">0</span> elections</span
+          >
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Election Name</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Status</th>
+                  <th>Results Visibility</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="electionsTableBody">
+                <!-- Elections will be populated here -->
+              </tbody>
+            </table>
+          </div>
+
+          <div id="emptyState" class="empty-state" style="display: none">
+            <i class="fas fa-vote-yea"></i>
+            <h5>No elections found</h5>
+            <p>Create your first election to get started</p>
+            <button
+              class="btn btn-create"
+              data-bs-toggle="modal"
+              data-bs-target="#createElectionModal"
+            >
+              <i class="fas fa-plus me-2"></i>Create Election
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Create/Edit Election Modal -->
+    <div
+      class="modal fade"
+      id="createElectionModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">Create New Election</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="createElectionForm">
+              <div class="mb-3">
+                <label class="form-label"
+                  >Election Name <span class="text-danger">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="electionName"
+                  required
+                  placeholder="e.g. Student Council President 2024"
+                />
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label"
+                    >Start Date & Time <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="datetime-local"
+                    class="form-control"
+                    id="startDate"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label"
+                    >End Date & Time <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="datetime-local"
+                    class="form-control"
+                    id="endDate"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Results Visibility</label>
+                <select class="form-select" id="resultsVisibility">
+                  <option value="private">
+                    Private (visible only to administrators)
+                  </option>
+                  <option value="public">
+                    Public (visible to all after voting ends)
+                  </option>
+                  <option value="immediate">
+                    Immediate (visible during voting)
+                  </option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea
+                  class="form-control"
+                  id="description"
+                  rows="3"
+                  placeholder="Brief description of the election (optional)"
+                ></textarea>
+              </div>
+
+              <div class="mb-3 form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="publishImmediately"
+                />
+                <label class="form-check-label" for="publishImmediately"
+                  >Publish election immediately</label
+                >
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="saveElectionBtn"
+              onclick="saveElection()"
+            >
+              Create Election
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div
+      class="modal fade"
+      id="deleteElectionModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Confirm Delete</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="text-center">
+              <i
+                class="fas fa-exclamation-triangle text-warning mb-3"
+                style="font-size: 48px"
+              ></i>
+              <h5>Are you sure?</h5>
+              <p class="text-muted">
+                You are about to delete "<span
+                  id="deleteElectionName"
+                  class="fw-bold"
+                ></span
+                >". This action cannot be undone.
+              </p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              id="confirmDeleteBtn"
+              onclick="confirmDelete()"
+            >
+              <i class="fas fa-trash me-2"></i>Delete Election
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Sample elections data
+      let elections = [
+        {
+          id: 1,
+          name: "Student Council President 2024",
+          startDate: "2024-03-15T09:00",
+          endDate: "2024-03-20T17:00",
+          status: "active",
+          resultsVisibility: "private",
+          description: "Annual student council presidential election",
+        },
+        {
+          id: 2,
+          name: "Department Representative Election",
+          startDate: "2024-04-01T08:00",
+          endDate: "2024-04-05T18:00",
+          status: "upcoming",
+          resultsVisibility: "public",
+          description: "Computer Science department representative election",
+        },
+      ];
+
+      let currentEditingId = null;
+      let electionToDelete = null;
+
+      // Custom notification system
+      function showNotification(message, type = "info", duration = 4000) {
+        // Create notification container if it doesn't exist
+        let container = document.getElementById("notification-container");
+        if (!container) {
+          container = document.createElement("div");
+          container.id = "notification-container";
+          container.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      max-width: 400px;
+    `;
+          document.body.appendChild(container);
+        }
+
+        // Create notification element
+        const notification = document.createElement("div");
+        notification.className = `notification notification-${type}`;
+
+        // Set notification styles
+        notification.style.cssText = `
+    background: ${
+      type === "success"
+        ? "#d4edda"
+        : type === "error"
+        ? "#f8d7da"
+        : type === "warning"
+        ? "#fff3cd"
+        : "#d1ecf1"
+    };
+    color: ${
+      type === "success"
+        ? "#155724"
+        : type === "error"
+        ? "#721c24"
+        : type === "warning"
+        ? "#856404"
+        : "#0c5460"
+    };
+    border: 1px solid ${
+      type === "success"
+        ? "#c3e6cb"
+        : type === "error"
+        ? "#f5c6cb"
+        : type === "warning"
+        ? "#ffeaa7"
+        : "#b8daff"
+    };
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.3s ease;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.4;
+  `;
+
+        // Add icon based on type
+        const iconMap = {
+          success: '<i class="fas fa-check-circle"></i>',
+          error: '<i class="fas fa-exclamation-circle"></i>',
+          warning: '<i class="fas fa-exclamation-triangle"></i>',
+          info: '<i class="fas fa-info-circle"></i>',
+        };
+
+        notification.innerHTML = `
+    <div style="display: flex; align-items: center; gap: 10px;">
+      ${iconMap[type]}
+      <span>${message}</span>
+    </div>
+    <button onclick="this.parentElement.remove()" style="
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: inherit;
+      opacity: 0.7;
+      margin-left: 10px;
+    ">×</button>
+  `;
+
+        // Add to container
+        container.appendChild(notification);
+
+        // Animate in
+        setTimeout(() => {
+          notification.style.opacity = "1";
+          notification.style.transform = "translateX(0)";
+        }, 100);
+
+        // Auto remove after duration
+        setTimeout(() => {
+          notification.style.opacity = "0";
+          notification.style.transform = "translateX(100%)";
+          setTimeout(() => {
+            if (notification.parentElement) {
+              notification.remove();
+            }
+          }, 300);
+        }, duration);
+      }
+
+      // Sidebar toggle functionality
+      document
+        .getElementById("toggleSidebar")
+        .addEventListener("click", function () {
+          document.getElementById("sidebar").classList.toggle("active");
+        });
+
+      document
+        .getElementById("closeSidebar")
+        .addEventListener("click", function () {
+          document.getElementById("sidebar").classList.remove("active");
+        });
+
+      // Function to format date
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        return (
+          date.toLocaleDateString() +
+          " " +
+          date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+        );
+      }
+
+      // Function to get status badge HTML
+      function getStatusBadge(status) {
+        const statusMap = {
+          active:
+            '<span class="status-badge status-active"><i class="fas fa-circle"></i> Active</span>',
+          upcoming:
+            '<span class="status-badge status-upcoming"><i class="fas fa-clock"></i> Upcoming</span>',
+          completed:
+            '<span class="status-badge status-completed"><i class="fas fa-check-circle"></i> Completed</span>',
+          draft:
+            '<span class="status-badge status-draft"><i class="fas fa-edit"></i> Draft</span>',
+        };
+        return statusMap[status] || status;
+      }
+
+      // Function to render elections table
+      function renderElections(electionsToRender = elections) {
+        const tbody = document.getElementById("electionsTableBody");
+        const emptyState = document.getElementById("emptyState");
+
+        if (electionsToRender.length === 0) {
+          tbody.innerHTML = "";
+          emptyState.style.display = "block";
+          document.getElementById("electionsTotal").textContent = "0";
+          return;
+        }
+
+        emptyState.style.display = "none";
+
+        tbody.innerHTML = electionsToRender
+          .map(
+            (election) => `
+          <tr>
+              <td>
+                  <strong class="election-name">${election.name}</strong>
+                  ${
+                    election.description
+                      ? `<div class="text-muted small">${election.description}</div>`
+                      : ""
+                  }
+              </td>
+              <td>${formatDate(election.startDate)}</td>
+              <td>${formatDate(election.endDate)}</td>
+              <td>${getStatusBadge(election.status)}</td>
+              <td>
+                  <span class="text-capitalize">${
+                    election.resultsVisibility
+                  }</span>
+              </td>
+              <td>
+                  <div class="election-actions">
+                      <button class="btn btn-outline-primary btn-sm" onclick="editElection(${
+                        election.id
+                      })">
+                          <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-outline-danger btn-sm" onclick="deleteElection(${
+                        election.id
+                      })">
+                          <i class="fas fa-trash"></i>
+                      </button>
+                  </div>
+              </td>
+          </tr>
+      `
+          )
+          .join("");
+
+        document.getElementById("electionsTotal").textContent =
+          electionsToRender.length;
+      }
+
+      // Function to open create modal
+      function openCreateModal() {
+        currentEditingId = null;
+        document.getElementById("modalTitle").textContent =
+          "Create New Election";
+        document.getElementById("saveElectionBtn").textContent =
+          "Create Election";
+        document.getElementById("createElectionForm").reset();
+      }
+
+      // Function to save election (create or update)
+      function saveElection() {
+        const name = document.getElementById("electionName").value;
+        const startDate = document.getElementById("startDate").value;
+        const endDate = document.getElementById("endDate").value;
+        const resultsVisibility =
+          document.getElementById("resultsVisibility").value;
+        const description = document.getElementById("description").value;
+        const publishImmediately =
+          document.getElementById("publishImmediately").checked;
+
+        // Basic validation
+        if (!name || !startDate || !endDate) {
+          showNotification("Please fill in all required fields", "error");
+          return;
+        }
+
+        if (new Date(startDate) >= new Date(endDate)) {
+          showNotification("End date must be after start date", "error");
+          return;
+        }
+
+        // Determine status
+        const now = new Date();
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        let status = "draft";
+
+        if (publishImmediately) {
+          if (now >= start && now <= end) {
+            status = "active";
+          } else if (now < start) {
+            status = "upcoming";
+          } else {
+            status = "completed";
+          }
+        }
+
+        if (currentEditingId) {
+          // Update existing election
+          const index = elections.findIndex((e) => e.id === currentEditingId);
+          if (index !== -1) {
+            elections[index] = {
+              ...elections[index],
+              name,
+              startDate,
+              endDate,
+              status,
+              resultsVisibility,
+              description,
+            };
+            showNotification("Election updated successfully!", "success");
+          }
+        } else {
+          // Create new election
+          const newElection = {
+            id: Date.now(),
+            name,
+            startDate,
+            endDate,
+            status,
+            resultsVisibility,
+            description,
+          };
+          elections.unshift(newElection);
+          showNotification("Election created successfully!", "success");
+        }
+
+        renderElections();
+
+        // Close modal and reset form
+        const modal = bootstrap.Modal.getInstance(
+          document.getElementById("createElectionModal")
+        );
+        modal.hide();
+        document.getElementById("createElectionForm").reset();
+        currentEditingId = null;
+      }
+
+      // Function to edit election
+      function editElection(id) {
+        const election = elections.find((e) => e.id === id);
+        if (election) {
+          currentEditingId = id;
+          document.getElementById("modalTitle").textContent = "Edit Election";
+          document.getElementById("saveElectionBtn").textContent =
+            "Update Election";
+
+          // Populate form with election data
+          document.getElementById("electionName").value = election.name;
+          document.getElementById("startDate").value = election.startDate;
+          document.getElementById("endDate").value = election.endDate;
+          document.getElementById("resultsVisibility").value =
+            election.resultsVisibility;
+          document.getElementById("description").value =
+            election.description || "";
+          document.getElementById("publishImmediately").checked =
+            election.status !== "draft";
+
+          // Show modal
+          const modal = new bootstrap.Modal(
+            document.getElementById("createElectionModal")
+          );
+          modal.show();
+        }
+      }
+
+      // Function to delete election
+      function deleteElection(id) {
+        const election = elections.find((e) => e.id === id);
+        if (election) {
+          electionToDelete = id;
+          document.getElementById("deleteElectionName").textContent =
+            election.name;
+          const modal = new bootstrap.Modal(
+            document.getElementById("deleteElectionModal")
+          );
+          modal.show();
+        }
+      }
+
+      // Function to confirm delete
+      function confirmDelete() {
+        if (electionToDelete) {
+          elections = elections.filter((e) => e.id !== electionToDelete);
+          renderElections();
+
+          const modal = bootstrap.Modal.getInstance(
+            document.getElementById("deleteElectionModal")
+          );
+          modal.hide();
+
+          showNotification("Election deleted successfully", "success");
+          electionToDelete = null;
+        }
+      }
+
+      // Filter functions
+      function applyFilters() {
+        const statusFilter = document.getElementById("statusFilter").value;
+        const dateFrom = document.getElementById("dateFrom").value;
+        const dateTo = document.getElementById("dateTo").value;
+
+        let filtered = elections;
+
+        if (statusFilter) {
+          filtered = filtered.filter((e) => e.status === statusFilter);
+        }
+
+        if (dateFrom) {
+          filtered = filtered.filter(
+            (e) => new Date(e.startDate) >= new Date(dateFrom)
+          );
+        }
+
+        if (dateTo) {
+          filtered = filtered.filter(
+            (e) => new Date(e.endDate) <= new Date(dateTo + "T23:59:59")
+          );
+        }
+
+        renderElections(filtered);
+      }
+
+      function clearFilters() {
+        document.getElementById("statusFilter").value = "";
+        document.getElementById("dateFrom").value = "";
+        document.getElementById("dateTo").value = "";
+        renderElections();
+      }
+
+      // Initialize the page
+      document.addEventListener("DOMContentLoaded", function () {
+        renderElections();
+
+        // Set minimum date for datetime inputs
+        const now = new Date();
+        const minDateTime = now.toISOString().slice(0, 16);
+        document.getElementById("startDate").min = minDateTime;
+        document.getElementById("endDate").min = minDateTime;
+
+        // Update end date minimum when start date changes
+        document
+          .getElementById("startDate")
+          .addEventListener("change", function () {
+            document.getElementById("endDate").min = this.value;
+          });
+
+        // Reset modal when opening for create
+        document
+          .getElementById("createElectionModal")
+          .addEventListener("show.bs.modal", function (event) {
+            if (!currentEditingId) {
+              openCreateModal();
+            }
+          });
+      });
+    </script>
+  </body>
+</html>

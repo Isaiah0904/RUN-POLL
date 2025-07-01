@@ -1,0 +1,454 @@
+:root {
+  --primary: #28369e;
+  --primary-dark: #3a429b;
+  --secondary: #f5f7ff;
+  --light-gray: #f8f9fa;
+  --text-dark: #2a3074;
+  --text-gray: #6c757d;
+  --success: #28a745;
+  --pending: #ffc107;
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7ff;
+}
+
+.main-content {
+  margin-left: 240px;
+  padding: 20px;
+  transition: margin-left 0.3s;
+}
+
+@media (max-width: 992px) {
+  .main-content {
+    margin-left: 0;
+  }
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100%;
+  background-color: white;
+  box-shadow: var(--shadow);
+  z-index: 1000;
+  transition: transform 0.3s;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.bi-x-lg {
+  display: none;
+  color: rgb(42, 48, 116);
+  margin-left: 15px;
+  font-size: 22px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.sidebar-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.election-name {
+  color: #2a3074;
+}
+
+@media (max-width: 992px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: 1s;
+  }
+  .sidebar-nav {
+    overflow-y: auto;
+    height: 100%;
+  }
+  .sidebar.active {
+    transform: translateX(0);
+  }
+  .bi-x-lg {
+    display: block;
+  }
+}
+
+.logo-container {
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.logo {
+  background-color: var(--primary);
+  color: white;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 5px;
+}
+
+.profile-container {
+  padding: 15px;
+  text-align: center;
+  border-radius: 12px;
+  background-color: var(--light-gray);
+  margin: 0 15px 25px;
+}
+
+.profile-image-container {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 10px;
+  cursor: pointer;
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+  display: block;
+}
+
+.edit-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid white;
+}
+
+.profile-name {
+  font-weight: bold;
+  color: var(--text-dark);
+  margin-bottom: 2px;
+}
+
+.profile-role {
+  font-size: 12px;
+  color: var(--text-gray);
+}
+
+.nav-item {
+  padding: 5px 15px;
+  font-weight: 500;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  color: var(--text-gray);
+  border-radius: 10px;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.nav-link:hover,
+.nav-item.active .nav-link {
+  background-color: var(--primary);
+  color: white;
+}
+
+.nav-link i {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+/* Top Navbar */
+.top-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  margin-bottom: 20px;
+}
+
+.toggle-sidebar {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--text-dark);
+  cursor: pointer;
+}
+
+@media (max-width: 992px) {
+  .toggle-sidebar {
+    display: block;
+  }
+}
+
+.search-bar {
+  flex-grow: 1;
+  max-width: 600px;
+  margin: 0 0 0 8px;
+  visibility: hidden;
+}
+
+.search-input {
+  background-color: white;
+  border-radius: 50px;
+  border: 1px solid #e9ecef;
+  padding-left: 40px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-gray);
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+}
+
+.action-icon {
+  font-size: 20px;
+  color: var(--text-gray);
+  margin-left: 15px;
+  cursor: pointer;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  text-decoration: none;
+}
+
+.action-icon:hover {
+  color: var(--primary);
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.navbar-user-container {
+  position: relative;
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+}
+
+.status-indicator {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: var(--success);
+  border-radius: 50%;
+  border: 2px solid white;
+  bottom: 0px;
+  right: 0px;
+}
+
+/* Elections specific styles */
+.dashboard-header {
+  margin-bottom: 25px;
+}
+
+.dashboard-header h3 {
+  color: var(--text-dark);
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.card {
+  border: none;
+  box-shadow: var(--shadow);
+  border-radius: 10px;
+}
+
+.card-header {
+  background-color: white;
+  border-bottom: 1px solid #e9ecef;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.table th {
+  border-top: none;
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 14px;
+}
+
+.table td {
+  vertical-align: middle;
+  font-size: 14px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-active {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-upcoming {
+  background-color: #f5bb0c63;
+  color: #ffc107;
+}
+
+.status-completed {
+  background-color: #e2e3e5;
+  color: #383d41;
+}
+
+.status-draft {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.btn-create {
+  background-color: var(--success);
+  border-color: var(--success);
+  color: white;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 500;
+}
+
+.btn-create:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+  color: white;
+}
+
+/* Modal styles */
+.modal-header {
+  background-color: var(--primary);
+  color: white;
+  border-bottom: none;
+}
+
+.modal-header .btn-close {
+  filter: brightness(0) invert(1);
+}
+
+.modal-body {
+  padding: 30px;
+}
+
+.form-label {
+  font-weight: 500;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.form-control,
+.form-select {
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  padding: 10px 12px;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.2rem rgba(40, 54, 158, 0.25);
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.election-actions {
+  display: flex;
+  gap: 5px;
+}
+
+.btn-sm {
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.default-avatar {
+  background-color: var(--light-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-gray);
+}
+
+.pagination {
+  margin-top: 20px;
+}
+
+.page-link {
+  color: var(--primary);
+  border-color: #dee2e6;
+}
+
+.page-item.active .page-link {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-gray);
+}
+
+.empty-state i {
+  font-size: 48px;
+  margin-bottom: 20px;
+  color: #d1d5db;
+}
+
+.filter-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
