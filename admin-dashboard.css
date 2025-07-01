@@ -316,14 +316,19 @@ body {
 }
 
 .dashboard-header {
-  margin-bottom: 32px;
+  margin-bottom: 25px;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+  background-color: white;
 }
 
 .dashboard-header h3 {
   font-weight: 600;
   font-size: 32px;
   margin-bottom: 8px;
-  color: var(--text-primary);
+  color: var(--text-dark);
 }
 
 .dashboard-header p {

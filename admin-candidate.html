@@ -3,82 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RUNPOLLS | Candidates Management</title>
+    <title>RUNPOLLS | Candidate Management</title>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- Bootstrap Icons -->
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
       rel="stylesheet"
     />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="admin-dashboard.css" />
-    <style>
-      /* Additional styles specific to candidates page */
-      .candidate-status {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        display: inline-block;
-        margin-right: 5px;
-      }
-      .status-approved {
-        background-color: #28a745;
-      }
-      .status-pending {
-        background-color: #ffc107;
-      }
-      .status-rejected {
-        background-color: #dc3545;
-      }
-      .approval-toggle {
-        cursor: pointer;
-      }
-      .filter-container {
-        background-color: #f8f9fa;
-        padding: 15px;
-        border-radius: 5px;
-        margin-bottom: 20px;
-      }
-      .election-select {
-        max-width: 300px;
-      }
-      .candidate-photo {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: 10px;
-      }
-      .manifesto-preview {
-        max-width: 200px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    </style>
+    <link rel="stylesheet" href="admin-candidate.css" />
   </head>
   <body>
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
       <div class="logo-container">
-        <img class="logo" src="images/Logo.png">
+        <img class="logo" src="images/Logo.png" />
         <i class="bi bi-x-lg" id="close"></i>
       </div>
 
       <div class="profile-container">
         <div class="profile-image-container" id="sidebarProfileContainer">
           <img
-            src="/api/placeholder/70/70"
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=70&h=70&fit=crop&crop=face"
             class="profile-image"
             id="userProfileImage"
           />
@@ -94,37 +45,37 @@
 
       <ul class="sidebar-nav list-unstyled">
         <li class="nav-item">
-          <a href="admin-dashboard.html" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="fas fa-tachometer-alt"></i>
             <span>Dashboard</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="admin-elections.html" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="fas fa-vote-yea"></i>
             <span>Elections</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="admin-voters.html" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="fas fa-users"></i>
             <span>Voters</span>
           </a>
         </li>
         <li class="nav-item active">
-          <a href="admin-candidates.html" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="fas fa-user-tie"></i>
             <span>Candidates</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="admin-results.html" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="fas fa-chart-bar"></i>
             <span>Results</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="Login.html" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             <span>Log out</span>
           </a>
@@ -144,17 +95,17 @@
           <input
             type="text"
             class="form-control search-input"
-            placeholder="Search..."
+            placeholder="Search candidates..."
           />
         </div>
 
         <div class="user-actions">
           <div class="action-icon">
-            <a href="admin-notification.html"><i class="bi bi-bell"></i></a>
+            <a href="#"><i class="bi bi-bell"></i></a>
           </div>
           <div class="navbar-user-container" id="navbarUserContainer">
             <img
-              src="/api/placeholder/40/40"
+              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
               class="user-avatar"
               id="navbarUserImage"
             />
@@ -162,19 +113,20 @@
           </div>
         </div>
       </div>
-      
+
       <div class="dashboard-header">
         <div class="row align-items-center">
           <div class="col-md-6">
-            <h3>Candidates Management</h3>
-            <p class="text-muted">Manage election candidates and their approval status</p>
+            <h3>Candidate Management</h3>
+            <p class="text-muted">Review and manage candidate applications</p>
           </div>
           <div class="col-md-6 text-md-end">
-            <button class="btn btn-primary me-2">
-              <i class="fas fa-file-export me-1"></i> Export
-            </button>
-            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCandidateModal">
-              <i class="fas fa-user-plus me-1"></i> Add Candidate
+            <button
+              class="btn btn-success"
+              data-bs-toggle="modal"
+              data-bs-target="#bulkActionModal"
+            >
+              <i class="fas fa-tasks me-1"></i> Bulk Actions
             </button>
           </div>
         </div>
@@ -183,43 +135,76 @@
       <!-- Filters -->
       <div class="filter-container">
         <div class="row">
-          <div class="col-md-4 mb-3">
+          <div class="col-md-3 mb-3">
             <label class="form-label">Filter by Election</label>
-            <select class="form-select election-select">
+            <select class="form-select" id="electionFilter">
               <option value="">All Elections</option>
-              <option value="1">President Student Council</option>
-              <option value="2">Vice President Student Council</option>
-              <option value="3">Secretary Student Council</option>
-              <option value="4">Treasurer Student Council</option>
+              <option value="president">President Student Council 2023</option>
+              <option value="vicepresident">
+                Vice President Student Council 2023
+              </option>
+              <option value="cshead">Computer Science Department Head</option>
+              <option value="facrepresentative">
+                Faculty of Engineering Representative
+              </option>
             </select>
           </div>
-          <div class="col-md-4 mb-3">
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Filter by Position</label>
+            <select class="form-select" id="positionFilter">
+              <option value="">All Positions</option>
+              <option value="president">President</option>
+              <option value="vicepresident">Vice President</option>
+              <option value="secretary">Secretary</option>
+              <option value="treasurer">Treasurer</option>
+              <option value="departmenthead">Department Head</option>
+            </select>
+          </div>
+          <div class="col-md-3 mb-3">
             <label class="form-label">Filter by Status</label>
-            <select class="form-select">
+            <select class="form-select" id="statusFilter">
               <option value="">All Statuses</option>
+              <option value="pending">Pending</option>
               <option value="approved">Approved</option>
-              <option value="pending">Pending Approval</option>
               <option value="rejected">Rejected</option>
             </select>
           </div>
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Filter by Department</label>
-            <select class="form-select">
-              <option value="">All Departments</option>
-              <option value="cs">Computer Science</option>
-              <option value="eng">Engineering</option>
-              <option value="bus">Business</option>
-              <option value="art">Arts</option>
-            </select>
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Date From</label>
+            <input type="date" class="form-control" />
           </div>
         </div>
         <div class="row">
           <div class="col-12 text-end">
-            <button class="btn btn-outline-secondary me-2">
+            <button
+              class="btn btn-outline-secondary me-2"
+              onclick="applyFilters()"
+            >
               <i class="fas fa-filter"></i> Apply Filters
             </button>
-            <button class="btn btn-outline-danger">
+            <button class="btn btn-outline-danger" onclick="clearFilters()">
               <i class="fas fa-times"></i> Clear Filters
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bulk Actions Bar -->
+      <div class="bulk-actions" id="bulkActionsBar">
+        <div class="d-flex align-items-center justify-content-between">
+          <div><span id="selectedCount">0</span> candidates selected</div>
+          <div>
+            <button class="btn btn-approve btn-sm me-2" onclick="bulkApprove()">
+              <i class="fas fa-check"></i> Approve Selected
+            </button>
+            <button class="btn btn-reject btn-sm me-2" onclick="bulkReject()">
+              <i class="fas fa-times"></i> Reject Selected
+            </button>
+            <button
+              class="btn btn-outline-secondary btn-sm"
+              onclick="clearSelection()"
+            >
+              Clear Selection
             </button>
           </div>
         </div>
@@ -227,191 +212,236 @@
 
       <!-- Candidates Table -->
       <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
           <span>Registered Candidates</span>
-          <div>
-            <span class="me-3">Total: 28 candidates</span>
-            <div class="btn-group">
-              <button class="btn btn-sm btn-outline-secondary">
-                <i class="fas fa-th-list"></i>
-              </button>
-              <button class="btn btn-sm btn-outline-secondary">
-                <i class="fas fa-th-large"></i>
-              </button>
-            </div>
-          </div>
+          <span>Showing 1-6 of 18 candidates</span>
         </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table custom-table">
               <thead>
                 <tr>
-                  <th>Candidate ID</th>
-                  <th>Name</th>
+                  <th>
+                    <input
+                      type="checkbox"
+                      id="selectAll"
+                      onchange="toggleSelectAll()"
+                    />
+                  </th>
+                  <th>Candidate</th>
+                  <th>Election</th>
                   <th>Position</th>
-                  <th>Department</th>
-                  <th>Manifesto</th>
+                  <th>Application Date</th>
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>C1001</td>
                   <td>
-                    <div class="d-flex align-items-center">
-                      <img src="/api/placeholder/40/40" class="candidate-photo" alt="Emma Wilson">
-                      <span>Emma Wilson</span>
+                    <input
+                      type="checkbox"
+                      class="candidate-checkbox"
+                      onchange="updateBulkActions()"
+                    />
+                  </td>
+                  <td>
+                    <div class="candidate-info">
+                      <img
+                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face"
+                        class="candidate-photo"
+                        alt="Candidate"
+                      />
+                      <div class="candidate-details">
+                        <h6>John Adebayo</h6>
+                        <small>Computer Science Student</small>
+                      </div>
                     </div>
                   </td>
-                  <td>President Student Council</td>
-                  <td>Computer Science</td>
-                  <td class="manifesto-preview" title="Improve student facilities and increase club funding">
-                    Improve student facilities and increase club funding...
+                  <td>President Student Council 2023</td>
+                  <td>President</td>
+                  <td>Oct 1, 2023</td>
+                  <td>
+                    <span class="status-pending">Pending</span>
                   </td>
                   <td>
-                    <span class="candidate-status status-approved"></span>
-                    <span>Approved</span>
-                  </td>
-                  <td>
-                    <button class="btn btn-sm btn-outline-primary me-1" title="View">
-                      <i class="fas fa-eye"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-warning me-1" title="Edit">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger" title="Reject">
-                      <i class="fas fa-times"></i>
-                    </button>
+                    <div class="btn-group">
+                      <button
+                        class="btn btn-sm btn-approve"
+                        onclick="approveCandidate(this)"
+                      >
+                        <i class="fas fa-check"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-reject"
+                        onclick="rejectCandidate(this)"
+                      >
+                        <i class="fas fa-times"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline-secondary"
+                        onclick="viewCandidate(1)"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                    </div>
                   </td>
                 </tr>
                 <tr>
-                  <td>C1002</td>
                   <td>
-                    <div class="d-flex align-items-center">
-                      <img src="/api/placeholder/40/40" class="candidate-photo" alt="James Wilson">
-                      <span>James Wilson</span>
+                    <input
+                      type="checkbox"
+                      class="candidate-checkbox"
+                      onchange="updateBulkActions()"
+                    />
+                  </td>
+                  <td>
+                    <div class="candidate-info">
+                      <img
+                        src="https://images.unsplash.com/photo-1494790108755-2616b332c4e7?w=40&h=40&fit=crop&crop=face"
+                        class="candidate-photo"
+                        alt="Candidate"
+                      />
+                      <div class="candidate-details">
+                        <h6>Sarah Williams</h6>
+                        <small>Business Administration Student</small>
+                      </div>
                     </div>
                   </td>
-                  <td>Vice President Student Council</td>
-                  <td>Engineering</td>
-                  <td class="manifesto-preview" title="Bridge gap between students and administration">
-                    Bridge gap between students and administration...
+                  <td>President Student Council 2023</td>
+                  <td>President</td>
+                  <td>Oct 2, 2023</td>
+                  <td>
+                    <span class="status-approved">Approved</span>
                   </td>
                   <td>
-                    <span class="candidate-status status-approved"></span>
-                    <span>Approved</span>
-                  </td>
-                  <td>
-                    <button class="btn btn-sm btn-outline-primary me-1" title="View">
-                      <i class="fas fa-eye"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-warning me-1" title="Edit">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger" title="Reject">
-                      <i class="fas fa-times"></i>
-                    </button>
+                    <div class="btn-group">
+                      <button
+                        class="btn btn-sm btn-outline-secondary"
+                        onclick="viewCandidate(2)"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline-primary"
+                        onclick="previewProfile(2)"
+                      >
+                        <i class="fas fa-external-link-alt"></i>
+                      </button>
+                    </div>
                   </td>
                 </tr>
                 <tr>
-                  <td>C1003</td>
                   <td>
-                    <div class="d-flex align-items-center">
-                      <img src="/api/placeholder/40/40" class="candidate-photo" alt="Sarah Ahmed">
-                      <span>Sarah Ahmed</span>
+                    <input
+                      type="checkbox"
+                      class="candidate-checkbox"
+                      onchange="updateBulkActions()"
+                    />
+                  </td>
+                  <td>
+                    <div class="candidate-info">
+                      <img
+                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
+                        class="candidate-photo"
+                        alt="Candidate"
+                      />
+                      <div class="candidate-details">
+                        <h6>Michael Johnson</h6>
+                        <small>Engineering Student</small>
+                      </div>
                     </div>
                   </td>
-                  <td>Secretary Student Council</td>
-                  <td>Business</td>
-                  <td class="manifesto-preview" title="Improve communication channels and meeting efficiency">
-                    Improve communication channels and meeting efficiency...
+                  <td>Vice President Student Council 2023</td>
+                  <td>Vice President</td>
+                  <td>Oct 3, 2023</td>
+                  <td>
+                    <span class="status-pending">Pending</span>
                   </td>
                   <td>
-                    <span class="candidate-status status-pending"></span>
-                    <span>Pending</span>
-                  </td>
-                  <td>
-                    <button class="btn btn-sm btn-outline-success me-1" title="Approve">
-                      <i class="fas fa-check"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-primary me-1" title="View">
-                      <i class="fas fa-eye"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger" title="Reject">
-                      <i class="fas fa-times"></i>
-                    </button>
+                    <div class="btn-group">
+                      <button
+                        class="btn btn-sm btn-approve"
+                        onclick="approveCandidate(this)"
+                      >
+                        <i class="fas fa-check"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-reject"
+                        onclick="rejectCandidate(this)"
+                      >
+                        <i class="fas fa-times"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline-secondary"
+                        onclick="viewCandidate(3)"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                    </div>
                   </td>
                 </tr>
                 <tr>
-                  <td>C1004</td>
                   <td>
-                    <div class="d-flex align-items-center">
-                      <img src="/api/placeholder/40/40" class="candidate-photo" alt="David Kim">
-                      <span>David Kim</span>
+                    <input
+                      type="checkbox"
+                      class="candidate-checkbox"
+                      onchange="updateBulkActions()"
+                    />
+                  </td>
+                  <td>
+                    <div class="candidate-info">
+                      <img
+                        src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face"
+                        class="candidate-photo"
+                        alt="Candidate"
+                      />
+                      <div class="candidate-details">
+                        <h6>Emma Davis</h6>
+                        <small>Computer Science Student</small>
+                      </div>
                     </div>
                   </td>
-                  <td>Treasurer Student Council</td>
-                  <td>Arts</td>
-                  <td class="manifesto-preview" title="Transparent budgeting and more funding for arts">
-                    Transparent budgeting and more funding for arts...
+                  <td>Computer Science Department Head</td>
+                  <td>Department Head</td>
+                  <td>Oct 5, 2023</td>
+                  <td>
+                    <span class="status-rejected">Rejected</span>
                   </td>
                   <td>
-                    <span class="candidate-status status-rejected"></span>
-                    <span>Rejected</span>
-                  </td>
-                  <td>
-                    <button class="btn btn-sm btn-outline-success me-1" title="Approve">
-                      <i class="fas fa-check"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-primary me-1" title="View">
-                      <i class="fas fa-eye"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-warning" title="Edit">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>C1005</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <img src="/api/placeholder/40/40" class="candidate-photo" alt="Lisa Chen">
-                      <span>Lisa Chen</span>
+                    <div class="btn-group">
+                      <button
+                        class="btn btn-sm btn-outline-secondary"
+                        onclick="viewCandidate(4)"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline-warning"
+                        onclick="viewRejectionReason(4)"
+                      >
+                        <i class="fas fa-info-circle"></i>
+                      </button>
                     </div>
-                  </td>
-                  <td>President Student Council</td>
-                  <td>Computer Science</td>
-                  <td class="manifesto-preview" title="More tech events and hackathons">
-                    More tech events and hackathons...
-                  </td>
-                  <td>
-                    <span class="candidate-status status-approved"></span>
-                    <span>Approved</span>
-                  </td>
-                  <td>
-                    <button class="btn btn-sm btn-outline-primary me-1" title="View">
-                      <i class="fas fa-eye"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-warning me-1" title="Edit">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger" title="Reject">
-                      <i class="fas fa-times"></i>
-                    </button>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
-          
+
           <!-- Pagination -->
           <nav aria-label="Candidate pagination">
             <ul class="pagination justify-content-center">
               <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
+                  >Previous</a
+                >
               </li>
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+              <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+              </li>
               <li class="page-item"><a class="page-link" href="#">2</a></li>
               <li class="page-item"><a class="page-link" href="#">3</a></li>
               <li class="page-item">
@@ -422,206 +452,842 @@
         </div>
       </div>
 
-      <!-- Bulk Actions Card -->
-      <div class="card mt-4">
-        <div class="card-header">
-          Bulk Actions
+      <!-- Candidate Detail Modal -->
+      <div
+        class="modal fade"
+        id="candidateDetailModal"
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Candidate Details</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-4 text-center">
+                  <img
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+                    class="img-fluid rounded-circle mb-3"
+                    style="width: 150px; height: 150px; object-fit: cover"
+                  />
+                  <h5>John Adebayo</h5>
+                  <p class="text-muted">Computer Science Student</p>
+                </div>
+                <div class="col-md-8">
+                  <h6>Personal Information</h6>
+                  <p><strong>Student ID:</strong> CS2021001</p>
+                  <p><strong>Email:</strong> john.adebayo@university.edu</p>
+                  <p><strong>Phone:</strong> +234 123 456 7890</p>
+
+                  <h6 class="mt-4">Election Details</h6>
+                  <p><strong>Position:</strong> President</p>
+                  <p>
+                    <strong>Election:</strong> President Student Council 2023
+                  </p>
+
+                  <h6 class="mt-4">Bio/Manifesto</h6>
+                  <p>
+                    I am a dedicated Computer Science student with a passion for
+                    student leadership and community development. My vision is
+                    to create a more inclusive and innovative student council
+                    that truly represents the diverse voices of our student
+                    body.
+                  </p>
+
+                  <h6 class="mt-4">Qualifications</h6>
+                  <ul>
+                    <li>Current CGPA: 4.2/5.0</li>
+                    <li>Former Class Representative (2022-2023)</li>
+                    <li>Member of Computer Science Students Association</li>
+                    <li>Volunteer at University Community Service Program</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-reject">Reject</button>
+              <button type="button" class="btn btn-approve">Approve</button>
+            </div>
+          </div>
         </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Select Election</label>
-              <select class="form-select">
-                <option selected disabled>Choose election...</option>
-                <option>President Student Council</option>
-                <option>Vice President Student Council</option>
-                <option>Secretary Student Council</option>
-              </select>
+      </div>
+
+      <!-- Rejection Modal -->
+      <div
+        class="modal fade"
+        id="rejectionModal"
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Reject Candidate</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Action</label>
-              <select class="form-select">
-                <option selected disabled>Choose action...</option>
-                <option>Approve Candidates</option>
-                <option>Reject Candidates</option>
-                <option>Move to Pending</option>
-                <option>Delete Candidates</option>
-              </select>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label">Reason for Rejection</label>
+                <select class="form-select mb-2">
+                  <option value="">Select a reason</option>
+                  <option value="incomplete">Incomplete profile</option>
+                  <option value="eligibility">
+                    Doesn't meet eligibility criteria
+                  </option>
+                  <option value="documents">Missing required documents</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Additional Comments (Optional)</label
+                ><textarea
+                  class="form-control"
+                  rows="3"
+                  placeholder="Provide additional details..."
+                ></textarea>
+              </div>
             </div>
-            <div class="col-md-4 mb-3 d-flex align-items-end">
-              <button class="btn btn-primary w-100">
-                <i class="fas fa-play me-2"></i>Execute Action
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                class="btn btn-reject"
+                onclick="confirmRejection()"
+              >
+                Confirm Rejection
               </button>
             </div>
           </div>
-          <div class="alert alert-info mt-3">
-            <i class="fas fa-info-circle me-2"></i>
-            Select candidates from the table above to perform bulk actions. If no candidates are selected, the action will apply to all filtered candidates.
+        </div>
+      </div>
+
+      <!-- Bulk Action Modal -->
+      <div
+        class="modal fade"
+        id="bulkActionModal"
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Bulk Actions</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <p>
+                Select candidates using the checkboxes, then choose an action:
+              </p>
+              <div class="d-grid gap-2">
+                <button class="btn btn-approve" onclick="bulkApprove()">
+                  <i class="fas fa-check me-2"></i>Approve Selected Candidates
+                </button>
+                <button class="btn btn-reject" onclick="bulkReject()">
+                  <i class="fas fa-times me-2"></i>Reject Selected Candidates
+                </button>
+                <button
+                  class="btn btn-outline-primary"
+                  onclick="exportSelected()"
+                >
+                  <i class="fas fa-download me-2"></i>Export Selected Candidates
+                </button>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Quick Actions -->
-    <div class="quick-actions">
-      <div class="action-circle" data-bs-toggle="tooltip" data-bs-placement="left" title="Add New Candidate">
-        <i class="fas fa-user-plus"></i>
-      </div>
-      <div class="action-circle" data-bs-toggle="tooltip" data-bs-placement="left" title="Import Candidates">
-        <i class="fas fa-file-import"></i>
-      </div>
-    </div>
-
-    <!-- Add Candidate Modal -->
-    <div class="modal fade" id="addCandidateModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Add New Candidate</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <label class="form-label">First Name</label>
-                  <input type="text" class="form-control" required>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Last Name</label>
-                  <input type="text" class="form-control" required>
-                </div>
-              </div>
-              
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <label class="form-label">Email</label>
-                  <input type="email" class="form-control" required>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Student ID</label>
-                  <input type="text" class="form-control" required>
-                </div>
-              </div>
-              
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <label class="form-label">Department</label>
-                  <select class="form-select" required>
-                    <option value="">Select Department</option>
-                    <option>Computer Science</option>
-                    <option>Engineering</option>
-                    <option>Business</option>
-                    <option>Arts</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Position</label>
-                  <select class="form-select" required>
-                    <option value="">Select Position</option>
-                    <option>President Student Council</option>
-                    <option>Vice President Student Council</option>
-                    <option>Secretary Student Council</option>
-                    <option>Treasurer Student Council</option>
-                  </select>
-                </div>
-              </div>
-              
-              <div class="mb-3">
-                <label class="form-label">Candidate Photo</label>
-                <input type="file" class="form-control" accept="image/*">
-              </div>
-              
-              <div class="mb-3">
-                <label class="form-label">Manifesto</label>
-                <textarea class="form-control" rows="4" required></textarea>
-              </div>
-              
-              <div class="mb-3">
-                <label class="form-label">Campaign Slogan</label>
-                <input type="text" class="form-control">
-              </div>
-              
-              <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="approveImmediately">
-                <label class="form-check-label" for="approveImmediately">Approve candidate immediately</label>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary">Save Candidate</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- View Candidate Modal -->
-    <div class="modal fade" id="viewCandidateModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Candidate Details</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <!-- Candidate details would be loaded here dynamically -->
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Initialize tooltips
-      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-      });
-      
-      // Toggle sidebar functionality
-      document.getElementById('toggleSidebar').addEventListener('click', function() {
-        document.getElementById('sidebar').classList.toggle('active');
-      });
-      
-      document.getElementById('close').addEventListener('click', function() {
-        document.getElementById('sidebar').classList.remove('active');
-      });
-      
-      // Quick action buttons
-      document.querySelectorAll('.action-circle').forEach(function(button) {
-        button.addEventListener('click', function() {
-          const tooltip = bootstrap.Tooltip.getInstance(button);
-          const action = tooltip._config.title;
-          
-          if(action === 'Add New Candidate') {
-            var modal = new bootstrap.Modal(document.getElementById('addCandidateModal'));
-            modal.show();
-          } else if(action === 'Import Candidates') {
-            alert('Import candidates functionality would open here');
+      // Sample candidate data
+      let candidates = [
+        {
+          id: 1,
+          name: "John Adebayo",
+          photo:
+            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face",
+          studentId: "CS2021001",
+          email: "john.adebayo@university.edu",
+          phone: "+234 123 456 7890",
+          course: "Computer Science Student",
+          election: "President Student Council 2023",
+          position: "President",
+          applicationDate: "2023-10-01",
+          status: "pending",
+          cgpa: "4.2/5.0",
+          bio: "I am a dedicated Computer Science student with a passion for student leadership and community development. My vision is to create a more inclusive and innovative student council that truly represents the diverse voices of our student body.",
+          qualifications: [
+            "Current CGPA: 4.2/5.0",
+            "Former Class Representative (2022-2023)",
+            "Member of Computer Science Students Association",
+            "Volunteer at University Community Service Program",
+          ],
+        },
+        {
+          id: 2,
+          name: "Sarah Williams",
+          photo:
+            "https://images.unsplash.com/photo-1494790108755-2616b332c4e7?w=40&h=40&fit=crop&crop=face",
+          studentId: "BA2021005",
+          email: "sarah.williams@university.edu",
+          phone: "+234 123 456 7891",
+          course: "Business Administration Student",
+          election: "President Student Council 2023",
+          position: "President",
+          applicationDate: "2023-10-02",
+          status: "approved",
+          cgpa: "4.5/5.0",
+          bio: "As a Business Administration student, I bring strategic thinking and organizational skills to student leadership. I am committed to improving student welfare and academic excellence.",
+          qualifications: [
+            "Current CGPA: 4.5/5.0",
+            "President of Business Students Association",
+            "Dean's List for 3 consecutive semesters",
+            "Internship at Fortune 500 company",
+          ],
+        },
+        {
+          id: 3,
+          name: "Michael Johnson",
+          photo:
+            "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face",
+          studentId: "ENG2021010",
+          email: "michael.johnson@university.edu",
+          phone: "+234 123 456 7892",
+          course: "Engineering Student",
+          election: "Vice President Student Council 2023",
+          position: "Vice President",
+          applicationDate: "2023-10-03",
+          status: "pending",
+          cgpa: "4.0/5.0",
+          bio: "Engineering student with strong technical and leadership background. I aim to bridge the gap between technical and non-technical students while improving campus infrastructure.",
+          qualifications: [
+            "Current CGPA: 4.0/5.0",
+            "Vice President Engineering Students Association",
+            "Winner of National Engineering Competition 2023",
+            "Volunteer at Campus Technology Center",
+          ],
+        },
+        {
+          id: 4,
+          name: "Emma Davis",
+          photo:
+            "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face",
+          studentId: "CS2021015",
+          email: "emma.davis@university.edu",
+          phone: "+234 123 456 7893",
+          course: "Computer Science Student",
+          election: "Computer Science Department Head",
+          position: "Department Head",
+          applicationDate: "2023-10-05",
+          status: "rejected",
+          cgpa: "3.8/5.0",
+          bio: "Computer Science student passionate about departmental representation and academic excellence. I want to improve the CS curriculum and student support systems.",
+          qualifications: [
+            "Current CGPA: 3.8/5.0",
+            "Member of CS Students Association",
+            "Hackathon participant (multiple events)",
+            "Tutor for junior CS students",
+          ],
+          rejectionReason:
+            "Doesn't meet minimum CGPA requirement for department head position",
+        },
+      ];
+
+      let filteredCandidates = [...candidates];
+      let selectedCandidates = [];
+
+      // Sidebar toggle functionality
+      document
+        .getElementById("toggleSidebar")
+        .addEventListener("click", function () {
+          document.getElementById("sidebar").classList.toggle("active");
+        });
+
+      document
+        .getElementById("closeSidebar")
+        .addEventListener("click", function () {
+          document.getElementById("sidebar").classList.remove("active");
+        });
+
+      // Search functionality
+      document
+        .querySelector(".search-input")
+        .addEventListener("input", function (e) {
+          const searchTerm = e.target.value.toLowerCase();
+          filteredCandidates = candidates.filter(
+            (candidate) =>
+              candidate.name.toLowerCase().includes(searchTerm) ||
+              candidate.course.toLowerCase().includes(searchTerm) ||
+              candidate.election.toLowerCase().includes(searchTerm) ||
+              candidate.position.toLowerCase().includes(searchTerm)
+          );
+          renderCandidatesTable();
+        });
+
+      // Filter functions
+      function applyFilters() {
+        const electionFilter = document.getElementById("electionFilter").value;
+        const positionFilter = document.getElementById("positionFilter").value;
+        const statusFilter = document.getElementById("statusFilter").value;
+
+        filteredCandidates = candidates.filter((candidate) => {
+          return (
+            (!electionFilter ||
+              candidate.election.toLowerCase().includes(electionFilter)) &&
+            (!positionFilter ||
+              candidate.position.toLowerCase().includes(positionFilter)) &&
+            (!statusFilter || candidate.status === statusFilter)
+          );
+        });
+
+        renderCandidatesTable();
+      }
+
+      function clearFilters() {
+        document.getElementById("electionFilter").value = "";
+        document.getElementById("positionFilter").value = "";
+        document.getElementById("statusFilter").value = "";
+        document.querySelector('input[type="date"]').value = "";
+        filteredCandidates = [...candidates];
+        renderCandidatesTable();
+      }
+
+      // Render candidates table
+      function renderCandidatesTable() {
+        const tbody = document.querySelector("tbody");
+        tbody.innerHTML = "";
+
+        filteredCandidates.forEach((candidate) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>
+              <input type="checkbox" class="candidate-checkbox" value="${
+                candidate.id
+              }" onchange="updateBulkActions()">
+            </td>
+            <td>
+              <div class="candidate-info">
+                <img src="${
+                  candidate.photo
+                }" class="candidate-photo" alt="Candidate">
+                <div class="candidate-details">
+                  <h6>${candidate.name}</h6>
+                  <small>${candidate.course}</small>
+                </div>
+              </div>
+            </td>
+            <td>${candidate.election}</td>
+            <td>${candidate.position}</td>
+            <td>${new Date(candidate.applicationDate).toLocaleDateString(
+              "en-US",
+              { year: "numeric", month: "short", day: "numeric" }
+            )}</td>
+            <td>
+              <span class="status-${candidate.status}">${
+            candidate.status.charAt(0).toUpperCase() + candidate.status.slice(1)
+          }</span>
+            </td>
+            <td>
+              <div class="btn-group">
+                ${
+                  candidate.status === "pending"
+                    ? `
+                  <button class="btn btn-sm btn-approve" onclick="approveCandidate(${candidate.id})">
+                    <i class="fas fa-check"></i>
+                  </button>
+                  <button class="btn btn-sm btn-reject" onclick="rejectCandidate(${candidate.id})">
+                    <i class="fas fa-times"></i>
+                  </button>
+                `
+                    : ""
+                }
+                <button class="btn btn-sm btn-outline-secondary" onclick="viewCandidate(${
+                  candidate.id
+                })">
+                  <i class="fas fa-eye"></i>
+                </button>
+                ${
+                  candidate.status === "approved"
+                    ? `
+                  <button class="btn btn-sm btn-outline-primary" onclick="previewProfile(${candidate.id})">
+                    <i class="fas fa-external-link-alt"></i>
+                  </button>
+                `
+                    : ""
+                }
+                ${
+                  candidate.status === "rejected"
+                    ? `
+                  <button class="btn btn-sm btn-outline-warning" onclick="viewRejectionReason(${candidate.id})">
+                    <i class="fas fa-info-circle"></i>
+                  </button>
+                `
+                    : ""
+                }
+              </div>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+
+        // Update pagination info
+        document.querySelector(
+          ".card-header span:last-child"
+        ).textContent = `Showing 1-${Math.min(
+          filteredCandidates.length,
+          10
+        )} of ${filteredCandidates.length} candidates`;
+      }
+
+      // Select all functionality
+      function toggleSelectAll() {
+        const selectAllCheckbox = document.getElementById("selectAll");
+        const candidateCheckboxes = document.querySelectorAll(
+          ".candidate-checkbox"
+        );
+
+        candidateCheckboxes.forEach((checkbox) => {
+          checkbox.checked = selectAllCheckbox.checked;
+        });
+
+        updateBulkActions();
+      }
+
+      // Update bulk actions bar
+      function updateBulkActions() {
+        const checkedBoxes = document.querySelectorAll(
+          ".candidate-checkbox:checked"
+        );
+        const bulkActionsBar = document.getElementById("bulkActionsBar");
+        const selectedCount = document.getElementById("selectedCount");
+
+        selectedCandidates = Array.from(checkedBoxes).map((cb) =>
+          parseInt(cb.value)
+        );
+
+        if (selectedCandidates.length > 0) {
+          bulkActionsBar.classList.add("show");
+          selectedCount.textContent = selectedCandidates.length;
+        } else {
+          bulkActionsBar.classList.remove("show");
+        }
+
+        // Update select all checkbox state
+        const selectAllCheckbox = document.getElementById("selectAll");
+        const totalCheckboxes = document.querySelectorAll(
+          ".candidate-checkbox"
+        ).length;
+
+        if (selectedCandidates.length === 0) {
+          selectAllCheckbox.indeterminate = false;
+          selectAllCheckbox.checked = false;
+        } else if (selectedCandidates.length === totalCheckboxes) {
+          selectAllCheckbox.indeterminate = false;
+          selectAllCheckbox.checked = true;
+        } else {
+          selectAllCheckbox.indeterminate = true;
+        }
+      }
+
+      // Clear selection
+      function clearSelection() {
+        document
+          .querySelectorAll(".candidate-checkbox")
+          .forEach((cb) => (cb.checked = false));
+        document.getElementById("selectAll").checked = false;
+        document.getElementById("selectAll").indeterminate = false;
+        updateBulkActions();
+      }
+
+      // Individual candidate actions
+      function approveCandidate(candidateId) {
+        const candidate = candidates.find((c) => c.id === candidateId);
+        if (candidate) {
+          candidate.status = "approved";
+          renderCandidatesTable();
+          sendNotification(
+            `${candidate.name} has been approved for ${candidate.position}`,
+            "success"
+          );
+
+          // Send email notification (simulated)
+          sendEmailNotification(candidate, "approved");
+        }
+      }
+
+      function rejectCandidate(candidateId) {
+        const candidate = candidates.find((c) => c.id === candidateId);
+        if (candidate) {
+          // Show rejection modal
+          const modal = new bootstrap.Modal(
+            document.getElementById("rejectionModal")
+          );
+          modal.show();
+
+          // Store current candidate ID for rejection
+          window.currentRejectionId = candidateId;
+        }
+      }
+
+      function confirmRejection() {
+        const candidateId = window.currentRejectionId;
+        const candidate = candidates.find((c) => c.id === candidateId);
+        const reason = document.querySelector("#rejectionModal select").value;
+        const comments = document.querySelector(
+          "#rejectionModal textarea"
+        ).value;
+
+        if (candidate) {
+          candidate.status = "rejected";
+          candidate.rejectionReason = reason || "Other";
+          candidate.rejectionComments = comments;
+
+          renderCandidatesTable();
+          sendNotification(`${candidate.name} has been rejected`, "error");
+
+          // Send email notification (simulated)
+          sendEmailNotification(candidate, "rejected");
+
+          // Close modal
+          const modal = bootstrap.Modal.getInstance(
+            document.getElementById("rejectionModal")
+          );
+          modal.hide();
+        }
+      }
+
+      // View candidate details
+      function viewCandidate(candidateId) {
+        const candidate = candidates.find((c) => c.id === candidateId);
+        if (candidate) {
+          // Populate modal with candidate data
+          const modal = document.getElementById("candidateDetailModal");
+
+          modal.querySelector("img").src = candidate.photo;
+          modal.querySelector("h5:nth-of-type(1)").textContent = candidate.name;
+          modal.querySelector(".text-muted").textContent = candidate.course;
+
+          // Update personal information
+          const personalInfo = modal.querySelector(".col-md-8");
+          personalInfo.innerHTML = `
+            <h6>Personal Information</h6>
+            <p><strong>Student ID:</strong> ${candidate.studentId}</p>
+            <p><strong>Email:</strong> ${candidate.email}</p>
+            <p><strong>Phone:</strong> ${candidate.phone}</p>
+            
+            <h6 class="mt-4">Election Details</h6>
+            <p><strong>Position:</strong> ${candidate.position}</p>
+            <p><strong>Election:</strong> ${candidate.election}</p>
+            
+            <h6 class="mt-4">Bio/Manifesto</h6>
+            <p>${candidate.bio}</p>
+            
+            <h6 class="mt-4">Qualifications</h6>
+            <ul>
+              ${candidate.qualifications
+                .map((qual) => `<li>${qual}</li>`)
+                .join("")}
+            </ul>
+          `;
+
+          // Update modal footer buttons based on status
+          const modalFooter = modal.querySelector(".modal-footer");
+          if (candidate.status === "pending") {
+            modalFooter.innerHTML = `
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-reject" onclick="rejectCandidate(${candidate.id})" data-bs-dismiss="modal">Reject</button>
+              <button type="button" class="btn btn-approve" onclick="approveCandidate(${candidate.id})" data-bs-dismiss="modal">Approve</button>
+            `;
+          } else {
+            modalFooter.innerHTML = `
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            `;
           }
+
+          const bsModal = new bootstrap.Modal(modal);
+          bsModal.show();
+        }
+      }
+
+      // Preview candidate profile (for approved candidates)
+      function previewProfile(candidateId) {
+        const candidate = candidates.find((c) => c.id === candidateId);
+        if (candidate) {
+          // Open in new window/tab (simulated)
+          const previewWindow = window.open(
+            "",
+            "_blank",
+            "width=800,height=600"
+          );
+          previewWindow.document.write(`
+            <html>
+              <head>
+                <title>${candidate.name} - Candidate Profile</title>
+                <style>
+                  body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; }
+                  .profile-header { text-align: center; margin-bottom: 30px; }
+                  .profile-photo { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; }
+                  .section { margin-bottom: 20px; }
+                  h1, h2 { color: #28369e; }
+                  .qualifications { background: #f8f9fa; padding: 15px; border-radius: 8px; }
+                </style>
+              </head>
+              <body>
+                <div class="profile-header">
+                  <img src="${candidate.photo}" class="profile-photo" alt="${
+            candidate.name
+          }">
+                  <h1>${candidate.name}</h1>
+                  <p><strong>Running for: ${candidate.position}</strong></p>
+                  <p>${candidate.course}</p>
+                </div>
+                
+                <div class="section">
+                  <h2>About Me</h2>
+                  <p>${candidate.bio}</p>
+                </div>
+                
+                <div class="section qualifications">
+                  <h2>Qualifications</h2>
+                  <ul>
+                    ${candidate.qualifications
+                      .map((qual) => `<li>${qual}</li>`)
+                      .join("")}
+                  </ul>
+                </div>
+                
+                <div class="section">
+                  <h2>Contact Information</h2>
+                  <p><strong>Email:</strong> ${candidate.email}</p>
+                  <p><strong>Student ID:</strong> ${candidate.studentId}</p>
+                </div>
+              </body>
+            </html>
+          `);
+        }
+      }
+
+      // View rejection reason
+      function viewRejectionReason(candidateId) {
+        const candidate = candidates.find((c) => c.id === candidateId);
+        if (candidate && candidate.rejectionReason) {
+          alert(
+            `Rejection Reason: ${candidate.rejectionReason}\n${
+              candidate.rejectionComments
+                ? "Comments: " + candidate.rejectionComments
+                : ""
+            }`
+          );
+        }
+      }
+
+      // Bulk actions
+      function bulkApprove() {
+        if (selectedCandidates.length === 0) {
+          alert("Please select candidates to approve.");
+          return;
+        }
+
+        if (
+          confirm(
+            `Are you sure you want to approve ${selectedCandidates.length} candidate(s)?`
+          )
+        ) {
+          selectedCandidates.forEach((candidateId) => {
+            const candidate = candidates.find((c) => c.id === candidateId);
+            if (candidate && candidate.status === "pending") {
+              candidate.status = "approved";
+              sendEmailNotification(candidate, "approved");
+            }
+          });
+
+          renderCandidatesTable();
+          clearSelection();
+          sendNotification(
+            `${selectedCandidates.length} candidates approved successfully`,
+            "success"
+          );
+        }
+      }
+
+      function bulkReject() {
+        if (selectedCandidates.length === 0) {
+          alert("Please select candidates to reject.");
+          return;
+        }
+
+        if (
+          confirm(
+            `Are you sure you want to reject ${selectedCandidates.length} candidate(s)?`
+          )
+        ) {
+          selectedCandidates.forEach((candidateId) => {
+            const candidate = candidates.find((c) => c.id === candidateId);
+            if (candidate && candidate.status === "pending") {
+              candidate.status = "rejected";
+              candidate.rejectionReason = "Bulk rejection";
+              sendEmailNotification(candidate, "rejected");
+            }
+          });
+
+          renderCandidatesTable();
+          clearSelection();
+          sendNotification(
+            `${selectedCandidates.length} candidates rejected`,
+            "error"
+          );
+        }
+      }
+
+      // Export selected candidates
+      function exportSelected() {
+        if (selectedCandidates.length === 0) {
+          alert("Please select candidates to export.");
+          return;
+        }
+
+        const selectedData = candidates.filter((c) =>
+          selectedCandidates.includes(c.id)
+        );
+        const csvContent = generateCSV(selectedData);
+        downloadCSV(csvContent, "selected_candidates.csv");
+      }
+
+      // Utility functions
+      function sendNotification(message, type) {
+        // Create notification element
+        const notification = document.createElement("div");
+        notification.className = `alert alert-${
+          type === "success" ? "success" : "danger"
+        } alert-dismissible fade show position-fixed`;
+        notification.style.cssText =
+          "top: 20px; right: 20px; z-index: 9999; max-width: 400px;";
+        notification.innerHTML = `
+          ${message}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+
+        document.body.appendChild(notification);
+
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 5000);
+      }
+
+      function sendEmailNotification(candidate, action) {
+        // Simulate email sending
+        console.log(
+          `Email sent to ${candidate.email}: ${
+            action === "approved"
+              ? "Congratulations! You have been approved for " +
+                candidate.position
+              : "Your application for " +
+                candidate.position +
+                " has been rejected."
+          }`
+        );
+      }
+
+      function generateCSV(data) {
+        const headers = [
+          "Name",
+          "Student ID",
+          "Email",
+          "Course",
+          "Election",
+          "Position",
+          "Application Date",
+          "Status",
+        ];
+        const csvData = [headers];
+
+        data.forEach((candidate) => {
+          csvData.push([
+            candidate.name,
+            candidate.studentId,
+            candidate.email,
+            candidate.course,
+            candidate.election,
+            candidate.position,
+            candidate.applicationDate,
+            candidate.status,
+          ]);
         });
-      });
-      
-      // Status change buttons
-      document.querySelectorAll('.btn-outline-success').forEach(function(button) {
-        button.addEventListener('click', function() {
-          const row = this.closest('tr');
-          const statusCell = row.querySelector('td:nth-child(6)');
-          statusCell.innerHTML = '<span class="candidate-status status-approved"></span><span>Approved</span>';
-        });
-      });
-      
-      document.querySelectorAll('.btn-outline-danger').forEach(function(button) {
-        button.addEventListener('click', function() {
-          const row = this.closest('tr');
-          const statusCell = row.querySelector('td:nth-child(6)');
-          statusCell.innerHTML = '<span class="candidate-status status-rejected"></span><span>Rejected</span>';
-        });
+
+        return csvData.map((row) => row.join(",")).join("\n");
+      }
+
+      function downloadCSV(content, filename) {
+        const blob = new Blob([content], { type: "text/csv" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.setAttribute("hidden", "");
+        a.setAttribute("href", url);
+        a.setAttribute("download", filename);
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }
+
+      // Initialize the page
+      document.addEventListener("DOMContentLoaded", function () {
+        renderCandidatesTable();
+
+        // Add event listeners for filter dropdowns
+        document
+          .getElementById("electionFilter")
+          .addEventListener("change", applyFilters);
+        document
+          .getElementById("positionFilter")
+          .addEventListener("change", applyFilters);
+        document
+          .getElementById("statusFilter")
+          .addEventListener("change", applyFilters);
       });
     </script>
   </body>

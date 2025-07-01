@@ -16,7 +16,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="admin-voters.css">
+    <link rel="stylesheet" href="admin-voters.css" />
   </head>
   <body>
     <!-- Sidebar -->
@@ -51,7 +51,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="admin-elections.html" class="nav-link">
+          <a href="admin-election.html" class="nav-link">
             <i class="fas fa-vote-yea"></i>
             <span>Elections</span>
           </a>
@@ -63,7 +63,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="admin-candidates.html" class="nav-link">
+          <a href="admin-candidate.html" class="nav-link">
             <i class="fas fa-user-tie"></i>
             <span>Candidates</span>
           </a>
@@ -568,7 +568,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-     // Sample voter data
+      // Sample voter data
       const votersData = [
         {
           id: "VT001",
@@ -697,13 +697,18 @@
           .getElementById("dateTo")
           .addEventListener("change", applyFilters);
 
-        // Sidebar toggle
-        document
-          .getElementById("toggleSidebar")
-          .addEventListener("click", toggleSidebar);
-        document
-          .getElementById("close")
-          .addEventListener("click", closeSidebar);
+        // Sidebar toggle functionality
+      document
+        .getElementById("toggleSidebar")
+        .addEventListener("click", function () {
+          document.getElementById("sidebar").classList.toggle("active");
+        });
+
+      document
+        .getElementById("closeSidebar")
+        .addEventListener("click", function () {
+          document.getElementById("sidebar").classList.remove("active");
+        });
       }
 
       function setupSidebar() {
@@ -719,16 +724,6 @@
         }
 
         window.addEventListener("resize", handleResize);
-      }
-
-      function toggleSidebar() {
-        const sidebar = document.getElementById("sidebar");
-        sidebar.classList.toggle("active");
-      }
-
-      function closeSidebar() {
-        const sidebar = document.getElementById("sidebar");
-        sidebar.classList.remove("active");
       }
 
       function updateStats() {
@@ -1086,7 +1081,7 @@
         `;
 
         // Add modal to document
-        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        document.body.insertAdjacentHTML("beforeend", modalHTML);
 
         // Get modal elements
         const modal = document.getElementById("customConfirmModal");
@@ -1104,7 +1099,7 @@
         bsModal.show();
 
         // Clean up modal when hidden
-        modal.addEventListener('hidden.bs.modal', () => {
+        modal.addEventListener("hidden.bs.modal", () => {
           modal.remove();
         });
       }
@@ -1162,7 +1157,10 @@
               form.querySelectorAll('input[type="text"]')[2].value;
 
             if (!firstName || !lastName || !email || !studentId) {
-              showNotification("Please fill in all required fields.", "warning");
+              showNotification(
+                "Please fill in all required fields.",
+                "warning"
+              );
               return;
             }
 
