@@ -3,62 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RUNPOLLS | Voters Management</title>
+    <title>RUNPOLLS | Voter Management</title>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- Bootstrap Icons -->
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
       rel="stylesheet"
     />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="admin-dashboard.css" />
-    <style>
-      /* Additional styles specific to voters page */
-      .voter-status {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        display: inline-block;
-        margin-right: 5px;
-      }
-      .status-active {
-        background-color: #28a745;
-      }
-      .status-pending {
-        background-color: #ffc107;
-      }
-      .status-inactive {
-        background-color: #dc3545;
-      }
-      .access-toggle {
-        cursor: pointer;
-      }
-      .filter-container {
-        background-color: #f8f9fa;
-        padding: 15px;
-        border-radius: 5px;
-        margin-bottom: 20px;
-      }
-      .election-select {
-        max-width: 300px;
-      }
-    </style>
+    <link rel="stylesheet" href="admin-voters.css">
   </head>
   <body>
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
       <div class="logo-container">
-        <img class="logo" src="images/Logo.png">
+        <img class="logo" src="images/Logo.png" />
         <i class="bi bi-x-lg" id="close"></i>
       </div>
 
@@ -93,7 +57,7 @@
           </a>
         </li>
         <li class="nav-item active">
-          <a href="admin-voters.html" class="nav-link">
+          <a href="admin-voters.html" class="nav-link active">
             <i class="fas fa-users"></i>
             <span>Voters</span>
           </a>
@@ -131,7 +95,8 @@
           <input
             type="text"
             class="form-control search-input"
-            placeholder="Search..."
+            placeholder="Search voters..."
+            id="voterSearch"
           />
         </div>
 
@@ -149,64 +114,122 @@
           </div>
         </div>
       </div>
-      
+
+      <!-- Dashboard Header -->
       <div class="dashboard-header">
         <div class="row align-items-center">
           <div class="col-md-6">
-            <h3>Voters Management</h3>
-            <p class="text-muted">Manage registered voters and their election access</p>
+            <h3>Voter Management</h3>
+            <p class="text-muted">Manage and approve voter registrations</p>
           </div>
           <div class="col-md-6 text-md-end">
-            <button class="btn btn-primary me-2">
-              <i class="fas fa-file-export me-1"></i> Export
-            </button>
-            <button class="btn btn-success">
-              <i class="fas fa-user-plus me-1"></i> Add Voter
+            <button
+              class="btn btn-success"
+              data-bs-toggle="modal"
+              data-bs-target="#addVoterModal"
+            >
+              <i class="fas fa-plus me-1"></i> Add Voter
             </button>
           </div>
         </div>
       </div>
 
+      <!-- Stats Cards -->
+      <div class="row mb-4">
+        <div class="col-md-3">
+          <div class="stats-card">
+            <div class="stats-number" id="totalVoters">1,847</div>
+            <div class="stats-label">Total Voters</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stats-card">
+            <div class="stats-number text-warning" id="pendingVoters">126</div>
+            <div class="stats-label">Pending Approval</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stats-card">
+            <div class="stats-number text-success" id="approvedVoters">
+              1,654
+            </div>
+            <div class="stats-label">Approved</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stats-card">
+            <div class="stats-number text-danger" id="rejectedVoters">67</div>
+            <div class="stats-label">Rejected</div>
+          </div>
+        </div>
+      </div>
+
       <!-- Filters -->
-      <div class="filter-container">
+      <div class="filter-section">
         <div class="row">
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Filter by Election</label>
-            <select class="form-select election-select">
-              <option value="">All Elections</option>
-              <option value="1">President Student Council</option>
-              <option value="2">Vice President Student Council</option>
-              <option value="3">Secretary Student Council</option>
-              <option value="4">Treasurer Student Council</option>
-            </select>
-          </div>
-          <div class="col-md-4 mb-3">
+          <div class="col-md-3 mb-3">
             <label class="form-label">Filter by Status</label>
-            <select class="form-select">
+            <select class="form-select" id="statusFilter">
               <option value="">All Statuses</option>
-              <option value="active">Active</option>
-              <option value="pending">Pending Verification</option>
-              <option value="inactive">Inactive</option>
+              <option value="pending">Pending</option>
+              <option value="approved">Approved</option>
+              <option value="rejected">Rejected</option>
             </select>
           </div>
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Filter by Department</label>
-            <select class="form-select">
-              <option value="">All Departments</option>
-              <option value="cs">Computer Science</option>
-              <option value="eng">Engineering</option>
-              <option value="bus">Business</option>
-              <option value="art">Arts</option>
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Filter by Election</label>
+            <select class="form-select" id="electionFilter">
+              <option value="">All Elections</option>
+              <option value="el1001">President Student Council 2023</option>
+              <option value="el1002">
+                Vice President Student Council 2023
+              </option>
+              <option value="el1003">Computer Science Department Head</option>
+              <option value="el1004">
+                Faculty of Engineering Representative
+              </option>
             </select>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Registration Date From</label>
+            <input type="date" class="form-control" id="dateFrom" />
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Registration Date To</label>
+            <input type="date" class="form-control" id="dateTo" />
           </div>
         </div>
         <div class="row">
           <div class="col-12 text-end">
-            <button class="btn btn-outline-secondary me-2">
+            <button
+              class="btn btn-outline-secondary me-2"
+              onclick="applyFilters()"
+            >
               <i class="fas fa-filter"></i> Apply Filters
             </button>
-            <button class="btn btn-outline-danger">
+            <button class="btn btn-outline-danger" onclick="clearFilters()">
               <i class="fas fa-times"></i> Clear Filters
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bulk Actions (Hidden by default) -->
+      <div class="bulk-actions" id="bulkActions">
+        <div class="d-flex justify-content-between align-items-center">
+          <span><strong id="selectedCount">0</strong> voters selected</span>
+          <div>
+            <button class="btn btn-success btn-sm me-2" onclick="bulkApprove()">
+              <i class="fas fa-check"></i> Bulk Approve
+            </button>
+            <button class="btn btn-danger btn-sm me-2" onclick="bulkReject()">
+              <i class="fas fa-times"></i> Bulk Reject
+            </button>
+            <button
+              class="btn btn-outline-secondary btn-sm"
+              onclick="clearSelection()"
+            >
+              Clear Selection
             </button>
           </div>
         </div>
@@ -214,221 +237,51 @@
 
       <!-- Voters Table -->
       <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
           <span>Registered Voters</span>
-          <div>
-            <span class="me-3">Total: 562 voters</span>
-            <div class="btn-group">
-              <button class="btn btn-sm btn-outline-secondary">
-                <i class="fas fa-th-list"></i>
-              </button>
-              <button class="btn btn-sm btn-outline-secondary">
-                <i class="fas fa-th-large"></i>
-              </button>
-            </div>
-          </div>
+          <span id="voterCount">Showing 1-10 of 1,847 voters</span>
         </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table custom-table">
               <thead>
                 <tr>
+                  <th>
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      id="selectAll"
+                      onchange="toggleSelectAll()"
+                    />
+                  </th>
                   <th>Voter ID</th>
                   <th>Name</th>
                   <th>Email</th>
-                  <th>Department</th>
+                  <th>Registration Date</th>
                   <th>Status</th>
-                  <th>Election Access</th>
+                  <th>Elections</th>
                   <th>Actions</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>V1001</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <div class="voter-avatar me-2 bg-primary text-white">
-                        EW
-                      </div>
-                      <span>Emma Wilson</span>
-                    </div>
-                  </td>
-                  <td>emma.w@student.run.edu</td>
-                  <td>Computer Science</td>
-                  <td>
-                    <span class="voter-status status-active"></span>
-                    <span>Active</span>
-                  </td>
-                  <td>
-                    <div class="form-check form-switch access-toggle">
-                      <input class="form-check-input" type="checkbox" id="access1" checked>
-                      <label class="form-check-label" for="access1">President SC</label>
-                    </div>
-                    <div class="form-check form-switch access-toggle">
-                      <input class="form-check-input" type="checkbox" id="access2">
-                      <label class="form-check-label" for="access2">Vice President SC</label>
-                    </div>
-                  </td>
-                  <td>
-                    <button class="btn btn-sm btn-outline-primary me-1" title="Edit">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger" title="Delete">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>V1002</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <div class="voter-avatar me-2 bg-success text-white">
-                        JW
-                      </div>
-                      <span>James Wilson</span>
-                    </div>
-                  </td>
-                  <td>james.w@student.run.edu</td>
-                  <td>Engineering</td>
-                  <td>
-                    <span class="voter-status status-active"></span>
-                    <span>Active</span>
-                  </td>
-                  <td>
-                    <div class="form-check form-switch access-toggle">
-                      <input class="form-check-input" type="checkbox" id="access3" checked>
-                      <label class="form-check-label" for="access3">President SC</label>
-                    </div>
-                    <div class="form-check form-switch access-toggle">
-                      <input class="form-check-input" type="checkbox" id="access4" checked>
-                      <label class="form-check-label" for="access4">Vice President SC</label>
-                    </div>
-                  </td>
-                  <td>
-                    <button class="btn btn-sm btn-outline-primary me-1" title="Edit">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger" title="Delete">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>V1003</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <div class="voter-avatar me-2 bg-warning text-white">
-                        SA
-                      </div>
-                      <span>Sarah Ahmed</span>
-                    </div>
-                  </td>
-                  <td>sarah.a@student.run.edu</td>
-                  <td>Business</td>
-                  <td>
-                    <span class="voter-status status-pending"></span>
-                    <span>Pending</span>
-                  </td>
-                  <td>
-                    <div class="form-check form-switch access-toggle">
-                      <input class="form-check-input" type="checkbox" id="access5" disabled>
-                      <label class="form-check-label" for="access5">President SC</label>
-                    </div>
-                    <div class="form-check form-switch access-toggle">
-                      <input class="form-check-input" type="checkbox" id="access6" disabled>
-                      <label class="form-check-label" for="access6">Vice President SC</label>
-                    </div>
-                  </td>
-                  <td>
-                    <button class="btn btn-sm btn-outline-primary me-1" title="Edit">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger" title="Delete">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>V1004</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <div class="voter-avatar me-2 bg-danger text-white">
-                        DK
-                      </div>
-                      <span>David Kim</span>
-                    </div>
-                  </td>
-                  <td>david.k@student.run.edu</td>
-                  <td>Arts</td>
-                  <td>
-                    <span class="voter-status status-inactive"></span>
-                    <span>Inactive</span>
-                  </td>
-                  <td>
-                    <div class="form-check form-switch access-toggle">
-                      <input class="form-check-input" type="checkbox" id="access7">
-                      <label class="form-check-label" for="access7">President SC</label>
-                    </div>
-                    <div class="form-check form-switch access-toggle">
-                      <input class="form-check-input" type="checkbox" id="access8">
-                      <label class="form-check-label" for="access8">Vice President SC</label>
-                    </div>
-                  </td>
-                  <td>
-                    <button class="btn btn-sm btn-outline-primary me-1" title="Edit">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger" title="Delete">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>V1005</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <div class="voter-avatar me-2 bg-info text-white">
-                        LC
-                      </div>
-                      <span>Lisa Chen</span>
-                    </div>
-                  </td>
-                  <td>lisa.c@student.run.edu</td>
-                  <td>Computer Science</td>
-                  <td>
-                    <span class="voter-status status-active"></span>
-                    <span>Active</span>
-                  </td>
-                  <td>
-                    <div class="form-check form-switch access-toggle">
-                      <input class="form-check-input" type="checkbox" id="access9" checked>
-                      <label class="form-check-label" for="access9">President SC</label>
-                    </div>
-                    <div class="form-check form-switch access-toggle">
-                      <input class="form-check-input" type="checkbox" id="access10">
-                      <label class="form-check-label" for="access10">Vice President SC</label>
-                    </div>
-                  </td>
-                  <td>
-                    <button class="btn btn-sm btn-outline-primary me-1" title="Edit">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger" title="Delete">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
+              <tbody id="votersTableBody">
+                <!-- Voter rows will be populated by JavaScript -->
               </tbody>
             </table>
           </div>
-          
+
           <!-- Pagination -->
           <nav aria-label="Voter pagination">
             <ul class="pagination justify-content-center">
               <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
+                  >Previous</a
+                >
               </li>
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+              <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+              </li>
               <li class="page-item"><a class="page-link" href="#">2</a></li>
               <li class="page-item"><a class="page-link" href="#">3</a></li>
               <li class="page-item">
@@ -438,108 +291,1061 @@
           </nav>
         </div>
       </div>
-
-      <!-- Bulk Actions Card -->
-      <div class="card mt-4">
-        <div class="card-header">
-          Bulk Actions
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Select Election</label>
-              <select class="form-select">
-                <option selected disabled>Choose election...</option>
-                <option>President Student Council</option>
-                <option>Vice President Student Council</option>
-                <option>Secretary Student Council</option>
-              </select>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Action</label>
-              <select class="form-select">
-                <option selected disabled>Choose action...</option>
-                <option>Grant Access</option>
-                <option>Revoke Access</option>
-                <option>Activate Accounts</option>
-                <option>Deactivate Accounts</option>
-              </select>
-            </div>
-            <div class="col-md-4 mb-3 d-flex align-items-end">
-              <button class="btn btn-primary w-100">
-                <i class="fas fa-play me-2"></i>Execute Action
-              </button>
-            </div>
-          </div>
-          <div class="alert alert-info mt-3">
-            <i class="fas fa-info-circle me-2"></i>
-            Select voters from the table above to perform bulk actions. If no voters are selected, the action will apply to all filtered voters.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Quick Actions -->
-    <div class="quick-actions">
-      <div class="action-circle" data-bs-toggle="tooltip" data-bs-placement="left" title="Add New Voter">
-        <i class="fas fa-user-plus"></i>
-      </div>
-      <div class="action-circle" data-bs-toggle="tooltip" data-bs-placement="left" title="Import Voters">
-        <i class="fas fa-file-import"></i>
-      </div>
     </div>
 
     <!-- Add Voter Modal -->
     <div class="modal fade" id="addVoterModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Add New Voter</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
           <div class="modal-body">
-            <!-- Form would go here -->
-            <p>Voter registration form would appear here...</p>
+            <form>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">First Name</label>
+                  <input type="text" class="form-control" required />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Last Name</label>
+                  <input type="text" class="form-control" required />
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-control" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Student ID</label>
+                <input type="text" class="form-control" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Department</label>
+                <select class="form-select" required>
+                  <option value="">Select Department</option>
+                  <option>Computer Science</option>
+                  <option>Engineering</option>
+                  <option>Business Administration</option>
+                  <option>Mathematics</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Eligible Elections</label>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value="el1001"
+                    id="election1"
+                  />
+                  <label class="form-check-label" for="election1">
+                    President Student Council 2023
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value="el1002"
+                    id="election2"
+                  />
+                  <label class="form-check-label" for="election2">
+                    Vice President Student Council 2023
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value="el1003"
+                    id="election3"
+                  />
+                  <label class="form-check-label" for="election3">
+                    Computer Science Department Head
+                  </label>
+                </div>
+              </div>
+              <div class="form-check mb-3">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="autoApprove"
+                />
+                <label class="form-check-label" for="autoApprove"
+                  >Auto-approve this voter</label
+                >
+              </div>
+            </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary">Save Voter</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="button" class="btn btn-success">Add Voter</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- Rejection Reason Modal -->
+    <div
+      class="modal fade"
+      id="rejectionModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Reject Voter Registration</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Please provide a reason for rejecting this voter registration:
+            </p>
+            <div class="mb-3">
+              <label class="form-label">Rejection Reason</label>
+              <select class="form-select" id="rejectionReason">
+                <option value="">Select a reason</option>
+                <option value="invalid_email">Invalid email address</option>
+                <option value="not_eligible">Not eligible to vote</option>
+                <option value="duplicate_registration">
+                  Duplicate registration
+                </option>
+                <option value="invalid_student_id">Invalid student ID</option>
+                <option value="incomplete_information">
+                  Incomplete information
+                </option>
+                <option value="other">Other (specify below)</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Additional Comments (Optional)</label>
+              <textarea
+                class="form-control"
+                rows="3"
+                id="rejectionComments"
+                placeholder="Additional details..."
+              ></textarea>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="sendRejectionEmail"
+                checked
+              />
+              <label class="form-check-label" for="sendRejectionEmail">
+                Send rejection notification email to voter
+              </label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              onclick="confirmRejection()"
+            >
+              Reject Voter
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email Templates Modal -->
+    <div
+      class="modal fade"
+      id="emailTemplatesModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Email Templates</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6">
+                <h6>Approval Email Template</h6>
+                <div class="email-template">
+                  <div class="template-name">Default Approval Template</div>
+                  <div class="template-preview">
+                    "Congratulations! Your voter registration has been
+                    approved..."
+                  </div>
+                </div>
+                <button class="btn btn-outline-primary btn-sm">
+                  Edit Template
+                </button>
+              </div>
+              <div class="col-md-6">
+                <h6>Rejection Email Template</h6>
+                <div class="email-template">
+                  <div class="template-name">Default Rejection Template</div>
+                  <div class="template-preview">
+                    "We regret to inform you that your voter registration..."
+                  </div>
+                </div>
+                <button class="btn btn-outline-primary btn-sm">
+                  Edit Template
+                </button>
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-12">
+                <h6>Email Settings</h6>
+                <div class="form-check mb-2">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="autoSendApproval"
+                    checked
+                  />
+                  <label class="form-check-label" for="autoSendApproval">
+                    Automatically send approval emails
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="autoSendRejection"
+                    checked
+                  />
+                  <label class="form-check-label" for="autoSendRejection">
+                    Automatically send rejection emails
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save Settings</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Initialize tooltips
-      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
+     // Sample voter data
+      const votersData = [
+        {
+          id: "VT001",
+          name: "John Doe",
+          email: "john.doe@university.edu",
+          registrationDate: "2023-10-15",
+          status: "pending",
+          elections: ["el1001", "el1002"],
+        },
+        {
+          id: "VT002",
+          name: "Jane Smith",
+          email: "jane.smith@university.edu",
+          registrationDate: "2023-10-14",
+          status: "approved",
+          elections: ["el1001", "el1003"],
+        },
+        {
+          id: "VT003",
+          name: "Mike Johnson",
+          email: "mike.johnson@university.edu",
+          registrationDate: "2023-10-13",
+          status: "rejected",
+          elections: ["el1002"],
+        },
+        {
+          id: "VT004",
+          name: "Sarah Wilson",
+          email: "sarah.wilson@university.edu",
+          registrationDate: "2023-10-12",
+          status: "approved",
+          elections: ["el1001", "el1002", "el1003"],
+        },
+        {
+          id: "VT005",
+          name: "David Brown",
+          email: "david.brown@university.edu",
+          registrationDate: "2023-10-11",
+          status: "pending",
+          elections: ["el1004"],
+        },
+        {
+          id: "VT006",
+          name: "Emily Davis",
+          email: "emily.davis@university.edu",
+          registrationDate: "2023-10-10",
+          status: "approved",
+          elections: ["el1001", "el1004"],
+        },
+        {
+          id: "VT007",
+          name: "Robert Miller",
+          email: "robert.miller@university.edu",
+          registrationDate: "2023-10-09",
+          status: "pending",
+          elections: ["el1002", "el1003"],
+        },
+        {
+          id: "VT008",
+          name: "Lisa Anderson",
+          email: "lisa.anderson@university.edu",
+          registrationDate: "2023-10-08",
+          status: "approved",
+          elections: ["el1001"],
+        },
+        {
+          id: "VT009",
+          name: "Kevin Taylor",
+          email: "kevin.taylor@university.edu",
+          registrationDate: "2023-10-07",
+          status: "rejected",
+          elections: ["el1003", "el1004"],
+        },
+        {
+          id: "VT010",
+          name: "Amanda White",
+          email: "amanda.white@university.edu",
+          registrationDate: "2023-10-06",
+          status: "approved",
+          elections: ["el1001", "el1002"],
+        },
+      ];
+
+      // Election data
+      const electionsData = {
+        el1001: "President Student Council 2023",
+        el1002: "Vice President Student Council 2023",
+        el1003: "Computer Science Department Head",
+        el1004: "Faculty of Engineering Representative",
+      };
+
+      // Global variables
+      let filteredVoters = [...votersData];
+      let selectedVoters = [];
+      let currentVoterForRejection = null;
+
+      // Initialize the application
+      document.addEventListener("DOMContentLoaded", function () {
+        initializePage();
+        setupEventListeners();
       });
-      
-      // Toggle sidebar functionality
-      document.getElementById('toggleSidebar').addEventListener('click', function() {
-        document.getElementById('sidebar').classList.toggle('active');
-      });
-      
-      document.getElementById('close').addEventListener('click', function() {
-        document.getElementById('sidebar').classList.remove('active');
-      });
-      
-      // Access toggle functionality
-      document.querySelectorAll('.access-toggle input').forEach(function(checkbox) {
-        checkbox.addEventListener('change', function() {
-          const label = this.nextElementSibling;
-          if(this.checked) {
-            label.classList.add('text-success');
-            label.classList.remove('text-muted');
-          } else {
-            label.classList.add('text-muted');
-            label.classList.remove('text-success');
+
+      function initializePage() {
+        updateStats();
+        renderVotersTable();
+        setupSidebar();
+      }
+
+      function setupEventListeners() {
+        // Search functionality
+        document
+          .getElementById("voterSearch")
+          .addEventListener("input", handleSearch);
+
+        // Filter events
+        document
+          .getElementById("statusFilter")
+          .addEventListener("change", applyFilters);
+        document
+          .getElementById("electionFilter")
+          .addEventListener("change", applyFilters);
+        document
+          .getElementById("dateFrom")
+          .addEventListener("change", applyFilters);
+        document
+          .getElementById("dateTo")
+          .addEventListener("change", applyFilters);
+
+        // Sidebar toggle
+        document
+          .getElementById("toggleSidebar")
+          .addEventListener("click", toggleSidebar);
+        document
+          .getElementById("close")
+          .addEventListener("click", closeSidebar);
+      }
+
+      function setupSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const toggleBtn = document.getElementById("toggleSidebar");
+        const closeBtn = document.getElementById("close");
+
+        // Handle responsive behavior
+        function handleResize() {
+          if (window.innerWidth > 992) {
+            sidebar.classList.remove("active");
+          }
+        }
+
+        window.addEventListener("resize", handleResize);
+      }
+
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("active");
+      }
+
+      function closeSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        sidebar.classList.remove("active");
+      }
+
+      function updateStats() {
+        const stats = votersData.reduce(
+          (acc, voter) => {
+            acc.total++;
+            acc[voter.status]++;
+            return acc;
+          },
+          { total: 0, pending: 0, approved: 0, rejected: 0 }
+        );
+
+        document.getElementById("totalVoters").textContent =
+          stats.total.toLocaleString();
+        document.getElementById("pendingVoters").textContent =
+          stats.pending.toLocaleString();
+        document.getElementById("approvedVoters").textContent =
+          stats.approved.toLocaleString();
+        document.getElementById("rejectedVoters").textContent =
+          stats.rejected.toLocaleString();
+      }
+
+      function renderVotersTable() {
+        const tbody = document.getElementById("votersTableBody");
+        tbody.innerHTML = "";
+
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const pageVoters = filteredVoters.slice(startIndex, endIndex);
+
+        pageVoters.forEach((voter) => {
+          const row = createVoterRow(voter);
+          tbody.appendChild(row);
+        });
+
+        updateVoterCount();
+        updatePagination();
+      }
+
+      function createVoterRow(voter) {
+        const row = document.createElement("tr");
+
+        // Format elections
+        const electionNames = voter.elections
+          .map((elId) => electionsData[elId] || elId)
+          .join(", ");
+
+        // Format date
+        const formattedDate = new Date(
+          voter.registrationDate
+        ).toLocaleDateString();
+
+        // Status badge
+        const statusBadge = `<span class="status-badge status-${voter.status}">${voter.status}</span>`;
+
+        // Action buttons
+        let actionButtons = "";
+        if (voter.status === "pending") {
+          actionButtons = `
+      <button class="action-btn approve-btn me-1" onclick="approveVoter('${voter.id}')">
+        <i class="fas fa-check"></i>
+      </button>
+      <button class="action-btn reject-btn" onclick="showRejectionModal('${voter.id}')">
+        <i class="fas fa-times"></i>
+      </button>
+    `;
+        } else if (voter.status === "approved") {
+          actionButtons = `
+      <button class="action-btn reject-btn" onclick="showRejectionModal('${voter.id}')">
+        <i class="fas fa-times"></i> Revoke
+      </button>
+    `;
+        } else if (voter.status === "rejected") {
+          actionButtons = `
+      <button class="action-btn approve-btn" onclick="approveVoter('${voter.id}')">
+        <i class="fas fa-check"></i> Approve
+      </button>
+    `;
+        }
+
+        row.innerHTML = `
+    <td>
+      <input type="checkbox" class="form-check-input voter-checkbox" 
+             value="${voter.id}" onchange="handleVoterSelection()">
+    </td>
+    <td>${voter.id}</td>
+    <td>${voter.name}</td>
+    <td>${voter.email}</td>
+    <td>${formattedDate}</td>
+    <td>${statusBadge}</td>
+    <td><small>${electionNames}</small></td>
+    <td>${actionButtons}</td>
+  `;
+
+        return row;
+      }
+
+      function handleSearch() {
+        const searchTerm = document
+          .getElementById("voterSearch")
+          .value.toLowerCase();
+
+        filteredVoters = votersData.filter(
+          (voter) =>
+            voter.name.toLowerCase().includes(searchTerm) ||
+            voter.email.toLowerCase().includes(searchTerm) ||
+            voter.id.toLowerCase().includes(searchTerm)
+        );
+
+        renderVotersTable();
+      }
+
+      function applyFilters() {
+        const statusFilter = document.getElementById("statusFilter").value;
+        const electionFilter = document.getElementById("electionFilter").value;
+        const dateFrom = document.getElementById("dateFrom").value;
+        const dateTo = document.getElementById("dateTo").value;
+
+        filteredVoters = votersData.filter((voter) => {
+          // Status filter
+          if (statusFilter && voter.status !== statusFilter) return false;
+
+          // Election filter
+          if (electionFilter && !voter.elections.includes(electionFilter))
+            return false;
+
+          // Date range filter
+          if (dateFrom && voter.registrationDate < dateFrom) return false;
+          if (dateTo && voter.registrationDate > dateTo) return false;
+
+          return true;
+        });
+
+        renderVotersTable();
+      }
+
+      function clearFilters() {
+        document.getElementById("statusFilter").value = "";
+        document.getElementById("electionFilter").value = "";
+        document.getElementById("dateFrom").value = "";
+        document.getElementById("dateTo").value = "";
+        document.getElementById("voterSearch").value = "";
+
+        filteredVoters = [...votersData];
+        renderVotersTable();
+      }
+
+      function updateVoterCount() {
+        const totalCount = filteredVoters.length;
+        const startIndex = (currentPage - 1) * itemsPerPage + 1;
+        const endIndex = Math.min(currentPage * itemsPerPage, totalCount);
+
+        document.getElementById(
+          "voterCount"
+        ).textContent = `Showing ${startIndex}-${endIndex} of ${totalCount.toLocaleString()} voters`;
+      }
+
+      // Voter selection functions
+      function toggleSelectAll() {
+        const selectAllCheckbox = document.getElementById("selectAll");
+        const voterCheckboxes = document.querySelectorAll(".voter-checkbox");
+
+        voterCheckboxes.forEach((checkbox) => {
+          checkbox.checked = selectAllCheckbox.checked;
+        });
+
+        handleVoterSelection();
+      }
+
+      function handleVoterSelection() {
+        const voterCheckboxes = document.querySelectorAll(
+          ".voter-checkbox:checked"
+        );
+        selectedVoters = Array.from(voterCheckboxes).map((cb) => cb.value);
+
+        const bulkActions = document.getElementById("bulkActions");
+        const selectedCount = document.getElementById("selectedCount");
+
+        if (selectedVoters.length > 0) {
+          bulkActions.classList.add("show");
+          selectedCount.textContent = selectedVoters.length;
+        } else {
+          bulkActions.classList.remove("show");
+        }
+
+        // Update select all checkbox state
+        const selectAllCheckbox = document.getElementById("selectAll");
+        const allCheckboxes = document.querySelectorAll(".voter-checkbox");
+        const checkedCheckboxes = document.querySelectorAll(
+          ".voter-checkbox:checked"
+        );
+
+        if (checkedCheckboxes.length === 0) {
+          selectAllCheckbox.indeterminate = false;
+          selectAllCheckbox.checked = false;
+        } else if (checkedCheckboxes.length === allCheckboxes.length) {
+          selectAllCheckbox.indeterminate = false;
+          selectAllCheckbox.checked = true;
+        } else {
+          selectAllCheckbox.indeterminate = true;
+        }
+      }
+
+      function clearSelection() {
+        selectedVoters = [];
+        document
+          .querySelectorAll(".voter-checkbox")
+          .forEach((cb) => (cb.checked = false));
+        document.getElementById("selectAll").checked = false;
+        document.getElementById("selectAll").indeterminate = false;
+        document.getElementById("bulkActions").classList.remove("show");
+      }
+
+      // Voter approval/rejection functions
+      function approveVoter(voterId) {
+        const voter = votersData.find((v) => v.id === voterId);
+        if (voter) {
+          voter.status = "approved";
+          updateStats();
+          renderVotersTable();
+          showNotification(
+            `${voter.name} has been approved successfully!`,
+            "success"
+          );
+        }
+      }
+
+      function showRejectionModal(voterId) {
+        currentVoterForRejection = voterId;
+        const modal = new bootstrap.Modal(
+          document.getElementById("rejectionModal")
+        );
+        modal.show();
+      }
+
+      function confirmRejection() {
+        if (!currentVoterForRejection) return;
+
+        const reason = document.getElementById("rejectionReason").value;
+        const comments = document.getElementById("rejectionComments").value;
+        const sendEmail = document.getElementById("sendRejectionEmail").checked;
+
+        if (!reason) {
+          showNotification("Please select a rejection reason.", "warning");
+          return;
+        }
+
+        const voter = votersData.find((v) => v.id === currentVoterForRejection);
+        if (voter) {
+          voter.status = "rejected";
+          voter.rejectionReason = reason;
+          voter.rejectionComments = comments;
+
+          updateStats();
+          renderVotersTable();
+
+          // Close modal
+          const modal = bootstrap.Modal.getInstance(
+            document.getElementById("rejectionModal")
+          );
+          modal.hide();
+
+          // Reset form
+          document.getElementById("rejectionReason").value = "";
+          document.getElementById("rejectionComments").value = "";
+
+          showNotification(`${voter.name} has been rejected.`, "danger");
+
+          if (sendEmail) {
+            showNotification("Rejection email sent successfully!", "info");
+          }
+        }
+
+        currentVoterForRejection = null;
+      }
+
+      // Bulk actions
+      function bulkApprove() {
+        if (selectedVoters.length === 0) return;
+
+        let approvedCount = 0;
+        selectedVoters.forEach((voterId) => {
+          const voter = votersData.find((v) => v.id === voterId);
+          if (voter && voter.status !== "approved") {
+            voter.status = "approved";
+            approvedCount++;
           }
         });
+
+        updateStats();
+        renderVotersTable();
+        clearSelection();
+
+        showNotification(
+          `${approvedCount} voters approved successfully!`,
+          "success"
+        );
+      }
+
+      function bulkReject() {
+        if (selectedVoters.length === 0) return;
+
+        // Create a custom confirmation modal instead of using browser confirm
+        createConfirmationModal(
+          "Bulk Rejection Confirmation",
+          `Are you sure you want to reject ${selectedVoters.length} selected voters?`,
+          "danger",
+          () => {
+            let rejectedCount = 0;
+            selectedVoters.forEach((voterId) => {
+              const voter = votersData.find((v) => v.id === voterId);
+              if (voter && voter.status !== "rejected") {
+                voter.status = "rejected";
+                voter.rejectionReason = "bulk_rejection";
+                rejectedCount++;
+              }
+            });
+
+            updateStats();
+            renderVotersTable();
+            clearSelection();
+
+            showNotification(`${rejectedCount} voters rejected.`, "danger");
+          }
+        );
+      }
+
+      // Custom confirmation modal function
+      function createConfirmationModal(title, message, type, onConfirm) {
+        // Remove existing confirmation modal if any
+        const existingModal = document.getElementById("customConfirmModal");
+        if (existingModal) {
+          existingModal.remove();
+        }
+
+        // Create modal HTML
+        const modalHTML = `
+          <div class="modal fade" id="customConfirmModal" tabindex="-1" aria-labelledby="customConfirmModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="customConfirmModalLabel">${title}</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>${message}</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-${type}" id="confirmActionBtn">Confirm</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        // Add modal to document
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+        // Get modal elements
+        const modal = document.getElementById("customConfirmModal");
+        const confirmBtn = document.getElementById("confirmActionBtn");
+
+        // Handle confirm button click
+        confirmBtn.addEventListener("click", () => {
+          onConfirm();
+          const bsModal = bootstrap.Modal.getInstance(modal);
+          bsModal.hide();
+        });
+
+        // Show modal
+        const bsModal = new bootstrap.Modal(modal);
+        bsModal.show();
+
+        // Clean up modal when hidden
+        modal.addEventListener('hidden.bs.modal', () => {
+          modal.remove();
+        });
+      }
+
+      // Notification system
+      function showNotification(message, type = "info") {
+        // Create notification element
+        const notification = document.createElement("div");
+        notification.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+        notification.style.cssText = `
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    min-width: 300px;
+    box-shadow: var(--shadow);
+  `;
+
+        notification.innerHTML = `
+    ${message}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  `;
+
+        document.body.appendChild(notification);
+
+        // Auto-remove after 4 seconds (increased from 3 for better readability)
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.remove();
+          }
+        }, 4000);
+      }
+
+      // Add voter modal functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const addVoterModal = document.getElementById("addVoterModal");
+        if (addVoterModal) {
+          addVoterModal.addEventListener("show.bs.modal", function () {
+            // Reset form when modal opens
+            const form = addVoterModal.querySelector("form");
+            form.reset();
+          });
+
+          // Handle form submission
+          const addVoterBtn = addVoterModal.querySelector(".btn-success");
+          addVoterBtn.addEventListener("click", function () {
+            const form = addVoterModal.querySelector("form");
+            const formData = new FormData(form);
+
+            // Basic validation
+            const firstName = form.querySelector('input[type="text"]').value;
+            const lastName =
+              form.querySelectorAll('input[type="text"]')[1].value;
+            const email = form.querySelector('input[type="email"]').value;
+            const studentId =
+              form.querySelectorAll('input[type="text"]')[2].value;
+
+            if (!firstName || !lastName || !email || !studentId) {
+              showNotification("Please fill in all required fields.", "warning");
+              return;
+            }
+
+            // Get selected elections
+            const selectedElections = Array.from(
+              form.querySelectorAll('input[type="checkbox"]:checked')
+            )
+              .filter((cb) => cb.value.startsWith("el"))
+              .map((cb) => cb.value);
+
+            // Create new voter object
+            const newVoter = {
+              id: `VT${String(votersData.length + 1).padStart(3, "0")}`,
+              name: `${firstName} ${lastName}`,
+              email: email,
+              registrationDate: new Date().toISOString().split("T")[0],
+              status: form.querySelector("#autoApprove").checked
+                ? "approved"
+                : "pending",
+              elections: selectedElections,
+            };
+
+            // Add to voters data
+            votersData.push(newVoter);
+            filteredVoters = [...votersData];
+
+            // Update UI
+            updateStats();
+            renderVotersTable();
+
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(addVoterModal);
+            modal.hide();
+
+            showNotification(
+              `${newVoter.name} has been added successfully!`,
+              "success"
+            );
+          });
+        }
       });
+
+      // Email template functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const emailTemplatesModal = document.getElementById(
+          "emailTemplatesModal"
+        );
+        if (emailTemplatesModal) {
+          // Handle email settings save
+          const saveSettingsBtn =
+            emailTemplatesModal.querySelector(".btn-primary");
+          saveSettingsBtn.addEventListener("click", function () {
+            const autoSendApproval =
+              document.getElementById("autoSendApproval").checked;
+            const autoSendRejection =
+              document.getElementById("autoSendRejection").checked;
+
+            // Save settings (in a real app, this would be saved to backend)
+            console.log("Email settings saved:", {
+              autoSendApproval,
+              autoSendRejection,
+            });
+
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(emailTemplatesModal);
+            modal.hide();
+
+            showNotification("Email settings saved successfully!", "success");
+          });
+        }
+      });
+
+      // Export/Import functionality (optional)
+      function exportVoters() {
+        const dataStr = JSON.stringify(votersData, null, 2);
+        const dataUri =
+          "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
+
+        const exportFileDefaultName = `voters_${
+          new Date().toISOString().split("T")[0]
+        }.json`;
+
+        const linkElement = document.createElement("a");
+        linkElement.setAttribute("href", dataUri);
+        linkElement.setAttribute("download", exportFileDefaultName);
+        linkElement.click();
+
+        showNotification("Voter data exported successfully!", "success");
+      }
+
+      // Pagination functionality (basic implementation)
+      let currentPage = 1;
+      const itemsPerPage = 10;
+
+      function updatePagination() {
+        const totalPages = Math.ceil(filteredVoters.length / itemsPerPage);
+        const pagination = document.querySelector(".pagination");
+
+        if (pagination) {
+          pagination.innerHTML = "";
+
+          // Previous button
+          const prevItem = document.createElement("li");
+          prevItem.className = `page-item ${
+            currentPage === 1 ? "disabled" : ""
+          }`;
+          prevItem.innerHTML = `<a class="page-link" href="#" onclick="changePage(${
+            currentPage - 1
+          })">Previous</a>`;
+          pagination.appendChild(prevItem);
+
+          // Page numbers
+          for (let i = 1; i <= totalPages; i++) {
+            const pageItem = document.createElement("li");
+            pageItem.className = `page-item ${
+              i === currentPage ? "active" : ""
+            }`;
+            pageItem.innerHTML = `<a class="page-link" href="#" onclick="changePage(${i})">${i}</a>`;
+            pagination.appendChild(pageItem);
+          }
+
+          // Next button
+          const nextItem = document.createElement("li");
+          nextItem.className = `page-item ${
+            currentPage === totalPages ? "disabled" : ""
+          }`;
+          nextItem.innerHTML = `<a class="page-link" href="#" onclick="changePage(${
+            currentPage + 1
+          })">Next</a>`;
+          pagination.appendChild(nextItem);
+        }
+      }
+
+      function changePage(page) {
+        const totalPages = Math.ceil(filteredVoters.length / itemsPerPage);
+        if (page < 1 || page > totalPages) return;
+
+        currentPage = page;
+        renderVotersTable();
+        updatePagination();
+      }
+
+      // Additional utility functions
+      function getVotersByElection(electionId) {
+        return votersData.filter((voter) =>
+          voter.elections.includes(electionId)
+        );
+      }
+
+      function getElectionStats(electionId) {
+        const voters = getVotersByElection(electionId);
+        return voters.reduce(
+          (acc, voter) => {
+            acc[voter.status]++;
+            return acc;
+          },
+          { pending: 0, approved: 0, rejected: 0 }
+        );
+      }
+
+      // Initialize tooltips and popovers if needed
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize Bootstrap tooltips
+        const tooltipTriggerList = [].slice.call(
+          document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        );
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+      });
+
+      // Prevent form submission on Enter key
+      document.addEventListener("keypress", function (e) {
+        if (
+          e.key === "Enter" &&
+          e.target.tagName !== "BUTTON" &&
+          e.target.type !== "submit"
+        ) {
+          e.preventDefault();
+        }
+      });
+
+      console.log("Voter Management System initialized successfully!");
     </script>
   </body>
 </html>
