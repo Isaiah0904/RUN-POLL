@@ -228,7 +228,8 @@ body {
   align-items: center;
 }
 
-.action-icon {
+.action-icon,
+.user-actions a {
   font-size: 20px;
   color: var(--text-gray);
   margin-left: 15px;
@@ -237,10 +238,12 @@ body {
   display: flex;
   align-items: center;
   height: 40px;
+  position: relative;
   text-decoration: none;
 }
 
-.action-icon:hover {
+.action-icon:hover,
+.user-actions a:hover {
   color: var(--primary);
 }
 
@@ -267,7 +270,6 @@ body {
   height: 10px;
   background-color: var(--success);
   border-radius: 50%;
-  border: 2px solid white;
   bottom: 0px;
   right: 0px;
 }

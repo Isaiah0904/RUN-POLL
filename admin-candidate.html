@@ -29,7 +29,7 @@
       <div class="profile-container">
         <div class="profile-image-container" id="sidebarProfileContainer">
           <img
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=70&h=70&fit=crop&crop=face"
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 70 70'%3E%3Ccircle cx='35' cy='35' r='35' fill='%23e9ecef'/%3E%3Cpath d='M35 20c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 28c-6.6 0-12.4-3.4-15.8-8.6 1.8-3.2 5.2-5.4 9.1-5.4h13.4c3.9 0 7.3 2.2 9.1 5.4-3.4 5.2-9.2 8.6-15.8 8.6z' fill='%236c757d'/%3E%3C/svg%3E"
             class="profile-image"
             id="userProfileImage"
           />
@@ -45,37 +45,37 @@
 
       <ul class="sidebar-nav list-unstyled">
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="admin-dashboard.html" class="nav-link">
             <i class="fas fa-tachometer-alt"></i>
             <span>Dashboard</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="admin-election.html" class="nav-link">
             <i class="fas fa-vote-yea"></i>
             <span>Elections</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="admin-voters.html" class="nav-link">
             <i class="fas fa-users"></i>
             <span>Voters</span>
           </a>
         </li>
         <li class="nav-item active">
-          <a href="#" class="nav-link">
+          <a href="admin-candidate.html" class="nav-link active">
             <i class="fas fa-user-tie"></i>
             <span>Candidates</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="admin-results.html" class="nav-link">
             <i class="fas fa-chart-bar"></i>
             <span>Results</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="Login.html" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             <span>Log out</span>
           </a>
@@ -105,7 +105,7 @@
           </div>
           <div class="navbar-user-container" id="navbarUserContainer">
             <img
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 70 70'%3E%3Ccircle cx='35' cy='35' r='35' fill='%23e9ecef'/%3E%3Cpath d='M35 20c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 28c-6.6 0-12.4-3.4-15.8-8.6 1.8-3.2 5.2-5.4 9.1-5.4h13.4c3.9 0 7.3 2.2 9.1 5.4-3.4 5.2-9.2 8.6-15.8 8.6z' fill='%236c757d'/%3E%3C/svg%3E"
               class="user-avatar"
               id="navbarUserImage"
             />
@@ -300,7 +300,7 @@
                   <td>
                     <div class="candidate-info">
                       <img
-                        src="https://images.unsplash.com/photo-1494790108755-2616b332c4e7?w=40&h=40&fit=crop&crop=face"
+                         src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face"
                         class="candidate-photo"
                         alt="Candidate"
                       />
@@ -640,655 +640,598 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Sample candidate data
-      let candidates = [
-        {
-          id: 1,
-          name: "John Adebayo",
-          photo:
-            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face",
-          studentId: "CS2021001",
-          email: "john.adebayo@university.edu",
-          phone: "+234 123 456 7890",
-          course: "Computer Science Student",
-          election: "President Student Council 2023",
-          position: "President",
-          applicationDate: "2023-10-01",
-          status: "pending",
-          cgpa: "4.2/5.0",
-          bio: "I am a dedicated Computer Science student with a passion for student leadership and community development. My vision is to create a more inclusive and innovative student council that truly represents the diverse voices of our student body.",
-          qualifications: [
-            "Current CGPA: 4.2/5.0",
-            "Former Class Representative (2022-2023)",
-            "Member of Computer Science Students Association",
-            "Volunteer at University Community Service Program",
-          ],
-        },
-        {
-          id: 2,
-          name: "Sarah Williams",
-          photo:
-            "https://images.unsplash.com/photo-1494790108755-2616b332c4e7?w=40&h=40&fit=crop&crop=face",
-          studentId: "BA2021005",
-          email: "sarah.williams@university.edu",
-          phone: "+234 123 456 7891",
-          course: "Business Administration Student",
-          election: "President Student Council 2023",
-          position: "President",
-          applicationDate: "2023-10-02",
-          status: "approved",
-          cgpa: "4.5/5.0",
-          bio: "As a Business Administration student, I bring strategic thinking and organizational skills to student leadership. I am committed to improving student welfare and academic excellence.",
-          qualifications: [
-            "Current CGPA: 4.5/5.0",
-            "President of Business Students Association",
-            "Dean's List for 3 consecutive semesters",
-            "Internship at Fortune 500 company",
-          ],
-        },
-        {
-          id: 3,
-          name: "Michael Johnson",
-          photo:
-            "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face",
-          studentId: "ENG2021010",
-          email: "michael.johnson@university.edu",
-          phone: "+234 123 456 7892",
-          course: "Engineering Student",
-          election: "Vice President Student Council 2023",
-          position: "Vice President",
-          applicationDate: "2023-10-03",
-          status: "pending",
-          cgpa: "4.0/5.0",
-          bio: "Engineering student with strong technical and leadership background. I aim to bridge the gap between technical and non-technical students while improving campus infrastructure.",
-          qualifications: [
-            "Current CGPA: 4.0/5.0",
-            "Vice President Engineering Students Association",
-            "Winner of National Engineering Competition 2023",
-            "Volunteer at Campus Technology Center",
-          ],
-        },
-        {
-          id: 4,
-          name: "Emma Davis",
-          photo:
-            "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face",
-          studentId: "CS2021015",
-          email: "emma.davis@university.edu",
-          phone: "+234 123 456 7893",
-          course: "Computer Science Student",
-          election: "Computer Science Department Head",
-          position: "Department Head",
-          applicationDate: "2023-10-05",
-          status: "rejected",
-          cgpa: "3.8/5.0",
-          bio: "Computer Science student passionate about departmental representation and academic excellence. I want to improve the CS curriculum and student support systems.",
-          qualifications: [
-            "Current CGPA: 3.8/5.0",
-            "Member of CS Students Association",
-            "Hackathon participant (multiple events)",
-            "Tutor for junior CS students",
-          ],
-          rejectionReason:
-            "Doesn't meet minimum CGPA requirement for department head position",
-        },
-      ];
+            // Sample candidate data
+            let candidates = [
+              {
+                id: 1,
+                name: "John Adebayo",
+                photo:
+                  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face",
+                studentId: "CS2021001",
+                email: "john.adebayo@university.edu",
+                phone: "+234 123 456 7890",
+                course: "Computer Science Student",
+                election: "President Student Council 2023",
+                position: "President",
+                applicationDate: "2023-10-01",
+                status: "pending",
+                cgpa: "4.2/5.0",
+                bio: "I am a dedicated Computer Science student with a passion for student leadership and community development. My vision is to create a more inclusive and innovative student council that truly represents the diverse voices of our student body.",
+                qualifications: [
+                  "Current CGPA: 4.2/5.0",
+                  "Former Class Representative (2022-2023)",
+                  "Member of Computer Science Students Association",
+                  "Volunteer at University Community Service Program",
+                ],
+              },
+              {
+                id: 2,
+                name: "Sarah Williams",
+                photo:
+                  "https://images.unsplash.com/photo-1494790108755-2616b332c4e7?w=40&h=40&fit=crop&crop=face",
+                studentId: "BA2021005",
+                email: "sarah.williams@university.edu",
+                phone: "+234 123 456 7891",
+                course: "Business Administration Student",
+                election: "President Student Council 2023",
+                position: "President",
+                applicationDate: "2023-10-02",
+                status: "approved",
+                cgpa: "4.5/5.0",
+                bio: "As a Business Administration student, I bring strategic thinking and organizational skills to student leadership. I am committed to improving student welfare and academic excellence.",
+                qualifications: [
+                  "Current CGPA: 4.5/5.0",
+                  "President of Business Students Association",
+                  "Dean's List for 3 consecutive semesters",
+                  "Internship at Fortune 500 company",
+                ],
+              },
+              {
+                id: 3,
+                name: "Michael Johnson",
+                photo:
+                  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face",
+                studentId: "ENG2021010",
+                email: "michael.johnson@university.edu",
+                phone: "+234 123 456 7892",
+                course: "Engineering Student",
+                election: "Vice President Student Council 2023",
+                position: "Vice President",
+                applicationDate: "2023-10-03",
+                status: "pending",
+                cgpa: "4.0/5.0",
+                bio: "Engineering student with strong technical and leadership background. I aim to bridge the gap between technical and non-technical students while improving campus infrastructure.",
+                qualifications: [
+                  "Current CGPA: 4.0/5.0",
+                  "Vice President Engineering Students Association",
+                  "Winner of National Engineering Competition 2023",
+                  "Volunteer at Campus Technology Center",
+                ],
+              },
+              {
+                id: 4,
+                name: "Emma Davis",
+                photo:
+                  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face",
+                studentId: "CS2021015",
+                email: "emma.davis@university.edu",
+                phone: "+234 123 456 7893",
+                course: "Computer Science Student",
+                election: "Computer Science Department Head",
+                position: "Department Head",
+                applicationDate: "2023-10-05",
+                status: "rejected",
+                cgpa: "3.8/5.0",
+                bio: "Computer Science student passionate about departmental representation and academic excellence. I want to improve the CS curriculum and student support systems.",
+                qualifications: [
+                  "Current CGPA: 3.8/5.0",
+                  "Member of CS Students Association",
+                  "Hackathon participant (multiple events)",
+                  "Tutor for junior CS students",
+                ],
+                rejectionReason:
+                  "Doesn't meet minimum CGPA requirement for department head position",
+              },
+            ];
 
-      let filteredCandidates = [...candidates];
-      let selectedCandidates = [];
+            let filteredCandidates = [...candidates];
+            let selectedCandidates = [];
 
-      // Sidebar toggle functionality
-      document
-        .getElementById("toggleSidebar")
-        .addEventListener("click", function () {
-          document.getElementById("sidebar").classList.toggle("active");
-        });
+            // Sidebar toggle functionality
+            document
+              .getElementById("toggleSidebar")
+              .addEventListener("click", function () {
+                document.getElementById("sidebar").classList.toggle("active");
+              });
 
-      document
-        .getElementById("closeSidebar")
-        .addEventListener("click", function () {
-          document.getElementById("sidebar").classList.remove("active");
-        });
+            document
+              .getElementById("closeSidebar")
+              .addEventListener("click", function () {
+                document.getElementById("sidebar").classList.remove("active");
+              });
 
-      // Search functionality
-      document
-        .querySelector(".search-input")
-        .addEventListener("input", function (e) {
-          const searchTerm = e.target.value.toLowerCase();
-          filteredCandidates = candidates.filter(
-            (candidate) =>
-              candidate.name.toLowerCase().includes(searchTerm) ||
-              candidate.course.toLowerCase().includes(searchTerm) ||
-              candidate.election.toLowerCase().includes(searchTerm) ||
-              candidate.position.toLowerCase().includes(searchTerm)
-          );
-          renderCandidatesTable();
-        });
+            // Search functionality
+            document
+              .querySelector(".search-input")
+              .addEventListener("input", function (e) {
+                const searchTerm = e.target.value.toLowerCase();
+                filteredCandidates = candidates.filter(
+                  (candidate) =>
+                    candidate.name.toLowerCase().includes(searchTerm) ||
+                    candidate.course.toLowerCase().includes(searchTerm) ||
+                    candidate.election.toLowerCase().includes(searchTerm) ||
+                    candidate.position.toLowerCase().includes(searchTerm)
+                );
+                renderCandidatesTable();
+              });
 
-      // Filter functions
-      function applyFilters() {
-        const electionFilter = document.getElementById("electionFilter").value;
-        const positionFilter = document.getElementById("positionFilter").value;
-        const statusFilter = document.getElementById("statusFilter").value;
+            // Filter functions
+            function applyFilters() {
+              const electionFilter = document.getElementById("electionFilter").value;
+              const positionFilter = document.getElementById("positionFilter").value;
+              const statusFilter = document.getElementById("statusFilter").value;
 
-        filteredCandidates = candidates.filter((candidate) => {
-          return (
-            (!electionFilter ||
-              candidate.election.toLowerCase().includes(electionFilter)) &&
-            (!positionFilter ||
-              candidate.position.toLowerCase().includes(positionFilter)) &&
-            (!statusFilter || candidate.status === statusFilter)
-          );
-        });
+              filteredCandidates = candidates.filter((candidate) => {
+                return (
+                  (!electionFilter ||
+                    candidate.election.toLowerCase().includes(electionFilter)) &&
+                  (!positionFilter ||
+                    candidate.position.toLowerCase().includes(positionFilter)) &&
+                  (!statusFilter || candidate.status === statusFilter)
+                );
+              });
 
-        renderCandidatesTable();
-      }
+              renderCandidatesTable();
+            }
 
-      function clearFilters() {
-        document.getElementById("electionFilter").value = "";
-        document.getElementById("positionFilter").value = "";
-        document.getElementById("statusFilter").value = "";
-        document.querySelector('input[type="date"]').value = "";
-        filteredCandidates = [...candidates];
-        renderCandidatesTable();
-      }
+            function clearFilters() {
+              document.getElementById("electionFilter").value = "";
+              document.getElementById("positionFilter").value = "";
+              document.getElementById("statusFilter").value = "";
+              document.querySelector('input[type="date"]').value = "";
+              filteredCandidates = [...candidates];
+              renderCandidatesTable();
+            }
 
-      // Render candidates table
-      function renderCandidatesTable() {
-        const tbody = document.querySelector("tbody");
-        tbody.innerHTML = "";
+            // Render candidates table
+            function renderCandidatesTable() {
+              const tbody = document.querySelector("tbody");
+              tbody.innerHTML = "";
 
-        filteredCandidates.forEach((candidate) => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>
-              <input type="checkbox" class="candidate-checkbox" value="${
-                candidate.id
-              }" onchange="updateBulkActions()">
-            </td>
-            <td>
-              <div class="candidate-info">
-                <img src="${
-                  candidate.photo
-                }" class="candidate-photo" alt="Candidate">
-                <div class="candidate-details">
-                  <h6>${candidate.name}</h6>
-                  <small>${candidate.course}</small>
-                </div>
-              </div>
-            </td>
-            <td>${candidate.election}</td>
-            <td>${candidate.position}</td>
-            <td>${new Date(candidate.applicationDate).toLocaleDateString(
-              "en-US",
-              { year: "numeric", month: "short", day: "numeric" }
-            )}</td>
-            <td>
-              <span class="status-${candidate.status}">${
-            candidate.status.charAt(0).toUpperCase() + candidate.status.slice(1)
-          }</span>
-            </td>
-            <td>
-              <div class="btn-group">
-                ${
-                  candidate.status === "pending"
-                    ? `
-                  <button class="btn btn-sm btn-approve" onclick="approveCandidate(${candidate.id})">
-                    <i class="fas fa-check"></i>
-                  </button>
-                  <button class="btn btn-sm btn-reject" onclick="rejectCandidate(${candidate.id})">
-                    <i class="fas fa-times"></i>
-                  </button>
-                `
-                    : ""
-                }
-                <button class="btn btn-sm btn-outline-secondary" onclick="viewCandidate(${
-                  candidate.id
-                })">
-                  <i class="fas fa-eye"></i>
-                </button>
-                ${
-                  candidate.status === "approved"
-                    ? `
-                  <button class="btn btn-sm btn-outline-primary" onclick="previewProfile(${candidate.id})">
-                    <i class="fas fa-external-link-alt"></i>
-                  </button>
-                `
-                    : ""
-                }
-                ${
-                  candidate.status === "rejected"
-                    ? `
-                  <button class="btn btn-sm btn-outline-warning" onclick="viewRejectionReason(${candidate.id})">
-                    <i class="fas fa-info-circle"></i>
-                  </button>
-                `
-                    : ""
-                }
-              </div>
-            </td>
-          `;
-          tbody.appendChild(row);
-        });
+              filteredCandidates.forEach((candidate) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                  <td>
+                    <input type="checkbox" class="candidate-checkbox" value="${
+                      candidate.id
+                    }" onchange="updateBulkActions()">
+                  </td>
+                  <td>
+                    <div class="candidate-info">
+                      <img src="${
+                        candidate.photo
+                      }" class="candidate-photo" alt="Candidate">
+                      <div class="candidate-details">
+                        <h6>${candidate.name}</h6>
+                        <small>${candidate.course}</small>
+                      </div>
+                    </div>
+                  </td>
+                  <td>${candidate.election}</td>
+                  <td>${candidate.position}</td>
+                  <td>${new Date(candidate.applicationDate).toLocaleDateString(
+                    "en-US",
+                    { year: "numeric", month: "short", day: "numeric" }
+                  )}</td>
+                  <td>
+                    <span class="status-${candidate.status}">${
+                  candidate.status.charAt(0).toUpperCase() + candidate.status.slice(1)
+                }</span>
+                  </td>
+                  <td>
+                    <div class="btn-group">
+                      ${
+                        candidate.status === "pending"
+                          ? `
+                        <button class="btn btn-sm btn-approve" onclick="approveCandidate(${candidate.id})">
+                          <i class="fas fa-check"></i>
+                        </button>
+                        <button class="btn btn-sm btn-reject" onclick="rejectCandidate(${candidate.id})">
+                          <i class="fas fa-times"></i>
+                        </button>
+                      `
+                          : ""
+                      }
+                      <button class="btn btn-sm btn-outline-secondary" onclick="viewCandidate(${
+                        candidate.id
+                      })">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      ${
+                        candidate.status === "approved"
+                          ? `
+                        <button class="btn btn-sm btn-outline-primary" onclick="previewProfile(${candidate.id})">
+                          <i class="fas fa-external-link-alt"></i>
+                        </button>
+                      `
+                          : ""
+                      }
+                      ${
+                        candidate.status === "rejected"
+                          ? `
+                        <button class="btn btn-sm btn-outline-warning" onclick="viewRejectionReason(${candidate.id})">
+                          <i class="fas fa-info-circle"></i>
+                        </button>
+                      `
+                          : ""
+                      }
+                    </div>
+                  </td>
+                `;
+                tbody.appendChild(row);
+              });
 
-        // Update pagination info
-        document.querySelector(
-          ".card-header span:last-child"
-        ).textContent = `Showing 1-${Math.min(
-          filteredCandidates.length,
-          10
-        )} of ${filteredCandidates.length} candidates`;
-      }
+              // Update pagination info
+              document.querySelector(
+                ".card-header span:last-child"
+              ).textContent = `Showing 1-${Math.min(
+                filteredCandidates.length,
+                10
+              )} of ${filteredCandidates.length} candidates`;
+            }
 
-      // Select all functionality
-      function toggleSelectAll() {
-        const selectAllCheckbox = document.getElementById("selectAll");
-        const candidateCheckboxes = document.querySelectorAll(
-          ".candidate-checkbox"
-        );
+            // Select all functionality
+            function toggleSelectAll() {
+              const selectAllCheckbox = document.getElementById("selectAll");
+              const candidateCheckboxes = document.querySelectorAll(
+                ".candidate-checkbox"
+              );
 
-        candidateCheckboxes.forEach((checkbox) => {
-          checkbox.checked = selectAllCheckbox.checked;
-        });
+              candidateCheckboxes.forEach((checkbox) => {
+                checkbox.checked = selectAllCheckbox.checked;
+              });
 
-        updateBulkActions();
-      }
+              updateBulkActions();
+            }
 
-      // Update bulk actions bar
-      function updateBulkActions() {
-        const checkedBoxes = document.querySelectorAll(
-          ".candidate-checkbox:checked"
-        );
-        const bulkActionsBar = document.getElementById("bulkActionsBar");
-        const selectedCount = document.getElementById("selectedCount");
+            // Update bulk actions bar
+            function updateBulkActions() {
+              const checkedBoxes = document.querySelectorAll(
+                ".candidate-checkbox:checked"
+              );
+              const bulkActionsBar = document.getElementById("bulkActionsBar");
+              const selectedCount = document.getElementById("selectedCount");
 
-        selectedCandidates = Array.from(checkedBoxes).map((cb) =>
-          parseInt(cb.value)
-        );
+              selectedCandidates = Array.from(checkedBoxes).map((cb) =>
+                parseInt(cb.value)
+              );
 
-        if (selectedCandidates.length > 0) {
-          bulkActionsBar.classList.add("show");
-          selectedCount.textContent = selectedCandidates.length;
-        } else {
-          bulkActionsBar.classList.remove("show");
-        }
+              if (selectedCandidates.length > 0) {
+                bulkActionsBar.classList.add("show");
+                selectedCount.textContent = selectedCandidates.length;
+              } else {
+                bulkActionsBar.classList.remove("show");
+              }
 
-        // Update select all checkbox state
-        const selectAllCheckbox = document.getElementById("selectAll");
-        const totalCheckboxes = document.querySelectorAll(
-          ".candidate-checkbox"
-        ).length;
+              // Update select all checkbox state
+              const selectAllCheckbox = document.getElementById("selectAll");
+              const totalCheckboxes = document.querySelectorAll(
+                ".candidate-checkbox"
+              ).length;
 
-        if (selectedCandidates.length === 0) {
-          selectAllCheckbox.indeterminate = false;
-          selectAllCheckbox.checked = false;
-        } else if (selectedCandidates.length === totalCheckboxes) {
-          selectAllCheckbox.indeterminate = false;
-          selectAllCheckbox.checked = true;
-        } else {
-          selectAllCheckbox.indeterminate = true;
-        }
-      }
+              if (selectedCandidates.length === 0) {
+                selectAllCheckbox.indeterminate = false;
+                selectAllCheckbox.checked = false;
+              } else if (selectedCandidates.length === totalCheckboxes) {
+                selectAllCheckbox.indeterminate = false;
+                selectAllCheckbox.checked = true;
+              } else {
+                selectAllCheckbox.indeterminate = true;
+              }
+            }
 
-      // Clear selection
-      function clearSelection() {
-        document
-          .querySelectorAll(".candidate-checkbox")
-          .forEach((cb) => (cb.checked = false));
-        document.getElementById("selectAll").checked = false;
-        document.getElementById("selectAll").indeterminate = false;
-        updateBulkActions();
-      }
+            // Clear selection
+            function clearSelection() {
+              document
+                .querySelectorAll(".candidate-checkbox")
+                .forEach((cb) => (cb.checked = false));
+              document.getElementById("selectAll").checked = false;
+              document.getElementById("selectAll").indeterminate = false;
+              updateBulkActions();
+            }
 
-      // Individual candidate actions
-      function approveCandidate(candidateId) {
-        const candidate = candidates.find((c) => c.id === candidateId);
-        if (candidate) {
-          candidate.status = "approved";
-          renderCandidatesTable();
-          sendNotification(
-            `${candidate.name} has been approved for ${candidate.position}`,
-            "success"
-          );
+            // Individual candidate actions
+            function approveCandidate(candidateId) {
+              const candidate = candidates.find((c) => c.id === candidateId);
+              if (candidate) {
+                candidate.status = "approved";
+                renderCandidatesTable();
+                sendNotification(
+                  `${candidate.name} has been approved for ${candidate.position}`,
+                  "success"
+                );
 
-          // Send email notification (simulated)
-          sendEmailNotification(candidate, "approved");
-        }
-      }
+                // Send email notification (simulated)
+                sendEmailNotification(candidate, "approved");
+              }
+            }
 
-      function rejectCandidate(candidateId) {
-        const candidate = candidates.find((c) => c.id === candidateId);
-        if (candidate) {
-          // Show rejection modal
-          const modal = new bootstrap.Modal(
-            document.getElementById("rejectionModal")
-          );
-          modal.show();
+            function rejectCandidate(candidateId) {
+              const candidate = candidates.find((c) => c.id === candidateId);
+              if (candidate) {
+                // Show rejection modal
+                const modal = new bootstrap.Modal(
+                  document.getElementById("rejectionModal")
+                );
+                modal.show();
 
-          // Store current candidate ID for rejection
-          window.currentRejectionId = candidateId;
-        }
-      }
+                // Store current candidate ID for rejection
+                window.currentRejectionId = candidateId;
+              }
+            }
 
-      function confirmRejection() {
-        const candidateId = window.currentRejectionId;
-        const candidate = candidates.find((c) => c.id === candidateId);
-        const reason = document.querySelector("#rejectionModal select").value;
-        const comments = document.querySelector(
-          "#rejectionModal textarea"
-        ).value;
+            function confirmRejection() {
+              const candidateId = window.currentRejectionId;
+              const candidate = candidates.find((c) => c.id === candidateId);
+              const reason = document.querySelector("#rejectionModal select").value;
+              const comments = document.querySelector(
+                "#rejectionModal textarea"
+              ).value;
 
-        if (candidate) {
-          candidate.status = "rejected";
-          candidate.rejectionReason = reason || "Other";
-          candidate.rejectionComments = comments;
+              if (candidate) {
+                candidate.status = "rejected";
+                candidate.rejectionReason = reason || "Other";
+                candidate.rejectionComments = comments;
 
-          renderCandidatesTable();
-          sendNotification(`${candidate.name} has been rejected`, "error");
+                renderCandidatesTable();
+                sendNotification(`${candidate.name} has been rejected`, "error");
 
-          // Send email notification (simulated)
-          sendEmailNotification(candidate, "rejected");
+                // Send email notification (simulated)
+                sendEmailNotification(candidate, "rejected");
 
-          // Close modal
-          const modal = bootstrap.Modal.getInstance(
-            document.getElementById("rejectionModal")
-          );
-          modal.hide();
-        }
-      }
+                // Close modal
+                const modal = bootstrap.Modal.getInstance(
+                  document.getElementById("rejectionModal")
+                );
+                modal.hide();
+              }
+            }
 
-      // View candidate details
-      function viewCandidate(candidateId) {
-        const candidate = candidates.find((c) => c.id === candidateId);
-        if (candidate) {
-          // Populate modal with candidate data
-          const modal = document.getElementById("candidateDetailModal");
+            // View candidate details
+            function viewCandidate(candidateId) {
+              const candidate = candidates.find((c) => c.id === candidateId);
+              if (candidate) {
+                // Populate modal with candidate data
+                const modal = document.getElementById("candidateDetailModal");
 
-          modal.querySelector("img").src = candidate.photo;
-          modal.querySelector("h5:nth-of-type(1)").textContent = candidate.name;
-          modal.querySelector(".text-muted").textContent = candidate.course;
+                modal.querySelector("img").src = candidate.photo;
+                modal.querySelector("h5:nth-of-type(1)").textContent = candidate.name;
+                modal.querySelector(".text-muted").textContent = candidate.course;
 
-          // Update personal information
-          const personalInfo = modal.querySelector(".col-md-8");
-          personalInfo.innerHTML = `
-            <h6>Personal Information</h6>
-            <p><strong>Student ID:</strong> ${candidate.studentId}</p>
-            <p><strong>Email:</strong> ${candidate.email}</p>
-            <p><strong>Phone:</strong> ${candidate.phone}</p>
-            
-            <h6 class="mt-4">Election Details</h6>
-            <p><strong>Position:</strong> ${candidate.position}</p>
-            <p><strong>Election:</strong> ${candidate.election}</p>
-            
-            <h6 class="mt-4">Bio/Manifesto</h6>
-            <p>${candidate.bio}</p>
-            
-            <h6 class="mt-4">Qualifications</h6>
-            <ul>
-              ${candidate.qualifications
-                .map((qual) => `<li>${qual}</li>`)
-                .join("")}
-            </ul>
-          `;
+                // Update personal information
+                const personalInfo = modal.querySelector(".col-md-8");
+                personalInfo.innerHTML = `
+                  <h6>Personal Information</h6>
+                  <p><strong>Student ID:</strong> ${candidate.studentId}</p>
+                  <p><strong>Email:</strong> ${candidate.email}</p>
+                  <p><strong>Phone:</strong> ${candidate.phone}</p>
 
-          // Update modal footer buttons based on status
-          const modalFooter = modal.querySelector(".modal-footer");
-          if (candidate.status === "pending") {
-            modalFooter.innerHTML = `
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-reject" onclick="rejectCandidate(${candidate.id})" data-bs-dismiss="modal">Reject</button>
-              <button type="button" class="btn btn-approve" onclick="approveCandidate(${candidate.id})" data-bs-dismiss="modal">Approve</button>
-            `;
-          } else {
-            modalFooter.innerHTML = `
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            `;
-          }
+                  <h6 class="mt-4">Election Details</h6>
+                  <p><strong>Position:</strong> ${candidate.position}</p>
+                  <p><strong>Election:</strong> ${candidate.election}</p>
 
-          const bsModal = new bootstrap.Modal(modal);
-          bsModal.show();
-        }
-      }
-
-      // Preview candidate profile (for approved candidates)
-      function previewProfile(candidateId) {
-        const candidate = candidates.find((c) => c.id === candidateId);
-        if (candidate) {
-          // Open in new window/tab (simulated)
-          const previewWindow = window.open(
-            "",
-            "_blank",
-            "width=800,height=600"
-          );
-          previewWindow.document.write(`
-            <html>
-              <head>
-                <title>${candidate.name} - Candidate Profile</title>
-                <style>
-                  body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; }
-                  .profile-header { text-align: center; margin-bottom: 30px; }
-                  .profile-photo { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; }
-                  .section { margin-bottom: 20px; }
-                  h1, h2 { color: #28369e; }
-                  .qualifications { background: #f8f9fa; padding: 15px; border-radius: 8px; }
-                </style>
-              </head>
-              <body>
-                <div class="profile-header">
-                  <img src="${candidate.photo}" class="profile-photo" alt="${
-            candidate.name
-          }">
-                  <h1>${candidate.name}</h1>
-                  <p><strong>Running for: ${candidate.position}</strong></p>
-                  <p>${candidate.course}</p>
-                </div>
-                
-                <div class="section">
-                  <h2>About Me</h2>
+                  <h6 class="mt-4">Bio/Manifesto</h6>
                   <p>${candidate.bio}</p>
-                </div>
-                
-                <div class="section qualifications">
-                  <h2>Qualifications</h2>
+
+                  <h6 class="mt-4">Qualifications</h6>
                   <ul>
                     ${candidate.qualifications
                       .map((qual) => `<li>${qual}</li>`)
                       .join("")}
                   </ul>
-                </div>
-                
-                <div class="section">
-                  <h2>Contact Information</h2>
-                  <p><strong>Email:</strong> ${candidate.email}</p>
-                  <p><strong>Student ID:</strong> ${candidate.studentId}</p>
-                </div>
-              </body>
-            </html>
-          `);
-        }
-      }
+                `;
 
-      // View rejection reason
-      function viewRejectionReason(candidateId) {
-        const candidate = candidates.find((c) => c.id === candidateId);
-        if (candidate && candidate.rejectionReason) {
-          alert(
-            `Rejection Reason: ${candidate.rejectionReason}\n${
-              candidate.rejectionComments
-                ? "Comments: " + candidate.rejectionComments
-                : ""
-            }`
-          );
-        }
-      }
+                // Update modal footer buttons based on status
+                const modalFooter = modal.querySelector(".modal-footer");
+                if (candidate.status === "pending") {
+                  modalFooter.innerHTML = `
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-reject" onclick="rejectCandidate(${candidate.id})" data-bs-dismiss="modal">Reject</button>
+                    <button type="button" class="btn btn-approve" onclick="approveCandidate(${candidate.id})" data-bs-dismiss="modal">Approve</button>
+                  `;
+                } else {
+                  modalFooter.innerHTML = `
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  `;
+                }
 
-      // Bulk actions
-      function bulkApprove() {
-        if (selectedCandidates.length === 0) {
-          alert("Please select candidates to approve.");
-          return;
-        }
-
-        if (
-          confirm(
-            `Are you sure you want to approve ${selectedCandidates.length} candidate(s)?`
-          )
-        ) {
-          selectedCandidates.forEach((candidateId) => {
-            const candidate = candidates.find((c) => c.id === candidateId);
-            if (candidate && candidate.status === "pending") {
-              candidate.status = "approved";
-              sendEmailNotification(candidate, "approved");
+                const bsModal = new bootstrap.Modal(modal);
+                bsModal.show();
+              }
             }
-          });
 
-          renderCandidatesTable();
-          clearSelection();
-          sendNotification(
-            `${selectedCandidates.length} candidates approved successfully`,
-            "success"
-          );
-        }
-      }
 
-      function bulkReject() {
-        if (selectedCandidates.length === 0) {
-          alert("Please select candidates to reject.");
-          return;
-        }
-
-        if (
-          confirm(
-            `Are you sure you want to reject ${selectedCandidates.length} candidate(s)?`
-          )
-        ) {
-          selectedCandidates.forEach((candidateId) => {
-            const candidate = candidates.find((c) => c.id === candidateId);
-            if (candidate && candidate.status === "pending") {
-              candidate.status = "rejected";
-              candidate.rejectionReason = "Bulk rejection";
-              sendEmailNotification(candidate, "rejected");
+            // View rejection reason
+            function viewRejectionReason(candidateId) {
+              const candidate = candidates.find((c) => c.id === candidateId);
+              if (candidate && candidate.rejectionReason) {
+                alert(
+                  `Rejection Reason: ${candidate.rejectionReason}\n${
+                    candidate.rejectionComments
+                      ? "Comments: " + candidate.rejectionComments
+                      : ""
+                  }`
+                );
+              }
             }
-          });
 
-          renderCandidatesTable();
-          clearSelection();
-          sendNotification(
-            `${selectedCandidates.length} candidates rejected`,
-            "error"
-          );
-        }
-      }
+            // Bulk actions
+            function bulkApprove() {
+              if (selectedCandidates.length === 0) {
+                alert("Please select candidates to approve.");
+                return;
+              }
 
-      // Export selected candidates
-      function exportSelected() {
-        if (selectedCandidates.length === 0) {
-          alert("Please select candidates to export.");
-          return;
-        }
+              if (
+                confirm(
+                  `Are you sure you want to approve ${selectedCandidates.length} candidate(s)?`
+                )
+              ) {
+                selectedCandidates.forEach((candidateId) => {
+                  const candidate = candidates.find((c) => c.id === candidateId);
+                  if (candidate && candidate.status === "pending") {
+                    candidate.status = "approved";
+                    sendEmailNotification(candidate, "approved");
+                  }
+                });
 
-        const selectedData = candidates.filter((c) =>
-          selectedCandidates.includes(c.id)
-        );
-        const csvContent = generateCSV(selectedData);
-        downloadCSV(csvContent, "selected_candidates.csv");
-      }
+                renderCandidatesTable();
+                clearSelection();
+                sendNotification(
+                  `${selectedCandidates.length} candidates approved successfully`,
+                  "success"
+                );
+              }
+            }
 
-      // Utility functions
-      function sendNotification(message, type) {
-        // Create notification element
-        const notification = document.createElement("div");
-        notification.className = `alert alert-${
-          type === "success" ? "success" : "danger"
-        } alert-dismissible fade show position-fixed`;
-        notification.style.cssText =
-          "top: 20px; right: 20px; z-index: 9999; max-width: 400px;";
-        notification.innerHTML = `
-          ${message}
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        `;
+            function bulkReject() {
+              if (selectedCandidates.length === 0) {
+                alert("Please select candidates to reject.");
+                return;
+              }
 
-        document.body.appendChild(notification);
+              if (
+                confirm(
+                  `Are you sure you want to reject ${selectedCandidates.length} candidate(s)?`
+                )
+              ) {
+                selectedCandidates.forEach((candidateId) => {
+                  const candidate = candidates.find((c) => c.id === candidateId);
+                  if (candidate && candidate.status === "pending") {
+                    candidate.status = "rejected";
+                    candidate.rejectionReason = "Bulk rejection";
+                    sendEmailNotification(candidate, "rejected");
+                  }
+                });
 
-        // Auto-remove after 5 seconds
-        setTimeout(() => {
-          if (notification.parentNode) {
-            notification.parentNode.removeChild(notification);
-          }
-        }, 5000);
-      }
+                renderCandidatesTable();
+                clearSelection();
+                sendNotification(
+                  `${selectedCandidates.length} candidates rejected`,
+                  "error"
+                );
+              }
+            }
 
-      function sendEmailNotification(candidate, action) {
-        // Simulate email sending
-        console.log(
-          `Email sent to ${candidate.email}: ${
-            action === "approved"
-              ? "Congratulations! You have been approved for " +
-                candidate.position
-              : "Your application for " +
-                candidate.position +
-                " has been rejected."
-          }`
-        );
-      }
+            // Export selected candidates
+            function exportSelected() {
+              if (selectedCandidates.length === 0) {
+                alert("Please select candidates to export.");
+                return;
+              }
 
-      function generateCSV(data) {
-        const headers = [
-          "Name",
-          "Student ID",
-          "Email",
-          "Course",
-          "Election",
-          "Position",
-          "Application Date",
-          "Status",
-        ];
-        const csvData = [headers];
+              const selectedData = candidates.filter((c) =>
+                selectedCandidates.includes(c.id)
+              );
+              const csvContent = generateCSV(selectedData);
+              downloadCSV(csvContent, "selected_candidates.csv");
+            }
 
-        data.forEach((candidate) => {
-          csvData.push([
-            candidate.name,
-            candidate.studentId,
-            candidate.email,
-            candidate.course,
-            candidate.election,
-            candidate.position,
-            candidate.applicationDate,
-            candidate.status,
-          ]);
-        });
+            // Utility functions
+            function sendNotification(message, type) {
+              // Create notification element
+              const notification = document.createElement("div");
+              notification.className = `alert alert-${
+                type === "success" ? "success" : "danger"
+              } alert-dismissible fade show position-fixed`;
+              notification.style.cssText =
+                "top: 20px; right: 20px; z-index: 9999; max-width: 400px;";
+              notification.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              `;
 
-        return csvData.map((row) => row.join(",")).join("\n");
-      }
+              document.body.appendChild(notification);
 
-      function downloadCSV(content, filename) {
-        const blob = new Blob([content], { type: "text/csv" });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.setAttribute("hidden", "");
-        a.setAttribute("href", url);
-        a.setAttribute("download", filename);
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-      }
+              // Auto-remove after 5 seconds
+              setTimeout(() => {
+                if (notification.parentNode) {
+                  notification.parentNode.removeChild(notification);
+                }
+              }, 5000);
+            }
 
-      // Initialize the page
-      document.addEventListener("DOMContentLoaded", function () {
-        renderCandidatesTable();
+            function sendEmailNotification(candidate, action) {
+              // Simulate email sending
+              console.log(
+                `Email sent to ${candidate.email}: ${
+                  action === "approved"
+                    ? "Congratulations! You have been approved for " +
+                      candidate.position
+                    : "Your application for " +
+                      candidate.position +
+                      " has been rejected."
+                }`
+              );
+            }
 
-        // Add event listeners for filter dropdowns
-        document
-          .getElementById("electionFilter")
-          .addEventListener("change", applyFilters);
-        document
-          .getElementById("positionFilter")
-          .addEventListener("change", applyFilters);
-        document
-          .getElementById("statusFilter")
-          .addEventListener("change", applyFilters);
-      });
+            function generateCSV(data) {
+              const headers = [
+                "Name",
+                "Student ID",
+                "Email",
+                "Course",
+                "Election",
+                "Position",
+                "Application Date",
+                "Status",
+              ];
+              const csvData = [headers];
+
+              data.forEach((candidate) => {
+                csvData.push([
+                  candidate.name,
+                  candidate.studentId,
+                  candidate.email,
+                  candidate.course,
+                  candidate.election,
+                  candidate.position,
+                  candidate.applicationDate,
+                  candidate.status,
+                ]);
+              });
+
+              return csvData.map((row) => row.join(",")).join("\n");
+            }
+
+            function downloadCSV(content, filename) {
+              const blob = new Blob([content], { type: "text/csv" });
+              const url = window.URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.setAttribute("hidden", "");
+              a.setAttribute("href", url);
+              a.setAttribute("download", filename);
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              window.URL.revokeObjectURL(url);
+            }
+
+            // Initialize the page
+            document.addEventListener("DOMContentLoaded", function () {
+              renderCandidatesTable();
+
+              // Add event listeners for filter dropdowns
+              document
+                .getElementById("electionFilter")
+                .addEventListener("change", applyFilters);
+              document
+                .getElementById("positionFilter")
+                .addEventListener("change", applyFilters);
+              document
+                .getElementById("statusFilter")
+                .addEventListener("change", applyFilters);
+            });
     </script>
   </body>
 </html>

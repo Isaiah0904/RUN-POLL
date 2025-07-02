@@ -278,11 +278,12 @@ body {
 
 /* Dashboard Header */
 .dashboard-header {
-  background: white;
+  margin-bottom: 25px;
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 20px;
   box-shadow: var(--shadow);
+  background-color: white;
 }
 
 .dashboard-header h3 {

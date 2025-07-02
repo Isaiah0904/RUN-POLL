@@ -8,119 +8,29 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- Bootstrap Icons -->
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
       rel="stylesheet"
     />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="admin-dashboard.css" />
-    <style>
-      /* Results page specific styles */
-      .results-header {
-        background-color: #f8f9fa;
-        border-radius: 8px;
-        padding: 20px;
-        margin-bottom: 30px;
-      }
-      .results-card {
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-        margin-bottom: 20px;
-      }
-      .results-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      }
-      .candidate-photo {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-      .progress-thick {
-        height: 12px;
-        border-radius: 6px;
-      }
-      .vote-percentage {
-        font-size: 1.5rem;
-        font-weight: bold;
-      }
-      .chart-container {
-        height: 300px;
-        position: relative;
-      }
-      .result-badge {
-        font-size: 0.8rem;
-        padding: 0.35em 0.65em;
-      }
-      .tab-content {
-        padding: 20px 0;
-      }
-      .stat-card {
-        border-left: 4px solid;
-        padding-left: 15px;
-      }
-      .stat-card.voters {
-        border-left-color: #4e73df;
-      }
-      .stat-card.turnout {
-        border-left-color: #1cc88a;
-      }
-      .stat-card.candidates {
-        border-left-color: #f6c23e;
-      }
-      .stat-card.invalid {
-        border-left-color: #e74a3b;
-      }
-      .winner-badge {
-        position: absolute;
-        top: -10px;
-        right: -10px;
-        background-color: #ffc107;
-        color: #212529;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 14px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      }
-      .candidate-card {
-        position: relative;
-      }
-      .table-responsive {
-        overflow-x: auto;
-      }
-      .export-btn-group .btn {
-        padding: 0.375rem 0.75rem;
-      }
-    </style>
+    <link rel="stylesheet" href="admin-results.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
   </head>
   <body>
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
       <div class="logo-container">
-        <img class="logo" src="images/Logo.png" />
+        <img class="logo" src="images/Logo.png" alt="RunPolls" />
         <i class="bi bi-x-lg" id="close"></i>
       </div>
 
       <div class="profile-container">
         <div class="profile-image-container" id="sidebarProfileContainer">
           <img
-            src="/api/placeholder/70/70"
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 70 70'%3E%3Ccircle cx='35' cy='35' r='35' fill='%23e9ecef'/%3E%3Cpath d='M35 20c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 28c-6.6 0-12.4-3.4-15.8-8.6 1.8-3.2 5.2-5.4 9.1-5.4h13.4c3.9 0 7.3 2.2 9.1 5.4-3.4 5.2-9.2 8.6-15.8 8.6z' fill='%236c757d'/%3E%3C/svg%3E"
             class="profile-image"
             id="userProfileImage"
           />
@@ -142,7 +52,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="admin-elections.html" class="nav-link">
+          <a href="admin-election.html" class="nav-link">
             <i class="fas fa-vote-yea"></i>
             <span>Elections</span>
           </a>
@@ -154,13 +64,13 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="admin-candidates.html" class="nav-link">
+          <a href="admin-candidate.html" class="nav-link">
             <i class="fas fa-user-tie"></i>
             <span>Candidates</span>
           </a>
         </li>
         <li class="nav-item active">
-          <a href="admin-results.html" class="nav-link">
+          <a href="admin-results.html" class="nav-link active">
             <i class="fas fa-chart-bar"></i>
             <span>Results</span>
           </a>
@@ -186,7 +96,8 @@
           <input
             type="text"
             class="form-control search-input"
-            placeholder="Search..."
+            placeholder="Search elections..."
+            id="globalSearch"
           />
         </div>
 
@@ -196,7 +107,7 @@
           </div>
           <div class="navbar-user-container" id="navbarUserContainer">
             <img
-              src="/api/placeholder/40/40"
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 70 70'%3E%3Ccircle cx='35' cy='35' r='35' fill='%23e9ecef'/%3E%3Cpath d='M35 20c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 28c-6.6 0-12.4-3.4-15.8-8.6 1.8-3.2 5.2-5.4 9.1-5.4h13.4c3.9 0 7.3 2.2 9.1 5.4-3.4 5.2-9.2 8.6-15.8 8.6z' fill='%236c757d'/%3E%3C/svg%3E"
               class="user-avatar"
               id="navbarUserImage"
             />
@@ -207,882 +118,647 @@
 
       <div class="dashboard-header">
         <div class="row align-items-center">
-          <div class="col-md-6">
+          <div class="col-md-8">
             <h3>Election Results</h3>
-            <p class="text-muted">View and analyze election results</p>
+            <p class="text-muted">
+              View and manage election results in real-time
+            </p>
           </div>
-          <div class="col-md-6 text-md-end">
-            <div class="btn-group export-btn-group me-2">
-              <button class="btn btn-outline-secondary">
-                <i class="fas fa-print"></i> Print
-              </button>
-              <button
-                class="btn btn-outline-secondary dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-              >
-                <i class="fas fa-download"></i> Export
-              </button>
-              <ul class="dropdown-menu">
-                <li>
-                  <a class="dropdown-item" href="#"
-                    ><i class="fas fa-file-pdf me-2"></i>PDF</a
-                  >
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#"
-                    ><i class="fas fa-file-excel me-2"></i>Excel</a
-                  >
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#"
-                    ><i class="fas fa-file-csv me-2"></i>CSV</a
-                  >
-                </li>
-              </ul>
-            </div>
-            <button class="btn btn-primary">
-              <i class="fas fa-sync-alt me-1"></i> Refresh
+          <div class="col-md-4 text-md-end">
+            <button class="btn btn-outline-primary me-2" id="exportResults">
+              <i class="fas fa-download me-1"></i> Export Results
             </button>
           </div>
         </div>
       </div>
 
-      <!-- Election Info Header -->
-      <div class="results-header">
+      <!-- Filters -->
+      <div class="filter-container">
         <div class="row">
-          <div class="col-md-8">
-            <h4>President Student Council 2023</h4>
-            <p class="text-muted mb-2">
-              Annual student council presidential election
-            </p>
-            <div class="d-flex flex-wrap gap-2 mb-2">
-              <span class="badge bg-primary">Student Council</span>
-              <span class="badge bg-success">Completed</span>
-              <span class="badge bg-info">First Past the Post</span>
-            </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Election Status</label>
+            <select class="form-select" id="statusFilter">
+              <option value="all">All Elections</option>
+              <option value="ongoing">Ongoing Elections</option>
+              <option value="completed">Completed Elections</option>
+              <option value="upcoming">Upcoming Elections</option>
+            </select>
           </div>
-          <div class="col-md-4">
-            <div class="row">
-              <div class="col-6">
-                <div class="stat-card voters">
-                  <div class="text-muted small">Total Voters</div>
-                  <div class="h5">1,245</div>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="stat-card turnout">
-                  <div class="text-muted small">Turnout</div>
-                  <div class="h5">90.2%</div>
-                </div>
-              </div>
-              <div class="col-6 mt-2">
-                <div class="stat-card candidates">
-                  <div class="text-muted small">Candidates</div>
-                  <div class="h5">4</div>
-                </div>
-              </div>
-              <div class="col-6 mt-2">
-                <div class="stat-card invalid">
-                  <div class="text-muted small">Invalid Votes</div>
-                  <div class="h5">28 (2.5%)</div>
-                </div>
-              </div>
-            </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Election Type</label>
+            <select class="form-select" id="typeFilter">
+              <option value="">All Types</option>
+              <option value="student">Student Council</option>
+              <option value="department">Departmental</option>
+              <option value="faculty">Faculty</option>
+              <option value="general">General Election</option>
+            </select>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Timeframe</label>
+            <select class="form-select" id="timeFilter">
+              <option value="all">All Time</option>
+              <option value="30">Last 30 days</option>
+              <option value="90">Last 3 months</option>
+              <option value="365">Last year</option>
+            </select>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Visibility</label>
+            <select class="form-select" id="visibilityFilter">
+              <option value="all">All Results</option>
+              <option value="public">Public Results</option>
+              <option value="private">Private Results</option>
+            </select>
           </div>
         </div>
       </div>
 
-      <!-- Results Navigation Tabs -->
-      <ul class="nav nav-tabs" id="resultsTabs" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link active"
-            id="summary-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#summary"
-            type="button"
-            role="tab"
-          >
-            <i class="fas fa-chart-pie me-1"></i> Summary
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            id="candidates-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#candidates"
-            type="button"
-            role="tab"
-          >
-            <i class="fas fa-user-tie me-1"></i> Candidates
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            id="voters-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#voters"
-            type="button"
-            role="tab"
-          >
-            <i class="fas fa-users me-1"></i> Voter Analysis
-          </button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            id="breakdown-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#breakdown"
-            type="button"
-            role="tab"
-          >
-            <i class="fas fa-table me-1"></i> Detailed Breakdown
-          </button>
-        </li>
-      </ul>
+      <!-- Live Statistics -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" id="totalVotes">0</div>
+          <div class="stat-label">Total Votes Cast</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="turnoutRate">0%</div>
+          <div class="stat-label">Voter Turnout</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="activeElections">0</div>
+          <div class="stat-label">Active Elections</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="completedElections">0</div>
+          <div class="stat-label">Completed Elections</div>
+        </div>
+      </div>
 
-      <!-- Tab Content -->
-      <div class="tab-content" id="resultsTabContent">
-        <!-- Summary Tab -->
-        <div class="tab-pane fade show active" id="summary" role="tabpanel">
-          <div class="row">
-            <div class="col-lg-8">
-              <div class="card results-card mb-4">
-                <div class="card-header">
-                  <h5 class="card-title mb-0">Vote Distribution</h5>
-                </div>
-                <div class="card-body">
-                  <div class="chart-container">
-                    <!-- Chart would be rendered here with Chart.js or similar -->
-                    <img
-                      src="https://via.placeholder.com/800x300?text=Vote+Distribution+Chart"
-                      class="img-fluid"
-                      alt="Vote Distribution Chart"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div class="card results-card">
-                <div class="card-header">
-                  <h5 class="card-title mb-0">Voting Timeline</h5>
-                </div>
-                <div class="card-body">
-                  <div class="chart-container">
-                    <!-- Chart would be rendered here with Chart.js or similar -->
-                    <img
-                      src="https://via.placeholder.com/800x300?text=Voting+Timeline+Chart"
-                      class="img-fluid"
-                      alt="Voting Timeline Chart"
-                    />
-                  </div>
-                </div>
-              </div>
+      <!-- Election Selection -->
+      <div class="results-card">
+        <div class="card-header p-3">
+          <div class="row align-items-center">
+            <div class="col">
+              <h5 class="mb-0">Select Election to View Results</h5>
             </div>
-
-            <div class="col-lg-4">
-              <div class="card results-card mb-4">
-                <div class="card-header">
-                  <h5 class="card-title mb-0">Winner Announcement</h5>
-                </div>
-                <div class="card-body text-center">
-                  <div class="position-relative d-inline-block mb-3">
-                    <img
-                      src="/api/placeholder/150/150"
-                      class="candidate-photo"
-                      alt="Winner"
-                    />
-                    <div class="winner-badge">
-                      <i class="fas fa-trophy"></i>
-                    </div>
-                  </div>
-                  <h4>John Doe</h4>
-                  <p class="text-success mb-2"><strong>Winner</strong></p>
-                  <div class="vote-percentage text-primary mb-2">58.7%</div>
-                  <div class="progress progress-thick mb-3">
-                    <div
-                      class="progress-bar bg-primary"
-                      style="width: 58.7%"
-                    ></div>
-                  </div>
-                  <p class="mb-2">
-                    <strong>1,123 votes</strong> out of 1,917 valid votes
-                  </p>
-                  <p class="text-muted small">Department: Computer Science</p>
-                  <button class="btn btn-sm btn-outline-primary">
-                    <i class="fas fa-eye me-1"></i> View Manifesto
-                  </button>
-                </div>
-              </div>
-
-              <div class="card results-card">
-                <div class="card-header">
-                  <h5 class="card-title mb-0">Quick Stats</h5>
-                </div>
-                <div class="card-body">
-                  <div class="mb-3">
-                    <div class="d-flex justify-content-between mb-1">
-                      <span>Total Votes Cast</span>
-                      <span>1,945</span>
-                    </div>
-                    <div class="progress progress-thick">
-                      <div
-                        class="progress-bar bg-success"
-                        style="width: 100%"
-                      ></div>
-                    </div>
-                  </div>
-
-                  <div class="mb-3">
-                    <div class="d-flex justify-content-between mb-1">
-                      <span>Valid Votes</span>
-                      <span>1,917 (98.6%)</span>
-                    </div>
-                    <div class="progress progress-thick">
-                      <div
-                        class="progress-bar bg-success"
-                        style="width: 98.6%"
-                      ></div>
-                    </div>
-                  </div>
-
-                  <div class="mb-3">
-                    <div class="d-flex justify-content-between mb-1">
-                      <span>Invalid Votes</span>
-                      <span>28 (1.4%)</span>
-                    </div>
-                    <div class="progress progress-thick">
-                      <div
-                        class="progress-bar bg-danger"
-                        style="width: 1.4%"
-                      ></div>
-                    </div>
-                  </div>
-
-                  <div class="mb-3">
-                    <div class="d-flex justify-content-between mb-1">
-                      <span>Voter Turnout</span>
-                      <span>90.2%</span>
-                    </div>
-                    <div class="progress progress-thick">
-                      <div
-                        class="progress-bar bg-info"
-                        style="width: 90.2%"
-                      ></div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div class="d-flex justify-content-between mb-1">
-                      <span>Voting Duration</span>
-                      <span>5 days</span>
-                    </div>
-                    <div class="progress progress-thick">
-                      <div
-                        class="progress-bar bg-warning"
-                        style="width: 100%"
-                      ></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class="col-auto">
+              <span
+                class="live-indicator"
+                id="liveIndicator"
+                style="display: none"
+              >
+                <span class="live-dot"></span>
+                LIVE
+              </span>
             </div>
           </div>
         </div>
-
-        <!-- Candidates Tab -->
-        <div class="tab-pane fade" id="candidates" role="tabpanel">
+        <div class="card-body">
           <div class="row">
-            <!-- Candidate 1 -->
-            <div class="col-md-6 col-lg-3 mb-4">
-              <div class="card results-card candidate-card h-100">
-                <div class="card-body text-center">
-                  <div class="position-relative d-inline-block mb-3">
-                    <img
-                      src="/api/placeholder/120/120"
-                      class="candidate-photo"
-                      alt="Candidate"
-                    />
-                    <div class="winner-badge">
-                      <i class="fas fa-trophy"></i>
-                    </div>
-                  </div>
-                  <h5>John Doe</h5>
-                  <p class="text-success mb-2"><strong>Winner</strong></p>
-                  <div class="vote-percentage text-primary mb-2">58.7%</div>
-                  <div class="progress progress-thick mb-3">
-                    <div
-                      class="progress-bar bg-primary"
-                      style="width: 58.7%"
-                    ></div>
-                  </div>
-                  <p class="mb-1"><strong>1,123 votes</strong></p>
-                  <p class="text-muted small mb-2">Computer Science</p>
-                  <button class="btn btn-sm btn-outline-primary w-100 mb-2">
-                    <i class="fas fa-eye me-1"></i> Manifesto
-                  </button>
-                  <button class="btn btn-sm btn-outline-secondary w-100">
-                    <i class="fas fa-chart-bar me-1"></i> Details
-                  </button>
-                </div>
-              </div>
+            <div class="col-md-8">
+              <select class="form-select" id="electionSelect">
+                <option value="">Select an election...</option>
+              </select>
             </div>
-
-            <!-- Candidate 2 -->
-            <div class="col-md-6 col-lg-3 mb-4">
-              <div class="card results-card candidate-card h-100">
-                <div class="card-body text-center">
-                  <img
-                    src="/api/placeholder/120/120"
-                    class="candidate-photo mb-3"
-                    alt="Candidate"
-                  />
-                  <h5>Jane Smith</h5>
-                  <p class="text-muted mb-2"><strong>Runner-up</strong></p>
-                  <div class="vote-percentage text-secondary mb-2">32.1%</div>
-                  <div class="progress progress-thick mb-3">
-                    <div
-                      class="progress-bar bg-secondary"
-                      style="width: 32.1%"
-                    ></div>
-                  </div>
-                  <p class="mb-1"><strong>615 votes</strong></p>
-                  <p class="text-muted small mb-2">Electrical Engineering</p>
-                  <button class="btn btn-sm btn-outline-primary w-100 mb-2">
-                    <i class="fas fa-eye me-1"></i> Manifesto
-                  </button>
-                  <button class="btn btn-sm btn-outline-secondary w-100">
-                    <i class="fas fa-chart-bar me-1"></i> Details
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Candidate 3 -->
-            <div class="col-md-6 col-lg-3 mb-4">
-              <div class="card results-card candidate-card h-100">
-                <div class="card-body text-center">
-                  <img
-                    src="/api/placeholder/120/120"
-                    class="candidate-photo mb-3"
-                    alt="Candidate"
-                  />
-                  <h5>Michael Johnson</h5>
-                  <p class="text-muted mb-2"><strong>Candidate</strong></p>
-                  <div class="vote-percentage text-info mb-2">7.5%</div>
-                  <div class="progress progress-thick mb-3">
-                    <div class="progress-bar bg-info" style="width: 7.5%"></div>
-                  </div>
-                  <p class="mb-1"><strong>144 votes</strong></p>
-                  <p class="text-muted small mb-2">Mechanical Engineering</p>
-                  <button class="btn btn-sm btn-outline-primary w-100 mb-2">
-                    <i class="fas fa-eye me-1"></i> Manifesto
-                  </button>
-                  <button class="btn btn-sm btn-outline-secondary w-100">
-                    <i class="fas fa-chart-bar me-1"></i> Details
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Candidate 4 -->
-            <div class="col-md-6 col-lg-3 mb-4">
-              <div class="card results-card candidate-card h-100">
-                <div class="card-body text-center">
-                  <img
-                    src="/api/placeholder/120/120"
-                    class="candidate-photo mb-3"
-                    alt="Candidate"
-                  />
-                  <h5>Sarah Williams</h5>
-                  <p class="text-muted mb-2"><strong>Candidate</strong></p>
-                  <div class="vote-percentage text-warning mb-2">1.7%</div>
-                  <div class="progress progress-thick mb-3">
-                    <div
-                      class="progress-bar bg-warning"
-                      style="width: 1.7%"
-                    ></div>
-                  </div>
-                  <p class="mb-1"><strong>35 votes</strong></p>
-                  <p class="text-muted small mb-2">Business Administration</p>
-                  <button class="btn btn-sm btn-outline-primary w-100 mb-2">
-                    <i class="fas fa-eye me-1"></i> Manifesto
-                  </button>
-                  <button class="btn btn-sm btn-outline-secondary w-100">
-                    <i class="fas fa-chart-bar me-1"></i> Details
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card results-card">
-            <div class="card-header">
-              <h5 class="card-title mb-0">
-                Candidate Performance by Department
-              </h5>
-            </div>
-            <div class="card-body">
-              <div class="chart-container">
-                <!-- Chart would be rendered here with Chart.js or similar -->
-                <img
-                  src="https://via.placeholder.com/1200x400?text=Candidate+Performance+by+Department"
-                  class="img-fluid"
-                  alt="Candidate Performance by Department"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Voter Analysis Tab -->
-        <div class="tab-pane fade" id="voters" role="tabpanel">
-          <div class="row">
-            <div class="col-md-6 mb-4">
-              <div class="card results-card h-100">
-                <div class="card-header">
-                  <h5 class="card-title mb-0">Voter Turnout by Department</h5>
-                </div>
-                <div class="card-body">
-                  <div class="chart-container">
-                    <!-- Chart would be rendered here with Chart.js or similar -->
-                    <img
-                      src="https://via.placeholder.com/600x300?text=Turnout+by+Department"
-                      class="img-fluid"
-                      alt="Turnout by Department"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-6 mb-4">
-              <div class="card results-card h-100">
-                <div class="card-header">
-                  <h5 class="card-title mb-0">Voter Turnout by Faculty</h5>
-                </div>
-                <div class="card-body">
-                  <div class="chart-container">
-                    <!-- Chart would be rendered here with Chart.js or similar -->
-                    <img
-                      src="https://via.placeholder.com/600x300?text=Turnout+by+Faculty"
-                      class="img-fluid"
-                      alt="Turnout by Faculty"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-6 mb-4">
-              <div class="card results-card h-100">
-                <div class="card-header">
-                  <h5 class="card-title mb-0">Voting by Gender</h5>
-                </div>
-                <div class="card-body">
-                  <div class="chart-container">
-                    <!-- Chart would be rendered here with Chart.js or similar -->
-                    <img
-                      src="https://via.placeholder.com/600x300?text=Voting+by+Gender"
-                      class="img-fluid"
-                      alt="Voting by Gender"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-6 mb-4">
-              <div class="card results-card h-100">
-                <div class="card-header">
-                  <h5 class="card-title mb-0">Voting by Year of Study</h5>
-                </div>
-                <div class="card-body">
-                  <div class="chart-container">
-                    <!-- Chart would be rendered here with Chart.js or similar -->
-                    <img
-                      src="https://via.placeholder.com/600x300?text=Voting+by+Year"
-                      class="img-fluid"
-                      alt="Voting by Year"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card results-card">
-            <div class="card-header">
-              <h5 class="card-title mb-0">Voting Timeline Analysis</h5>
-            </div>
-            <div class="card-body">
-              <div class="chart-container">
-                <!-- Chart would be rendered here with Chart.js or similar -->
-                <img
-                  src="https://via.placeholder.com/1200x400?text=Voting+Timeline+Analysis"
-                  class="img-fluid"
-                  alt="Voting Timeline Analysis"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Detailed Breakdown Tab -->
-        <div class="tab-pane fade" id="breakdown" role="tabpanel">
-          <div class="card results-card">
-            <div
-              class="card-header d-flex justify-content-between align-items-center"
-            >
-              <h5 class="card-title mb-0">Detailed Results Breakdown</h5>
-              <div class="dropdown">
-                <button
-                  class="btn btn-sm btn-outline-secondary dropdown-toggle"
-                  type="button"
-                  data-bs-toggle="dropdown"
-                >
-                  <i class="fas fa-download me-1"></i> Export
+            <div class="col-md-4">
+              <div class="btn-group w-100">
+                <button class="btn btn-outline-secondary" id="refreshResults">
+                  <i class="fas fa-sync-alt"></i> Refresh
                 </button>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a class="dropdown-item" href="#"
-                      ><i class="fas fa-file-pdf me-2"></i>PDF</a
-                    >
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#"
-                      ><i class="fas fa-file-excel me-2"></i>Excel</a
-                    >
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#"
-                      ><i class="fas fa-file-csv me-2"></i>CSV</a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Candidate</th>
-                      <th>Department</th>
-                      <th>Votes</th>
-                      <th>Percentage</th>
-                      <th>By Department</th>
-                      <th>By Faculty</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <img
-                            src="/api/placeholder/40/40"
-                            class="rounded-circle me-2"
-                            width="30"
-                            height="30"
-                          />
-                          <div>
-                            <div>John Doe</div>
-                            <small class="text-muted">Computer Science</small>
-                          </div>
-                        </div>
-                      </td>
-                      <td>Computer Science</td>
-                      <td>1,123</td>
-                      <td>58.7%</td>
-                      <td>
-                        <div class="progress progress-thin">
-                          <div
-                            class="progress-bar bg-primary"
-                            style="width: 72%"
-                          ></div>
-                        </div>
-                        <small>72% in CS</small>
-                      </td>
-                      <td>
-                        <div class="progress progress-thin">
-                          <div
-                            class="progress-bar bg-primary"
-                            style="width: 58.7%"
-                          ></div>
-                        </div>
-                        <small>58.7% overall</small>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <img
-                            src="/api/placeholder/40/40"
-                            class="rounded-circle me-2"
-                            width="30"
-                            height="30"
-                          />
-                          <div>
-                            <div>Jane Smith</div>
-                            <small class="text-muted"
-                              >Electrical Engineering</small
-                            >
-                          </div>
-                        </div>
-                      </td>
-                      <td>Electrical Engineering</td>
-                      <td>615</td>
-                      <td>32.1%</td>
-                      <td>
-                        <div class="progress progress-thin">
-                          <div
-                            class="progress-bar bg-secondary"
-                            style="width: 68%"
-                          ></div>
-                        </div>
-                        <small>68% in EE</small>
-                      </td>
-                      <td>
-                        <div class="progress progress-thin">
-                          <div
-                            class="progress-bar bg-secondary"
-                            style="width: 32.1%"
-                          ></div>
-                        </div>
-                        <small>32.1% overall</small>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <img
-                            src="/api/placeholder/40/40"
-                            class="rounded-circle me-2"
-                            width="30"
-                            height="30"
-                          />
-                          <div>
-                            <div>Michael Johnson</div>
-                            <small class="text-muted"
-                              >Mechanical Engineering</small
-                            >
-                          </div>
-                        </div>
-                      </td>
-                      <td>Mechanical Engineering</td>
-                      <td>144</td>
-                      <td>7.5%</td>
-                      <td>
-                        <div class="progress progress-thin">
-                          <div
-                            class="progress-bar bg-info"
-                            style="width: 42%"
-                          ></div>
-                        </div>
-                        <small>42% in ME</small>
-                      </td>
-                      <td>
-                        <div class="progress progress-thin">
-                          <div
-                            class="progress-bar bg-info"
-                            style="width: 7.5%"
-                          ></div>
-                        </div>
-                        <small>7.5% overall</small>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <img
-                            src="/api/placeholder/40/40"
-                            class="rounded-circle me-2"
-                            width="30"
-                            height="30"
-                          />
-                          <div>
-                            <div>Sarah Williams</div>
-                            <small class="text-muted"
-                              >Business Administration</small
-                            >
-                          </div>
-                        </div>
-                      </td>
-                      <td>Business Administration</td>
-                      <td>35</td>
-                      <td>1.7%</td>
-                      <td>
-                        <div class="progress progress-thin">
-                          <div
-                            class="progress-bar bg-warning"
-                            style="width: 15%"
-                          ></div>
-                        </div>
-                        <small>15% in BA</small>
-                      </td>
-                      <td>
-                        <div class="progress progress-thin">
-                          <div
-                            class="progress-bar bg-warning"
-                            style="width: 1.7%"
-                          ></div>
-                        </div>
-                        <small>1.7% overall</small>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div class="mt-4">
-                <h5 class="mb-3">Voting Statistics by Department</h5>
-                <div class="table-responsive">
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th>Department</th>
-                        <th>Registered Voters</th>
-                        <th>Votes Cast</th>
-                        <th>Turnout %</th>
-                        <th>John Doe</th>
-                        <th>Jane Smith</th>
-                        <th>Michael Johnson</th>
-                        <th>Sarah Williams</th>
-                        <th>Invalid</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Computer Science</td>
-                        <td>450</td>
-                        <td>420</td>
-                        <td>93.3%</td>
-                        <td>302 (72%)</td>
-                        <td>84 (20%)</td>
-                        <td>25 (6%)</td>
-                        <td>2 (0.5%)</td>
-                        <td>7 (1.7%)</td>
-                      </tr>
-                      <tr>
-                        <td>Electrical Engineering</td>
-                        <td>380</td>
-                        <td>360</td>
-                        <td>94.7%</td>
-                        <td>85 (23.6%)</td>
-                        <td>245 (68%)</td>
-                        <td>20 (5.6%)</td>
-                        <td>5 (1.4%)</td>
-                        <td>5 (1.4%)</td>
-                      </tr>
-                      <tr>
-                        <td>Mechanical Engineering</td>
-                        <td>290</td>
-                        <td>275</td>
-                        <td>94.8%</td>
-                        <td>65 (23.6%)</td>
-                        <td>85 (30.9%)</td>
-                        <td>115 (42%)</td>
-                        <td>5 (1.8%)</td>
-                        <td>5 (1.8%)</td>
-                      </tr>
-                      <tr>
-                        <td>Business Administration</td>
-                        <td>125</td>
-                        <td>115</td>
-                        <td>92%</td>
-                        <td>25 (21.7%)</td>
-                        <td>45 (39.1%)</td>
-                        <td>15 (13%)</td>
-                        <td>25 (21.7%)</td>
-                        <td>5 (4.3%)</td>
-                      </tr>
-                      <tr class="table-light">
-                        <td><strong>Total</strong></td>
-                        <td><strong>1,245</strong></td>
-                        <td><strong>1,170</strong></td>
-                        <td><strong>94%</strong></td>
-                        <td><strong>477 (40.8%)</strong></td>
-                        <td><strong>459 (39.2%)</strong></td>
-                        <td><strong>175 (15%)</strong></td>
-                        <td><strong>37 (3.2%)</strong></td>
-                        <td><strong>22 (1.9%)</strong></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <button class="btn btn-outline-primary" id="toggleAutoRefresh">
+                  <i class="fas fa-pause"></i> Auto-refresh
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Quick Actions -->
-      <div class="quick-actions">
-        <div
-          class="action-circle"
-          data-bs-toggle="tooltip"
-          data-bs-placement="left"
-          title="Print Results"
-        >
-          <i class="fas fa-print"></i>
+      <!-- Results Display -->
+      <div class="results-card" id="resultsDisplay" style="display: none">
+        <div class="card-header p-3">
+          <div class="row align-items-center">
+            <div class="col">
+              <h5 class="mb-0" id="electionTitle">Election Results</h5>
+              <small class="text-muted" id="lastUpdated"
+                >Last updated: Just now</small
+              >
+            </div>
+            <div class="col-auto">
+              <div class="btn-group view-toggle">
+                <button class="btn btn-outline-secondary active" id="tableView">
+                  <i class="fas fa-table"></i> Table
+                </button>
+                <button class="btn btn-outline-secondary" id="chartView">
+                  <i class="fas fa-chart-pie"></i> Pie Chart
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div
-          class="action-circle"
-          data-bs-toggle="tooltip"
-          data-bs-placement="left"
-          title="Export Results"
-        >
-          <i class="fas fa-file-export"></i>
+        <div class="card-body">
+          <!-- Election Progress -->
+          <div class="row mb-4" id="electionProgress">
+            <div class="col-md-6">
+              <h6>Voting Progress</h6>
+              <div class="progress-custom mb-2">
+                <div
+                  class="progress-bar-custom"
+                  id="progressBar"
+                  style="width: 0%"
+                ></div>
+              </div>
+              <small class="text-muted" id="progressText"
+                >0 of 0 eligible voters (0%)</small
+              >
+            </div>
+            <div class="col-md-6">
+              <h6>Status</h6>
+              <div class="d-flex align-items-center">
+                <i class="fas fa-info-circle text-primary me-2"></i>
+                <span id="electionStatus">No election selected</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Table View -->
+          <div id="tableViewContainer">
+            <div class="table-responsive">
+              <table class="table" id="resultsTable">
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th>Candidate</th>
+                    <th>Votes</th>
+                    <th>Percentage</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="resultsTableBody">
+                  <tr>
+                    <td colspan="5" class="text-center text-muted py-4">
+                      Select an election to view results
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Chart View -->
+          <div id="chartViewContainer" style="display: none">
+            <div class="chart-container">
+              <canvas id="resultsChart"></canvas>
+            </div>
+            <div class="mt-3" id="chartLegend">
+              <!-- Chart legend will be populated by JavaScript -->
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <!-- Chart.js for visualization -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
     <script>
-      // Initialize tooltips
-      var tooltipTriggerList = [].slice.call(
-        document.querySelectorAll('[data-bs-toggle="tooltip"]')
-      );
-      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-      });
+      // Sample election data
+      const electionData = {
+        el1: {
+          name: "President Student Council 2024",
+          status: "ongoing",
+          type: "student",
+          candidates: [
+            {
+              name: "Sarah Johnson",
+              votes: 487,
+              faculty: "Engineering",
+              image: "/api/placeholder/40/40",
+            },
+            {
+              name: "Michael Chen",
+              votes: 423,
+              faculty: "Business",
+              image: "/api/placeholder/40/40",
+            },
+            {
+              name: "Emily Rodriguez",
+              votes: 335,
+              faculty: "Arts",
+              image: "/api/placeholder/40/40",
+            },
+          ],
+          eligibleVoters: 1830,
+          startDate: "2024-01-15",
+          endDate: "2024-01-20",
+          visibility: "public",
+        },
+        el2: {
+          name: "Vice President Student Council 2024",
+          status: "ongoing",
+          type: "student",
+          candidates: [
+            {
+              name: "David Kim",
+              votes: 298,
+              faculty: "Science",
+              image: "/api/placeholder/40/40",
+            },
+            {
+              name: "Lisa Wang",
+              votes: 256,
+              faculty: "Engineering",
+              image: "/api/placeholder/40/40",
+            },
+            {
+              name: "James Brown",
+              votes: 150,
+              faculty: "Arts",
+              image: "/api/placeholder/40/40",
+            },
+          ],
+          eligibleVoters: 1830,
+          startDate: "2024-01-15",
+          endDate: "2024-01-20",
+          visibility: "public",
+        },
+        el3: {
+          name: "Computer Science Department Head",
+          status: "upcoming",
+          type: "department",
+          candidates: [
+            {
+              name: "Dr. Alan Turing",
+              votes: 0,
+              faculty: "Computer Science",
+              image: "/api/placeholder/40/40",
+            },
+            {
+              name: "Prof. Ada Lovelace",
+              votes: 0,
+              faculty: "Computer Science",
+              image: "/api/placeholder/40/40",
+            },
+          ],
+          eligibleVoters: 245,
+          startDate: "2024-02-01",
+          endDate: "2024-02-05",
+          visibility: "public",
+        },
+        el4: {
+          name: "Faculty of Engineering Representative",
+          status: "completed",
+          type: "faculty",
+          candidates: [
+            {
+              name: "Dr. Ahmed Hassan",
+              votes: 156,
+              faculty: "Engineering",
+              image: "/api/placeholder/40/40",
+            },
+            {
+              name: "Prof. Maria Santos",
+              votes: 132,
+              faculty: "Engineering",
+              image: "/api/placeholder/40/40",
+            },
+            {
+              name: "Dr. John Smith",
+              votes: 33,
+              faculty: "Engineering",
+              image: "/api/placeholder/40/40",
+            },
+          ],
+          eligibleVoters: 380,
+          startDate: "2023-12-01",
+          endDate: "2023-12-05",
+          visibility: "public",
+        },
+        el5: {
+          name: "Student Body President 2023",
+          status: "completed",
+          type: "general",
+          candidates: [
+            {
+              name: "Jennifer Lee",
+              votes: 892,
+              faculty: "Law",
+              image: "/api/placeholder/40/40",
+            },
+            {
+              name: "Robert Martinez",
+              votes: 756,
+              faculty: "Medicine",
+              image: "/api/placeholder/40/40",
+            },
+            {
+              name: "Ashley Thompson",
+              votes: 534,
+              faculty: "Business",
+              image: "/api/placeholder/40/40",
+            },
+            {
+              name: "Kevin O'Connor",
+              votes: 298,
+              faculty: "Arts",
+              image: "/api/placeholder/40/40",
+            },
+          ],
+          eligibleVoters: 3200,
+          startDate: "2023-11-15",
+          endDate: "2023-11-20",
+          visibility: "public",
+        },
+      };
 
-      // Toggle sidebar functionality
-      document.getElementById("close").addEventListener("click", function () {
-        document.getElementById("sidebar").classList.add("collapsed");
-        document.querySelector(".main-content").classList.add("expanded");
-      });
+      // Global variables
+      let resultsChart = null;
+      let autoRefreshInterval = null;
+      let autoRefreshEnabled = true;
 
-      // Sample chart initialization (you would replace with actual data)
+      // Initialize the application
       document.addEventListener("DOMContentLoaded", function () {
-        // Vote Distribution Chart
-        const voteDistributionCtx = document.createElement("canvas");
-        voteDistributionCtx.id = "voteDistributionChart";
-        document
-          .querySelector("#summary .chart-container")
-          .appendChild(voteDistributionCtx);
+        populateElectionDropdown();
+        updateStatistics();
+        setupEventListeners();
+        startAutoRefresh();
+      });
 
-        new Chart(voteDistributionCtx, {
-          type: "doughnut",
+      // Populate election dropdown based on filters
+      function populateElectionDropdown() {
+        const statusFilter = document.getElementById("statusFilter").value;
+        const typeFilter = document.getElementById("typeFilter").value;
+        const timeFilter = document.getElementById("timeFilter").value;
+        const visibilityFilter =
+          document.getElementById("visibilityFilter").value;
+        const searchTerm = document
+          .getElementById("globalSearch")
+          .value.toLowerCase();
+
+        const electionSelect = document.getElementById("electionSelect");
+        electionSelect.innerHTML =
+          '<option value="">Select an election...</option>';
+
+        Object.entries(electionData).forEach(([id, election]) => {
+          let shouldInclude = true;
+
+          // Apply filters
+          if (statusFilter !== "all" && election.status !== statusFilter) {
+            shouldInclude = false;
+          }
+          if (typeFilter && !election.type.includes(typeFilter)) {
+            shouldInclude = false;
+          }
+          if (
+            visibilityFilter !== "all" &&
+            election.visibility !== visibilityFilter
+          ) {
+            shouldInclude = false;
+          }
+          if (searchTerm && !election.name.toLowerCase().includes(searchTerm)) {
+            shouldInclude = false;
+          }
+
+          // Apply timeframe filter
+          if (timeFilter !== "all") {
+            const currentDate = new Date();
+            const electionDate = new Date(election.endDate);
+            const daysDifference = Math.floor(
+              (currentDate - electionDate) / (1000 * 60 * 60 * 24)
+            );
+
+            if (daysDifference > parseInt(timeFilter)) {
+              shouldInclude = false;
+            }
+          }
+
+          if (shouldInclude) {
+            const option = document.createElement("option");
+            option.value = id;
+            option.textContent = `${election.name} (${
+              election.status.charAt(0).toUpperCase() + election.status.slice(1)
+            })`;
+            electionSelect.appendChild(option);
+          }
+        });
+      }
+
+      // Update statistics cards
+      function updateStatistics() {
+        const elections = Object.values(electionData);
+
+        const activeElections = elections.filter((e) => e.status === "ongoing");
+        const completedElections = elections.filter(
+          (e) => e.status === "completed"
+        );
+
+        let totalVotes = 0;
+        let totalEligible = 0;
+
+        // Include both ongoing and completed elections for total stats
+        [...activeElections, ...completedElections].forEach((election) => {
+          const electionVotes = election.candidates.reduce(
+            (sum, candidate) => sum + candidate.votes,
+            0
+          );
+          totalVotes += electionVotes;
+          totalEligible += election.eligibleVoters;
+        });
+
+        const turnoutRate =
+          totalEligible > 0
+            ? Math.round((totalVotes / totalEligible) * 100)
+            : 0;
+
+        document.getElementById("totalVotes").textContent =
+          totalVotes.toLocaleString();
+        document.getElementById("turnoutRate").textContent = `${turnoutRate}%`;
+        document.getElementById("activeElections").textContent =
+          activeElections.length;
+        document.getElementById("completedElections").textContent =
+          completedElections.length;
+      }
+
+      // Display election results
+      function displayElectionResults(electionId) {
+        const election = electionData[electionId];
+        if (!election) {
+          document.getElementById("resultsDisplay").style.display = "none";
+          return;
+        }
+
+        // Show results display
+        document.getElementById("resultsDisplay").style.display = "block";
+
+        // Update header
+        document.getElementById(
+          "electionTitle"
+        ).textContent = `${election.name} Results`;
+        document.getElementById(
+          "lastUpdated"
+        ).textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+
+        // Show/hide live indicator
+        const liveIndicator = document.getElementById("liveIndicator");
+        if (election.status === "ongoing") {
+          liveIndicator.style.display = "inline-flex";
+        } else {
+          liveIndicator.style.display = "none";
+        }
+
+        // Calculate total votes
+        const totalVotes = election.candidates.reduce(
+          (sum, candidate) => sum + candidate.votes,
+          0
+        );
+        const turnoutPercent =
+          election.eligibleVoters > 0
+            ? Math.round((totalVotes / election.eligibleVoters) * 100)
+            : 0;
+
+        // Update progress bar
+        document.getElementById(
+          "progressBar"
+        ).style.width = `${turnoutPercent}%`;
+        document.getElementById(
+          "progressText"
+        ).textContent = `${totalVotes.toLocaleString()} of ${election.eligibleVoters.toLocaleString()} eligible voters (${turnoutPercent}%)`;
+
+        // Update status
+        const statusText =
+          election.status === "ongoing"
+            ? "Election in progress"
+            : election.status === "completed"
+            ? "Election completed"
+            : "Election upcoming";
+        document.getElementById("electionStatus").textContent = statusText;
+
+        // Update table and chart
+        updateTable(election, totalVotes);
+        updateChart(election, totalVotes);
+      }
+
+      // Update results table
+      function updateTable(election, totalVotes) {
+        const tbody = document.getElementById("resultsTableBody");
+        tbody.innerHTML = "";
+
+        if (election.candidates.length === 0 || totalVotes === 0) {
+          tbody.innerHTML =
+            '<tr><td colspan="5" class="text-center text-muted py-4">No votes cast yet</td></tr>';
+          return;
+        }
+
+        // Sort candidates by votes (descending)
+        const sortedCandidates = [...election.candidates].sort(
+          (a, b) => b.votes - a.votes
+        );
+
+        sortedCandidates.forEach((candidate, index) => {
+          const percentage =
+            totalVotes > 0
+              ? ((candidate.votes / totalVotes) * 100).toFixed(1)
+              : "0.0";
+          const isWinner =
+            index === 0 &&
+            election.status === "completed" &&
+            candidate.votes > 0;
+          const isLeading =
+            index === 0 && election.status === "ongoing" && candidate.votes > 0;
+
+          const row = document.createElement("tr");
+          row.className = "candidate-row";
+          row.innerHTML = `
+      <td><strong>${index + 1}</strong></td>
+      <td>
+        <div class="d-flex align-items-center">
+          <img src="${
+            candidate.image
+          }" class="rounded-circle me-3" alt="Candidate" style="width: 40px; height: 40px;">
+          <div>
+            <strong>${candidate.name}</strong>
+            <div class="text-muted small">${candidate.faculty} Faculty</div>
+          </div>
+          ${
+            isWinner
+              ? '<span class="winner-badge ms-2" style="background-color: #28a745; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px;">Winner</span>'
+              : ""
+          }
+          ${
+            isLeading
+              ? '<span class="winner-badge ms-2" style="background-color: #007bff; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px;">Leading</span>'
+              : ""
+          }
+        </div>
+      </td>
+      <td><strong>${candidate.votes.toLocaleString()}</strong></td>
+      <td><strong>${percentage}%</strong></td>
+      <td>
+        ${
+          isWinner
+            ? '<i class="fas fa-trophy text-warning"></i> Winner'
+            : isLeading
+            ? '<i class="fas fa-arrow-up text-success"></i> Leading'
+            : '<i class="fas fa-minus text-muted"></i> Following'
+        }
+      </td>
+    `;
+          tbody.appendChild(row);
+        });
+      }
+
+      // Update pie chart
+      function updateChart(election, totalVotes) {
+        const ctx = document.getElementById("resultsChart").getContext("2d");
+
+        if (resultsChart) {
+          resultsChart.destroy();
+        }
+
+        if (election.candidates.length === 0 || totalVotes === 0) {
+          // Clear canvas and show message
+          ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+          ctx.font = "16px Arial";
+          ctx.fillStyle = "#6c757d";
+          ctx.textAlign = "center";
+          ctx.fillText(
+            "No votes cast yet",
+            ctx.canvas.width / 2,
+            ctx.canvas.height / 2
+          );
+
+          // Clear legend
+          document.getElementById("chartLegend").innerHTML = "";
+          return;
+        }
+
+        const colors = [
+          "#28369e",
+          "#3a429b",
+          "#4c51a3",
+          "#5e60ab",
+          "#706fb3",
+          "#827ebb",
+          "#948dc3",
+          "#a69ccb",
+          "#b8abd3",
+          "#cabadb",
+          "#dcc9e3",
+          "#eed8eb",
+        ];
+
+        const sortedCandidates = [...election.candidates].sort(
+          (a, b) => b.votes - a.votes
+        );
+
+        resultsChart = new Chart(ctx, {
+          type: "pie",
           data: {
-            labels: [
-              "John Doe",
-              "Jane Smith",
-              "Michael Johnson",
-              "Sarah Williams",
-            ],
+            labels: sortedCandidates.map((c) => c.name),
             datasets: [
               {
-                data: [1123, 615, 144, 35],
-                backgroundColor: ["#4e73df", "#6c757d", "#36b9cc", "#f6c23e"],
-                borderWidth: 1,
+                data: sortedCandidates.map((c) => c.votes),
+                backgroundColor: colors.slice(0, sortedCandidates.length),
+                borderColor: "#ffffff",
+                borderWidth: 2,
               },
             ],
           },
@@ -1092,59 +768,312 @@
             plugins: {
               legend: {
                 position: "bottom",
+                labels: {
+                  padding: 20,
+                  usePointStyle: true,
+                  generateLabels: function (chart) {
+                    const data = chart.data;
+                    return data.labels.map((label, index) => {
+                      const votes = data.datasets[0].data[index];
+                      const percentage =
+                        totalVotes > 0
+                          ? ((votes / totalVotes) * 100).toFixed(1)
+                          : "0.0";
+                      return {
+                        text: `${label}: ${votes} votes (${percentage}%)`,
+                        fillStyle: data.datasets[0].backgroundColor[index],
+                        hidden: false,
+                        index: index,
+                      };
+                    });
+                  },
+                },
+              },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    const votes = context.raw;
+                    const percentage =
+                      totalVotes > 0
+                        ? ((votes / totalVotes) * 100).toFixed(1)
+                        : "0.0";
+                    return `${context.label}: ${votes} votes (${percentage}%)`;
+                  },
+                },
               },
             },
           },
         });
+      }
 
-        // Voting Timeline Chart
-        const timelineCtx = document.createElement("canvas");
-        timelineCtx.id = "votingTimelineChart";
+      // Setup event listeners
+      function setupEventListeners() {
+        // Election selection
         document
-          .querySelector("#summary .card-body .chart-container:last-child")
-          .appendChild(timelineCtx);
+          .getElementById("electionSelect")
+          .addEventListener("change", function () {
+            if (this.value) {
+              displayElectionResults(this.value);
+            } else {
+              document.getElementById("resultsDisplay").style.display = "none";
+            }
+          });
 
-        new Chart(timelineCtx, {
-          type: "line",
-          data: {
-            labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"],
-            datasets: [
-              {
-                label: "John Doe",
-                data: [150, 320, 480, 720, 1123],
-                borderColor: "#4e73df",
-                backgroundColor: "rgba(78, 115, 223, 0.05)",
-                fill: true,
-                tension: 0.4,
-              },
-              {
-                label: "Jane Smith",
-                data: [80, 180, 350, 480, 615],
-                borderColor: "#6c757d",
-                backgroundColor: "rgba(108, 117, 125, 0.05)",
-                fill: true,
-                tension: 0.4,
-              },
-            ],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                position: "bottom",
-              },
-            },
-            scales: {
-              y: {
-                beginAtZero: true,
-              },
-            },
-          },
+        // View toggle
+        document
+          .getElementById("tableView")
+          .addEventListener("click", function () {
+            showTableView();
+          });
+
+        document
+          .getElementById("chartView")
+          .addEventListener("click", function () {
+            showChartView();
+          });
+
+        // Filter changes
+        document
+          .getElementById("statusFilter")
+          .addEventListener("change", populateElectionDropdown);
+        document
+          .getElementById("typeFilter")
+          .addEventListener("change", populateElectionDropdown);
+        document
+          .getElementById("timeFilter")
+          .addEventListener("change", populateElectionDropdown);
+        document
+          .getElementById("visibilityFilter")
+          .addEventListener("change", populateElectionDropdown);
+        document
+          .getElementById("globalSearch")
+          .addEventListener("input", populateElectionDropdown);
+
+        // Refresh functionality
+        document
+          .getElementById("refreshResults")
+          .addEventListener("click", function () {
+            const selectedElection =
+              document.getElementById("electionSelect").value;
+            if (selectedElection) {
+              simulateVoteUpdate(selectedElection);
+              displayElectionResults(selectedElection);
+              updateStatistics();
+            }
+
+            // Visual feedback
+            this.innerHTML =
+              '<i class="fas fa-sync-alt fa-spin"></i> Refreshing...';
+            setTimeout(() => {
+              this.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
+            }, 1000);
+          });
+
+        // Auto-refresh toggle
+        document
+          .getElementById("toggleAutoRefresh")
+          .addEventListener("click", function () {
+            autoRefreshEnabled = !autoRefreshEnabled;
+            this.innerHTML = autoRefreshEnabled
+              ? '<i class="fas fa-pause"></i> Auto-refresh'
+              : '<i class="fas fa-play"></i> Auto-refresh';
+            this.classList.toggle("btn-outline-primary");
+            this.classList.toggle("btn-outline-secondary");
+
+            if (autoRefreshEnabled) {
+              startAutoRefresh();
+            } else {
+              if (autoRefreshInterval) {
+                clearInterval(autoRefreshInterval);
+              }
+            }
+          });
+
+        // Export functionality
+        document
+          .getElementById("exportResults")
+          .addEventListener("click", exportResults);
+
+        // Sidebar toggle
+        document
+          .getElementById("toggleSidebar")
+          .addEventListener("click", function () {
+            document.getElementById("sidebar").classList.toggle("active");
+          });
+
+        document.getElementById("close").addEventListener("click", function () {
+          document.getElementById("sidebar").classList.remove("active");
+        });
+      }
+
+      // Show table view
+      function showTableView() {
+        document.getElementById("tableViewContainer").style.display = "block";
+        document.getElementById("chartViewContainer").style.display = "none";
+        document.getElementById("tableView").classList.add("active");
+        document.getElementById("chartView").classList.remove("active");
+      }
+
+      // Show chart view
+      function showChartView() {
+        document.getElementById("tableViewContainer").style.display = "none";
+        document.getElementById("chartViewContainer").style.display = "block";
+        document.getElementById("chartView").classList.add("active");
+        document.getElementById("tableView").classList.remove("active");
+      }
+
+      // Simulate vote updates for ongoing elections
+      function simulateVoteUpdate(electionId) {
+        const election = electionData[electionId];
+        if (!election || election.status !== "ongoing") return;
+
+        election.candidates.forEach((candidate) => {
+          const increase = Math.floor(Math.random() * 5); // 0-4 new votes
+          candidate.votes += increase;
+        });
+      }
+
+      // Start auto-refresh
+      function startAutoRefresh() {
+        if (autoRefreshInterval) clearInterval(autoRefreshInterval);
+
+        autoRefreshInterval = setInterval(() => {
+          if (autoRefreshEnabled) {
+            const selectedElection =
+              document.getElementById("electionSelect").value;
+            if (
+              selectedElection &&
+              electionData[selectedElection].status === "ongoing"
+            ) {
+              simulateVoteUpdate(selectedElection);
+              displayElectionResults(selectedElection);
+              updateStatistics();
+            }
+          }
+        }, 10000); // Update every 10 seconds
+      }
+
+      // Export results function
+      function exportResults() {
+        const selectedElection =
+          document.getElementById("electionSelect").value;
+        if (!selectedElection) {
+          alert("Please select an election to export.");
+          return;
+        }
+
+        const election = electionData[selectedElection];
+        const totalVotes = election.candidates.reduce(
+          (sum, candidate) => sum + candidate.votes,
+          0
+        );
+        const turnout =
+          election.eligibleVoters > 0
+            ? ((totalVotes / election.eligibleVoters) * 100).toFixed(1)
+            : "0.0";
+
+        // Create CSV content
+        let csvContent = "Election Results Export\n";
+        csvContent += `Election: ${election.name}\n`;
+        csvContent += `Status: ${election.status}\n`;
+        csvContent += `Total Votes: ${totalVotes}\n`;
+        csvContent += `Eligible Voters: ${election.eligibleVoters}\n`;
+        csvContent += `Turnout Rate: ${turnout}%\n`;
+        csvContent += `Export Date: ${new Date().toLocaleString()}\n\n`;
+
+        csvContent += "Results:\n";
+        csvContent += "Rank,Candidate Name,Faculty,Votes,Percentage\n";
+
+        const sortedCandidates = [...election.candidates].sort(
+          (a, b) => b.votes - a.votes
+        );
+
+        sortedCandidates.forEach((candidate, index) => {
+          const percentage =
+            totalVotes > 0
+              ? ((candidate.votes / totalVotes) * 100).toFixed(1)
+              : "0.0";
+          csvContent += `${index + 1},"${candidate.name}","${
+            candidate.faculty
+          }",${candidate.votes},${percentage}%\n`;
         });
 
-        // Initialize other charts similarly for the different tabs
-        // You would add similar code for the other chart containers
+        // Create download link
+        const blob = new Blob([csvContent], {
+          type: "text/csv;charset=utf-8;",
+        });
+        const link = document.createElement("a");
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute(
+          "download",
+          `${election.name
+            .replace(/[^a-z0-9]/gi, "_")
+            .toLowerCase()}_results.csv`
+        );
+        link.style.visibility = "hidden";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // Show success message
+        const exportBtn = document.getElementById("exportResults");
+        const originalText = exportBtn.innerHTML;
+        exportBtn.innerHTML = '<i class="fas fa-check me-1"></i> Exported!';
+        exportBtn.classList.add("btn-success");
+        exportBtn.classList.remove("btn-outline-primary");
+
+        setTimeout(() => {
+          exportBtn.innerHTML = originalText;
+          exportBtn.classList.remove("btn-success");
+          exportBtn.classList.add("btn-outline-primary");
+        }, 2000);
+      }
+
+      // Utility function to format dates
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+      }
+
+      // Utility function to calculate time remaining
+      function getTimeRemaining(endDate) {
+        const now = new Date();
+        const end = new Date(endDate);
+        const diff = end - now;
+
+        if (diff <= 0) return "Election ended";
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+        if (days > 0) return `${days} day${days > 1 ? "s" : ""} remaining`;
+        if (hours > 0) return `${hours} hour${hours > 1 ? "s" : ""} remaining`;
+        return `${minutes} minute${minutes > 1 ? "s" : ""} remaining`;
+      }
+
+      // Function to handle window resize for responsive charts
+      window.addEventListener("resize", function () {
+        if (resultsChart) {
+          resultsChart.resize();
+        }
+      });
+
+      // Cleanup on page unload
+      window.addEventListener("beforeunload", function () {
+        if (autoRefreshInterval) {
+          clearInterval(autoRefreshInterval);
+        }
+        if (resultsChart) {
+          resultsChart.destroy();
+        }
       });
     </script>
   </body>
