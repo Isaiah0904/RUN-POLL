@@ -383,9 +383,7 @@ body {
 
 .guideline-title {
   font-size: 24px;
-  font-weight: 700;
-  color: var(--text-dark);
-  text-transform: uppercase;
+  font-weight: 600;
   letter-spacing: 1px;
   margin-bottom: 20px;
 }

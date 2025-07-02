@@ -16,7 +16,7 @@
     />
     <!-- Google Sign-In -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <link rel="stylesheet" href="Login.css">
+    <link rel="stylesheet" href="Login.css" />
   </head>
   <body>
     <div class="container">
@@ -25,7 +25,7 @@
         <div class="col-lg-6">
           <div class="login-form-wrapper h-100 d-flex flex-column">
             <div class="brand-logo animate-fadeInUp">
-              <img width="150px" src="images/Logo.png" alt="RUNPOLLS Logo">
+              <img width="150px" src="images/Logo.png" alt="RUNPOLLS Logo" />
               <h1 class="description">RUNPOLLS Voting System</h1>
               <p class="campus">Redeemer's University</p>
             </div>
@@ -134,7 +134,8 @@
               <div class="welcome-text animate-fadeInUp delay-200">
                 <h2>Admin Log in</h2>
                 <p>
-                  Please sign in to access the admin dashboard and manage the online voting system.
+                  Please sign in to access the admin dashboard and manage the
+                  online voting system.
                 </p>
               </div>
 
@@ -182,14 +183,18 @@
                   <a href="#" class="forgot-link">Forgot Password?</a>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-login admin-mode w-100">
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-login admin-mode w-100"
+                >
                   <i class="bi bi-box-arrow-in-right"></i> LOGIN TO DASHBOARD
                 </button>
               </form>
 
               <div class="login-footer mt-auto animate-fadeInUp delay-500">
                 <p class="register-text">
-                  Need help? <a href="#" class="register-link">Contact Support</a>
+                  Need help?
+                  <a href="#" class="register-link">Contact Support</a>
                 </p>
               </div>
             </div>
@@ -231,41 +236,121 @@
 
     <!-- Bootstrap JS with Popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-
     <!-- Custom Script -->
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // Mode toggle functionality
-        const toggleOptions = document.querySelectorAll('.toggle-option');
-        const toggleSlider = document.getElementById('toggleSlider');
-        const loginContainer = document.querySelector('.login-container');
-        const loginImage = document.querySelector('.login-image');
-        const votingQuote = document.getElementById('votingQuote');
+      document.addEventListener("DOMContentLoaded", function () {
+        // Create notification system
+        function createNotificationContainer() {
+          if (!document.getElementById("notificationContainer")) {
+            const container = document.createElement("div");
+            container.id = "notificationContainer";
+            container.style.cssText = `
+              position: fixed;
+              top: 20px;
+              right: 20px;
+              z-index: 10000;
+              pointer-events: none;
+            `;
+            document.body.appendChild(container);
+          }
+        }
 
-        toggleOptions.forEach(option => {
-          option.addEventListener('click', function() {
+        function showNotification(message, type = "success", duration = 4000) {
+          createNotificationContainer();
+
+          const notification = document.createElement("div");
+          notification.style.cssText = `
+            background: ${
+              type === "success"
+                ? "linear-gradient(135deg, #4CAF50, #45a049)"
+                : type === "error"
+                ? "linear-gradient(135deg, #f44336, #d32f2f)"
+                : "linear-gradient(135deg, #2196F3, #1976D2)"
+            };
+            color: white;
+            padding: 16px 24px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            max-width: 350px;
+            transform: translateX(400px);
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            pointer-events: auto;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+          `;
+
+          // Add icon based on type
+          const icon = type === "success" ? "✓" : type === "error" ? "✕" : "ℹ";
+          notification.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 16px; font-weight: bold;">${icon}</span>
+              <span>${message}</span>
+            </div>
+          `;
+
+          document
+            .getElementById("notificationContainer")
+            .appendChild(notification);
+
+          // Animate in
+          setTimeout(() => {
+            notification.style.transform = "translateX(0)";
+          }, 10);
+
+          // Auto remove
+          const removeNotification = () => {
+            notification.style.transform = "translateX(400px)";
+            notification.style.opacity = "0";
+            setTimeout(() => {
+              if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+              }
+            }, 300);
+          };
+
+          // Click to dismiss
+          notification.addEventListener("click", removeNotification);
+
+          // Auto dismiss after duration
+          setTimeout(removeNotification, duration);
+        }
+
+        // Mode toggle functionality
+        const toggleOptions = document.querySelectorAll(".toggle-option");
+        const toggleSlider = document.getElementById("toggleSlider");
+        const loginContainer = document.querySelector(".login-container");
+        const loginImage = document.querySelector(".login-image");
+        const votingQuote = document.getElementById("votingQuote");
+
+        toggleOptions.forEach((option) => {
+          option.addEventListener("click", function () {
             const mode = this.dataset.mode;
-            
+
             // Update active states
-            toggleOptions.forEach(opt => opt.classList.remove('active'));
-            this.classList.add('active');
-            
+            toggleOptions.forEach((opt) => opt.classList.remove("active"));
+            this.classList.add("active");
+
             // Move slider
-            if (mode === 'admin') {
-              toggleSlider.classList.add('admin');
-              loginContainer.classList.add('admin-mode');
-              loginImage.classList.add('admin-mode');
-              
+            if (mode === "admin") {
+              toggleSlider.classList.add("admin");
+              loginContainer.classList.add("admin-mode");
+              loginImage.classList.add("admin-mode");
+
               // Update quote for admin
               votingQuote.innerHTML = `
                 <h3>Admin Dashboard</h3>
                 <p>"Democracy is not just about voting. It's about transparent governance, secure systems, and ensuring every voice is heard and counted accurately."</p>
               `;
             } else {
-              toggleSlider.classList.remove('admin');
-              loginContainer.classList.remove('admin-mode');
-              loginImage.classList.remove('admin-mode');
-              
+              toggleSlider.classList.remove("admin");
+              loginContainer.classList.remove("admin-mode");
+              loginImage.classList.remove("admin-mode");
+
               // Update quote for voter
               votingQuote.innerHTML = `
                 <h3>Make Your Voice Count</h3>
@@ -276,15 +361,20 @@
         });
 
         // Voter password toggle functionality
-        const toggleVoterPassword = document.getElementById('toggleVoterPassword');
-        const voterPassword = document.getElementById('voterPassword');
-        
+        const toggleVoterPassword = document.getElementById(
+          "toggleVoterPassword"
+        );
+        const voterPassword = document.getElementById("voterPassword");
+
         if (toggleVoterPassword && voterPassword) {
-          toggleVoterPassword.addEventListener('click', function() {
-            const type = voterPassword.getAttribute('type') === 'password' ? 'text' : 'password';
-            voterPassword.setAttribute('type', type);
-            
-            if (type === 'text') {
+          toggleVoterPassword.addEventListener("click", function () {
+            const type =
+              voterPassword.getAttribute("type") === "password"
+                ? "text"
+                : "password";
+            voterPassword.setAttribute("type", type);
+
+            if (type === "text") {
               this.innerHTML = '<i class="bi bi-eye-slash"></i>';
             } else {
               this.innerHTML = '<i class="bi bi-eye"></i>';
@@ -293,57 +383,81 @@
         }
 
         // Admin password toggle functionality
-        const toggleAdminPassword = document.getElementById('toggleAdminPassword');
-        const adminPassword = document.getElementById('adminPassword');
-        
+        const toggleAdminPassword = document.getElementById(
+          "toggleAdminPassword"
+        );
+        const adminPassword = document.getElementById("adminPassword");
+
         if (toggleAdminPassword && adminPassword) {
-          toggleAdminPassword.addEventListener('click', function() {
-            const type = adminPassword.getAttribute('type') === 'password' ? 'text' : 'password';
-            adminPassword.setAttribute('type', type);
-            
-            if (type === 'text') {
+          toggleAdminPassword.addEventListener("click", function () {
+            const type =
+              adminPassword.getAttribute("type") === "password"
+                ? "text"
+                : "password";
+            adminPassword.setAttribute("type", type);
+
+            if (type === "text") {
               this.innerHTML = '<i class="bi bi-eye-slash"></i>';
             } else {
               this.innerHTML = '<i class="bi bi-eye"></i>';
             }
           });
         }
-        
+
         // Voter form submission
-        const voterLoginForm = document.getElementById('voterLoginForm');
+        const voterLoginForm = document.getElementById("voterLoginForm");
         if (voterLoginForm) {
-          voterLoginForm.addEventListener('submit', function(e) {
+          voterLoginForm.addEventListener("submit", function (e) {
             e.preventDefault();
-            
-            const voterID = document.getElementById('voterID').value;
+
+            const voterID = document.getElementById("voterID").value;
             const passwordValue = voterPassword.value;
-            
-            console.log('Voter login attempt:', { voterID, passwordValue });
-            alert('Voter login successful! Redirecting to voting page...');
-            window.location.href = "Voter-dashboard.html";
+
+            console.log("Voter login attempt:", { voterID, passwordValue });
+
+            showNotification(
+              "Voter login successful! Redirecting to voting page...",
+              "success"
+            );
+
+            // Redirect after notification is shown
+            setTimeout(() => {
+              window.location.href = "Voter-dashboard.html";
+            }, 1500);
           });
         }
 
         // Admin form submission
-        const adminLoginForm = document.getElementById('adminLoginForm');
+        const adminLoginForm = document.getElementById("adminLoginForm");
         if (adminLoginForm) {
-          adminLoginForm.addEventListener('submit', function(e) {
+          adminLoginForm.addEventListener("submit", function (e) {
             e.preventDefault();
-            
-            const adminEmail = document.getElementById('adminEmail').value;
+
+            const adminEmail = document.getElementById("adminEmail").value;
             const passwordValue = adminPassword.value;
-            
-            console.log('Admin login attempt:', { adminEmail, passwordValue });
-            alert('Admin login successful! Redirecting to admin dashboard...');
-            window.location.href = "admin-dashboard.html";
+
+            console.log("Admin login attempt:", { adminEmail, passwordValue });
+
+            showNotification(
+              "Admin login successful! Redirecting to admin dashboard...",
+              "success"
+            );
+
+            // Redirect after notification is shown
+            setTimeout(() => {
+              window.location.href = "admin-dashboard.html";
+            }, 1500);
           });
         }
 
         // Google Sign-In for voters only
-        const googleVoterBtn = document.getElementById('googleVoterSignIn');
+        const googleVoterBtn = document.getElementById("googleVoterSignIn");
         if (googleVoterBtn) {
-          googleVoterBtn.addEventListener('click', function() {
-            alert('Google authentication initiated for voter login...');
+          googleVoterBtn.addEventListener("click", function () {
+            showNotification(
+              "Google authentication initiated for voter login...",
+              "info"
+            );
           });
         }
       });
