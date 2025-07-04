@@ -741,6 +741,10 @@ select.form-select:focus {
     margin: var(--spacing-md) 0;
     padding: var(--spacing-sm);
   }
+
+  .add-voter {
+    margin-top: 16px;
+  }
 }
 
 /* Winner Badge */

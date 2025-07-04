@@ -788,6 +788,9 @@ body {
   #electionProgress .row > div:last-child {
     margin-bottom: 0;
   }
+  .btn-create{
+      margin-top: 16px;
+  }
 }
 
 /* View Toggle Buttons */

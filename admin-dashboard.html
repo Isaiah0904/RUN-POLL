@@ -133,7 +133,9 @@
           </div>
           <div class="col-md-6 text-md-end">
             <button class="btn btn-primary">
-              <a href="admin-election.html"><i class="fas fa-plus me-1"></i> Create New Election</a>
+              <a href="admin-election.html"
+                ><i class="fas fa-plus me-1"></i> Create New Election</a
+              >
             </button>
           </div>
         </div>
@@ -215,7 +217,9 @@
               class="card-header d-flex justify-content-between align-items-center"
             >
               <span>Elections Management</span>
-              <button class="btn btn-sm btn-outline-primary"><a href="admin-election.html">View All</a></button>
+              <button class="btn btn-sm btn-outline-primary">
+                <a href="admin-election.html">View All</a>
+              </button>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -476,7 +480,9 @@
               </ul>
             </div>
             <div class="card-footer text-center">
-              <a href="admin-voters.html" class="text-decoration-none">View All Voters</a>
+              <a href="admin-voters.html" class="text-decoration-none"
+                >View All Voters</a
+              >
             </div>
           </div>
         </div>
@@ -488,7 +494,9 @@
               class="card-header d-flex justify-content-between align-items-center"
             >
               <span>Candidates Management</span>
-              <button class="btn btn-sm btn-outline-primary"><a href="admin-candidate.html">Add New</a></button>
+              <button class="btn btn-sm btn-outline-primary">
+                <a href="admin-candidate.html">Add New</a>
+              </button>
             </div>
             <div class="card-body p-0">
               <ul class="list-group list-group-flush">
@@ -600,7 +608,9 @@
               </ul>
             </div>
             <div class="card-footer text-center">
-              <a href="admin-candidate.html" class="text-decoration-none">View All Candidates</a>
+              <a href="admin-candidate.html" class="text-decoration-none"
+                >View All Candidates</a
+              >
             </div>
           </div>
         </div>
@@ -684,90 +694,32 @@
       // Toggle Sidebar
       document
         .getElementById("toggleSidebar")
-        .addEventListener("click", function () {
+        .addEventListener("click", function (e) {
+          e.stopPropagation(); // Prevent this click from triggering the document click handler
           document.getElementById("sidebar").classList.toggle("active");
         });
+
       document.getElementById("close").addEventListener("click", function () {
         document.getElementById("sidebar").classList.remove("active");
       });
 
-      // Results Chart
-      const resultsCtx = document
-        .getElementById("resultsChart")
-        .getContext("2d");
-      const resultsChart = new Chart(resultsCtx, {
-        type: "doughnut",
-        data: {
-          labels: ["Candidate #1", "Candidate #2", "Candidate #3"],
-          datasets: [
-            {
-              data: [45, 30, 25],
-              backgroundColor: ["#4e73df", "#1cc88a", "#36b9cc"],
-              borderWidth: 1,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: "bottom",
-            },
-          },
-          cutout: "70%",
-        },
+      // Close sidebar when clicking outside
+      document.addEventListener("click", function (event) {
+        const sidebar = document.getElementById("sidebar");
+        const toggleButton = document.getElementById("toggleSidebar");
+
+        // Check if the click is outside the sidebar and not on the toggle button
+        if (!sidebar.contains(event.target) && event.target !== toggleButton) {
+          sidebar.classList.remove("active");
+        }
       });
 
-      // Voter Chart
-      const voterCtx = document.getElementById("voterChart").getContext("2d");
-      const voterChart = new Chart(voterCtx, {
-        type: "line",
-        data: {
-          labels: [
-            "Oct 15",
-            "Oct 16",
-            "Oct 17",
-            "Oct 18",
-            "Oct 19",
-            "Oct 20",
-            "Oct 21",
-            "Oct 22",
-          ],
-          datasets: [
-            {
-              label: "Votes per Day",
-              data: [45, 75, 65, 80, 60, 55, 40, 35],
-              fill: true,
-              backgroundColor: "rgba(78, 115, 223, 0.1)",
-              borderColor: "#4e73df",
-              tension: 0.4,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: {
-              beginAtZero: true,
-              grid: {
-                drawBorder: false,
-              },
-            },
-            x: {
-              grid: {
-                display: false,
-              },
-            },
-          },
-          plugins: {
-            legend: {
-              display: false,
-            },
-          },
-        },
-      });
+      // Prevent clicks inside sidebar from closing it
+      document
+        .getElementById("sidebar")
+        .addEventListener("click", function (e) {
+          e.stopPropagation();
+        });
     </script>
   </body>
 </html>

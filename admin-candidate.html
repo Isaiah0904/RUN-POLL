@@ -300,7 +300,7 @@
                   <td>
                     <div class="candidate-info">
                       <img
-                         src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face"
+                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face"
                         class="candidate-photo"
                         alt="Candidate"
                       />
@@ -640,167 +640,184 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-            // Sample candidate data
-            let candidates = [
-              {
-                id: 1,
-                name: "John Adebayo",
-                photo:
-                  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face",
-                studentId: "CS2021001",
-                email: "john.adebayo@university.edu",
-                phone: "+234 123 456 7890",
-                course: "Computer Science Student",
-                election: "President Student Council 2023",
-                position: "President",
-                applicationDate: "2023-10-01",
-                status: "pending",
-                cgpa: "4.2/5.0",
-                bio: "I am a dedicated Computer Science student with a passion for student leadership and community development. My vision is to create a more inclusive and innovative student council that truly represents the diverse voices of our student body.",
-                qualifications: [
-                  "Current CGPA: 4.2/5.0",
-                  "Former Class Representative (2022-2023)",
-                  "Member of Computer Science Students Association",
-                  "Volunteer at University Community Service Program",
-                ],
-              },
-              {
-                id: 2,
-                name: "Sarah Williams",
-                photo:
-                  "https://images.unsplash.com/photo-1494790108755-2616b332c4e7?w=40&h=40&fit=crop&crop=face",
-                studentId: "BA2021005",
-                email: "sarah.williams@university.edu",
-                phone: "+234 123 456 7891",
-                course: "Business Administration Student",
-                election: "President Student Council 2023",
-                position: "President",
-                applicationDate: "2023-10-02",
-                status: "approved",
-                cgpa: "4.5/5.0",
-                bio: "As a Business Administration student, I bring strategic thinking and organizational skills to student leadership. I am committed to improving student welfare and academic excellence.",
-                qualifications: [
-                  "Current CGPA: 4.5/5.0",
-                  "President of Business Students Association",
-                  "Dean's List for 3 consecutive semesters",
-                  "Internship at Fortune 500 company",
-                ],
-              },
-              {
-                id: 3,
-                name: "Michael Johnson",
-                photo:
-                  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face",
-                studentId: "ENG2021010",
-                email: "michael.johnson@university.edu",
-                phone: "+234 123 456 7892",
-                course: "Engineering Student",
-                election: "Vice President Student Council 2023",
-                position: "Vice President",
-                applicationDate: "2023-10-03",
-                status: "pending",
-                cgpa: "4.0/5.0",
-                bio: "Engineering student with strong technical and leadership background. I aim to bridge the gap between technical and non-technical students while improving campus infrastructure.",
-                qualifications: [
-                  "Current CGPA: 4.0/5.0",
-                  "Vice President Engineering Students Association",
-                  "Winner of National Engineering Competition 2023",
-                  "Volunteer at Campus Technology Center",
-                ],
-              },
-              {
-                id: 4,
-                name: "Emma Davis",
-                photo:
-                  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face",
-                studentId: "CS2021015",
-                email: "emma.davis@university.edu",
-                phone: "+234 123 456 7893",
-                course: "Computer Science Student",
-                election: "Computer Science Department Head",
-                position: "Department Head",
-                applicationDate: "2023-10-05",
-                status: "rejected",
-                cgpa: "3.8/5.0",
-                bio: "Computer Science student passionate about departmental representation and academic excellence. I want to improve the CS curriculum and student support systems.",
-                qualifications: [
-                  "Current CGPA: 3.8/5.0",
-                  "Member of CS Students Association",
-                  "Hackathon participant (multiple events)",
-                  "Tutor for junior CS students",
-                ],
-                rejectionReason:
-                  "Doesn't meet minimum CGPA requirement for department head position",
-              },
-            ];
+      // Sample candidate data
+      let candidates = [
+        {
+          id: 1,
+          name: "John Adebayo",
+          photo:
+            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face",
+          studentId: "CS2021001",
+          email: "john.adebayo@university.edu",
+          phone: "+234 123 456 7890",
+          course: "Computer Science Student",
+          election: "President Student Council 2023",
+          position: "President",
+          applicationDate: "2023-10-01",
+          status: "pending",
+          cgpa: "4.2/5.0",
+          bio: "I am a dedicated Computer Science student with a passion for student leadership and community development. My vision is to create a more inclusive and innovative student council that truly represents the diverse voices of our student body.",
+          qualifications: [
+            "Current CGPA: 4.2/5.0",
+            "Former Class Representative (2022-2023)",
+            "Member of Computer Science Students Association",
+            "Volunteer at University Community Service Program",
+          ],
+        },
+        {
+          id: 2,
+          name: "Sarah Williams",
+          photo:
+            "https://images.unsplash.com/photo-1494790108755-2616b332c4e7?w=40&h=40&fit=crop&crop=face",
+          studentId: "BA2021005",
+          email: "sarah.williams@university.edu",
+          phone: "+234 123 456 7891",
+          course: "Business Administration Student",
+          election: "President Student Council 2023",
+          position: "President",
+          applicationDate: "2023-10-02",
+          status: "approved",
+          cgpa: "4.5/5.0",
+          bio: "As a Business Administration student, I bring strategic thinking and organizational skills to student leadership. I am committed to improving student welfare and academic excellence.",
+          qualifications: [
+            "Current CGPA: 4.5/5.0",
+            "President of Business Students Association",
+            "Dean's List for 3 consecutive semesters",
+            "Internship at Fortune 500 company",
+          ],
+        },
+        {
+          id: 3,
+          name: "Michael Johnson",
+          photo:
+            "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face",
+          studentId: "ENG2021010",
+          email: "michael.johnson@university.edu",
+          phone: "+234 123 456 7892",
+          course: "Engineering Student",
+          election: "Vice President Student Council 2023",
+          position: "Vice President",
+          applicationDate: "2023-10-03",
+          status: "pending",
+          cgpa: "4.0/5.0",
+          bio: "Engineering student with strong technical and leadership background. I aim to bridge the gap between technical and non-technical students while improving campus infrastructure.",
+          qualifications: [
+            "Current CGPA: 4.0/5.0",
+            "Vice President Engineering Students Association",
+            "Winner of National Engineering Competition 2023",
+            "Volunteer at Campus Technology Center",
+          ],
+        },
+        {
+          id: 4,
+          name: "Emma Davis",
+          photo:
+            "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face",
+          studentId: "CS2021015",
+          email: "emma.davis@university.edu",
+          phone: "+234 123 456 7893",
+          course: "Computer Science Student",
+          election: "Computer Science Department Head",
+          position: "Department Head",
+          applicationDate: "2023-10-05",
+          status: "rejected",
+          cgpa: "3.8/5.0",
+          bio: "Computer Science student passionate about departmental representation and academic excellence. I want to improve the CS curriculum and student support systems.",
+          qualifications: [
+            "Current CGPA: 3.8/5.0",
+            "Member of CS Students Association",
+            "Hackathon participant (multiple events)",
+            "Tutor for junior CS students",
+          ],
+          rejectionReason:
+            "Doesn't meet minimum CGPA requirement for department head position",
+        },
+      ];
 
-            let filteredCandidates = [...candidates];
-            let selectedCandidates = [];
+      let filteredCandidates = [...candidates];
+      let selectedCandidates = [];
 
-            // Sidebar toggle functionality
-            document
-              .getElementById("toggleSidebar")
-              .addEventListener("click", function () {
-                document.getElementById("sidebar").classList.toggle("active");
-              });
+      // Toggle Sidebar
+      document
+        .getElementById("toggleSidebar")
+        .addEventListener("click", function (e) {
+          e.stopPropagation(); // Prevent this click from triggering the document click handler
+          document.getElementById("sidebar").classList.toggle("active");
+        });
 
-            document
-              .getElementById("closeSidebar")
-              .addEventListener("click", function () {
-                document.getElementById("sidebar").classList.remove("active");
-              });
+      document.getElementById("closeSidebar").addEventListener("click", function () {
+        document.getElementById("sidebar").classList.remove("active");
+      });
 
-            // Search functionality
-            document
-              .querySelector(".search-input")
-              .addEventListener("input", function (e) {
-                const searchTerm = e.target.value.toLowerCase();
-                filteredCandidates = candidates.filter(
-                  (candidate) =>
-                    candidate.name.toLowerCase().includes(searchTerm) ||
-                    candidate.course.toLowerCase().includes(searchTerm) ||
-                    candidate.election.toLowerCase().includes(searchTerm) ||
-                    candidate.position.toLowerCase().includes(searchTerm)
-                );
-                renderCandidatesTable();
-              });
+      // Close sidebar when clicking outside
+      document.addEventListener("click", function (event) {
+        const sidebar = document.getElementById("sidebar");
+        const toggleButton = document.getElementById("toggleSidebar");
 
-            // Filter functions
-            function applyFilters() {
-              const electionFilter = document.getElementById("electionFilter").value;
-              const positionFilter = document.getElementById("positionFilter").value;
-              const statusFilter = document.getElementById("statusFilter").value;
+        // Check if the click is outside the sidebar and not on the toggle button
+        if (!sidebar.contains(event.target) && event.target !== toggleButton) {
+          sidebar.classList.remove("active");
+        }
+      });
 
-              filteredCandidates = candidates.filter((candidate) => {
-                return (
-                  (!electionFilter ||
-                    candidate.election.toLowerCase().includes(electionFilter)) &&
-                  (!positionFilter ||
-                    candidate.position.toLowerCase().includes(positionFilter)) &&
-                  (!statusFilter || candidate.status === statusFilter)
-                );
-              });
+      // Prevent clicks inside sidebar from closing it
+      document
+        .getElementById("sidebar")
+        .addEventListener("click", function (e) {
+          e.stopPropagation();
+        });
 
-              renderCandidatesTable();
-            }
+      // Search functionality
+      document
+        .querySelector(".search-input")
+        .addEventListener("input", function (e) {
+          const searchTerm = e.target.value.toLowerCase();
+          filteredCandidates = candidates.filter(
+            (candidate) =>
+              candidate.name.toLowerCase().includes(searchTerm) ||
+              candidate.course.toLowerCase().includes(searchTerm) ||
+              candidate.election.toLowerCase().includes(searchTerm) ||
+              candidate.position.toLowerCase().includes(searchTerm)
+          );
+          renderCandidatesTable();
+        });
 
-            function clearFilters() {
-              document.getElementById("electionFilter").value = "";
-              document.getElementById("positionFilter").value = "";
-              document.getElementById("statusFilter").value = "";
-              document.querySelector('input[type="date"]').value = "";
-              filteredCandidates = [...candidates];
-              renderCandidatesTable();
-            }
+      // Filter functions
+      function applyFilters() {
+        const electionFilter = document.getElementById("electionFilter").value;
+        const positionFilter = document.getElementById("positionFilter").value;
+        const statusFilter = document.getElementById("statusFilter").value;
 
-            // Render candidates table
-            function renderCandidatesTable() {
-              const tbody = document.querySelector("tbody");
-              tbody.innerHTML = "";
+        filteredCandidates = candidates.filter((candidate) => {
+          return (
+            (!electionFilter ||
+              candidate.election.toLowerCase().includes(electionFilter)) &&
+            (!positionFilter ||
+              candidate.position.toLowerCase().includes(positionFilter)) &&
+            (!statusFilter || candidate.status === statusFilter)
+          );
+        });
 
-              filteredCandidates.forEach((candidate) => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
+        renderCandidatesTable();
+      }
+
+      function clearFilters() {
+        document.getElementById("electionFilter").value = "";
+        document.getElementById("positionFilter").value = "";
+        document.getElementById("statusFilter").value = "";
+        document.querySelector('input[type="date"]').value = "";
+        filteredCandidates = [...candidates];
+        renderCandidatesTable();
+      }
+
+      // Render candidates table
+      function renderCandidatesTable() {
+        const tbody = document.querySelector("tbody");
+        tbody.innerHTML = "";
+
+        filteredCandidates.forEach((candidate) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
                   <td>
                     <input type="checkbox" class="candidate-checkbox" value="${
                       candidate.id
@@ -825,8 +842,8 @@
                   )}</td>
                   <td>
                     <span class="status-${candidate.status}">${
-                  candidate.status.charAt(0).toUpperCase() + candidate.status.slice(1)
-                }</span>
+            candidate.status.charAt(0).toUpperCase() + candidate.status.slice(1)
+          }</span>
                   </td>
                   <td>
                     <div class="btn-group">
@@ -868,149 +885,149 @@
                     </div>
                   </td>
                 `;
-                tbody.appendChild(row);
-              });
+          tbody.appendChild(row);
+        });
 
-              // Update pagination info
-              document.querySelector(
-                ".card-header span:last-child"
-              ).textContent = `Showing 1-${Math.min(
-                filteredCandidates.length,
-                10
-              )} of ${filteredCandidates.length} candidates`;
-            }
+        // Update pagination info
+        document.querySelector(
+          ".card-header span:last-child"
+        ).textContent = `Showing 1-${Math.min(
+          filteredCandidates.length,
+          10
+        )} of ${filteredCandidates.length} candidates`;
+      }
 
-            // Select all functionality
-            function toggleSelectAll() {
-              const selectAllCheckbox = document.getElementById("selectAll");
-              const candidateCheckboxes = document.querySelectorAll(
-                ".candidate-checkbox"
-              );
+      // Select all functionality
+      function toggleSelectAll() {
+        const selectAllCheckbox = document.getElementById("selectAll");
+        const candidateCheckboxes = document.querySelectorAll(
+          ".candidate-checkbox"
+        );
 
-              candidateCheckboxes.forEach((checkbox) => {
-                checkbox.checked = selectAllCheckbox.checked;
-              });
+        candidateCheckboxes.forEach((checkbox) => {
+          checkbox.checked = selectAllCheckbox.checked;
+        });
 
-              updateBulkActions();
-            }
+        updateBulkActions();
+      }
 
-            // Update bulk actions bar
-            function updateBulkActions() {
-              const checkedBoxes = document.querySelectorAll(
-                ".candidate-checkbox:checked"
-              );
-              const bulkActionsBar = document.getElementById("bulkActionsBar");
-              const selectedCount = document.getElementById("selectedCount");
+      // Update bulk actions bar
+      function updateBulkActions() {
+        const checkedBoxes = document.querySelectorAll(
+          ".candidate-checkbox:checked"
+        );
+        const bulkActionsBar = document.getElementById("bulkActionsBar");
+        const selectedCount = document.getElementById("selectedCount");
 
-              selectedCandidates = Array.from(checkedBoxes).map((cb) =>
-                parseInt(cb.value)
-              );
+        selectedCandidates = Array.from(checkedBoxes).map((cb) =>
+          parseInt(cb.value)
+        );
 
-              if (selectedCandidates.length > 0) {
-                bulkActionsBar.classList.add("show");
-                selectedCount.textContent = selectedCandidates.length;
-              } else {
-                bulkActionsBar.classList.remove("show");
-              }
+        if (selectedCandidates.length > 0) {
+          bulkActionsBar.classList.add("show");
+          selectedCount.textContent = selectedCandidates.length;
+        } else {
+          bulkActionsBar.classList.remove("show");
+        }
 
-              // Update select all checkbox state
-              const selectAllCheckbox = document.getElementById("selectAll");
-              const totalCheckboxes = document.querySelectorAll(
-                ".candidate-checkbox"
-              ).length;
+        // Update select all checkbox state
+        const selectAllCheckbox = document.getElementById("selectAll");
+        const totalCheckboxes = document.querySelectorAll(
+          ".candidate-checkbox"
+        ).length;
 
-              if (selectedCandidates.length === 0) {
-                selectAllCheckbox.indeterminate = false;
-                selectAllCheckbox.checked = false;
-              } else if (selectedCandidates.length === totalCheckboxes) {
-                selectAllCheckbox.indeterminate = false;
-                selectAllCheckbox.checked = true;
-              } else {
-                selectAllCheckbox.indeterminate = true;
-              }
-            }
+        if (selectedCandidates.length === 0) {
+          selectAllCheckbox.indeterminate = false;
+          selectAllCheckbox.checked = false;
+        } else if (selectedCandidates.length === totalCheckboxes) {
+          selectAllCheckbox.indeterminate = false;
+          selectAllCheckbox.checked = true;
+        } else {
+          selectAllCheckbox.indeterminate = true;
+        }
+      }
 
-            // Clear selection
-            function clearSelection() {
-              document
-                .querySelectorAll(".candidate-checkbox")
-                .forEach((cb) => (cb.checked = false));
-              document.getElementById("selectAll").checked = false;
-              document.getElementById("selectAll").indeterminate = false;
-              updateBulkActions();
-            }
+      // Clear selection
+      function clearSelection() {
+        document
+          .querySelectorAll(".candidate-checkbox")
+          .forEach((cb) => (cb.checked = false));
+        document.getElementById("selectAll").checked = false;
+        document.getElementById("selectAll").indeterminate = false;
+        updateBulkActions();
+      }
 
-            // Individual candidate actions
-            function approveCandidate(candidateId) {
-              const candidate = candidates.find((c) => c.id === candidateId);
-              if (candidate) {
-                candidate.status = "approved";
-                renderCandidatesTable();
-                sendNotification(
-                  `${candidate.name} has been approved for ${candidate.position}`,
-                  "success"
-                );
+      // Individual candidate actions
+      function approveCandidate(candidateId) {
+        const candidate = candidates.find((c) => c.id === candidateId);
+        if (candidate) {
+          candidate.status = "approved";
+          renderCandidatesTable();
+          sendNotification(
+            `${candidate.name} has been approved for ${candidate.position}`,
+            "success"
+          );
 
-                // Send email notification (simulated)
-                sendEmailNotification(candidate, "approved");
-              }
-            }
+          // Send email notification (simulated)
+          sendEmailNotification(candidate, "approved");
+        }
+      }
 
-            function rejectCandidate(candidateId) {
-              const candidate = candidates.find((c) => c.id === candidateId);
-              if (candidate) {
-                // Show rejection modal
-                const modal = new bootstrap.Modal(
-                  document.getElementById("rejectionModal")
-                );
-                modal.show();
+      function rejectCandidate(candidateId) {
+        const candidate = candidates.find((c) => c.id === candidateId);
+        if (candidate) {
+          // Show rejection modal
+          const modal = new bootstrap.Modal(
+            document.getElementById("rejectionModal")
+          );
+          modal.show();
 
-                // Store current candidate ID for rejection
-                window.currentRejectionId = candidateId;
-              }
-            }
+          // Store current candidate ID for rejection
+          window.currentRejectionId = candidateId;
+        }
+      }
 
-            function confirmRejection() {
-              const candidateId = window.currentRejectionId;
-              const candidate = candidates.find((c) => c.id === candidateId);
-              const reason = document.querySelector("#rejectionModal select").value;
-              const comments = document.querySelector(
-                "#rejectionModal textarea"
-              ).value;
+      function confirmRejection() {
+        const candidateId = window.currentRejectionId;
+        const candidate = candidates.find((c) => c.id === candidateId);
+        const reason = document.querySelector("#rejectionModal select").value;
+        const comments = document.querySelector(
+          "#rejectionModal textarea"
+        ).value;
 
-              if (candidate) {
-                candidate.status = "rejected";
-                candidate.rejectionReason = reason || "Other";
-                candidate.rejectionComments = comments;
+        if (candidate) {
+          candidate.status = "rejected";
+          candidate.rejectionReason = reason || "Other";
+          candidate.rejectionComments = comments;
 
-                renderCandidatesTable();
-                sendNotification(`${candidate.name} has been rejected`, "error");
+          renderCandidatesTable();
+          sendNotification(`${candidate.name} has been rejected`, "error");
 
-                // Send email notification (simulated)
-                sendEmailNotification(candidate, "rejected");
+          // Send email notification (simulated)
+          sendEmailNotification(candidate, "rejected");
 
-                // Close modal
-                const modal = bootstrap.Modal.getInstance(
-                  document.getElementById("rejectionModal")
-                );
-                modal.hide();
-              }
-            }
+          // Close modal
+          const modal = bootstrap.Modal.getInstance(
+            document.getElementById("rejectionModal")
+          );
+          modal.hide();
+        }
+      }
 
-            // View candidate details
-            function viewCandidate(candidateId) {
-              const candidate = candidates.find((c) => c.id === candidateId);
-              if (candidate) {
-                // Populate modal with candidate data
-                const modal = document.getElementById("candidateDetailModal");
+      // View candidate details
+      function viewCandidate(candidateId) {
+        const candidate = candidates.find((c) => c.id === candidateId);
+        if (candidate) {
+          // Populate modal with candidate data
+          const modal = document.getElementById("candidateDetailModal");
 
-                modal.querySelector("img").src = candidate.photo;
-                modal.querySelector("h5:nth-of-type(1)").textContent = candidate.name;
-                modal.querySelector(".text-muted").textContent = candidate.course;
+          modal.querySelector("img").src = candidate.photo;
+          modal.querySelector("h5:nth-of-type(1)").textContent = candidate.name;
+          modal.querySelector(".text-muted").textContent = candidate.course;
 
-                // Update personal information
-                const personalInfo = modal.querySelector(".col-md-8");
-                personalInfo.innerHTML = `
+          // Update personal information
+          const personalInfo = modal.querySelector(".col-md-8");
+          personalInfo.innerHTML = `
                   <h6>Personal Information</h6>
                   <p><strong>Student ID:</strong> ${candidate.studentId}</p>
                   <p><strong>Email:</strong> ${candidate.email}</p>
@@ -1031,207 +1048,206 @@
                   </ul>
                 `;
 
-                // Update modal footer buttons based on status
-                const modalFooter = modal.querySelector(".modal-footer");
-                if (candidate.status === "pending") {
-                  modalFooter.innerHTML = `
+          // Update modal footer buttons based on status
+          const modalFooter = modal.querySelector(".modal-footer");
+          if (candidate.status === "pending") {
+            modalFooter.innerHTML = `
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-reject" onclick="rejectCandidate(${candidate.id})" data-bs-dismiss="modal">Reject</button>
                     <button type="button" class="btn btn-approve" onclick="approveCandidate(${candidate.id})" data-bs-dismiss="modal">Approve</button>
                   `;
-                } else {
-                  modalFooter.innerHTML = `
+          } else {
+            modalFooter.innerHTML = `
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                   `;
-                }
+          }
 
-                const bsModal = new bootstrap.Modal(modal);
-                bsModal.show();
-              }
+          const bsModal = new bootstrap.Modal(modal);
+          bsModal.show();
+        }
+      }
+
+      // View rejection reason
+      function viewRejectionReason(candidateId) {
+        const candidate = candidates.find((c) => c.id === candidateId);
+        if (candidate && candidate.rejectionReason) {
+          alert(
+            `Rejection Reason: ${candidate.rejectionReason}\n${
+              candidate.rejectionComments
+                ? "Comments: " + candidate.rejectionComments
+                : ""
+            }`
+          );
+        }
+      }
+
+      // Bulk actions
+      function bulkApprove() {
+        if (selectedCandidates.length === 0) {
+          alert("Please select candidates to approve.");
+          return;
+        }
+
+        if (
+          confirm(
+            `Are you sure you want to approve ${selectedCandidates.length} candidate(s)?`
+          )
+        ) {
+          selectedCandidates.forEach((candidateId) => {
+            const candidate = candidates.find((c) => c.id === candidateId);
+            if (candidate && candidate.status === "pending") {
+              candidate.status = "approved";
+              sendEmailNotification(candidate, "approved");
             }
+          });
 
+          renderCandidatesTable();
+          clearSelection();
+          sendNotification(
+            `${selectedCandidates.length} candidates approved successfully`,
+            "success"
+          );
+        }
+      }
 
-            // View rejection reason
-            function viewRejectionReason(candidateId) {
-              const candidate = candidates.find((c) => c.id === candidateId);
-              if (candidate && candidate.rejectionReason) {
-                alert(
-                  `Rejection Reason: ${candidate.rejectionReason}\n${
-                    candidate.rejectionComments
-                      ? "Comments: " + candidate.rejectionComments
-                      : ""
-                  }`
-                );
-              }
+      function bulkReject() {
+        if (selectedCandidates.length === 0) {
+          alert("Please select candidates to reject.");
+          return;
+        }
+
+        if (
+          confirm(
+            `Are you sure you want to reject ${selectedCandidates.length} candidate(s)?`
+          )
+        ) {
+          selectedCandidates.forEach((candidateId) => {
+            const candidate = candidates.find((c) => c.id === candidateId);
+            if (candidate && candidate.status === "pending") {
+              candidate.status = "rejected";
+              candidate.rejectionReason = "Bulk rejection";
+              sendEmailNotification(candidate, "rejected");
             }
+          });
 
-            // Bulk actions
-            function bulkApprove() {
-              if (selectedCandidates.length === 0) {
-                alert("Please select candidates to approve.");
-                return;
-              }
+          renderCandidatesTable();
+          clearSelection();
+          sendNotification(
+            `${selectedCandidates.length} candidates rejected`,
+            "error"
+          );
+        }
+      }
 
-              if (
-                confirm(
-                  `Are you sure you want to approve ${selectedCandidates.length} candidate(s)?`
-                )
-              ) {
-                selectedCandidates.forEach((candidateId) => {
-                  const candidate = candidates.find((c) => c.id === candidateId);
-                  if (candidate && candidate.status === "pending") {
-                    candidate.status = "approved";
-                    sendEmailNotification(candidate, "approved");
-                  }
-                });
+      // Export selected candidates
+      function exportSelected() {
+        if (selectedCandidates.length === 0) {
+          alert("Please select candidates to export.");
+          return;
+        }
 
-                renderCandidatesTable();
-                clearSelection();
-                sendNotification(
-                  `${selectedCandidates.length} candidates approved successfully`,
-                  "success"
-                );
-              }
-            }
+        const selectedData = candidates.filter((c) =>
+          selectedCandidates.includes(c.id)
+        );
+        const csvContent = generateCSV(selectedData);
+        downloadCSV(csvContent, "selected_candidates.csv");
+      }
 
-            function bulkReject() {
-              if (selectedCandidates.length === 0) {
-                alert("Please select candidates to reject.");
-                return;
-              }
-
-              if (
-                confirm(
-                  `Are you sure you want to reject ${selectedCandidates.length} candidate(s)?`
-                )
-              ) {
-                selectedCandidates.forEach((candidateId) => {
-                  const candidate = candidates.find((c) => c.id === candidateId);
-                  if (candidate && candidate.status === "pending") {
-                    candidate.status = "rejected";
-                    candidate.rejectionReason = "Bulk rejection";
-                    sendEmailNotification(candidate, "rejected");
-                  }
-                });
-
-                renderCandidatesTable();
-                clearSelection();
-                sendNotification(
-                  `${selectedCandidates.length} candidates rejected`,
-                  "error"
-                );
-              }
-            }
-
-            // Export selected candidates
-            function exportSelected() {
-              if (selectedCandidates.length === 0) {
-                alert("Please select candidates to export.");
-                return;
-              }
-
-              const selectedData = candidates.filter((c) =>
-                selectedCandidates.includes(c.id)
-              );
-              const csvContent = generateCSV(selectedData);
-              downloadCSV(csvContent, "selected_candidates.csv");
-            }
-
-            // Utility functions
-            function sendNotification(message, type) {
-              // Create notification element
-              const notification = document.createElement("div");
-              notification.className = `alert alert-${
-                type === "success" ? "success" : "danger"
-              } alert-dismissible fade show position-fixed`;
-              notification.style.cssText =
-                "top: 20px; right: 20px; z-index: 9999; max-width: 400px;";
-              notification.innerHTML = `
+      // Utility functions
+      function sendNotification(message, type) {
+        // Create notification element
+        const notification = document.createElement("div");
+        notification.className = `alert alert-${
+          type === "success" ? "success" : "danger"
+        } alert-dismissible fade show position-fixed`;
+        notification.style.cssText =
+          "top: 20px; right: 20px; z-index: 9999; max-width: 400px;";
+        notification.innerHTML = `
                 ${message}
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
               `;
 
-              document.body.appendChild(notification);
+        document.body.appendChild(notification);
 
-              // Auto-remove after 5 seconds
-              setTimeout(() => {
-                if (notification.parentNode) {
-                  notification.parentNode.removeChild(notification);
-                }
-              }, 5000);
-            }
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 5000);
+      }
 
-            function sendEmailNotification(candidate, action) {
-              // Simulate email sending
-              console.log(
-                `Email sent to ${candidate.email}: ${
-                  action === "approved"
-                    ? "Congratulations! You have been approved for " +
-                      candidate.position
-                    : "Your application for " +
-                      candidate.position +
-                      " has been rejected."
-                }`
-              );
-            }
+      function sendEmailNotification(candidate, action) {
+        // Simulate email sending
+        console.log(
+          `Email sent to ${candidate.email}: ${
+            action === "approved"
+              ? "Congratulations! You have been approved for " +
+                candidate.position
+              : "Your application for " +
+                candidate.position +
+                " has been rejected."
+          }`
+        );
+      }
 
-            function generateCSV(data) {
-              const headers = [
-                "Name",
-                "Student ID",
-                "Email",
-                "Course",
-                "Election",
-                "Position",
-                "Application Date",
-                "Status",
-              ];
-              const csvData = [headers];
+      function generateCSV(data) {
+        const headers = [
+          "Name",
+          "Student ID",
+          "Email",
+          "Course",
+          "Election",
+          "Position",
+          "Application Date",
+          "Status",
+        ];
+        const csvData = [headers];
 
-              data.forEach((candidate) => {
-                csvData.push([
-                  candidate.name,
-                  candidate.studentId,
-                  candidate.email,
-                  candidate.course,
-                  candidate.election,
-                  candidate.position,
-                  candidate.applicationDate,
-                  candidate.status,
-                ]);
-              });
+        data.forEach((candidate) => {
+          csvData.push([
+            candidate.name,
+            candidate.studentId,
+            candidate.email,
+            candidate.course,
+            candidate.election,
+            candidate.position,
+            candidate.applicationDate,
+            candidate.status,
+          ]);
+        });
 
-              return csvData.map((row) => row.join(",")).join("\n");
-            }
+        return csvData.map((row) => row.join(",")).join("\n");
+      }
 
-            function downloadCSV(content, filename) {
-              const blob = new Blob([content], { type: "text/csv" });
-              const url = window.URL.createObjectURL(blob);
-              const a = document.createElement("a");
-              a.setAttribute("hidden", "");
-              a.setAttribute("href", url);
-              a.setAttribute("download", filename);
-              document.body.appendChild(a);
-              a.click();
-              document.body.removeChild(a);
-              window.URL.revokeObjectURL(url);
-            }
+      function downloadCSV(content, filename) {
+        const blob = new Blob([content], { type: "text/csv" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.setAttribute("hidden", "");
+        a.setAttribute("href", url);
+        a.setAttribute("download", filename);
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }
 
-            // Initialize the page
-            document.addEventListener("DOMContentLoaded", function () {
-              renderCandidatesTable();
+      // Initialize the page
+      document.addEventListener("DOMContentLoaded", function () {
+        renderCandidatesTable();
 
-              // Add event listeners for filter dropdowns
-              document
-                .getElementById("electionFilter")
-                .addEventListener("change", applyFilters);
-              document
-                .getElementById("positionFilter")
-                .addEventListener("change", applyFilters);
-              document
-                .getElementById("statusFilter")
-                .addEventListener("change", applyFilters);
-            });
+        // Add event listeners for filter dropdowns
+        document
+          .getElementById("electionFilter")
+          .addEventListener("change", applyFilters);
+        document
+          .getElementById("positionFilter")
+          .addEventListener("change", applyFilters);
+        document
+          .getElementById("statusFilter")
+          .addEventListener("change", applyFilters);
+      });
     </script>
   </body>
 </html>

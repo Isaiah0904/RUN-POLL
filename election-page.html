@@ -796,7 +796,7 @@
               id="submitVoteBtn"
               disabled
             >
-              <i class="bi bi-check-circle me-2"></i>Submit Vote
+              <i class="bi bi-check-circle me-2"></i>Register
             </button>
           </div>
         </div>
@@ -1105,18 +1105,38 @@
 
       // Initialize event listeners
       function initializeEventListeners() {
-        // Sidebar toggle
-        const toggleSidebar = document.getElementById("toggleSidebar");
-        const sidebar = document.getElementById("sidebar");
-        const closeBtn = document.getElementById("close");
+        // Toggle Sidebar
+        document
+          .getElementById("toggleSidebar")
+          .addEventListener("click", function (e) {
+            e.stopPropagation(); // Prevent this click from triggering the document click handler
+            document.getElementById("sidebar").classList.toggle("active");
+          });
 
-        toggleSidebar.addEventListener("click", function () {
-          sidebar.classList.add("active");
+        document.getElementById("close").addEventListener("click", function () {
+          document.getElementById("sidebar").classList.remove("active");
         });
 
-        closeBtn.addEventListener("click", function () {
-          sidebar.classList.remove("active");
+        // Close sidebar when clicking outside
+        document.addEventListener("click", function (event) {
+          const sidebar = document.getElementById("sidebar");
+          const toggleButton = document.getElementById("toggleSidebar");
+
+          // Check if the click is outside the sidebar and not on the toggle button
+          if (
+            !sidebar.contains(event.target) &&
+            event.target !== toggleButton
+          ) {
+            sidebar.classList.remove("active");
+          }
         });
+
+        // Prevent clicks inside sidebar from closing it
+        document
+          .getElementById("sidebar")
+          .addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
 
         // Search functionality
         const searchInput = document.getElementById("searchInput");
