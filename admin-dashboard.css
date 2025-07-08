@@ -269,7 +269,7 @@ body {
 }
 
 .nav-item {
-  padding: 0px 15px;
+  padding: 2px 15px;
   margin: 10px 0;
   border-radius: 10px;
   transition: all 0.2s;
@@ -732,6 +732,16 @@ body {
   text-align: right;
   font-weight: 600;
   color: var(--text-primary);
+}
+
+.new-election a {
+  text-decoration: none;
+  color: white;
+}
+
+.action-icon a{
+  text-decoration: none;
+  color: grey;
 }
 
 /* Quick Actions Button */
