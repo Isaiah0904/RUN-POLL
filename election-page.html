@@ -15,6 +15,112 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="election-page.css" />
+    <style>
+      /* Additional styles for the candidate cards */
+      .candidate-card {
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+      }
+      
+      .candidate-card:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+      }
+      
+      .candidate-card.unregistered {
+        opacity: 0.7;
+        filter: grayscale(30%);
+      }
+      
+      .candidate-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      
+      .candidate-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        flex-shrink: 0;
+      }
+      
+      .candidate-details {
+        flex-grow: 1;
+      }
+      
+      .candidate-name {
+        font-weight: 600;
+        margin-bottom: 2px;
+      }
+      
+      .candidate-meta {
+        font-size: 0.85rem;
+        color: #6c757d;
+        margin-bottom: 5px;
+      }
+      
+      .candidate-platform {
+        font-size: 0.9rem;
+        color: #495057;
+        padding-top: 10px;
+        border-top: 1px dashed #dee2e6;
+        margin-top: 10px;
+      }
+      
+      .position-title {
+        font-weight: 600;
+        color: #4954b8;
+        margin: 20px 0 15px;
+        padding-bottom: 5px;
+        border-bottom: 2px solid #f0f0f0;
+      }
+      
+      .registration-overlay {
+        position: relative;
+      }
+      
+      .registration-overlay::after {
+        content: "Register to view candidates";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #4954b8;
+        border-radius: 8px;
+      }
+      
+      .confirmation-modal .modal-body {
+        text-align: center;
+        padding: 30px;
+      }
+      
+      .confirmation-modal .modal-body i {
+        font-size: 3rem;
+        color: #4954b8;
+        margin-bottom: 20px;
+      }
+      
+      .confirmation-modal .modal-footer {
+        justify-content: center;
+        border-top: none;
+        padding-bottom: 30px;
+      }
+    </style>
   </head>
   <body>
     <!-- Sidebar -->
@@ -233,7 +339,7 @@
                       data-bs-target="#votingModal"
                       onclick="openVotingModal('Computer Science Student Council')"
                     >
-                      <i class="bi bi-check2-square me-2"></i>Vote Now
+                      <i class="bi bi-check2-square me-2"></i>View Candidates
                     </button>
                   </div>
                   <div class="text-end">
@@ -325,7 +431,7 @@
                       data-bs-target="#votingModal"
                       onclick="openVotingModal('Engineering Student Representative')"
                     >
-                      <i class="bi bi-check2-square me-2"></i>Vote Now
+                      <i class="bi bi-check2-square me-2"></i>View Candidates
                     </button>
                   </div>
                   <div class="text-end">
@@ -417,7 +523,7 @@
                       data-bs-target="#votingModal"
                       onclick="openVotingModal('Medical Student Association')"
                     >
-                      <i class="bi bi-check2-square me-2"></i>Vote Now
+                      <i class="bi bi-check2-square me-2"></i>View Candidates
                     </button>
                   </div>
                   <div class="text-end">
@@ -596,7 +702,7 @@
                       data-bs-target="#votingModal"
                       onclick="openVotingModal('Business Student Council')"
                     >
-                      <i class="bi bi-check2-square me-2"></i>Vote Now
+                      <i class="bi bi-check2-square me-2"></i>View Candidates
                     </button>
                   </div>
                   <div class="text-end">
@@ -763,7 +869,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="votingModalLabel">Cast Your Vote</h5>
+            <h5 class="modal-title" id="votingModalLabel">Election Candidates</h5>
             <button
               type="button"
               class="btn-close btn-close-white"
@@ -773,14 +879,43 @@
           </div>
           <div class="modal-body">
             <div id="votingContent">
-              <!-- Dynamic content will be loaded here -->
-              <div class="text-center">
-                <div class="spinner-border text-primary" role="status">
-                  <span class="visually-hidden">Loading...</span>
-                </div>
-                <p class="mt-3">Loading candidates...</p>
-              </div>
+              <!-- Content will be dynamically inserted here -->
             </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="registerBtn"
+              onclick="showConfirmationModal()"
+            >
+              <i class="bi bi-person-plus me-2"></i>Register to Vote
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div
+      class="modal fade confirmation-modal"
+      id="confirmationModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <i class="bi bi-exclamation-circle"></i>
+            <h4 class="my-3">Confirm Registration</h4>
+            <p>Are you sure you want to register for this election? You won't be able to change your registration details later.</p>
           </div>
           <div class="modal-footer">
             <button
@@ -792,11 +927,10 @@
             </button>
             <button
               type="button"
-              class="btn submit-vote-btn"
-              id="submitVoteBtn"
-              disabled
+              class="btn btn-primary"
+              onclick="submitRegistration()"
             >
-              <i class="bi bi-check-circle me-2"></i>Register
+              Confirm Registration
             </button>
           </div>
         </div>
@@ -820,17 +954,16 @@
                 style="font-size: 4rem"
               ></i>
             </div>
-            <h4 class="mb-3">Vote Submitted Successfully!</h4>
+            <h4 class="mb-3">Registration Submitted Successfully!</h4>
             <p class="text-muted mb-4">
-              Thank you for participating in the democratic process. Your vote
-              has been recorded securely.
+              Your registration has been sent to the admin for approval. You will be notified once your registration is processed.
             </p>
             <button
               type="button"
               class="btn btn-success px-4"
               data-bs-dismiss="modal"
             >
-              Continue Voting
+              Continue
             </button>
           </div>
         </div>
@@ -840,942 +973,986 @@
     <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Filter functionality
-      document.addEventListener("DOMContentLoaded", function () {
-        const filterItems = document.querySelectorAll("[data-filter]");
-        const electionCards = document.querySelectorAll(".election-card");
-        const filterText = document.getElementById("filterText");
+// Global variables for managing state
+let votedElections = new Set();
+let currentElection = null;
+let selectedCandidates = {};
 
-        filterItems.forEach((item) => {
-          item.addEventListener("click", function (e) {
-            e.preventDefault();
+// Sample candidate data
+const candidateData = {
+  "Computer Science Student Council": {
+    positions: [
+      {
+        title: "President",
+        candidates: [
+          {
+            id: "cs-pres-1",
+            name: "Alex Johnson",
+            year: "Senior",
+            gpa: "3.8",
+            platform: "Improving lab facilities and tech resources",
+          },
+          {
+            id: "cs-pres-2",
+            name: "Sarah Chen",
+            year: "Junior",
+            gpa: "3.9",
+            platform:
+              "Enhanced career services and industry partnerships",
+          },
+          {
+            id: "cs-pres-3",
+            name: "Michael Davis",
+            year: "Senior",
+            gpa: "3.7",
+            platform: "Better student-faculty communication channels",
+          },
+        ],
+      },
+      {
+        title: "Vice President",
+        candidates: [
+          {
+            id: "cs-vp-1",
+            name: "Emma Wilson",
+            year: "Junior",
+            gpa: "3.8",
+            platform: "Organizing hackathons and coding competitions",
+          },
+          {
+            id: "cs-vp-2",
+            name: "James Rodriguez",
+            year: "Sophomore",
+            gpa: "3.6",
+            platform: "Peer tutoring and study group programs",
+          },
+        ],
+      },
+      {
+        title: "Secretary",
+        candidates: [
+          {
+            id: "cs-sec-1",
+            name: "Lisa Park",
+            year: "Sophomore",
+            gpa: "3.9",
+            platform: "Digital communication and transparency",
+          },
+          {
+            id: "cs-sec-2",
+            name: "David Kim",
+            year: "Junior",
+            gpa: "3.7",
+            platform: "Event planning and student engagement",
+          },
+        ],
+      },
+    ],
+  },
+  "Engineering Student Representative": {
+    positions: [
+      {
+        title: "President",
+        candidates: [
+          {
+            id: "eng-pres-1",
+            name: "Robert Thompson",
+            year: "Senior",
+            gpa: "3.8",
+            platform: "Advanced lab equipment and research opportunities",
+          },
+          {
+            id: "eng-pres-2",
+            name: "Jennifer Lee",
+            year: "Junior",
+            gpa: "3.9",
+            platform: "Industry internship programs",
+          },
+        ],
+      },
+      {
+        title: "Vice President",
+        candidates: [
+          {
+            id: "eng-vp-1",
+            name: "Marcus Johnson",
+            year: "Junior",
+            gpa: "3.7",
+            platform: "Engineering competitions and innovation",
+          },
+          {
+            id: "eng-vp-2",
+            name: "Amanda Foster",
+            year: "Sophomore",
+            gpa: "3.8",
+            platform: "Collaborative projects with other departments",
+          },
+        ],
+      },
+    ],
+  },
+  "Medical Student Association": {
+    positions: [
+      {
+        title: "President",
+        candidates: [
+          {
+            id: "med-pres-1",
+            name: "Dr. Patricia Williams",
+            year: "4th Year",
+            gpa: "3.9",
+            platform: "Clinical training enhancements",
+          },
+          {
+            id: "med-pres-2",
+            name: "Dr. Kevin Martinez",
+            year: "3rd Year",
+            gpa: "3.8",
+            platform: "Mental health support for students",
+          },
+        ],
+      },
+      {
+        title: "Vice President",
+        candidates: [
+          {
+            id: "med-vp-1",
+            name: "Dr. Rachel Green",
+            year: "3rd Year",
+            gpa: "3.8",
+            platform: "Research opportunities expansion",
+          },
+          {
+            id: "med-vp-2",
+            name: "Dr. Thomas Brown",
+            year: "2nd Year",
+            gpa: "3.7",
+            platform: "Community outreach programs",
+          },
+        ],
+      },
+    ],
+  },
+  "Business Student Council": {
+    positions: [
+      {
+        title: "President",
+        candidates: [
+          {
+            id: "bus-pres-1",
+            name: "Victoria Adams",
+            year: "Senior",
+            gpa: "3.8",
+            platform: "Corporate partnerships and networking",
+          },
+          {
+            id: "bus-pres-2",
+            name: "Daniel Cooper",
+            year: "Junior",
+            gpa: "3.7",
+            platform: "Entrepreneurship support and startup incubator",
+          },
+        ],
+      },
+      {
+        title: "Vice President",
+        candidates: [
+          {
+            id: "bus-vp-1",
+            name: "Sophia Taylor",
+            year: "Junior",
+            gpa: "3.9",
+            platform: "International exchange programs",
+          },
+          {
+            id: "bus-vp-2",
+            name: "Andrew Clark",
+            year: "Sophomore",
+            gpa: "3.6",
+            platform: "Financial literacy workshops",
+          },
+        ],
+      },
+    ],
+  },
+};
 
-            // Remove active class from all items
-            filterItems.forEach((filterItem) => {
-              filterItem.classList.remove("active");
-            });
+// Initialize the page
+document.addEventListener("DOMContentLoaded", function () {
+  updateStats();
+  initializeEventListeners();
+  initializeTooltips();
+  initializeProfileFunctionality();
+  
+  // Load any previously registered elections
+  const registrations = JSON.parse(localStorage.getItem('registrationRequests')) || [];
+  registrations.forEach(reg => {
+    if (reg.status === 'approved') {
+      votedElections.add(reg.electionName);
+    }
+  });
+  updateStats();
+});
 
-            // Add active class to clicked item
-            this.classList.add("active");
+// Initialize Bootstrap tooltips
+function initializeTooltips() {
+  const tooltipTriggerList = [].slice.call(
+    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  );
+  tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+}
 
-            // Get filter value
-            const filterValue = this.getAttribute("data-filter");
+// Initialize event listeners
+function initializeEventListeners() {
+  // Toggle Sidebar
+  document
+    .getElementById("toggleSidebar")
+    .addEventListener("click", function (e) {
+      e.stopPropagation(); // Prevent this click from triggering the document click handler
+      document.getElementById("sidebar").classList.toggle("active");
+    });
 
-            // Update filter text
-            filterText.textContent = this.textContent.trim();
+  document.getElementById("close").addEventListener("click", function () {
+    document.getElementById("sidebar").classList.remove("active");
+  });
 
-            // Filter elections
-            electionCards.forEach((card) => {
-              if (filterValue === "all") {
-                card.style.display = "block";
-              } else {
-                const cardStatus = card.getAttribute("data-status");
-                if (cardStatus === filterValue) {
-                  card.style.display = "block";
-                } else {
-                  card.style.display = "none";
-                }
-              }
-            });
-          });
-        });
-      });
+  // Close sidebar when clicking outside
+  document.addEventListener("click", function (event) {
+    const sidebar = document.getElementById("sidebar");
+    const toggleButton = document.getElementById("toggleSidebar");
 
-      // Global variables for managing state
-      let votedElections = new Set();
-      let currentElection = null;
-      let selectedCandidates = {};
+    // Check if the click is outside the sidebar and not on the toggle button
+    if (
+      !sidebar.contains(event.target) &&
+      event.target !== toggleButton
+    ) {
+      sidebar.classList.remove("active");
+    }
+  });
 
-      // Sample candidate data
-      const candidateData = {
-        "Computer Science Student Council": {
-          positions: [
-            {
-              title: "President",
-              candidates: [
-                {
-                  id: "cs-pres-1",
-                  name: "Alex Johnson",
-                  year: "Senior",
-                  gpa: "3.8",
-                  platform: "Improving lab facilities and tech resources",
-                },
-                {
-                  id: "cs-pres-2",
-                  name: "Sarah Chen",
-                  year: "Junior",
-                  gpa: "3.9",
-                  platform:
-                    "Enhanced career services and industry partnerships",
-                },
-                {
-                  id: "cs-pres-3",
-                  name: "Michael Davis",
-                  year: "Senior",
-                  gpa: "3.7",
-                  platform: "Better student-faculty communication channels",
-                },
-              ],
-            },
-            {
-              title: "Vice President",
-              candidates: [
-                {
-                  id: "cs-vp-1",
-                  name: "Emma Wilson",
-                  year: "Junior",
-                  gpa: "3.8",
-                  platform: "Organizing hackathons and coding competitions",
-                },
-                {
-                  id: "cs-vp-2",
-                  name: "James Rodriguez",
-                  year: "Sophomore",
-                  gpa: "3.6",
-                  platform: "Peer tutoring and study group programs",
-                },
-              ],
-            },
-            {
-              title: "Secretary",
-              candidates: [
-                {
-                  id: "cs-sec-1",
-                  name: "Lisa Park",
-                  year: "Sophomore",
-                  gpa: "3.9",
-                  platform: "Digital communication and transparency",
-                },
-                {
-                  id: "cs-sec-2",
-                  name: "David Kim",
-                  year: "Junior",
-                  gpa: "3.7",
-                  platform: "Event planning and student engagement",
-                },
-              ],
-            },
-          ],
-        },
-        "Engineering Society": {
-          positions: [
-            {
-              title: "President",
-              candidates: [
-                {
-                  id: "eng-pres-1",
-                  name: "Robert Thompson",
-                  year: "Senior",
-                  gpa: "3.8",
-                  platform: "Advanced lab equipment and research opportunities",
-                },
-                {
-                  id: "eng-pres-2",
-                  name: "Jennifer Lee",
-                  year: "Junior",
-                  gpa: "3.9",
-                  platform: "Industry internship programs",
-                },
-              ],
-            },
-            {
-              title: "Vice President",
-              candidates: [
-                {
-                  id: "eng-vp-1",
-                  name: "Marcus Johnson",
-                  year: "Junior",
-                  gpa: "3.7",
-                  platform: "Engineering competitions and innovation",
-                },
-                {
-                  id: "eng-vp-2",
-                  name: "Amanda Foster",
-                  year: "Sophomore",
-                  gpa: "3.8",
-                  platform: "Collaborative projects with other departments",
-                },
-              ],
-            },
-          ],
-        },
-        "Medical Students Association": {
-          positions: [
-            {
-              title: "President",
-              candidates: [
-                {
-                  id: "med-pres-1",
-                  name: "Dr. Patricia Williams",
-                  year: "4th Year",
-                  gpa: "3.9",
-                  platform: "Clinical training enhancements",
-                },
-                {
-                  id: "med-pres-2",
-                  name: "Dr. Kevin Martinez",
-                  year: "3rd Year",
-                  gpa: "3.8",
-                  platform: "Mental health support for students",
-                },
-              ],
-            },
-            {
-              title: "Vice President",
-              candidates: [
-                {
-                  id: "med-vp-1",
-                  name: "Dr. Rachel Green",
-                  year: "3rd Year",
-                  gpa: "3.8",
-                  platform: "Research opportunities expansion",
-                },
-                {
-                  id: "med-vp-2",
-                  name: "Dr. Thomas Brown",
-                  year: "2nd Year",
-                  gpa: "3.7",
-                  platform: "Community outreach programs",
-                },
-              ],
-            },
-          ],
-        },
-        "Business Student Council": {
-          positions: [
-            {
-              title: "President",
-              candidates: [
-                {
-                  id: "bus-pres-1",
-                  name: "Victoria Adams",
-                  year: "Senior",
-                  gpa: "3.8",
-                  platform: "Corporate partnerships and networking",
-                },
-                {
-                  id: "bus-pres-2",
-                  name: "Daniel Cooper",
-                  year: "Junior",
-                  gpa: "3.7",
-                  platform: "Entrepreneurship support and startup incubator",
-                },
-              ],
-            },
-            {
-              title: "Vice President",
-              candidates: [
-                {
-                  id: "bus-vp-1",
-                  name: "Sophia Taylor",
-                  year: "Junior",
-                  gpa: "3.9",
-                  platform: "International exchange programs",
-                },
-                {
-                  id: "bus-vp-2",
-                  name: "Andrew Clark",
-                  year: "Sophomore",
-                  gpa: "3.6",
-                  platform: "Financial literacy workshops",
-                },
-              ],
-            },
-          ],
-        },
-      };
+  // Prevent clicks inside sidebar from closing it
+  document
+    .getElementById("sidebar")
+    .addEventListener("click", function (e) {
+      e.stopPropagation();
+    });
 
-      // Initialize the page
-      document.addEventListener("DOMContentLoaded", function () {
-        updateStats();
-        initializeEventListeners();
-        initializeTooltips();
-        initializeProfileFunctionality();
-      });
+  // Search functionality
+  const searchInput = document.getElementById("searchInput");
+  searchInput.addEventListener("input", handleSearch);
+}
 
-      // Initialize Bootstrap tooltips
-      function initializeTooltips() {
-        const tooltipTriggerList = [].slice.call(
-          document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        );
-        tooltipTriggerList.map(function (tooltipTriggerEl) {
-          return new bootstrap.Tooltip(tooltipTriggerEl);
-        });
+// Initialize profile functionality (from dashboard)
+function initializeProfileFunctionality() {
+  const sidebarProfileContainer = document.getElementById(
+    "sidebarProfileContainer"
+  );
+  const navbarUserContainer = document.getElementById(
+    "navbarUserContainer"
+  );
+
+  if (!sidebarProfileContainer || !navbarUserContainer) return;
+
+  // Function to show profile image or default user icon
+  function updateProfileDisplays(imageUrl) {
+    // Clear existing containers
+    sidebarProfileContainer.innerHTML = "";
+    navbarUserContainer.innerHTML = "";
+
+    if (imageUrl) {
+      // Sidebar profile image
+      const sidebarImg = document.createElement("img");
+      sidebarImg.src = imageUrl;
+      sidebarImg.alt = "Profile";
+      sidebarImg.className = "profile-image";
+      sidebarImg.id = "userProfileImage";
+      sidebarImg.style.borderRadius = "50%";
+      sidebarImg.style.width = "100%";
+      sidebarImg.style.height = "100%";
+      sidebarImg.style.objectFit = "cover";
+      sidebarProfileContainer.appendChild(sidebarImg);
+
+      // Add edit icon to sidebar profile
+      const editIcon = document.createElement("div");
+      editIcon.className = "edit-icon";
+      editIcon.innerHTML =
+        '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
+      sidebarProfileContainer.appendChild(editIcon);
+
+      // Navbar profile image
+      const navbarImg = document.createElement("img");
+      navbarImg.src = imageUrl;
+      navbarImg.alt = "User";
+      navbarImg.className = "user-avatar";
+      navbarImg.id = "navbarUserImage";
+      navbarImg.style.borderRadius = "50%";
+      navbarImg.style.width = "100%";
+      navbarImg.style.height = "100%";
+      navbarImg.style.objectFit = "cover";
+      navbarUserContainer.appendChild(navbarImg);
+
+      // Add status indicator to navbar
+      const statusIndicator = document.createElement("div");
+      statusIndicator.className = "status-indicator";
+      navbarUserContainer.appendChild(statusIndicator);
+    } else {
+      // Sidebar profile icon - default user icon
+      const sidebarIcon = document.createElement("div");
+      sidebarIcon.className = "default-user-icon";
+      sidebarIcon.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path fill="#888888" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+    </svg>
+  `;
+      sidebarProfileContainer.appendChild(sidebarIcon);
+
+      // Add edit icon to sidebar profile
+      const editIcon = document.createElement("div");
+      editIcon.className = "edit-icon";
+      editIcon.innerHTML =
+        '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
+      sidebarProfileContainer.appendChild(editIcon);
+
+      // Navbar profile icon - default user icon
+      const navbarIcon = document.createElement("div");
+      navbarIcon.className = "default-user-icon";
+      navbarIcon.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path fill="#888888" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+    </svg>
+  `;
+      navbarUserContainer.appendChild(navbarIcon);
+
+      // Add status indicator to navbar
+      const statusIndicator = document.createElement("div");
+      statusIndicator.className = "status-indicator";
+      navbarUserContainer.appendChild(statusIndicator);
+    }
+
+    // If modal is open, update modal profile image as well
+    const modalProfileContainer = document.getElementById(
+      "modalProfileContainer"
+    );
+    if (modalProfileContainer) {
+      updateModalProfileImage(modalProfileContainer, imageUrl);
+    }
+  }
+
+  // Function to update modal profile image
+  function updateModalProfileImage(container, imageUrl) {
+    container.innerHTML = "";
+
+    if (imageUrl) {
+      const img = document.createElement("img");
+      img.src = imageUrl;
+      img.alt = "Profile";
+      img.style.width = "100%";
+      img.style.height = "100%";
+      img.style.objectFit = "cover";
+      img.style.borderRadius = "50%";
+      container.appendChild(img);
+    } else {
+      container.innerHTML = `
+    <div class="default-user-icon" style="width: 100%; height: 100%; background-color: #e9ecef; border-radius: 50%;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 80%; height: 80%; margin: 10%;">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+      </svg>
+    </div>
+  `;
+    }
+  }
+
+  // Helper function to show alerts
+  function showAlert(message, type) {
+    const alertDiv = document.createElement("div");
+    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+    alertDiv.role = "alert";
+    alertDiv.style.position = "fixed";
+    alertDiv.style.top = "20px";
+    alertDiv.style.right = "20px";
+    alertDiv.style.zIndex = "9999";
+    alertDiv.innerHTML = `
+  ${message}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+`;
+
+    document.body.appendChild(alertDiv);
+
+    // Auto dismiss after 3 seconds
+    setTimeout(() => {
+      if (alertDiv.parentNode) {
+        const bsAlert = new bootstrap.Alert(alertDiv);
+        bsAlert.close();
       }
+    }, 3000);
+  }
 
-      // Initialize event listeners
-      function initializeEventListeners() {
-        // Toggle Sidebar
-        document
-          .getElementById("toggleSidebar")
-          .addEventListener("click", function (e) {
-            e.stopPropagation(); // Prevent this click from triggering the document click handler
-            document.getElementById("sidebar").classList.toggle("active");
-          });
+  // Load user profile data including image
+  try {
+    const user = JSON.parse(localStorage.getItem("currentUser")) || {};
 
-        document.getElementById("close").addEventListener("click", function () {
-          document.getElementById("sidebar").classList.remove("active");
-        });
-
-        // Close sidebar when clicking outside
-        document.addEventListener("click", function (event) {
-          const sidebar = document.getElementById("sidebar");
-          const toggleButton = document.getElementById("toggleSidebar");
-
-          // Check if the click is outside the sidebar and not on the toggle button
-          if (
-            !sidebar.contains(event.target) &&
-            event.target !== toggleButton
-          ) {
-            sidebar.classList.remove("active");
-          }
-        });
-
-        // Prevent clicks inside sidebar from closing it
-        document
-          .getElementById("sidebar")
-          .addEventListener("click", function (e) {
-            e.stopPropagation();
-          });
-
-        // Search functionality
-        const searchInput = document.getElementById("searchInput");
-        searchInput.addEventListener("input", handleSearch);
-
-        // Click outside sidebar to close
-        document.addEventListener("click", function (event) {
-          if (window.innerWidth <= 992) {
-            if (
-              !sidebar.contains(event.target) &&
-              !toggleSidebar.contains(event.target)
-            ) {
-              sidebar.classList.remove("active");
-            }
-          }
-        });
+    // Update profile name
+    if (user.firstName && user.lastName) {
+      const profileNameElement =
+        document.getElementById("userProfileName");
+      if (profileNameElement) {
+        profileNameElement.textContent = `${user.firstName} ${user.lastName}`;
       }
+      // Update welcome message
+      const welcomeHeading = document.querySelector("h2");
+      if (
+        welcomeHeading &&
+        welcomeHeading.textContent.includes("Hello")
+      ) {
+        welcomeHeading.textContent = `Hello, ${user.firstName}!`;
+      }
+    }
 
-      // Initialize profile functionality (from dashboard)
-      function initializeProfileFunctionality() {
-        const sidebarProfileContainer = document.getElementById(
-          "sidebarProfileContainer"
-        );
-        const navbarUserContainer = document.getElementById(
-          "navbarUserContainer"
-        );
+    // Update profile role if exists
+    if (user.role) {
+      const profileRoleElement =
+        document.getElementById("userProfileRole");
+      if (profileRoleElement) {
+        profileRoleElement.textContent = user.role;
+      }
+    }
 
-        if (!sidebarProfileContainer || !navbarUserContainer) return;
+    // Update profile images
+    updateProfileDisplays(user.profileImage);
+  } catch (error) {
+    console.error("Error loading user profile:", error);
+    updateProfileDisplays(null);
+  }
 
-        // Function to show profile image or default user icon
-        function updateProfileDisplays(imageUrl) {
-          // Clear existing containers
-          sidebarProfileContainer.innerHTML = "";
-          navbarUserContainer.innerHTML = "";
-
-          if (imageUrl) {
-            // Sidebar profile image
-            const sidebarImg = document.createElement("img");
-            sidebarImg.src = imageUrl;
-            sidebarImg.alt = "Profile";
-            sidebarImg.className = "profile-image";
-            sidebarImg.id = "userProfileImage";
-            sidebarImg.style.borderRadius = "50%";
-            sidebarImg.style.width = "100%";
-            sidebarImg.style.height = "100%";
-            sidebarImg.style.objectFit = "cover";
-            sidebarProfileContainer.appendChild(sidebarImg);
-
-            // Add edit icon to sidebar profile
-            const editIcon = document.createElement("div");
-            editIcon.className = "edit-icon";
-            editIcon.innerHTML =
-              '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
-            sidebarProfileContainer.appendChild(editIcon);
-
-            // Navbar profile image
-            const navbarImg = document.createElement("img");
-            navbarImg.src = imageUrl;
-            navbarImg.alt = "User";
-            navbarImg.className = "user-avatar";
-            navbarImg.id = "navbarUserImage";
-            navbarImg.style.borderRadius = "50%";
-            navbarImg.style.width = "100%";
-            navbarImg.style.height = "100%";
-            navbarImg.style.objectFit = "cover";
-            navbarUserContainer.appendChild(navbarImg);
-
-            // Add status indicator to navbar
-            const statusIndicator = document.createElement("div");
-            statusIndicator.className = "status-indicator";
-            navbarUserContainer.appendChild(statusIndicator);
-          } else {
-            // Sidebar profile icon - default user icon
-            const sidebarIcon = document.createElement("div");
-            sidebarIcon.className = "default-user-icon";
-            sidebarIcon.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path fill="#888888" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-        </svg>
-      `;
-            sidebarProfileContainer.appendChild(sidebarIcon);
-
-            // Add edit icon to sidebar profile
-            const editIcon = document.createElement("div");
-            editIcon.className = "edit-icon";
-            editIcon.innerHTML =
-              '<i class="bi bi-pencil-fill text-white" style="font-size: 12px;"></i>';
-            sidebarProfileContainer.appendChild(editIcon);
-
-            // Navbar profile icon - default user icon
-            const navbarIcon = document.createElement("div");
-            navbarIcon.className = "default-user-icon";
-            navbarIcon.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path fill="#888888" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-        </svg>
-      `;
-            navbarUserContainer.appendChild(navbarIcon);
-
-            // Add status indicator to navbar
-            const statusIndicator = document.createElement("div");
-            statusIndicator.className = "status-indicator";
-            navbarUserContainer.appendChild(statusIndicator);
-          }
-
-          // If modal is open, update modal profile image as well
-          const modalProfileContainer = document.getElementById(
-            "modalProfileContainer"
-          );
-          if (modalProfileContainer) {
-            updateModalProfileImage(modalProfileContainer, imageUrl);
-          }
-        }
-
-        // Function to update modal profile image
-        function updateModalProfileImage(container, imageUrl) {
-          container.innerHTML = "";
-
-          if (imageUrl) {
-            const img = document.createElement("img");
-            img.src = imageUrl;
-            img.alt = "Profile";
-            img.style.width = "100%";
-            img.style.height = "100%";
-            img.style.objectFit = "cover";
-            img.style.borderRadius = "50%";
-            container.appendChild(img);
-          } else {
-            container.innerHTML = `
-        <div class="default-user-icon" style="width: 100%; height: 100%; background-color: #e9ecef; border-radius: 50%;">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 80%; height: 80%; margin: 10%;">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-          </svg>
+  // Create profile edit modal with upload and remove functionality
+  function createProfileEditModal() {
+    // Modal HTML structure
+    const modalHTML = `
+  <div class="modal fade" id="profileEditModal" tabindex="-1" aria-labelledby="profileEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="profileEditModalLabel">View Profile Picture</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-      `;
-          }
-        }
-
-        // Helper function to show alerts
-        function showAlert(message, type) {
-          const alertDiv = document.createElement("div");
-          alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
-          alertDiv.role = "alert";
-          alertDiv.style.position = "fixed";
-          alertDiv.style.top = "20px";
-          alertDiv.style.right = "20px";
-          alertDiv.style.zIndex = "9999";
-          alertDiv.innerHTML = `
-      ${message}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    `;
-
-          document.body.appendChild(alertDiv);
-
-          // Auto dismiss after 3 seconds
-          setTimeout(() => {
-            if (alertDiv.parentNode) {
-              const bsAlert = new bootstrap.Alert(alertDiv);
-              bsAlert.close();
-            }
-          }, 3000);
-        }
-
-        // Load user profile data including image
-        try {
-          const user = JSON.parse(localStorage.getItem("currentUser")) || {};
-
-          // Update profile name
-          if (user.firstName && user.lastName) {
-            const profileNameElement =
-              document.getElementById("userProfileName");
-            if (profileNameElement) {
-              profileNameElement.textContent = `${user.firstName} ${user.lastName}`;
-            }
-            // Update welcome message
-            const welcomeHeading = document.querySelector("h2");
-            if (
-              welcomeHeading &&
-              welcomeHeading.textContent.includes("Hello")
-            ) {
-              welcomeHeading.textContent = `Hello, ${user.firstName}!`;
-            }
-          }
-
-          // Update profile role if exists
-          if (user.role) {
-            const profileRoleElement =
-              document.getElementById("userProfileRole");
-            if (profileRoleElement) {
-              profileRoleElement.textContent = user.role;
-            }
-          }
-
-          // Update profile images
-          updateProfileDisplays(user.profileImage);
-        } catch (error) {
-          console.error("Error loading user profile:", error);
-          updateProfileDisplays(null);
-        }
-
-        // Create profile edit modal with upload and remove functionality
-        function createProfileEditModal() {
-          // Modal HTML structure
-          const modalHTML = `
-      <div class="modal fade" id="profileEditModal" tabindex="-1" aria-labelledby="profileEditModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="profileEditModalLabel">View Profile Picture</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-              <div class="mb-4">
-                <div class="position-relative d-inline-block">
-                  <div id="modalProfileContainer" class="rounded-circle overflow-hidden" style="width: 150px; height: 150px;">
-                    <!-- Image will be inserted here -->
-                  </div>
-                </div>
+        <div class="modal-body text-center">
+          <div class="mb-4">
+            <div class="position-relative d-inline-block">
+              <div id="modalProfileContainer" class="rounded-circle overflow-hidden" style="width: 150px; height: 150px;">
+                <!-- Image will be inserted here -->
               </div>
-              <div class="mb-4">
-                <button id="modalUploadBtn" class="btn btn-success btn-sm rounded-pill px-4" style="display: none;">UPLOAD</button>
-                <button id="modalRemoveBtn" class="btn btn-danger btn-sm rounded-pill px-4 ms-2" style="display: none;">REMOVE</button>
-              </div>
-              <p class="text-muted small">Go to Profile Settings to change your profile picture</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
+          <div class="mb-4">
+            <button id="modalUploadBtn" class="btn btn-success btn-sm rounded-pill px-4" style="display: none;">UPLOAD</button>
+            <button id="modalRemoveBtn" class="btn btn-danger btn-sm rounded-pill px-4 ms-2" style="display: none;">REMOVE</button>
+          </div>
+          <p class="text-muted small">Go to Profile Settings to change your profile picture</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
-    `;
+    </div>
+  </div>
+`;
 
-          // Append modal to body
-          const modalDiv = document.createElement("div");
-          modalDiv.innerHTML = modalHTML;
-          document.body.appendChild(modalDiv);
+    // Append modal to body
+    const modalDiv = document.createElement("div");
+    modalDiv.innerHTML = modalHTML;
+    document.body.appendChild(modalDiv);
 
-          // Get current user data
-          const user = JSON.parse(localStorage.getItem("currentUser")) || {};
+    // Get current user data
+    const user = JSON.parse(localStorage.getItem("currentUser")) || {};
 
-          // Update modal profile container with current image or default icon
-          const modalProfileContainer = document.getElementById(
-            "modalProfileContainer"
-          );
-          updateModalProfileImage(modalProfileContainer, user.profileImage);
+    // Update modal profile container with current image or default icon
+    const modalProfileContainer = document.getElementById(
+      "modalProfileContainer"
+    );
+    updateModalProfileImage(modalProfileContainer, user.profileImage);
 
-          // Handle upload button click in modal
-          document
-            .getElementById("modalUploadBtn")
-            .addEventListener("click", function () {
-              // Create file input element
-              const fileInput = document.createElement("input");
-              fileInput.type = "file";
-              fileInput.accept = "image/*";
-              fileInput.style.display = "none";
-              document.body.appendChild(fileInput);
+    // Handle upload button click in modal
+    document
+      .getElementById("modalUploadBtn")
+      .addEventListener("click", function () {
+        // Create file input element
+        const fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.accept = "image/*";
+        fileInput.style.display = "none";
+        document.body.appendChild(fileInput);
 
-              // Trigger file selection
-              fileInput.click();
+        // Trigger file selection
+        fileInput.click();
 
-              // Handle file selection
-              fileInput.addEventListener("change", function () {
-                if (this.files && this.files[0]) {
-                  const reader = new FileReader();
+        // Handle file selection
+        fileInput.addEventListener("change", function () {
+          if (this.files && this.files[0]) {
+            const reader = new FileReader();
 
-                  reader.onload = function (e) {
-                    const imageResult = e.target.result;
+            reader.onload = function (e) {
+              const imageResult = e.target.result;
 
-                    // Update modal image
-                    updateModalProfileImage(modalProfileContainer, imageResult);
+              // Update modal image
+              updateModalProfileImage(modalProfileContainer, imageResult);
 
-                    // Update profile images on page
-                    updateProfileDisplays(imageResult);
+              // Update profile images on page
+              updateProfileDisplays(imageResult);
 
-                    // Store image in memory storage
-                    try {
-                      let user =
-                        JSON.parse(localStorage.getItem("currentUser")) || {};
-                      user.profileImage = imageResult;
-                      localStorage.setItem("currentUser", JSON.stringify(user));
-
-                      // Show success message
-                      showAlert(
-                        "Profile picture updated successfully!",
-                        "success"
-                      );
-                    } catch (error) {
-                      console.error("Error saving profile image:", error);
-                      showAlert(
-                        "Error saving profile image. Please try again.",
-                        "danger"
-                      );
-                    }
-                  };
-
-                  reader.readAsDataURL(this.files[0]);
-                }
-
-                // Clean up
-                document.body.removeChild(fileInput);
-              });
-            });
-
-          // Handle remove button click in modal
-          document
-            .getElementById("modalRemoveBtn")
-            .addEventListener("click", function () {
-              // Update both modal and page with default icons
-              updateModalProfileImage(modalProfileContainer, null);
-              updateProfileDisplays(null);
-
-              // Remove image from storage
+              // Store image in memory storage
               try {
                 let user =
                   JSON.parse(localStorage.getItem("currentUser")) || {};
-                delete user.profileImage;
+                user.profileImage = imageResult;
                 localStorage.setItem("currentUser", JSON.stringify(user));
 
                 // Show success message
-                showAlert("Profile picture removed successfully!", "success");
-              } catch (error) {
-                console.error("Error removing profile image:", error);
                 showAlert(
-                  "Error removing profile image. Please try again.",
+                  "Profile picture updated successfully!",
+                  "success"
+                );
+              } catch (error) {
+                console.error("Error saving profile image:", error);
+                showAlert(
+                  "Error saving profile image. Please try again.",
                   "danger"
                 );
               }
-            });
+            };
 
-          return new bootstrap.Modal(
-            document.getElementById("profileEditModal")
+            reader.readAsDataURL(this.files[0]);
+          }
+
+          // Clean up
+          document.body.removeChild(fileInput);
+        });
+      });
+
+    // Handle remove button click in modal
+    document
+      .getElementById("modalRemoveBtn")
+      .addEventListener("click", function () {
+        // Update both modal and page with default icons
+        updateModalProfileImage(modalProfileContainer, null);
+        updateProfileDisplays(null);
+
+        // Remove image from storage
+        try {
+          let user =
+            JSON.parse(localStorage.getItem("currentUser")) || {};
+          delete user.profileImage;
+          localStorage.setItem("currentUser", JSON.stringify(user));
+
+          // Show success message
+          showAlert("Profile picture removed successfully!", "success");
+        } catch (error) {
+          console.error("Error removing profile image:", error);
+          showAlert(
+            "Error removing profile image. Please try again.",
+            "danger"
           );
-        }
-
-        // Add profile edit functionality to both sidebar and navbar profile images
-        const profileElements = [sidebarProfileContainer, navbarUserContainer];
-
-        profileElements.forEach((element) => {
-          element.style.cursor = "pointer";
-          element.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            // Create and show the modal
-            const profileModal = createProfileEditModal();
-            profileModal.show();
-
-            // Clean up when modal is hidden
-            document
-              .getElementById("profileEditModal")
-              .addEventListener("hidden.bs.modal", function () {
-                if (this.parentNode) {
-                  document.body.removeChild(this.parentNode);
-                }
-              });
-          });
-        });
-      }
-
-      // Handle search functionality
-      function handleSearch(event) {
-        const searchTerm = event.target.value.toLowerCase();
-        const electionCards = document.querySelectorAll("[data-department]");
-
-        electionCards.forEach((card) => {
-          const department = card.getAttribute("data-department");
-          const cardText = card.textContent.toLowerCase();
-
-          if (searchTerm === "" || cardText.includes(searchTerm)) {
-            card.style.display = "block";
-            // Remove previous highlights
-            const highlights = card.querySelectorAll(".search-highlight");
-            highlights.forEach((highlight) => {
-              highlight.outerHTML = highlight.innerHTML;
-            });
-
-            // Add new highlights if search term exists
-            if (searchTerm !== "") {
-              highlightSearchTerm(card, searchTerm);
-            }
-          } else {
-            card.style.display = "none";
-          }
-        });
-      }
-
-      // Highlight search terms
-      function highlightSearchTerm(element, term) {
-        const walker = document.createTreeWalker(
-          element,
-          NodeFilter.SHOW_TEXT,
-          null,
-          false
-        );
-
-        const textNodes = [];
-        let node;
-        while ((node = walker.nextNode())) {
-          textNodes.push(node);
-        }
-
-        textNodes.forEach((textNode) => {
-          const text = textNode.textContent;
-          const regex = new RegExp(`(${term})`, "gi");
-          if (regex.test(text)) {
-            const highlightedText = text.replace(
-              regex,
-              '<span class="search-highlight">$1</span>'
-            );
-            const tempDiv = document.createElement("div");
-            tempDiv.innerHTML = highlightedText;
-            while (tempDiv.firstChild) {
-              textNode.parentNode.insertBefore(tempDiv.firstChild, textNode);
-            }
-            textNode.remove();
-          }
-        });
-      }
-
-      // Open registration modal (changed from voting modal)
-      function openVotingModal(electionName) {
-        currentElection = electionName;
-        selectedCandidates = {};
-
-        const modalTitle = document.getElementById("votingModalLabel");
-        const modalBody = document.getElementById("votingModalBody");
-
-        modalTitle.textContent = `Register for ${electionName}`;
-
-        if (votedElections.has(electionName)) {
-          modalBody.innerHTML = `
-      <div class="vote-confirmation">
-        <i class="bi bi-check-circle-fill" style="font-size: 3rem; margin-bottom: 15px;"></i>
-        <h4>Already Registered!</h4>
-        <p>You have already registered for this election. Please wait for admin approval.</p>
-      </div>
-    `;
-          return;
-        }
-
-        const election = candidateData[electionName];
-        if (!election) {
-          modalBody.innerHTML =
-            '<p class="text-center">Election data not available.</p>';
-          return;
-        }
-
-        // Show registration form instead of candidate selection
-        modalBody.innerHTML = `
-    <div class="registration-form">
-      <div class="text-center mb-4">
-        <i class="bi bi-person-plus" style="font-size: 3rem; color: #4954b8; margin-bottom: 15px;"></i>
-        <h5>Election Registration</h5>
-        <p class="text-muted">Register to participate in the ${electionName} election.</p>
-      </div>
-      
-      <div class="alert alert-info">
-        <i class="bi bi-info-circle me-2"></i>
-        Your registration will be sent to the admin for approval. You will be notified once your registration is processed.
-      </div>
-      
-      <div class="election-info mb-4">
-        <h6 class="text-primary mb-3">Available Positions:</h6>
-        <ul class="list-unstyled">
-          ${election.positions
-            .map(
-              (position) => `
-            <li class="mb-2">
-              <i class="bi bi-person-badge me-2"></i>
-              <strong>${position.title}</strong> - ${position.candidates.length} candidate(s)
-            </li>
-          `
-            )
-            .join("")}
-        </ul>
-      </div>
-      
-      <div class="d-flex justify-content-between mt-4">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" onclick="submitRegistration()">
-          <i class="bi bi-person-plus me-2"></i>Register to Vote
-        </button>
-      </div>
-    </div>
-  `;
-      }
-
-      // Submit registration (changed from submitVote)
-      function submitRegistration() {
-        // Mark as registered (pending approval)
-        votedElections.add(currentElection);
-
-        // Create registration request object
-        const registrationRequest = {
-          electionName: currentElection,
-          userId: getCurrentUserId(),
-          userInfo: getCurrentUserInfo(),
-          timestamp: new Date().toISOString(),
-          status: "pending",
-        };
-
-        // Store registration request
-        storeRegistrationRequest(registrationRequest);
-
-        // Update the registration button
-        updateElectionButton(currentElection, "registered");
-
-        // Update stats
-        updateStats();
-
-        // Show confirmation
-        showRegistrationConfirmation();
-
-        // Send notification to admin
-        sendAdminNotification(registrationRequest);
-      }
-
-      // Helper functions for registration system
-      function getCurrentUserId() {
-        const user = JSON.parse(localStorage.getItem("currentUser")) || {};
-        return user.id || "user_" + Date.now();
-      }
-
-      function getCurrentUserInfo() {
-        const user = JSON.parse(localStorage.getItem("currentUser")) || {};
-        return {
-          name: `${user.firstName || "Unknown"} ${user.lastName || "User"}`,
-          email: user.email || "No email provided",
-          role: user.role || "Student",
-        };
-      }
-
-      function storeRegistrationRequest(request) {
-        // Store in memory (in real app, send to server)
-        let registrations =
-          JSON.parse(localStorage.getItem("registrationRequests")) || [];
-        registrations.push(request);
-        localStorage.setItem(
-          "registrationRequests",
-          JSON.stringify(registrations)
-        );
-        console.log("Registration stored:", request);
-      }
-
-      function sendAdminNotification(request) {
-        // Store notification for admin dashboard
-        let notifications =
-          JSON.parse(localStorage.getItem("adminNotifications")) || [];
-        notifications.push({
-          id: "notif_" + Date.now(),
-          type: "registration_request",
-          title: "New Election Registration",
-          message: `${request.userInfo.name} has requested to register for ${request.electionName}`,
-          timestamp: request.timestamp,
-          data: request,
-          read: false,
-        });
-        localStorage.setItem(
-          "adminNotifications",
-          JSON.stringify(notifications)
-        );
-        console.log("Admin notification sent:", request);
-      }
-
-      function updateElectionButton(electionName, status) {
-        const electionCards = document.querySelectorAll("[data-department]");
-        electionCards.forEach((card) => {
-          const h5 = card.querySelector("h5");
-          if (
-            h5 &&
-            h5.textContent.includes(electionName.split(" ").slice(-2).join(" "))
-          ) {
-            const button = card.querySelector(".vote-btn");
-            if (button && status === "registered") {
-              button.innerHTML =
-                '<i class="bi bi-clock-fill me-2"></i>Pending Approval';
-              button.classList.remove("vote-btn");
-              button.classList.add("btn-warning");
-              button.onclick = null;
-              button.style.cursor = "default";
-            }
-          }
-        });
-      }
-
-      function showRegistrationConfirmation() {
-        const modalBody = document.getElementById("votingModalBody");
-        modalBody.innerHTML = `
-    <div class="vote-confirmation">
-      <i class="bi bi-check-circle-fill" style="font-size: 3rem; margin-bottom: 15px; color: #28a745;"></i>
-      <h4>Registration Submitted!</h4>
-      <p>Your registration has been sent to the admin for approval. You will be notified once your registration is processed.</p>
-      <div class="alert alert-success mt-3">
-        <i class="bi bi-info-circle me-2"></i>
-        Check your notifications for updates on your registration status.
-      </div>
-      <div class="mt-3">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  `;
-      }
-
-      // Update statistics (now shows registrations instead of votes)
-      function updateStats() {
-        const totalElections = 6;
-        const registeredCount = votedElections.size;
-        const ongoingCount = 4;
-        const completionRate = Math.round(
-          (registeredCount / totalElections) * 100
-        );
-
-        document.getElementById("availableElections").textContent =
-          totalElections;
-        document.getElementById("votedElections").textContent = registeredCount;
-        document.getElementById("ongoingElections").textContent = ongoingCount;
-        document.getElementById("completionRate").textContent =
-          completionRate + "%";
-      }
-
-      // Handle window resize
-      window.addEventListener("resize", function () {
-        const sidebar = document.getElementById("sidebar");
-        if (window.innerWidth > 992) {
-          sidebar.classList.remove("active");
         }
       });
 
-      // Simulate real-time updates for registration status
-      setInterval(function () {
-        const ongoingBadges = document.querySelectorAll(".status-ongoing");
-        ongoingBadges.forEach((badge) => {
-          badge.style.transform = "scale(1.05)";
-          setTimeout(() => {
-            badge.style.transform = "scale(1)";
-          }, 500);
+    return new bootstrap.Modal(
+      document.getElementById("profileEditModal")
+    );
+  }
+
+  // Add profile edit functionality to both sidebar and navbar profile images
+  const profileElements = [sidebarProfileContainer, navbarUserContainer];
+
+  profileElements.forEach((element) => {
+    element.style.cursor = "pointer";
+    element.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      // Create and show the modal
+      const profileModal = createProfileEditModal();
+      profileModal.show();
+
+      // Clean up when modal is hidden
+      document
+        .getElementById("profileEditModal")
+        .addEventListener("hidden.bs.modal", function () {
+          if (this.parentNode) {
+            document.body.removeChild(this.parentNode);
+          }
         });
-      }, 30000); // Every 30 seconds
+    });
+  });
+}
+
+// Handle search functionality
+function handleSearch(event) {
+  const searchTerm = event.target.value.toLowerCase();
+  const electionCards = document.querySelectorAll("[data-department]");
+
+  electionCards.forEach((card) => {
+    const department = card.getAttribute("data-department");
+    const cardText = card.textContent.toLowerCase();
+
+    if (searchTerm === "" || cardText.includes(searchTerm)) {
+      card.style.display = "block";
+      // Remove previous highlights
+      const highlights = card.querySelectorAll(".search-highlight");
+      highlights.forEach((highlight) => {
+        highlight.outerHTML = highlight.innerHTML;
+      });
+
+      // Add new highlights if search term exists
+      if (searchTerm !== "") {
+        highlightSearchTerm(card, searchTerm);
+      }
+    } else {
+      card.style.display = "none";
+    }
+  });
+}
+
+// Highlight search terms
+function highlightSearchTerm(element, term) {
+  const walker = document.createTreeWalker(
+    element,
+    NodeFilter.SHOW_TEXT,
+    null,
+    false
+  );
+
+  const textNodes = [];
+  let node;
+  while ((node = walker.nextNode())) {
+    textNodes.push(node);
+  }
+
+  textNodes.forEach((textNode) => {
+    const text = textNode.textContent;
+    const regex = new RegExp(`(${term})`, "gi");
+    if (regex.test(text)) {
+      const highlightedText = text.replace(
+        regex,
+        '<span class="search-highlight">$1</span>'
+      );
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = highlightedText;
+      while (tempDiv.firstChild) {
+        textNode.parentNode.insertBefore(tempDiv.firstChild, textNode);
+      }
+      textNode.remove();
+    }
+  });
+}
+
+// Open voting modal to show candidates
+function openVotingModal(electionName) {
+  currentElection = electionName;
+  selectedCandidates = {};
+
+  const modalTitle = document.getElementById("votingModalLabel");
+  const modalBody = document.getElementById("votingContent");
+  const registerBtn = document.getElementById("registerBtn");
+  const submitVoteBtn = document.getElementById("submitVoteBtn");
+
+  modalTitle.textContent = `${electionName} - Candidates`;
+  
+  // Check if user is already registered for this election
+  const registrations = JSON.parse(localStorage.getItem('registrationRequests')) || [];
+  const isRegistered = registrations.some(
+    reg => reg.electionName === electionName && reg.status === 'approved'
+  );
+  
+  const isPending = registrations.some(
+    reg => reg.electionName === electionName && reg.status === 'pending'
+  );
+
+  if (isRegistered) {
+    // User is already registered - show voting interface
+    modalBody.innerHTML = `
+      <div class="alert alert-success">
+        <i class="bi bi-check-circle me-2"></i>
+        You are registered for this election and can now vote.
+      </div>
+      ${generateCandidateList(electionName, true)}
+    `;
+    registerBtn.style.display = 'none';
+    submitVoteBtn.style.display = 'block';
+  } else if (isPending) {
+    // Registration is pending approval
+    modalBody.innerHTML = `
+      <div class="alert alert-warning">
+        <i class="bi bi-clock me-2"></i>
+        Your registration for this election is pending admin approval. You can view candidates but cannot vote yet.
+      </div>
+      ${generateCandidateList(electionName, false)}
+    `;
+    registerBtn.style.display = 'none';
+    submitVoteBtn.style.display = 'none';
+  } else {
+    // Not registered - show candidates but disable voting
+    modalBody.innerHTML = `
+      <div class="alert alert-info">
+        <i class="bi bi-info-circle me-2"></i>
+        Register to participate in this election and vote for candidates.
+      </div>
+      ${generateCandidateList(electionName, false)}
+    `;
+    registerBtn.style.display = 'block';
+    submitVoteBtn.style.display = 'none';
+  }
+}
+
+// Generate HTML for candidate list
+function generateCandidateList(electionName, canVote) {
+  const election = candidateData[electionName];
+  if (!election) return '<p class="text-center">No candidate data available.</p>';
+  
+  return election.positions.map(position => `
+    <div class="position-title">
+      <i class="bi bi-person-badge me-2"></i>
+      ${position.title}
+    </div>
+    <div class="position-candidates">
+      ${position.candidates.map(candidate => `
+        <div class="candidate-card ${canVote ? '' : 'unregistered'}">
+          <div class="candidate-info">
+            <div class="candidate-avatar">
+              <i class="bi bi-person" style="font-size: 1.5rem;"></i>
+            </div>
+            <div class="candidate-details">
+              <div class="candidate-name">${candidate.name}</div>
+              <div class="candidate-meta">
+                <span class="me-3"><i class="bi bi-mortarboard me-1"></i> ${candidate.year}</span>
+                <span><i class="bi bi-award me-1"></i> GPA: ${candidate.gpa}</span>
+              </div>
+            </div>
+            ${canVote ? `
+              <button class="btn btn-sm btn-outline-primary vote-candidate-btn" 
+                      onclick="selectCandidate('${position.title}', '${candidate.id}')">
+                <i class="bi bi-check-lg me-1"></i>Vote
+              </button>
+            ` : ''}
+          </div>
+          <div class="candidate-platform">
+            <strong>Platform:</strong> ${candidate.platform}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+}
+
+// Select a candidate (only if registered)
+function selectCandidate(position, candidateId) {
+  selectedCandidates[position] = candidateId;
+  
+  // Update UI to show selected candidate
+  document.querySelectorAll('.vote-candidate-btn').forEach(btn => {
+    btn.classList.remove('btn-primary');
+    btn.classList.add('btn-outline-primary');
+  });
+  
+  const selectedBtn = document.querySelector(`.vote-candidate-btn[onclick*="${candidateId}"]`);
+  if (selectedBtn) {
+    selectedBtn.classList.remove('btn-outline-primary');
+    selectedBtn.classList.add('btn-primary');
+  }
+}
+
+// Show confirmation modal before registration
+function showConfirmationModal() {
+  const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+  confirmationModal.show();
+}
+
+// Submit registration
+function submitRegistration() {
+  if (!currentElection) return;
+  
+  // Close confirmation modal
+  const confirmationModal = bootstrap.Modal.getInstance(document.getElementById('confirmationModal'));
+  if (confirmationModal) confirmationModal.hide();
+  
+  // Mark as registered (pending approval)
+  const registrationRequest = {
+    electionName: currentElection,
+    userId: getCurrentUserId(),
+    userInfo: getCurrentUserInfo(),
+    timestamp: new Date().toISOString(),
+    status: "pending",
+  };
+
+  // Store registration request
+  storeRegistrationRequest(registrationRequest);
+  sendAdminNotification(registrationRequest);
+
+  // Update the election button
+  updateElectionButton(currentElection, "pending");
+
+  // Update stats
+  updateStats();
+
+  // Close the voting modal
+  const votingModal = bootstrap.Modal.getInstance(document.getElementById('votingModal'));
+  if (votingModal) votingModal.hide();
+
+  // Show success modal
+  const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+  successModal.show();
+}
+
+// Submit vote (only if registered and approved)
+function submitVote() {
+  if (!currentElection) return;
+  
+  // Check if all positions have been voted for
+  const election = candidateData[currentElection];
+  const allPositionsVoted = election.positions.every(position => 
+    selectedCandidates.hasOwnProperty(position.title)
+  );
+  
+  if (!allPositionsVoted) {
+    showAlert("Please vote for all positions before submitting.", "warning");
+    return;
+  }
+  
+  // Store the vote (in a real app, this would be sent to the server)
+  const votes = JSON.parse(localStorage.getItem('votes')) || [];
+  votes.push({
+    election: currentElection,
+    votes: selectedCandidates,
+    timestamp: new Date().toISOString()
+  });
+  localStorage.setItem('votes', JSON.stringify(votes));
+  
+  // Mark this election as voted
+  votedElections.add(currentElection);
+  
+  // Update stats
+  updateStats();
+  
+  // Close the voting modal
+  const votingModal = bootstrap.Modal.getInstance(document.getElementById('votingModal'));
+  if (votingModal) votingModal.hide();
+  
+  // Show vote confirmation modal
+  const voteConfirmationModal = new bootstrap.Modal(document.getElementById('voteConfirmationModal'));
+  voteConfirmationModal.show();
+}
+
+// Helper functions for registration system
+function getCurrentUserId() {
+  const user = JSON.parse(localStorage.getItem("currentUser")) || {};
+  return user.id || "user_" + Date.now();
+}
+
+function getCurrentUserInfo() {
+  const user = JSON.parse(localStorage.getItem("currentUser")) || {};
+  return {
+    name: `${user.firstName || "Unknown"} ${user.lastName || "User"}`,
+    email: user.email || "No email provided",
+    role: user.role || "Student",
+  };
+}
+
+function storeRegistrationRequest(request) {
+  // Store in memory (in real app, send to server)
+  let registrations =
+    JSON.parse(localStorage.getItem("registrationRequests")) || [];
+  registrations.push(request);
+  localStorage.setItem(
+    "registrationRequests",
+    JSON.stringify(registrations)
+  );
+  console.log("Registration stored:", request);
+}
+
+function sendAdminNotification(request) {
+  // Store notification for admin dashboard
+  let notifications =
+    JSON.parse(localStorage.getItem("adminNotifications")) || [];
+  notifications.push({
+    id: "notif_" + Date.now(),
+    type: "registration_request",
+    title: "New Election Registration",
+    message: `${request.userInfo.name} has requested to register for ${request.electionName}`,
+    timestamp: request.timestamp,
+    data: request,
+    read: false,
+  });
+  localStorage.setItem(
+    "adminNotifications",
+    JSON.stringify(notifications)
+  );
+  console.log("Admin notification sent:", request);
+}
+
+function updateElectionButton(electionName, status) {
+  const electionCards = document.querySelectorAll("[data-department]");
+  electionCards.forEach((card) => {
+    const h5 = card.querySelector("h5");
+    if (
+      h5 &&
+      h5.textContent.includes(electionName.split(" ").slice(-2).join(" "))
+    ) {
+      const button = card.querySelector(".vote-btn");
+      if (button) {
+        if (status === "pending") {
+          button.innerHTML =
+            '<i class="bi bi-clock-fill me-2"></i>Pending Approval';
+          button.classList.remove("btn-primary");
+          button.classList.add("btn-warning");
+          button.onclick = null;
+          button.style.cursor = "default";
+        } else if (status === "approved") {
+          button.innerHTML =
+            '<i class="bi bi-check2-square me-2"></i>Vote Now';
+          button.classList.remove("btn-warning");
+          button.classList.add("btn-primary");
+        }
+      }
+    }
+  });
+}
+
+// Update statistics
+function updateStats() {
+  const totalElections = 6;
+  const registrations = JSON.parse(localStorage.getItem('registrationRequests')) || [];
+  const approvedRegistrations = registrations.filter(reg => reg.status === 'approved').length;
+  const ongoingCount = 4;
+  const completionRate = Math.round(
+    (approvedRegistrations / totalElections) * 100
+  );
+
+  document.getElementById("availableElections").textContent =
+    totalElections;
+  document.getElementById("votedElections").textContent = approvedRegistrations;
+  document.getElementById("ongoingElections").textContent = ongoingCount;
+  document.getElementById("completionRate").textContent =
+    completionRate + "%";
+}
+
+// Handle window resize
+window.addEventListener("resize", function () {
+  const sidebar = document.getElementById("sidebar");
+  if (window.innerWidth > 992) {
+    sidebar.classList.remove("active");
+  }
+});
+
+// Simulate real-time updates for registration status
+setInterval(function () {
+  const ongoingBadges = document.querySelectorAll(".status-ongoing");
+  ongoingBadges.forEach((badge) => {
+    badge.style.transform = "scale(1.05)";
+    setTimeout(() => {
+      badge.style.transform = "scale(1)";
+    }, 500);
+  });
+}, 30000); // Every 30 seconds
     </script>
   </body>
 </html>

@@ -21,32 +21,283 @@ body {
   transition: margin-left 0.3s;
 }
 
+/* Enhanced responsive breakpoints */
+@media (max-width: 1400px) {
+  .main-content {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .main-content {
+    margin-left: 240px;
+    padding: 15px;
+  }
+}
+
 @media (max-width: 992px) {
   .main-content {
     margin-left: 0;
+    padding: 10px;
   }
   .sidebar-nav {
     overflow-y: auto;
   }
-  .card-body .row {
-    display: flex;
-    flex-direction: row;
-  }
-}
-
-@media (max-width: 475px) {
-  .card{
-    width: 280px;
-  }
 }
 
 @media (max-width: 768px) {
+  .main-content {
+    padding: 8px;
+  }
   .election-image {
     margin-top: 15px;
   }
   .election-card {
     flex-direction: column;
     text-align: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .main-content {
+    padding: 5px;
+  }
+}
+
+/* Enhanced Card Responsiveness */
+.card {
+  transition: all 0.3s ease;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Large screens - 4 cards per row */
+@media (min-width: 1400px) {
+  .card {
+    width: calc(25% - 15px);
+    max-width: 350px;
+    margin-right: 15px;
+  }
+}
+
+/* Desktop - 3 cards per row */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .card {
+    width: calc(33.333% - 15px);
+    max-width: 400px;
+    margin-right: 15px;
+  }
+}
+
+/* Medium desktop - 2 cards per row */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .card {
+    width: calc(50% - 10px);
+    max-width: 450px;
+    margin-right: 10px;
+  }
+}
+
+/* Tablet - 2 cards per row with smaller margins */
+@media (min-width: 768px) and (max-width: 991px) {
+  .card {
+    width: calc(50% - 8px);
+    max-width: 350px;
+    margin-right: 8px;
+  }
+}
+
+/* Small tablet - 1 card per row */
+@media (min-width: 576px) and (max-width: 767px) {
+  .card {
+    width: calc(100% - 10px);
+    max-width: 500px;
+    margin: 0 auto 15px auto;
+  }
+}
+
+/* Mobile - 1 card per row, full width */
+@media (max-width: 575px) {
+  .card {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 12px 0;
+  }
+}
+
+/* Card container for flex layout */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 991px) {
+  .cards-container {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 575px) {
+  .cards-container {
+    gap: 8px;
+    flex-direction: column;
+  }
+}
+
+/* Enhanced card body responsiveness */
+.card-body {
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .card-body {
+    padding: 15px;
+  }
+  .card-body .row {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-body {
+    padding: 12px;
+  }
+}
+
+/* Election card specific responsiveness */
+.election-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+@media (max-width: 768px) {
+  .election-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+}
+
+/* Election image responsiveness */
+.election-image {
+  max-width: 120px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+@media (max-width: 992px) {
+  .election-image {
+    max-width: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .election-image {
+    max-width: 80px;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .election-image {
+    max-width: 60px;
+    margin-top: 8px;
+  }
+}
+
+/* Vote button responsiveness */
+.vote-btn {
+  background-color: white;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 20px;
+  padding: 8px 24px;
+  font-weight: 500;
+  transition: all 0.2s;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .vote-btn {
+    padding: 6px 20px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 576px) {
+  .vote-btn {
+    padding: 8px 16px;
+    font-size: 12px;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+  }
+}
+
+.vote-btn:hover {
+  background-color: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+@media (max-width: 576px) {
+  .vote-btn:hover {
+    transform: none;
+  }
+}
+
+/* Enhanced grid system for cards */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -7.5px;
+}
+
+.col-xl-3,
+.col-lg-4,
+.col-md-6,
+.col-sm-12 {
+  padding: 0 7.5px;
+  margin-bottom: 15px;
+}
+
+@media (min-width: 1200px) {
+  .col-xl-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .col-lg-4 {
+    flex: 0 0 33.333%;
+    max-width: 33.333%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 767px) {
+  .col-sm-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
   }
 }
 
@@ -73,6 +324,7 @@ body {
   font-size: 22px;
   font-weight: 900;
 }
+
 @media (max-width: 992px) {
   .sidebar {
     transform: translateX(-100%);
@@ -118,6 +370,7 @@ body {
   background-color: var(--light-gray);
   margin: 0 15px 25px;
 }
+
 .profile-role {
   font-size: 12px;
   color: var(--text-gray);
@@ -131,14 +384,18 @@ body {
   padding: 15px 20px;
 }
 
-.card-body {
-  padding: 20px;
+@media (max-width: 768px) {
+  .card-header {
+    padding: 12px 15px;
+    font-size: 16px;
+  }
 }
 
-.election-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+@media (max-width: 576px) {
+  .card-header {
+    padding: 10px 12px;
+    font-size: 15px;
+  }
 }
 
 .election-info h4,
@@ -148,27 +405,22 @@ body {
   margin-bottom: 10px;
 }
 
-.vote-btn {
-  background-color: white;
-  color: var(--primary);
-  border: 1px solid var(--primary);
-  border-radius: 20px;
-  padding: 8px 24px;
-  font-weight: 500;
-  transition: all 0.2s;
-  text-decoration: none;
+@media (max-width: 768px) {
+  .election-info h4 {
+    font-size: 1.1rem;
+  }
+  .election-info h5 {
+    font-size: 1rem;
+  }
 }
 
-.vote-btn:hover {
-  background-color: var(--primary);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow);
-}
-
-.election-image {
-  max-width: 120px;
-  height: auto;
+@media (max-width: 576px) {
+  .election-info h4 {
+    font-size: 1rem;
+  }
+  .election-info h5 {
+    font-size: 0.9rem;
+  }
 }
 
 /* Profile image styling */
@@ -264,6 +516,13 @@ body {
   margin-bottom: 20px;
 }
 
+@media (max-width: 768px) {
+  .top-navbar {
+    margin-bottom: 15px;
+    padding: 8px 0;
+  }
+}
+
 .toggle-sidebar {
   display: none;
   background: none;
@@ -279,17 +538,23 @@ body {
   }
 }
 
-@media (min-width: 768px) {
-  .card {
-  transition: all 0.3s ease;
-  width: 400px;
-}
-}
-
 .search-bar {
   flex-grow: 1;
   max-width: 600px;
   margin: 0 20px;
+}
+
+@media (max-width: 768px) {
+  .search-bar {
+    margin: 0 10px;
+    max-width: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .search-bar {
+    margin: 0 5px;
+  }
 }
 
 .search-input {
@@ -313,6 +578,18 @@ body {
   gap: 15px;
 }
 
+@media (max-width: 768px) {
+  .user-actions {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .user-actions {
+    gap: 8px;
+  }
+}
+
 .action-icon,
 .user-actions a {
   font-size: 20px;
@@ -324,6 +601,14 @@ body {
   height: 40px;
   position: relative;
   text-decoration: none;
+}
+
+@media (max-width: 576px) {
+  .action-icon,
+  .user-actions a {
+    font-size: 18px;
+    height: 35px;
+  }
 }
 
 .action-icon:hover,
@@ -359,6 +644,13 @@ body {
   background-color: #f0f0f0;
 }
 
+@media (max-width: 576px) {
+  .navbar-user-container {
+    width: 35px;
+    height: 35px;
+  }
+}
+
 .user-avatar {
   width: 40px;
   height: 40px;
@@ -366,6 +658,13 @@ body {
   object-fit: cover;
   display: block;
   cursor: pointer;
+}
+
+@media (max-width: 576px) {
+  .user-avatar {
+    width: 35px;
+    height: 35px;
+  }
 }
 
 .status-indicator {
@@ -405,6 +704,13 @@ body {
   font-weight: 500;
   margin-bottom: 8px;
   display: inline-block;
+}
+
+@media (max-width: 576px) {
+  .election-status {
+    font-size: 11px;
+    padding: 3px 6px;
+  }
 }
 
 .status-ongoing {
@@ -457,11 +763,22 @@ body {
 }
 
 /* Enhanced card hover effects */
-
-
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+  .card:hover {
+    transform: translateY(-3px);
+  }
+}
+
+@media (max-width: 576px) {
+  .card:hover {
+    transform: none;
+    box-shadow: var(--shadow);
+  }
 }
 
 /* Page title styling */
@@ -482,8 +799,28 @@ body {
   transition: transform 0.3s ease;
 }
 
+@media (max-width: 768px) {
+  .stats-card {
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .stats-card {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+}
+
 .stats-card:hover {
   transform: translateY(-3px);
+}
+
+@media (max-width: 576px) {
+  .stats-card:hover {
+    transform: none;
+  }
 }
 
 .stats-number {
@@ -492,9 +829,27 @@ body {
   margin-bottom: 5px;
 }
 
+@media (max-width: 768px) {
+  .stats-number {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .stats-number {
+    font-size: 1.8rem;
+  }
+}
+
 .stats-label {
   font-size: 0.9rem;
   opacity: 0.9;
+}
+
+@media (max-width: 576px) {
+  .stats-label {
+    font-size: 0.8rem;
+  }
 }
 
 /* Filter buttons styling */
@@ -506,6 +861,20 @@ body {
   box-shadow: var(--shadow);
 }
 
+@media (max-width: 768px) {
+  .filter-section {
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .filter-section {
+    padding: 12px;
+    margin-bottom: 15px;
+  }
+}
+
 .filter-title {
   color: var(--text-dark);
   font-weight: 600;
@@ -513,10 +882,23 @@ body {
   font-size: 1.1rem;
 }
 
+@media (max-width: 576px) {
+  .filter-title {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+}
+
 .filter-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+@media (max-width: 576px) {
+  .filter-buttons {
+    gap: 8px;
+  }
 }
 
 .filter-btn {
@@ -535,11 +917,32 @@ body {
   text-decoration: none;
 }
 
+@media (max-width: 768px) {
+  .filter-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 576px) {
+  .filter-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    gap: 6px;
+  }
+}
+
 .filter-btn:hover {
   border-color: var(--primary);
   color: var(--primary);
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 576px) {
+  .filter-btn:hover {
+    transform: none;
+  }
 }
 
 .filter-btn.active {
@@ -566,23 +969,22 @@ body {
 
   .filter-btn {
     flex: 1;
-    min-width: 140px;
+    min-width: 120px;
     justify-content: center;
   }
 }
 
 @media (max-width: 576px) {
   .filter-btn {
-    flex: 1 1 100%;
+    flex: 1 1 calc(50% - 4px);
+    min-width: 0;
     max-width: none;
   }
+}
 
-  .stats-card {
-    margin-bottom: 15px;
-  }
-
-  .stats-number {
-    font-size: 2rem;
+@media (max-width: 400px) {
+  .filter-btn {
+    flex: 1 1 100%;
   }
 }
 
@@ -600,6 +1002,13 @@ body {
   transition: all 0.3s ease;
 }
 
+@media (max-width: 576px) {
+  .candidate-card {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+}
+
 .candidate-card:hover {
   border-color: var(--primary);
   box-shadow: 0 4px 15px rgba(73, 84, 184, 0.2);
@@ -607,7 +1016,7 @@ body {
 
 .candidate-card.selected {
   border-color: var(--primary);
-  background-color: rgba(73, 84, 184, 0.05);
+  background-color: white;
 }
 
 .candidate-photo {
@@ -624,6 +1033,14 @@ body {
   font-weight: bold;
 }
 
+@media (max-width: 576px) {
+  .candidate-photo {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+  }
+}
+
 .vote-confirmation {
   background: linear-gradient(135deg, #28a745, #20c997);
   color: white;
@@ -631,6 +1048,12 @@ body {
   border-radius: 12px;
   text-align: center;
   margin-top: 20px;
+}
+
+@media (max-width: 576px) {
+  .vote-confirmation {
+    padding: 15px;
+  }
 }
 
 /* Position section styling */
@@ -641,6 +1064,12 @@ body {
 
 .position-section:last-child {
   border-bottom: none;
+}
+
+@media (max-width: 576px) {
+  .position-section {
+    padding-bottom: 15px;
+  }
 }
 
 /* Loading states */
@@ -686,20 +1115,762 @@ body {
   box-shadow: 0 0 0 0.2rem rgba(73, 84, 184, 0.25);
 }
 
-/* Print styles */
-@media print {
-  .sidebar,
-  .top-navbar,
-  .vote-btn,
-  .modal {
+/* Advanced Card Grid System */
+.cards-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 400px) {
+  .cards-grid {
+    gap: 10px;
+  }
+}
+
+/* Dynamic Card Heights */
+.card-equal-height {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-equal-height .card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-equal-height .card-footer {
+  margin-top: auto;
+}
+
+/* Responsive Typography */
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  .card-title {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-title {
+    font-size: 1rem;
+  }
+}
+
+.card-text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-gray);
+}
+
+@media (max-width: 576px) {
+  .card-text {
+    font-size: 0.9rem;
+  }
+}
+
+/* Enhanced Election Card Layout */
+.election-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.election-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.election-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.election-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  .election-card-footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+}
+
+/* Container Queries for Cards */
+@container (max-width: 350px) {
+  .card-body {
+    padding: 10px;
+  }
+
+  .election-image {
+    max-width: 50px;
+  }
+
+  .vote-btn {
+    font-size: 11px;
+    padding: 6px 12px;
+  }
+}
+
+/* Improved Card Spacing */
+.card-spacing-sm {
+  margin-bottom: 15px;
+}
+
+.card-spacing-md {
+  margin-bottom: 20px;
+}
+
+.card-spacing-lg {
+  margin-bottom: 25px;
+}
+
+@media (max-width: 768px) {
+  .card-spacing-sm {
+    margin-bottom: 12px;
+  }
+
+  .card-spacing-md {
+    margin-bottom: 15px;
+  }
+
+  .card-spacing-lg {
+    margin-bottom: 18px;
+  }
+}
+
+/* Responsive Card Variants */
+.card-compact {
+  border-radius: 12px;
+}
+
+.card-compact .card-body {
+  padding: 15px;
+}
+
+@media (max-width: 576px) {
+  .card-compact .card-body {
+    padding: 12px;
+  }
+}
+
+.card-expanded {
+  border-radius: 18px;
+}
+
+.card-expanded .card-body {
+  padding: 25px;
+}
+
+@media (max-width: 768px) {
+  .card-expanded .card-body {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-expanded .card-body {
+    padding: 15px;
+  }
+}
+
+/* Advanced Responsive Utilities */
+.hide-on-mobile {
+  display: block;
+}
+
+@media (max-width: 576px) {
+  .hide-on-mobile {
     display: none;
+  }
+}
+
+.show-on-mobile {
+  display: none;
+}
+
+@media (max-width: 576px) {
+  .show-on-mobile {
+    display: block;
+  }
+}
+
+.hide-on-tablet {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .hide-on-tablet {
+    display: none;
+  }
+}
+
+.show-on-tablet {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .show-on-tablet {
+    display: block;
+  }
+}
+
+/* Responsive Image Handling */
+.responsive-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.card-img-top {
+  border-radius: 15px 15px 0 0;
+  object-fit: cover;
+  height: 200px;
+}
+
+@media (max-width: 768px) {
+  .card-img-top {
+    height: 150px;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-img-top {
+    height: 120px;
+  }
+}
+
+/* Enhanced Button Responsiveness */
+.btn-group-responsive {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 576px) {
+  .btn-group-responsive {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .btn-group-responsive .btn {
+    width: 100%;
+  }
+}
+
+/* Responsive Tables in Cards */
+.table-responsive-card {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-responsive-card table {
+  min-width: 100%;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 576px) {
+  .table-responsive-card table {
+    font-size: 0.8rem;
+  }
+}
+
+/* Advanced Loading States */
+.card-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-loading::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Responsive Modal Adjustments */
+@media (max-width: 576px) {
+  .modal-dialog {
+    margin: 10px;
+    max-width: calc(100vw - 20px);
+  }
+
+  .modal-body {
+    padding: 15px;
+  }
+
+  .modal-header {
+    padding: 15px;
+  }
+
+  .modal-footer {
+    padding: 15px;
+  }
+}
+
+/* Card Interaction Improvements */
+.card-interactive {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card-interactive:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+  .card-interactive:hover {
+    transform: translateY(-3px);
+  }
+}
+
+@media (max-width: 576px) {
+  .card-interactive:hover {
+    transform: none;
+  }
+}
+
+/* Touch-friendly Elements */
+@media (hover: none) and (pointer: coarse) {
+  .card:hover {
+    transform: none;
+    box-shadow: var(--shadow);
+  }
+
+  .vote-btn:hover {
+    transform: none;
+  }
+
+  .filter-btn:hover {
+    transform: none;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .card {
+    background-color: white;
+    color: #e2e8f0;
+    border-color: white;
+  }
+
+  .card-header {
+    background-color: white;
+    border-color: white;
+  }
+
+  .election-status {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .vote-btn,
+  .filter-btn,
+  .card-interactive {
+    transition: none;
+  }
+
+  .card:hover,
+  .card-interactive:hover {
+    transform: none;
+  }
+
+  .status-ongoing {
+    animation: none;
+  }
+}
+
+/* Ultra-wide Screen Support */
+@media (min-width: 1920px) {
+  .card {
+    width: calc(20% - 16px);
+    max-width: 320px;
   }
 
   .main-content {
-    margin-left: 0;
+    max-width: 1800px;
+    margin: 0 auto;
+    padding-left: 260px;
+  }
+}
+
+@media (min-width: 2560px) {
+  .card {
+    width: calc(16.666% - 16px);
+    max-width: 300px;
+  }
+
+  .main-content {
+    max-width: 2400px;
+  }
+}
+
+/* Landscape Phone Orientation */
+@media (max-width: 768px) and (orientation: landscape) {
+  .card {
+    width: calc(50% - 10px);
+    max-width: 350px;
+  }
+
+  .main-content {
+    padding: 10px;
+  }
+
+  .top-navbar {
+    padding: 5px 0;
+    margin-bottom: 10px;
+  }
+}
+
+/* Foldable Device Support */
+@media (max-width: 768px) and (min-width: 520px) and (orientation: portrait) {
+  .card {
+    width: calc(50% - 8px);
+    max-width: 240px;
+  }
+}
+
+/* High DPI Display Adjustments */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .card {
+    border-width: 0.5px;
+  }
+
+  .election-image {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .card {
+    border: 2px solid;
+    box-shadow: none;
+  }
+
+  .vote-btn {
+    border-width: 2px;
+  }
+
+  .election-status {
+    border: 1px solid;
+  }
+}
+
+/* Compact Card Layout for Small Screens */
+.card-compact-mobile {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 576px) {
+  .card-compact-mobile {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .card-compact-mobile .card-body {
+    padding: 10px;
+    flex: 1;
+  }
+
+  .card-compact-mobile .election-image {
+    max-width: 40px;
+    margin: 0 10px 0 0;
+  }
+
+  .card-compact-mobile .vote-btn {
+    margin: 0;
+    white-space: nowrap;
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+}
+
+/* Progressive Enhancement for Modern Browsers */
+@supports (display: grid) {
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
   }
 
   .card {
-    break-inside: avoid;
+    width: auto;
+    margin-right: 0;
   }
+}
+
+@supports (aspect-ratio: 1/1) {
+  .card-square {
+    aspect-ratio: 1/1;
+  }
+
+  .card-wide {
+    aspect-ratio: 16/9;
+  }
+}
+
+/* Container Queries (Future-proofing) */
+@supports (container-type: inline-size) {
+  .card-container {
+    container-type: inline-size;
+  }
+
+  @container (max-width: 300px) {
+    .card-body {
+      padding: 10px;
+    }
+
+    .election-image {
+      max-width: 40px;
+    }
+  }
+}
+
+/* Advanced Responsive Grid */
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: clamp(10px, 2vw, 20px);
+}
+
+/* Fluid Typography */
+.card-title {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+}
+
+.card-text {
+  font-size: clamp(0.875rem, 2vw, 0.95rem);
+}
+
+.vote-btn {
+  font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+  padding: clamp(6px, 1vw, 8px) clamp(12px, 2vw, 24px);
+}
+
+/* Responsive Spacing */
+.card-body {
+  padding: clamp(12px, 3vw, 20px);
+}
+
+.main-content {
+  padding: clamp(5px, 2vw, 20px);
+}
+
+/* Enhanced Touch Targets */
+@media (pointer: coarse) {
+  .vote-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .filter-btn {
+    min-height: 44px;
+    padding: 12px 20px;
+  }
+
+  .candidate-card {
+    min-height: 60px;
+  }
+}
+
+/* Responsive Image Optimization */
+.election-image {
+  width: clamp(40px, 8vw, 120px);
+  height: clamp(40px, 8vw, 120px);
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Advanced Layout Queries */
+@media (max-width: 480px) {
+  .card-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .card-stack .card {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+/* Responsive Card Shadows */
+.card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+@media (min-width: 768px) {
+  .card:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Responsive Border Radius */
+.card {
+  border-radius: clamp(8px, 1.5vw, 15px);
+}
+
+.vote-btn {
+  border-radius: clamp(15px, 2vw, 20px);
+}
+
+/* Performance Optimizations */
+.card-image {
+  will-change: transform;
+}
+
+.card:hover .card-image {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .card:hover .card-image {
+    transform: none;
+  }
+}
+
+/* Responsive Loading States */
+.card-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Responsive Error States */
+.card-error {
+  border-color: #dc3545;
+  background-color: rgba(220, 53, 69, 0.05);
+}
+
+.card-error .card-body {
+  text-align: center;
+  padding: clamp(20px, 4vw, 40px);
+}
+
+/* Responsive Success States */
+.card-success {
+  border-color: #28a745;
+  background-color: rgba(40, 167, 69, 0.05);
+}
+
+/* RTL Language Support */
+[dir="rtl"] .card {
+  text-align: right;
+}
+
+[dir="rtl"] .election-card {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .nav-link i {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+/* Responsive Animations */
+@media (prefers-reduced-motion: no-preference) {
+  .card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .vote-btn {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* Safe Area Insets for Mobile Devices */
+@supports (padding: max(0px)) {
+  .main-content {
+    padding-left: max(20px, env(safe-area-inset-left));
+    padding-right: max(20px, env(safe-area-inset-right));
+  }
+}
+
+/* Responsive Focus Indicators */
+.card:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.vote-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(40, 54, 158, 0.2);
 }
