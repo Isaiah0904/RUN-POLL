@@ -1,5 +1,5 @@
 
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'http://0.0.0.0:8000/api';
 
 class VotingAPI {
     constructor() {
@@ -37,7 +37,7 @@ class VotingAPI {
 
     // Authentication
     async login(email, password, userType) {
-        const response = await this.request('/auth/login/', {
+        const response = await this.request('/accounts/login/', {
             method: 'POST',
             body: JSON.stringify({ email, password, user_type: userType })
         });
@@ -54,14 +54,14 @@ class VotingAPI {
     }
 
     async register(userData) {
-        return await this.request('/auth/register/', {
+        return await this.request('/accounts/register/', {
             method: 'POST',
             body: JSON.stringify(userData)
         });
     }
 
     async logout() {
-        await this.request('/auth/logout/', { method: 'POST' });
+        await this.request('/accounts/logout/', { method: 'POST' });
         this.token = null;
         this.userType = null;
         localStorage.removeItem('auth_token');
@@ -70,11 +70,11 @@ class VotingAPI {
     }
 
     async getProfile() {
-        return await this.request('/auth/profile/');
+        return await this.request('/accounts/profile/');
     }
 
     async updateProfile(profileData) {
-        return await this.request('/auth/profile/', {
+        return await this.request('/accounts/profile/', {
             method: 'PUT',
             body: JSON.stringify(profileData)
         });
@@ -117,7 +117,7 @@ class VotingAPI {
     }
 
     async castVote(voteData) {
-        return await this.request('/voting/cast-vote/', {
+        return await this.request('/voting/vote/', {
             method: 'POST',
             body: JSON.stringify(voteData)
         });
