@@ -48,6 +48,28 @@ def elections_list(request):
             return Response(ElectionSerializer(election).data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# ...existing code...
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def candidates_list(request):
+    """
+    Returns a list of all approved candidates.
+    """
+    candidates = Candidate.objects.filter(is_approved=True)
+    serializer = CandidateSerializer(candidates, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def candidate_detail(request, candidate_id):
+    """
+    Retrieve details of a specific candidate by ID.
+    """
+    candidate = get_object_or_404(Candidate, id=candidate_id)
+    serializer = CandidateSerializer(candidate)
+    return Response(serializer.data)
+
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([permissions.IsAuthenticated])
 def election_detail(request, pk):
