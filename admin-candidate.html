@@ -633,6 +633,11 @@
           </div>
         </div>
       </div>
+
+       <!-- Candidates Container -->
+       <div class="candidates-container">
+            <!-- Candidates will be loaded here -->
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
@@ -1245,6 +1250,64 @@
           .getElementById("statusFilter")
           .addEventListener("change", applyFilters);
       });
+    </script>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Check authentication
+            if (!api.isAuthenticated() || !api.isAdmin()) {
+                window.location.href = 'Login.html';
+                return;
+            }
+
+            await loadCandidates();
+        });
+
+        async function loadCandidates() {
+            try {
+                const response = await api.request('/elections/candidates/');
+                const candidates = response.results || response;
+                displayCandidates(candidates);
+            } catch (error) {
+                console.error('Error loading candidates:', error);
+                showMessage('Failed to load candidates', 'error');
+            }
+        }
+
+        function displayCandidates(candidates) {
+            const candidatesContainer = document.querySelector('.candidates-container');
+            if (!candidatesContainer) return;
+
+            candidatesContainer.innerHTML = candidates.map(candidate => `
+                <div class="candidate-card">
+                    <h5>${candidate.user.first_name} ${candidate.user.last_name}</h5>
+                    <p>Position: ${candidate.position.name}</p>
+                    <p>Election: ${candidate.election.title}</p>
+                    <p>Bio: ${candidate.bio || 'No bio provided'}</p>
+                    <p>Status: ${candidate.is_approved ? 'Approved' : 'Pending'}</p>
+                    <button class="btn btn-sm ${candidate.is_approved ? 'btn-warning' : 'btn-success'}" 
+                            onclick="toggleCandidateStatus(${candidate.id}, ${candidate.is_approved})">
+                        ${candidate.is_approved ? 'Disapprove' : 'Approve'}
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        async function toggleCandidateStatus(candidateId, currentStatus) {
+            try {
+                await api.request(`/elections/candidates/${candidateId}/`, {
+                    method: 'PATCH',
+                    body: JSON.stringify({ is_approved: !currentStatus })
+                });
+                showMessage('Candidate status updated successfully', 'success');
+                loadCandidates();
+            } catch (error) {
+                console.error('Error updating candidate status:', error);
+                showMessage('Failed to update candidate status', 'error');
+            }
+        }
     </script>
   </body>
 </html>

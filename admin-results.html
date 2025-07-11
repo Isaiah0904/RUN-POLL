@@ -313,6 +313,9 @@
           </div>
         </div>
       </div>
+
+        <div class="elections-container"></div>
+        <div class="results-container"></div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
@@ -927,7 +930,7 @@
 
       // Show table view
       function showTableView() {
-        document.getElementById("tableViewContainer").style.display = "block";
+        document.getElementById("tableViewContainer").style.display = "block";```text
         document.getElementById("chartViewContainer").style.display = "none";
         document.getElementById("tableView").classList.add("active");
         document.getElementById("chartView").classList.remove("active");
@@ -1094,6 +1097,79 @@
           resultsChart.destroy();
         }
       });
+    </script>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Check authentication
+            if (!api.isAuthenticated() || !api.isAdmin()) {
+                window.location.href = 'Login.html';
+                return;
+            }
+
+            await loadElections();
+        });
+
+        async function loadElections() {
+            try {
+                const elections = await api.getElections();
+                displayElections(elections.results || elections);
+            } catch (error) {
+                console.error('Error loading elections:', error);
+                showMessage('Failed to load elections', 'error');
+            }
+        }
+
+        function displayElections(elections) {
+            const electionsContainer = document.querySelector('.elections-container');
+            if (!electionsContainer) return;
+
+            electionsContainer.innerHTML = elections.map(election => `
+                <div class="election-card">
+                    <h5>${election.title}</h5>
+                    <p>Status: ${election.status}</p>
+                    <p>Start: ${new Date(election.start_date).toLocaleDateString()}</p>
+                    <p>End: ${new Date(election.end_date).toLocaleDateString()}</p>
+                    <button class="btn btn-primary btn-sm" onclick="viewResults(${election.id})">
+                        View Results
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        async function viewResults(electionId) {
+            try {
+                const results = await api.getElectionResults(electionId);
+                displayResults(results);
+            } catch (error) {
+                console.error('Error loading results:', error);
+                showMessage('Failed to load results', 'error');
+            }
+        }
+
+        function displayResults(results) {
+            const resultsContainer = document.querySelector('.results-container');
+            if (!resultsContainer) return;
+
+            resultsContainer.innerHTML = `
+                <h4>Election Results</h4>
+                ${results.map(position => `
+                    <div class="position-results">
+                        <h5>${position.position_name}</h5>
+                        ${position.candidates.map(candidate => `
+                            <div class="candidate-result">
+                                <span>${candidate.name}: ${candidate.votes} votes (${candidate.percentage}%)</span>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: ${candidate.percentage}%"></div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `).join('')}
+            `;
+        }
     </script>
   </body>
 </html>

@@ -564,6 +564,64 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Check authentication
+            if (!api.isAuthenticated() || !api.isAdmin()) {
+                window.location.href = 'Login.html';
+                return;
+            }
+
+            await loadVoters();
+        });
+
+        async function loadVoters() {
+            try {
+                const response = await api.request('/accounts/voters/');
+                const voters = response.results || response;
+                displayVoters(voters);
+            } catch (error) {
+                console.error('Error loading voters:', error);
+                showMessage('Failed to load voters', 'error');
+            }
+        }
+
+        function displayVoters(voters) {
+            const votersContainer = document.querySelector('.voters-container');
+            if (!votersContainer) return;
+
+            votersContainer.innerHTML = voters.map(voter => `
+                <div class="voter-card">
+                    <h5>${voter.first_name} ${voter.last_name}</h5>
+                    <p>Email: ${voter.email}</p>
+                    <p>Student ID: ${voter.student_id || 'N/A'}</p>
+                    <p>Department: ${voter.department || 'N/A'}</p>
+                    <p>Status: ${voter.is_approved ? 'Approved' : 'Pending'}</p>
+                    <button class="btn btn-sm ${voter.is_approved ? 'btn-warning' : 'btn-success'}" 
+                            onclick="toggleVoterStatus(${voter.id}, ${voter.is_approved})">
+                        ${voter.is_approved ? 'Disapprove' : 'Approve'}
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        async function toggleVoterStatus(voterId, currentStatus) {
+            try {
+                await api.request(`/accounts/voters/${voterId}/`, {
+                    method: 'PATCH',
+                    body: JSON.stringify({ is_approved: !currentStatus })
+                });
+                showMessage('Voter status updated successfully', 'success');
+                loadVoters();
+            } catch (error) {
+                console.error('Error updating voter status:', error);
+                showMessage('Failed to update voter status', 'error');
+            }
+        }
+    </script>
     <script>
       // Sample voter data
       const votersData = [
@@ -847,8 +905,7 @@
           (voter) =>
             voter.name.toLowerCase().includes(searchTerm) ||
             voter.email.toLowerCase().includes(searchTerm) ||
-            voter.id.toLowerCase().includes(searchTerm)
-        );
+            voter.id.toLowerCase().includes(searchTerm)        );
 
         renderVotersTable();
       }

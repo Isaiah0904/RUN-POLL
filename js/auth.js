@@ -1,4 +1,3 @@
-
 import { API_CONFIG, Storage } from './config.js';
 
 class AuthManager {
@@ -20,7 +19,7 @@ class AuthManager {
             });
 
             const data = await response.json();
-            
+
             if (response.ok) {
                 this.token = data.token;
                 this.user = data.user;
@@ -67,11 +66,54 @@ class AuthManager {
 // Create global auth instance
 const Auth = new AuthManager();
 
+// Authentication utilities
+function checkAuth() {
+    const token = localStorage.getItem('auth_token');
+    const userType = localStorage.getItem('user_type');
+
+    if (!token) {
+        window.location.href = 'Login.html';
+        return false;
+    }
+
+    return { token, userType };
+}
+
+function requireAuth(requiredUserType = null) {
+    const auth = checkAuth();
+    if (!auth) return false;
+
+    if (requiredUserType && auth.userType !== requiredUserType) {
+        showMessage('Access denied. Insufficient permissions.', 'error');
+        setTimeout(() => {
+            if (auth.userType === 'admin') {
+                window.location.href = 'admin-dashboard.html';
+            } else {
+                window.location.href = 'Voter-dashboard.html';
+            }
+        }, 2000);
+        return false;
+    }
+
+    return true;
+}
+
+function redirectBasedOnUserType() {
+    const userType = localStorage.getItem('user_type');
+    if (userType === 'admin') {
+        window.location.href = 'admin-dashboard.html';
+    } else if (userType === 'voter') {
+        window.location.href = 'Voter-dashboard.html';
+    } else {
+        window.location.href = 'Login.html';
+    }
+}
+
 // Check authentication on page load
 document.addEventListener('DOMContentLoaded', () => {
     const publicPages = ['Login.html', 'index.html', 'registration.html', 'forgot-password.html'];
     const currentPage = window.location.pathname.split('/').pop();
-    
+
     if (!publicPages.includes(currentPage) && !Auth.isAuthenticated()) {
         Auth.redirectToLogin();
     }
