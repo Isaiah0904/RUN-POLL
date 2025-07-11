@@ -379,28 +379,10 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="js/api.js"></script>
     <script>
-      // Sample elections data
-      let elections = [
-        {
-          id: 1,
-          name: "Student Council President 2024",
-          startDate: "2024-03-15T09:00",
-          endDate: "2024-03-20T17:00",
-          status: "active",
-          resultsVisibility: "private",
-          description: "Annual student council presidential election",
-        },
-        {
-          id: 2,
-          name: "Department Representative Election",
-          startDate: "2024-04-01T08:00",
-          endDate: "2024-04-05T18:00",
-          status: "upcoming",
-          resultsVisibility: "public",
-          description: "Computer Science department representative election",
-        },
-      ];
+      // Elections data
+      let elections = [];
 
       let currentEditingId = null;
       let electionToDelete = null;
@@ -675,34 +657,41 @@
           }
         }
 
-        if (currentEditingId) {
-          // Update existing election
-          const index = elections.findIndex((e) => e.id === currentEditingId);
-          if (index !== -1) {
-            elections[index] = {
-              ...elections[index],
+        try {
+          if (currentEditingId) {
+            // Update existing election
+            const updateData = {
               name,
-              startDate,
-              endDate,
-              status,
-              resultsVisibility,
+              start_date: startDate,
+              end_date: endDate,
+              results_visibility: resultsVisibility,
               description,
+              is_active: publishImmediately
             };
+            
+            await api.updateElection(currentEditingId, updateData);
             showNotification("Election updated successfully!", "success");
+          } else {
+            // Create new election
+            const electionData = {
+              name,
+              start_date: startDate,
+              end_date: endDate,
+              results_visibility: resultsVisibility,
+              description,
+              is_active: publishImmediately
+            };
+            
+            await api.createElection(electionData);
+            showNotification("Election created successfully!", "success");
           }
-        } else {
-          // Create new election
-          const newElection = {
-            id: Date.now(),
-            name,
-            startDate,
-            endDate,
-            status,
-            resultsVisibility,
-            description,
-          };
-          elections.unshift(newElection);
-          showNotification("Election created successfully!", "success");
+          
+          // Reload elections
+          await loadElections();
+        } catch (error) {
+          console.error('Error saving election:', error);
+          showNotification('Failed to save election', 'error');
+          return;
         }
 
         renderElections();
@@ -810,7 +799,13 @@
 
       // Initialize the page
       document.addEventListener("DOMContentLoaded", function () {
-        renderElections();
+        // Check admin authentication
+        if (!api.isAuthenticated() || !api.isAdmin()) {
+          window.location.href = 'Login.html';
+          return;
+        }
+        
+        loadElections();
 
         // Set minimum date for datetime inputs
         const now = new Date();
@@ -834,6 +829,17 @@
             }
           });
       });
+      
+      // Load elections from backend
+      async function loadElections() {
+        try {
+          elections = await api.getElections();
+          renderElections();
+        } catch (error) {
+          console.error('Error loading elections:', error);
+          showNotification('Failed to load elections', 'error');
+        }
+      }
     </script>
   </body>
 </html>

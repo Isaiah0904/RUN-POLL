@@ -122,6 +122,7 @@
 
     <!-- Bootstrap & Other JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="js/api.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Profile picture preview functionality
@@ -199,7 +200,7 @@
             // Form submission
             const registrationForm = document.getElementById('registrationForm');
             
-            registrationForm.addEventListener('submit', function(e) {
+            registrationForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
                 // Get form data
@@ -220,25 +221,68 @@
                     return;
                 }
                 
-                // Create user object
-                const user = {
-                    firstName,
-                    lastName,
-                    email,
-                    phoneNumber,
-                    studentId,
-                    department,
-                    birthday,
-                    profileImage
+                // Create registration data
+                const registrationData = {
+                    username: email.split('@')[0], // Use email prefix as username
+                    email: email,
+                    password: password,
+                    confirm_password: confirmPassword,
+                    first_name: firstName,
+                    last_name: lastName,
+                    student_id: studentId,
+                    department: department,
+                    phone_number: phoneNumber,
+                    date_of_birth: birthday,
+                    user_type: 'voter'
                 };
                 
-                // Store user data in localStorage (for demo purposes)
-                // In a real app, you would send this to the server
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                
-                // Redirect to login or dashboard page
-                alert('Registration successful! Redirecting to login page...');
-                window.location.href = 'Login.html';
+                try {
+                    // Show loading state
+                    const submitBtn = document.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'Registering...';
+                    submitBtn.disabled = true;
+                    
+                    // Send registration request to backend
+                    const response = await fetch('http://0.0.0.0:8000/api/accounts/register/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(registrationData)
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (response.ok) {
+                        // Store profile image separately if exists
+                        if (profileImage) {
+                            localStorage.setItem('pendingProfileImage', profileImage);
+                        }
+                        
+                        alert('Registration successful! Please log in with your credentials.');
+                        window.location.href = 'Login.html';
+                    } else {
+                        // Handle registration errors
+                        let errorMessage = 'Registration failed. ';
+                        if (result.error) {
+                            errorMessage += result.error;
+                        } else if (result.errors) {
+                            errorMessage += Object.values(result.errors).flat().join(' ');
+                        } else {
+                            errorMessage += 'Please check your information and try again.';
+                        }
+                        alert(errorMessage);
+                    }
+                } catch (error) {
+                    console.error('Registration error:', error);
+                    alert('Network error. Please check your connection and try again.');
+                } finally {
+                    // Reset button state
+                    const submitBtn = document.querySelector('button[type="submit"]');
+                    submitBtn.textContent = 'Register';
+                    submitBtn.disabled = false;
+                }
             });
         });
     </script>

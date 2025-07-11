@@ -24,23 +24,23 @@
         margin-bottom: 15px;
         transition: all 0.3s ease;
       }
-      
+
       .candidate-card:hover {
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         transform: translateY(-2px);
       }
-      
+
       .candidate-card.unregistered {
         opacity: 0.7;
         filter: grayscale(30%);
       }
-      
+
       .candidate-info {
         display: flex;
         align-items: center;
         margin-bottom: 10px;
       }
-      
+
       .candidate-avatar {
         width: 60px;
         height: 60px;
@@ -52,22 +52,22 @@
         margin-right: 15px;
         flex-shrink: 0;
       }
-      
+
       .candidate-details {
         flex-grow: 1;
       }
-      
+
       .candidate-name {
         font-weight: 600;
         margin-bottom: 2px;
       }
-      
+
       .candidate-meta {
         font-size: 0.85rem;
         color: #6c757d;
         margin-bottom: 5px;
       }
-      
+
       .candidate-platform {
         font-size: 0.9rem;
         color: #495057;
@@ -75,7 +75,7 @@
         border-top: 1px dashed #dee2e6;
         margin-top: 10px;
       }
-      
+
       .position-title {
         font-weight: 600;
         color: #4954b8;
@@ -83,11 +83,11 @@
         padding-bottom: 5px;
         border-bottom: 2px solid #f0f0f0;
       }
-      
+
       .registration-overlay {
         position: relative;
       }
-      
+
       .registration-overlay::after {
         content: "Register to view candidates";
         position: absolute;
@@ -103,18 +103,18 @@
         color: #4954b8;
         border-radius: 8px;
       }
-      
+
       .confirmation-modal .modal-body {
         text-align: center;
         padding: 30px;
       }
-      
+
       .confirmation-modal .modal-body i {
         font-size: 3rem;
         color: #4954b8;
         margin-bottom: 20px;
       }
-      
+
       .confirmation-modal .modal-footer {
         justify-content: center;
         border-top: none;
@@ -1178,21 +1178,84 @@ const candidateData = {
 };
 
 // Initialize the page
-document.addEventListener("DOMContentLoaded", function () {
-  updateStats();
-  initializeEventListeners();
-  initializeTooltips();
-  initializeProfileFunctionality();
-  
-  // Load any previously registered elections
-  const registrations = JSON.parse(localStorage.getItem('registrationRequests')) || [];
-  registrations.forEach(reg => {
-    if (reg.status === 'approved') {
-      votedElections.add(reg.electionName);
-    }
-  });
-  updateStats();
-});
+      document.addEventListener("DOMContentLoaded", function () {
+        // Check authentication
+        if (!api.isAuthenticated()) {
+          window.location.href = 'Login.html';
+          return;
+        }
+
+        loadElections();
+        initializeEventListeners();
+        initializeTooltips();
+        initializeProfileFunctionality();
+      });
+
+      // Load elections from backend
+      async function loadElections() {
+        try {
+          const elections = await api.getElections();
+          populateElections(elections);
+          updateStats();
+        } catch (error) {
+          console.error('Error loading elections:', error);
+          showMessage('Failed to load elections', 'error');
+        }
+      }
+
+      // Populate elections on the page
+      function populateElections(elections) {
+        const container = document.getElementById('electionsContainer');
+        container.innerHTML = '';
+
+        elections.forEach(election => {
+          if (election.status === 'ongoing' || election.status === 'upcoming') {
+            const electionCard = createElectionCard(election);
+            container.appendChild(electionCard);
+          }
+        });
+      }
+
+      // Create election card element
+      function createElectionCard(election) {
+        const colDiv = document.createElement('div');
+        colDiv.className = 'col-xl-4 col-lg-6 mb-4 election-card';
+        colDiv.setAttribute('data-department', election.department || '');
+        colDiv.setAttribute('data-status', election.status);
+
+        colDiv.innerHTML = `
+          <div class="card h-100 dept-cs">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <span>${election.name}</span>
+              <span class="election-status status-${election.status}">${election.status}</span>
+            </div>
+            <div class="card-body">
+              <div class="election-card">
+                <div class="election-info">
+                  <h5 class="mb-2">${election.name}</h5>
+                  <p class="text-muted small mb-3">${election.description || 'Vote for your representatives'}</p>
+                  <button class="btn vote-btn" onclick="viewElectionCandidates(${election.id}, '${election.name}')">
+                    <i class="bi bi-check2-square me-2"></i>View Candidates
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        return colDiv;
+      }
+
+      // View election candidates
+      async function viewElectionCandidates(electionId, electionName) {
+        try {
+          const candidates = await api.getElectionCandidates(electionId);
+          openVotingModal(electionName, candidates, electionId);
+        } catch (error) {
+          console.error('Error loading candidates:', error);
+          showMessage('Failed to load candidates', 'error');
+        }
+      }
 
 // Initialize Bootstrap tooltips
 function initializeTooltips() {
@@ -1657,13 +1720,13 @@ function openVotingModal(electionName) {
   const submitVoteBtn = document.getElementById("submitVoteBtn");
 
   modalTitle.textContent = `${electionName} - Candidates`;
-  
+
   // Check if user is already registered for this election
   const registrations = JSON.parse(localStorage.getItem('registrationRequests')) || [];
   const isRegistered = registrations.some(
     reg => reg.electionName === electionName && reg.status === 'approved'
   );
-  
+
   const isPending = registrations.some(
     reg => reg.electionName === electionName && reg.status === 'pending'
   );
@@ -1708,7 +1771,7 @@ function openVotingModal(electionName) {
 function generateCandidateList(electionName, canVote) {
   const election = candidateData[electionName];
   if (!election) return '<p class="text-center">No candidate data available.</p>';
-  
+
   return election.positions.map(position => `
     <div class="position-title">
       <i class="bi bi-person-badge me-2"></i>
@@ -1747,13 +1810,13 @@ function generateCandidateList(electionName, canVote) {
 // Select a candidate (only if registered)
 function selectCandidate(position, candidateId) {
   selectedCandidates[position] = candidateId;
-  
+
   // Update UI to show selected candidate
   document.querySelectorAll('.vote-candidate-btn').forEach(btn => {
     btn.classList.remove('btn-primary');
     btn.classList.add('btn-outline-primary');
   });
-  
+
   const selectedBtn = document.querySelector(`.vote-candidate-btn[onclick*="${candidateId}"]`);
   if (selectedBtn) {
     selectedBtn.classList.remove('btn-outline-primary');
@@ -1770,11 +1833,11 @@ function showConfirmationModal() {
 // Submit registration
 function submitRegistration() {
   if (!currentElection) return;
-  
+
   // Close confirmation modal
   const confirmationModal = bootstrap.Modal.getInstance(document.getElementById('confirmationModal'));
   if (confirmationModal) confirmationModal.hide();
-  
+
   // Mark as registered (pending approval)
   const registrationRequest = {
     electionName: currentElection,
@@ -1806,18 +1869,18 @@ function submitRegistration() {
 // Submit vote (only if registered and approved)
 function submitVote() {
   if (!currentElection) return;
-  
+
   // Check if all positions have been voted for
   const election = candidateData[currentElection];
   const allPositionsVoted = election.positions.every(position => 
     selectedCandidates.hasOwnProperty(position.title)
   );
-  
+
   if (!allPositionsVoted) {
     showAlert("Please vote for all positions before submitting.", "warning");
     return;
   }
-  
+
   // Store the vote (in a real app, this would be sent to the server)
   const votes = JSON.parse(localStorage.getItem('votes')) || [];
   votes.push({
@@ -1826,17 +1889,17 @@ function submitVote() {
     timestamp: new Date().toISOString()
   });
   localStorage.setItem('votes', JSON.stringify(votes));
-  
+
   // Mark this election as voted
   votedElections.add(currentElection);
-  
+
   // Update stats
   updateStats();
-  
+
   // Close the voting modal
   const votingModal = bootstrap.Modal.getInstance(document.getElementById('votingModal'));
   if (votingModal) votingModal.hide();
-  
+
   // Show vote confirmation modal
   const voteConfirmationModal = new bootstrap.Modal(document.getElementById('voteConfirmationModal'));
   voteConfirmationModal.show();
@@ -1872,7 +1935,7 @@ function storeRegistrationRequest(request) {
 function sendAdminNotification(request) {
   // Store notification for admin dashboard
   let notifications =
-    JSON.parse(localStorage.getItem("adminNotifications")) || [];
+JSON.parse(localStorage.getItem("adminNotifications")) || [];
   notifications.push({
     id: "notif_" + Date.now(),
     type: "registration_request",
@@ -1954,5 +2017,6 @@ setInterval(function () {
   });
 }, 30000); // Every 30 seconds
     </script>
+    <script src="js/api.js"></script>
   </body>
 </html>

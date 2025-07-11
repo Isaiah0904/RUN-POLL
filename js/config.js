@@ -6,15 +6,23 @@ const API_CONFIG = {
         LOGIN: '/accounts/login/',
         REGISTER: '/accounts/register/',
         PROFILE: '/accounts/profile/',
+        LOGOUT: '/accounts/logout/',
         ELECTIONS: '/elections/',
-        CANDIDATES: '/elections/candidates/',
-        VOTE: '/voting/vote/',
+        ELECTION_DETAIL: '/elections/',
+        ELECTION_CANDIDATES: '/elections/{id}/candidates/',
+        REGISTER_CANDIDATE: '/elections/register-candidate/',
+        DASHBOARD_STATS: '/elections/dashboard-stats/',
+        CAST_VOTE: '/voting/cast-vote/',
+        MY_VOTES: '/voting/my-votes/',
+        ELECTION_RESULTS: '/voting/results/',
+        VOTING_ELIGIBILITY: '/voting/eligibility/',
         NOTIFICATIONS: '/notifications/',
-        ADMIN: '/admin/'
+        MARK_READ: '/notifications/{id}/read/',
+        UNREAD_COUNT: '/notifications/unread-count/',
+        ANNOUNCEMENTS: '/notifications/announcements/'
     },
     HEADERS: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': getCookie('csrftoken')
+        'Content-Type': 'application/json'
     }
 };
 
@@ -45,4 +53,7 @@ const Storage = {
     clear: () => localStorage.clear()
 };
 
-export { API_CONFIG, Storage };
+// Export for use in other files
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { API_CONFIG, Storage };
+}

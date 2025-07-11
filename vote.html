@@ -354,6 +354,7 @@
 
     <!-- Bootstrap & Other JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="js/api.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         // Toggle Sidebar
@@ -880,7 +881,7 @@
 
         // Submit votes
         if (submitVoteBtn) {
-          submitVoteBtn.addEventListener("click", function () {
+          submitVoteBtn.addEventListener("click", async function () {
             // Check if all positions have been voted for
             const positions = Object.keys(selectedCandidates);
             const unvotedPositions = positions.filter(
@@ -899,27 +900,87 @@
                 "danger"
               );
             } else {
-              // All positions voted for, proceed with submission
+              try {
+                // Prepare vote data for backend
+                const voteData = {
+                  election_id: currentElectionId, // This should be set when page loads
+                  votes: Object.entries(selectedCandidates).map(([position, candidate]) => ({
+                    position: position,
+                    candidate_id: candidate.id
+                  }))
+                };
 
-              // Get current user
-              const user =
-                JSON.parse(localStorage.getItem("currentUser")) || {};
+                // Show loading state
+                submitVoteBtn.disabled = true;
+                submitVoteBtn.textContent = 'Submitting Votes...';
 
-              // Create vote record
-              const voteRecord = {
-                userId: user.id || "anonymous",
-                timestamp: new Date().toISOString(),
-                votes: { ...selectedCandidates },
-              };
+                // Submit votes to backend
+                const response = await api.castVote(voteData);
 
-              // Store vote in localStorage
-              let votes = JSON.parse(localStorage.getItem("votes")) || [];
-              votes.push(voteRecord);
-              localStorage.setItem("votes", JSON.stringify(votes));
+                if (response.success) {
+                  // Show success modal
+                  const modalHtml = `
+                    <div class="modal fade" id="voteSuccessModal" tabindex="-1" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header bg-success text-white">
+                            <h5 class="modal-title">Vote Successful!</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="text-center mb-4">
+                              <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                            </div>
+                            <h5 class="text-center">Thank you for voting!</h5>
+                            <p class="text-center">Your votes have been successfully recorded.</p>
+                            
+                            <div class="mt-4">
+                              <h6>Your selections:</h6>
+                              <ul class="list-group">
+                                ${positions
+                                  .map(
+                                    (pos) => `
+                                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    ${formatPositionName(pos)}
+                                    <span class="badge bg-primary rounded-pill">${
+                                      selectedCandidates[pos].name
+                                    }</span>
+                                  </li>
+                                `
+                                  )
+                                  .join("")}
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <a href="Voter-dashboard.html" class="btn btn-primary">Return to Dashboard</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  `;
 
-              // Set user as having voted
-              user.hasVoted = true;
-              localStorage.setItem("currentUser", JSON.stringify(user));
+                  // Add modal to body
+                  document.body.insertAdjacentHTML("beforeend", modalHtml);
+
+                  // Initialize and show modal
+                  const modalElement = document.getElementById("voteSuccessModal");
+                  const modal = new bootstrap.Modal(modalElement);
+                  modal.show();
+
+                  // Disable all voting functionality
+                  disableVoting();
+                } else {
+                  showAlert('Failed to submit votes. Please try again.', 'danger');
+                }
+              } catch (error) {
+                console.error('Voting error:', error);
+                showAlert('Network error. Please try again.', 'danger');
+              } finally {
+                // Reset button state
+                submitVoteBtn.disabled = false;
+                submitVoteBtn.textContent = 'Submit Votes';
+              }
 
               // Show success message with modal
               const modalHtml = `
