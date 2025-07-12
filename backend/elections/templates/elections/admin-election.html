@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,7 +17,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="admin-election.css" />
+    <link rel="stylesheet" href="{% static 'elections/admin-election.css' %}" />
   </head>
   <body>
     <!-- Sidebar -->
@@ -40,7 +41,7 @@
 
       <ul class="sidebar-nav list-unstyled">
         <li class="nav-item">
-          <a href="admin-dashboard.html" class="nav-link">
+          <a href="{% url 'admin-dashboard' %}" class="nav-link">
             <i class="fas fa-tachometer-alt"></i>
             <span>Dashboard</span>
           </a>
@@ -52,25 +53,25 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="admin-voters.html" class="nav-link">
+          <a href="{% url 'admin-voters' %}" class="nav-link">
             <i class="fas fa-users"></i>
             <span>Voters</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="admin-candidate.html" class="nav-link">
+          <a href="{% url 'admin-candidate' %}" class="nav-link">
             <i class="fas fa-user-tie"></i>
             <span>Candidates</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="admin-results.html" class="nav-link">
+          <a href="{% url 'admin-results' %}" class="nav-link">
             <i class="fas fa-chart-bar"></i>
             <span>Results</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="Login.html" class="nav-link">
+          <a href="{% url 'login_page' %}" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             <span>Log out</span>
           </a>
@@ -96,7 +97,7 @@
 
        <div class="user-actions">
           <div class="action-icon">
-            <a href="admin-notification.html"><i class="bi bi-bell"></i></a>
+            <a href="{% url 'admin-notification' %}"><i class="bi bi-bell"></i></a>
           </div>
           <div class="navbar-user-container" id="navbarUserContainer">
             <img
@@ -801,7 +802,7 @@
       document.addEventListener("DOMContentLoaded", function () {
         // Check admin authentication
         if (!api.isAuthenticated() || !api.isAdmin()) {
-          window.location.href = 'Login.html';
+          window.location.href = "{% url 'login_page' %}";`
           return;
         }
         

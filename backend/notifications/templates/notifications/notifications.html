@@ -1,0 +1,407 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RUN Voting System - Notifications</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'notifications/notification.css' %}" />
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="logo-container">
+        <img class="logo" src="{% static 'accounts/images/Logo.png' %}" width="150px" />
+        <i class="bi bi-x-lg" id="close"></i>
+      </div>
+
+      <div class="profile-container">
+        <!-- Improved profile image container -->
+        <div class="profile-image-container" id="sidebarProfileContainer">
+          <img
+            src="{% static 'accounts/images/default-avatar.png' %}"
+            class="profile-image"
+            id="userProfileImage"
+          />
+          <div class="edit-icon">
+            <i class="bi bi-pencil-fill text-white" style="font-size: 12px"></i>
+          </div>
+        </div>
+        <div class="profile-name" id="userProfileName">Isaiah Durojaiye</div>
+        <div class="profile-role" id="userProfileRole">Student Voter</div>
+      </div>
+
+      <!-- Sidebar Navigation with improved structure -->
+      <div class="sidebar-nav">
+        <ul class="nav flex-column nav-main">
+          <li class="nav-item">
+            <a href="{% url 'index' %}" class="nav-link">
+              <i class="bi bi-grid-1x2-fill"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'elections-dashboard' %}" class="nav-link">
+              <i class="bi bi-check2-square"></i> Vote
+            </a>
+          </li>
+          <!-- New Navigation Item -->
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="bi bi-journal-text"></i> Voters Guideline
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'profile_settings_page' %}" class="nav-link">
+              <i class="bi bi-gear-fill"></i> Profile Settings
+            </a>
+          </li>
+        </ul>
+
+        <!-- Logout button in footer section -->
+        <ul class="nav flex-column nav-footer">
+          <li class="nav-item">
+            <a href="{% url 'login_page' %}" class="nav-link">
+              <i class="bi bi-box-arrow-right"></i> Log out
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Top Navbar -->
+      <div class="top-navbar">
+        <button class="toggle-sidebar" id="toggleSidebar">
+          <i class="bi bi-list"></i>
+        </button>
+
+        <div class="search-bar">
+          <div style="position: relative">
+            <input type="text" class="search-input" placeholder="Search..." />
+            <i class="bi bi-search search-icon"></i>
+          </div>
+        </div>
+
+        <div class="user-actions">
+          <div class="navbar-user-container">
+            <div class="status-indicator"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notifications Content -->
+      <div class="page-header">
+        <h1>Notifications</h1>
+        <p>Stay updated with your voting activities</p>
+      </div>
+
+      <!-- Notifications will be loaded here dynamically -->
+      <div id="notifications-container">
+        <!-- Sample notifications for demonstration -->
+        <div class="notification ongoing">
+          <div class="notification-header">
+            <div class="status-dot"></div>
+            <div class="notification-title">
+              President Student Council Election
+            </div>
+            <div class="notification-time">2 hours ago</div>
+          </div>
+          <div class="notification-message">
+            The election is currently ongoing. Cast your vote now to make your
+            voice heard. Voting ends in 2 days.
+          </div>
+          <div class="notification-actions">
+            <button class="btn btn-primary">Vote Now</button>
+          </div>
+        </div>
+
+        <div class="notification ongoing">
+          <div class="notification-header">
+            <div class="status-dot"></div>
+            <div class="notification-title">Faculty Representative Election</div>
+            <div class="notification-time">5 hours ago</div>
+          </div>
+          <div class="notification-message">
+            Vote for your Faculty Representative. Deadline: June 5th, 2025.
+          </div>
+          <div class="notification-actions">
+            <button class="btn btn-primary">Cast Vote</button>
+          </div>
+        </div>
+
+        <div class="notification upcoming">
+          <div class="notification-header">
+            <div class="status-dot"></div>
+            <div class="notification-title">Sports Director Election</div>
+            <div class="notification-time">1 day ago</div>
+          </div>
+          <div class="notification-message">
+            Election begins June 10th, 2025. Candidate registration open until
+            June 8th.
+          </div>
+        </div>
+
+        <div class="notification approval">
+          <div class="notification-header">
+            <div class="status-dot"></div>
+            <div class="notification-title">
+              Voting Access Granted - Faculty Rep
+            </div>
+            <div class="notification-time">1 day ago</div>
+          </div>
+          <div class="notification-message">
+            You have been verified and granted access to vote.
+          </div>
+          <div class="notification-actions">
+            <button class="btn btn-primary">Proceed to Vote</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{% static 'js/config.js' %}"></script>
+    <script>
+      // Initialize the page
+      document.addEventListener("DOMContentLoaded", function () {
+        // Check authentication
+        if (!api.isAuthenticated()) {
+          window.location.href = "{% url 'login_page' %}";
+          return;
+        }
+
+        initializeEventListeners();
+        loadNotifications();
+      });
+
+      // Initialize event listeners
+      function initializeEventListeners() {
+        // Sidebar toggle
+        const toggleSidebar = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+        const closeBtn = document.getElementById('close');
+
+        if (toggleSidebar) {
+          toggleSidebar.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+          });
+        }
+
+        if (closeBtn) {
+          closeBtn.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+          });
+        }
+
+        // Profile functionality
+        const sidebarProfileContainer = document.getElementById('sidebarProfileContainer');
+        const navbarUserContainer = document.querySelector('.navbar-user-container');
+
+        // Add profile edit functionality to both sidebar and navbar profile images
+        const profileElements = [];
+        if (sidebarProfileContainer)
+          profileElements.push(sidebarProfileContainer);
+        if (navbarUserContainer) profileElements.push(navbarUserContainer);
+
+        profileElements.forEach((element) => {
+          element.style.cursor = "pointer";
+          element.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            showProfileModal();
+          });
+        });
+      }
+
+      // Load notifications from backend
+      async function loadNotifications() {
+        try {
+          if (!api.isAuthenticated()) {
+            window.location.href = "{% url 'login_page' %}";
+            return;
+          }
+          
+          const notifications = await api.getNotifications();
+          populateNotifications(notifications);
+          
+          // Update unread count
+          const unreadCount = await api.getUnreadCount();
+          updateUnreadCount(unreadCount);
+        } catch (error) {
+          console.error('Error loading notifications:', error);
+          showAlert('Failed to load notifications', 'danger');
+        }
+      }
+      
+      // Populate notifications on page
+      function populateNotifications(notifications) {
+        const container = document.getElementById('notifications-container');
+        if (!container) return;
+        
+        const notificationsHTML = notifications.map(notification => 
+          createNotificationHTML(notification)
+        ).join('');
+        
+        container.innerHTML = notificationsHTML;
+      }
+      
+      // Create notification HTML
+      function createNotificationHTML(notification) {
+        const statusClass = getNotificationStatusClass(notification.notification_type);
+        return `
+          <div class="notification ${statusClass}" data-id="${notification.id}">
+            <div class="notification-header">
+              <div class="status-dot"></div>
+              <div class="notification-title">${notification.title}</div>
+              <div class="notification-time">${formatNotificationTime(notification.created_at)}</div>
+            </div>
+            <div class="notification-message">${notification.message}</div>
+            ${notification.action_url ? `
+              <div class="notification-actions">
+                <button class="btn btn-primary" onclick="handleNotificationAction('${notification.action_url}', ${notification.id})">
+                  ${notification.action_text || 'View'}
+                </button>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }
+      
+      // Get notification status class
+      function getNotificationStatusClass(type) {
+        const typeMap = {
+          'election_created': 'ongoing',
+          'election_started': 'ongoing',
+          'election_ended': 'ended',
+          'registration_approved': 'approval',
+          'registration_rejected': 'rejected',
+          'vote_confirmation': 'approval',
+          'system_announcement': 'upcoming'
+        };
+        return typeMap[type] || 'upcoming';
+      }
+      
+      // Format notification time
+      function formatNotificationTime(timestamp) {
+        const date = new Date(timestamp);
+        const now = new Date();
+        const diffHours = Math.floor((now - date) / (1000 * 60 * 60));
+        
+        if (diffHours < 1) return 'Just now';
+        if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+        
+        const diffDays = Math.floor(diffHours / 24);
+        return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+      }
+      
+      // Handle notification action
+      function handleNotificationAction(actionUrl, notificationId) {
+        // Mark as read
+        api.markNotificationRead(notificationId);
+        
+        // Navigate to action URL
+        if (actionUrl) {
+          window.location.href = actionUrl;
+        }
+      }
+      
+      // Update unread count
+      function updateUnreadCount(count) {
+        // Update any unread count indicators
+        const unreadElements = document.querySelectorAll('.unread-count');
+        unreadElements.forEach(element => {
+          element.textContent = count;
+        });
+      }
+      
+      // Show alert
+      function showAlert(message, type) {
+        // Create alert element
+        const alertDiv = document.createElement('div');
+        alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+        alertDiv.innerHTML = `
+          ${message}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        
+        // Insert at top of main content
+        const mainContent = document.querySelector('.main-content');
+        mainContent.insertBefore(alertDiv, mainContent.firstChild);
+        
+        // Auto dismiss after 5 seconds
+        setTimeout(() => {
+          if (alertDiv.parentNode) {
+            alertDiv.remove();
+          }
+        }, 5000);
+      }
+      
+      // Show profile modal (placeholder)
+      function showProfileModal() {
+        alert('Profile modal would open here');
+      }
+      
+      // API object (simplified)
+      const api = {
+        isAuthenticated: function() {
+          return localStorage.getItem('authToken') !== null;
+        },
+        
+        getNotifications: async function() {
+          const response = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.NOTIFICATIONS}`, {
+            headers: {
+              'Authorization': `Token ${localStorage.getItem('authToken')}`,
+              ...API_CONFIG.HEADERS
+            }
+          });
+          
+          if (!response.ok) throw new Error('Failed to fetch notifications');
+          return response.json();
+        },
+        
+        getUnreadCount: async function() {
+          const response = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.UNREAD_COUNT}`, {
+            headers: {
+              'Authorization': `Token ${localStorage.getItem('authToken')}`,
+              ...API_CONFIG.HEADERS
+            }
+          });
+          
+          if (!response.ok) throw new Error('Failed to fetch unread count');
+          const data = await response.json();
+          return data.unread_count;
+        },
+        
+        markNotificationRead: async function(notificationId) {
+          const response = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.MARK_READ.replace('{id}', notificationId)}`, {
+            method: 'PUT',
+            headers: {
+              'Authorization': `Token ${localStorage.getItem('authToken')}`,
+              ...API_CONFIG.HEADERS
+            }
+          });
+          
+          if (!response.ok) throw new Error('Failed to mark notification as read');
+          return response.json();
+        }
+      };
+    </script>
+  </body>
+</html>

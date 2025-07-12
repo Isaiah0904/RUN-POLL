@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,7 +27,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="admin-dashboard.css" />
+    <link rel="stylesheet" href="{% static 'elections/admin-dashboard.css' %}" />
   </head>
   <body>
     <!-- Sidebar -->
@@ -53,37 +54,37 @@
 
       <ul class="sidebar-nav list-unstyled">
         <li class="nav-item active">
-          <a href="admin-dashboard.html" class="nav-link">
+          <a href="{% url 'admin-dashboard' %}" class="nav-link">
             <i class="fas fa-tachometer-alt"></i>
             <span>Dashboard</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="admin-election.html" class="nav-link">
+          <a href="{% url 'admin-election' %}" class="nav-link">
             <i class="fas fa-vote-yea"></i>
             <span>Elections</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="admin-voters.html" class="nav-link">
+          <a href="{% url 'admin-voters' %}" class="nav-link">
             <i class="fas fa-users"></i>
             <span>Voters</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="admin-candidate.html" class="nav-link">
+          <a href="{% url 'admin-candidate' %}" class="nav-link">
             <i class="fas fa-user-tie"></i>
             <span>Candidates</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="admin-results.html" class="nav-link">
+          <a href="{% url 'admin-results' %}" class="nav-link">
             <i class="fas fa-chart-bar"></i>
             <span>Results</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="Login.html" class="nav-link">
+          <a href="{% url 'login_page' %}" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             <span>Log out</span>
           </a>
@@ -109,7 +110,7 @@
 
         <div class="user-actions">
           <div class="action-icon">
-            <a href="admin-notification.html"><i class="bi bi-bell"></i></a>
+            <a href="{% url 'admin-notification' %}"><i class="bi bi-bell"></i></a>
           </div>
           <!-- Improved navbar user container -->
           <div class="navbar-user-container" id="navbarUserContainer">
@@ -130,7 +131,7 @@
           </div>
           <div class="col-md-6 text-md-end">
             <button class="btn btn-primary new-election">
-              <a href="admin-election.html"
+              <a href="{% url 'admin-election' %}"
                 ><i class="fas fa-plus me-1"></i> Create New Election</a
               >
             </button>
@@ -215,7 +216,7 @@
             >
               <span>Elections Management</span>
               <button class="btn btn-sm btn-outline-primary">
-                <a href="admin-election.html">View All</a>
+                <a href="{% url 'admin-election' %}">View All</a>
               </button>
             </div>
             <div class="card-body">
@@ -477,7 +478,7 @@
               </ul>
             </div>
             <div class="card-footer text-center">
-              <a href="admin-voters.html" class="text-decoration-none"
+              <a href="{% url 'admin-voters' %}" class="text-decoration-none"
                 >View All Voters</a
               >
             </div>
@@ -492,7 +493,7 @@
             >
               <span>Candidates Management</span>
               <button class="btn btn-sm btn-outline-primary">
-                <a href="admin-candidate.html">Add New</a>
+                <a href="{% url 'admin-candidate' %}">Add New</a>
               </button>
             </div>
             <div class="card-body p-0">
@@ -605,7 +606,7 @@
               </ul>
             </div>
             <div class="card-footer text-center">
-              <a href="admin-candidate.html" class="text-decoration-none"
+              <a href="{% url 'admin-candidate' %}" class="text-decoration-none"
                 >View All Candidates</a
               >
             </div>
@@ -667,7 +668,7 @@
               </div>
             </div>
             <div class="card-footer text-center">
-              <a href="admin-election.html" class="text-decoration-none"
+              <a href="{% url 'admin-election' %}" class="text-decoration-none"
                 >View Election Calendar</a
               >
             </div>
@@ -679,7 +680,7 @@
     <!-- Quick Actions -->
     <div class="quick-actions">
       <div class="action-circle">
-        <a href="admin-election.html"><i class="fas fa-plus"></i></a>
+        <a href="{% url 'admin-election' %}"><i class="fas fa-plus"></i></a>
       </div>
     </div>
 

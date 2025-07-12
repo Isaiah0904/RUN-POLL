@@ -3,7 +3,7 @@ from rest_framework import status, permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from .models import Election, Position, Candidate, ElectionRegistration
 from .serializers import (
@@ -209,3 +209,49 @@ def dashboard_stats(request):
         })
     
     return Response({'error': 'Invalid user type'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+# HTML Page Views
+def elections_dashboard_page(request):
+    """Serve the elections dashboard HTML page"""
+    return render(request, 'elections/admin-dashboard.html')
+
+
+def election_detail_page(request, pk):
+    """Serve the election detail HTML page"""
+    return render(request, 'elections/election-page.html')
+
+
+def admin_results_page(request):
+    """Serve the admin results HTML page"""
+    return render(request, 'elections/admin-results.html')
+
+
+def admin_election_page(request):
+    """Serve the admin election management HTML page"""
+    return render(request, 'elections/admin-election.html')
+
+
+def admin_candidate_page(request):
+    """Serve the admin candidate management HTML page"""
+    return render(request, 'elections/admin-candidate.html')
+
+
+def admin_voters_page(request):
+    """Serve the admin voters management HTML page"""
+    return render(request, 'elections/admin-voters.html')
+
+
+def admin_settings_page(request):
+    """Serve the admin settings HTML page"""
+    return render(request, 'elections/admin-settings.html')
+
+
+def admin_notification_page(request):
+    """Serve the admin notification HTML page"""
+    return render(request, 'elections/admin-notification.html')
+
+
+def candidate_page(request):
+    """Serve the candidate HTML page"""
+    return render(request, 'elections/candidate.html')

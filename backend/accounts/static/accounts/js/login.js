@@ -1,4 +1,21 @@
 
+// Utility functions
+function showMessage(message, type) {
+    // Create a simple alert for now
+    alert(message);
+}
+
+function redirectBasedOnUserType() {
+    const userType = localStorage.getItem('user_type');
+    if (userType === 'admin') {
+        window.location.href = '/admin-dashboard/';
+    } else if (userType === 'voter') {
+        window.location.href = '/voter-dashboard/';
+    } else {
+        window.location.href = '/';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('loginForm');
     const toggleOptions = document.querySelectorAll('.toggle-option');
@@ -51,15 +68,39 @@ document.addEventListener('DOMContentLoaded', function() {
                 loginButton.disabled = true;
                 loginButton.textContent = 'Signing In...';
                 
-                const response = await api.login(email, password, currentMode);
+                const response = await fetch('/api/accounts/api/login/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password,
+                        user_type: currentMode
+                    })
+                });
                 
-                showMessage('Login successful!', 'success');
+                const data = await response.json();
                 
-                // Redirect based on user type
-                setTimeout(() => {
-                    redirectBasedOnUserType();
-                }, 1000);
-                
+                if (response.ok) {
+                    // Store authentication data
+                    localStorage.setItem('auth_token', data.token);
+                    localStorage.setItem('user_type', data.user_type);
+                    localStorage.setItem('user_id', data.user_id);
+                    
+                    if (data.profile) {
+                        localStorage.setItem('user_profile', JSON.stringify(data.profile));
+                    }
+                    
+                    showMessage('Login successful!', 'success');
+                    
+                    // Redirect based on user type
+                    setTimeout(() => {
+                        redirectBasedOnUserType();
+                    }, 1000);
+                } else {
+                    showMessage(data.message || 'Login failed. Please check your credentials.', 'danger');
+                }
             } catch (error) {
                 showMessage('Login failed. Please check your credentials.', 'danger');
                 console.error('Login error:', error);

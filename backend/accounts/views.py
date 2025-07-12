@@ -5,9 +5,43 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import login, logout
+from django.shortcuts import render
+from django.http import HttpResponse
+import os
+import mimetypes
 from .serializers import UserRegistrationSerializer, LoginSerializer, VoterProfileSerializer, AdminProfileSerializer
 from .models import User, VoterProfile, AdminProfile
 
+# HTML Page Views
+def login_page(request):
+    """Serve the login HTML page"""
+    return render(request, 'accounts/Login.html')
+
+def registration_page(request):
+    """Serve the registration HTML page"""
+    return render(request, 'accounts/registration.html')
+
+def forgot_password_page(request):
+    """Serve the forgot password HTML page"""
+    return render(request, 'accounts/forgot-password.html')
+
+def reset_password_page(request):
+    """Serve the reset password HTML page"""
+    return render(request, 'accounts/reset-password.html')
+
+def index_page(request):
+    """Serve the index HTML page"""
+    return render(request, 'accounts/index.html')
+
+def profile_settings_page(request):
+    """Serve the profile settings HTML page"""
+    return render(request, 'accounts/profile-settings.html')
+
+def test_connection_page(request):
+    """Serve the test connection HTML page"""
+    return render(request, 'accounts/test-connection.html')
+
+# API Views (existing code)
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register(request):

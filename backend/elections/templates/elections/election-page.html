@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,7 +15,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="election-page.css" />
+    <link rel="stylesheet" href="{% static 'elections/election-page.css' %}" />
     <style>
       /* Additional styles for the candidate cards */
       .candidate-card {
@@ -153,7 +154,7 @@
       <div class="sidebar-nav">
         <ul class="nav flex-column nav-main">
           <li class="nav-item">
-            <a href="Voter-dashboard.html" class="nav-link">
+            <a href="{% url 'voter-dashboard' %}" class="nav-link">
               <i class="bi bi-grid-1x2-fill"></i> Dashboard
             </a>
           </li>
@@ -163,12 +164,12 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="Voter-guidline.html" class="nav-link">
-              <i class="bi bi-journal-text"></i> Voters Guideline
+            <a href="{% url 'voter-guidline' %}" class="nav-link">
+              <i class="bi bi-journal-text"></i> Voters Guidline
             </a>
           </li>
           <li class="nav-item">
-            <a href="profile-settings.html" class="nav-link">
+            <a href="{% url 'profile_settings_page' %}" class="nav-link">
               <i class="bi bi-gear-fill"></i> Profile Settings
             </a>
           </li>
@@ -177,7 +178,7 @@
         <!-- Logout button -->
         <ul class="nav flex-column nav-footer">
           <li class="nav-item">
-            <a href="Login.html" class="nav-link">
+            <a href="{% url 'login_page' %}" class="nav-link">
               <i class="bi bi-box-arrow-right"></i> Log out
             </a>
           </li>
@@ -209,7 +210,7 @@
             data-bs-toggle="tooltip"
             title="Notifications"
           >
-            <a href="notifications.html"><i class="bi bi-bell"></i></a>
+            <a href="{% url 'notifications-page' %}"><i class="bi bi-bell"></i></a>
             <span class="notification-badge">3</span>
           </div>
           <div class="action-icon" data-bs-toggle="tooltip" title="Help">
@@ -1181,7 +1182,7 @@ const candidateData = {
       document.addEventListener("DOMContentLoaded", function () {
         // Check authentication
         if (!api.isAuthenticated()) {
-          window.location.href = 'Login.html';
+          window.location.href = "{% url 'login_page' %}";
           return;
         }
 

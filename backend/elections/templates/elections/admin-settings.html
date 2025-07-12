@@ -1,26 +1,35 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RUN POLLS | Profile</title>
-    <!-- Bootstrap CSS -->
+    <title>RUN POLLS | Admin Profile</title>
     <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.css"
       rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <!-- Bootstrap Icons -->
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="profile-settings.css" />
+    
+    <link rel="stylesheet" href="{% static 'elections/admin-settings.css' %}" />
   </head>
   <body>
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
       <div class="logo-container">
-        <img class="logo" src="images/Logo.png" />
+        <img class="logo" src="images/Logo.png">
         <i class="bi bi-x-lg" id="close"></i>
       </div>
 
@@ -42,43 +51,60 @@
           </div>
         </div>
         <div class="profile-name" id="userProfileName">Isaiah Durojaiye</div>
-        <div class="profile-role" id="userProfileRole">Student Voter</div>
+        <div class="profile-role" id="userProfileRole">System Administrator</div>
       </div>
 
       <!-- Sidebar Navigation with improved structure -->
-      <div class="sidebar-nav">
-        <ul class="nav flex-column nav-main">
-          <li class="nav-item">
-            <a href="Voter-dashboard.html" class="nav-link">
-              <i class="bi bi-grid-1x2-fill"></i> Dashboard
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="election-page.html" class="nav-link">
-              <i class="bi bi-check2-square"></i> Elections
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="Voter-guidline.html" class="nav-link">
-              <i class="bi bi-journal-text"></i> Voters Guideline
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="profile-settings.html" class="nav-link active">
-              <i class="bi bi-gear-fill"></i> Profile Settings
-            </a>
-          </li>
-        </ul>
-
-        <!-- Logout button in footer section -->
-        <ul class="nav flex-column nav-footer">
-          <li class="nav-item">
-            <a href="Login.html" class="nav-link">
-              <i class="bi bi-box-arrow-right"></i> Log out
-            </a>
-          </li>
-        </ul>
-      </div>
+      <ul class="sidebar-nav list-unstyled">
+        <li class="nav-item">
+          <a href="{% url 'admin-dashboard' %}" class="nav-link">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-vote-yea"></i>
+            <span>Elections</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-users"></i>
+            <span>Voters</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-user-tie"></i>
+            <span>Candidates</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-chart-bar"></i>
+            <span>Results</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-bell"></i>
+            <span>Notifications</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a href="{% url 'admin-settings' %}" class="nav-link">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'login_page' %}" class="nav-link text-danger">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Log out</span>
+          </a>
+        </li>
+      </ul>
     </div>
 
     <!-- Main Content -->
@@ -98,24 +124,11 @@
           />
         </div>
 
-        <div
-          class="user-actions"
-          title="Notifications"
-        >
-          <div
-            class="action-icon"
-            title="Notifications"
-          >
-            <a href="notifications.html"><i class="bi bi-bell"></i></a>
-            <span class="notification-badge">3</span>
+        <div class="user-actions">
+          <div class="action-icon">
+            <i class="bi bi-bell"></i>
           </div>
-          <div
-            class="action-icon"
-            title="Help"
-            data-bs-toggle="modal"
-            data-bs-target="#helpModal"
-            style="cursor: pointer"
-          >
+          <div class="action-icon">
             <i class="bi bi-question-circle"></i>
           </div>
           <!-- Navbar user container with default icon -->
@@ -263,292 +276,20 @@
       </div>
     </div>
 
-    <!-- Help Modal -->
-    <div
-      class="modal fade help-modal"
-      id="helpModal"
-      tabindex="-1"
-      aria-labelledby="helpModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5
-              class="modal-title d-flex align-items-center"
-              id="helpModalLabel"
-            >
-              <i class="bi bi-headset me-2"></i>
-              Need Help? We're Here for You!
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <!-- Contact Methods -->
-            <div class="mb-4">
-              <h6 class="text-primary mb-3">
-                <i class="bi bi-telephone-fill me-2"></i>Contact Our Support
-                Team
-              </h6>
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <div class="card contact-card p-3 text-center">
-                    <div class="contact-icon phone-icon mx-auto">
-                      <i class="bi bi-telephone-fill"></i>
-                    </div>
-                    <h6 class="fw-bold">Phone Support</h6>
-                    <p class="text-muted mb-2">
-                      Call us directly for immediate assistance
-                    </p>
-                    <p class="fw-bold text-success mb-0">+234 802 960 0743</p>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="card contact-card p-3 text-center">
-                    <div class="contact-icon email-icon mx-auto">
-                      <i class="bi bi-envelope-fill"></i>
-                    </div>
-                    <h6 class="fw-bold">Email Support</h6>
-                    <p class="text-muted mb-2">
-                      Send us detailed questions anytime
-                    </p>
-                    <p class="fw-bold text-primary mb-0">
-                      isaiahdurojaiye9@gmail.com
-                    </p>
-                  </div>
-                </div>
-
-            <!-- Emergency Contact -->
-            <div class="alert alert-warning mb-4">
-              <h6 class="alert-heading">
-                <i class="bi bi-exclamation-triangle-fill me-2"></i>Emergency
-                Support
-              </h6>
-              <p class="mb-1">
-                For urgent election-related issues during voting periods:
-              </p>
-              <p class="mb-0">
-                <strong>Emergency Hotline:</strong> +234 802 960 0743
-              </p>
-              <small>Available 24/7 during active election periods only</small>
-            </div>
-
-            <!-- FAQ Section -->
-            <div class="mb-4">
-              <h6 class="text-primary mb-3">
-                <i class="bi bi-question-circle-fill me-2"></i>Frequently Asked
-                Questions
-              </h6>
-              <div class="faq-item">
-                <div class="faq-question">How do I reset my password?</div>
-                <div class="faq-answer">
-                  Click on "Forgot Password" on the login page and follow the
-                  instructions sent to your registered email.
-                </div>
-              </div>
-              <div class="faq-item">
-                <div class="faq-question">
-                  Can I change my vote after submitting?
-                </div>
-                <div class="faq-answer">
-                  No, votes are final once submitted. Please review your choices
-                  carefully before confirming.
-                </div>
-              </div>
-              <div class="faq-item">
-                <div class="faq-question">
-                  What if I'm having trouble logging in?
-                </div>
-                <div class="faq-answer">
-                  Ensure you're using your correct Student ID and password.
-                  Clear your browser cache or try a different browser. If issues
-                  persist, contact support.
-                </div>
-              </div>
-              <div class="faq-item">
-                <div class="faq-question">
-                  How do I update my profile information?
-                </div>
-                <div class="faq-answer">
-                  You can update your profile from the Profile Settings page.
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>2
-
     <!-- Bootstrap & Other JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-       // Help Modal Implementation
-document.addEventListener("DOMContentLoaded", function () {
-  // Initialize help modal
-  const helpModal = new bootstrap.Modal(document.getElementById("helpModal"));
-  
-  // Get help icon - it's in the user-actions div with question-circle class
-  const helpIcon = document.querySelector('.action-icon[title="Help"]');
-  
-  // Help icon click handler
-  if (helpIcon) {
-    helpIcon.addEventListener("click", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      console.log("Help icon clicked");
-      helpModal.show();
-    });
-    
-    // Add pointer cursor to help icon
-    helpIcon.style.cursor = "pointer";
-  }
-
-  // Additional event handlers for modal
-  const helpModalElement = document.getElementById("helpModal");
-  
-  if (helpModalElement) {
-    // Modal shown event
-    helpModalElement.addEventListener("shown.bs.modal", function () {
-      console.log("Help modal opened");
-    });
-
-    // Modal hidden event
-    helpModalElement.addEventListener("hidden.bs.modal", function () {
-      console.log("Help modal closed");
-    });
-
-    // Handle ESC key press to close modal
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && helpModalElement.classList.contains("show")) {
-        helpModal.hide();
-      }
-    });
-  }
-
-  // FAQ accordion functionality (if you want expandable FAQ items)
-  const faqItems = document.querySelectorAll('.faq-item');
-  
-  faqItems.forEach(item => {
-    const question = item.querySelector('.faq-question');
-    const answer = item.querySelector('.faq-answer');
-    
-    if (question && answer) {
-      // Initially hide answers
-      answer.style.display = 'none';
-      question.style.cursor = 'pointer';
-      
-      // Add click handler to questions
-      question.addEventListener('click', function() {
-        const isVisible = answer.style.display === 'block';
-        
-        // Hide all other answers first
-        faqItems.forEach(otherItem => {
-          const otherAnswer = otherItem.querySelector('.faq-answer');
-          if (otherAnswer && otherAnswer !== answer) {
-            otherAnswer.style.display = 'none';
-            otherItem.querySelector('.faq-question').classList.remove('active');
-          }
-        });
-        
-        // Toggle current answer
-        if (isVisible) {
-          answer.style.display = 'none';
-          question.classList.remove('active');
-        } else {
-          answer.style.display = 'block';
-          question.classList.add('active');
-        }
-      });
-    }
-  });
-
-  // Contact card click handlers (optional - for better UX)
-  const phoneCard = document.querySelector('.contact-card .phone-icon').closest('.contact-card');
-  const emailCard = document.querySelector('.contact-card .email-icon').closest('.contact-card');
-  
-  if (phoneCard) {
-    phoneCard.addEventListener('click', function() {
-      const phoneNumber = this.querySelector('.text-success').textContent;
-      window.location.href = `tel:${phoneNumber}`;
-    });
-    phoneCard.style.cursor = 'pointer';
-  }
-  
-  if (emailCard) {
-    emailCard.addEventListener('click', function() {
-      const email = this.querySelector('.text-primary').textContent;
-      window.location.href = `mailto:${email}`;
-    });
-    emailCard.style.cursor = 'pointer';
-  }
-
-  // Initialize tooltips for the help section
-  const tooltipTriggerList = [].slice.call(
-    document.querySelectorAll('[data-bs-toggle="tooltip"]')
-  );
-  tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl);
-  });
-
-  console.log("Help modal functionality initialized");
-});
-
-// Alternative method if the above doesn't work due to timing issues
-function initializeHelpModal() {
-  const helpModal = new bootstrap.Modal(document.getElementById("helpModal"));
-  const helpIcon = document.querySelector('.action-icon[title="Help"]');
-  
-  if (helpIcon) {
-    helpIcon.onclick = function(e) {
-      e.preventDefault();
-      helpModal.show();
-    };
-  }
-}
+      // This updated script fixes the profile image styling and remove button functionality
 
       document.addEventListener("DOMContentLoaded", function () {
-              // Toggle Sidebar
-      document
-        .getElementById("toggleSidebar")
-        .addEventListener("click", function (e) {
-          e.stopPropagation(); // Prevent this click from triggering the document click handler
-          document.getElementById("sidebar").classList.toggle("active");
-        });
-
-      document.getElementById("close").addEventListener("click", function () {
-        document.getElementById("sidebar").classList.remove("active");
-      });
-
-      // Close sidebar when clicking outside
-      document.addEventListener("click", function (event) {
-        const sidebar = document.getElementById("sidebar");
-        const toggleButton = document.getElementById("toggleSidebar");
-
-        // Check if the click is outside the sidebar and not on the toggle button
-        if (!sidebar.contains(event.target) && event.target !== toggleButton) {
-          sidebar.classList.remove("active");
-        }
-      });
-
-      // Prevent clicks inside sidebar from closing it
-      document
-        .getElementById("sidebar")
-        .addEventListener("click", function (e) {
-          e.stopPropagation();
+        // Toggle Sidebar
+        document
+          .getElementById("toggleSidebar")
+          .addEventListener("click", function () {
+            document.getElementById("sidebar").classList.toggle("active");
+          });
+        document.getElementById("close").addEventListener("click", function () {
+          document.getElementById("sidebar").classList.remove("active");
         });
 
         // Initialize all profile containers

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,7 +15,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="candidate.css" />
+    <link rel="stylesheet" href="{% static 'elections/candidate.css' %}" />
   </head>
   <body>
     <div class="candidate-container">
@@ -456,7 +457,7 @@
           </div>
 
           <div class="form-actions">
-            <a href="Voter-dashboard.html" class="cancel-link">Cancel</a>
+            <a href="{% url 'voter-dashboard' %}" class="cancel-link">Cancel</a>
             <button type="submit" class="btn btn-primary" id="submitBtn">
               Pay & Submit Candidacy
             </button>
@@ -908,7 +909,7 @@
               alert(
                 "Your candidacy application and payment have been successfully submitted! The election committee will review your application."
               );
-              window.location.href = "dashboard.html";
+              window.location.href = "{% url 'voter-dashboard' %}";
             }, 2000);
           }, 3000); // Simulate 3-second payment processing
         });

@@ -1,26 +1,26 @@
 
 // API Configuration
 const API_CONFIG = {
-    BASE_URL: 'http://0.0.0.0:8000',
+    BASE_URL: 'http://0.0.0.0:8000/api',
     ENDPOINTS: {
         LOGIN: '/accounts/api/login/',
         REGISTER: '/accounts/api/register/',
         PROFILE: '/accounts/api/profile/',
         LOGOUT: '/accounts/api/logout/',
         USER_INFO: '/accounts/api/user-info/',
-        ELECTIONS: '/elections/api/',
-        ELECTION_DETAIL: '/elections/api/',
-        ELECTION_CANDIDATES: '/elections/api/{id}/candidates/',
-        REGISTER_CANDIDATE: '/elections/api/register-candidate/',
-        DASHBOARD_STATS: '/elections/api/dashboard-stats/',
-        CAST_VOTE: '/voting/api/cast-vote/',
-        MY_VOTES: '/voting/api/my-votes/',
-        ELECTION_RESULTS: '/voting/api/results/',
-        VOTING_ELIGIBILITY: '/voting/api/eligibility/',
-        NOTIFICATIONS: '/notifications/api/',
-        MARK_READ: '/notifications/api/{id}/read/',
-        UNREAD_COUNT: '/notifications/api/unread-count/',
-        ANNOUNCEMENTS: '/notifications/api/announcements/'
+        ELECTIONS: '/elections/',
+        ELECTION_DETAIL: '/elections/',
+        ELECTION_CANDIDATES: '/elections/{id}/candidates/',
+        REGISTER_CANDIDATE: '/elections/register-candidate/',
+        DASHBOARD_STATS: '/elections/dashboard-stats/',
+        CAST_VOTE: '/voting/cast-vote/',
+        MY_VOTES: '/voting/my-votes/',
+        ELECTION_RESULTS: '/voting/results/',
+        VOTING_ELIGIBILITY: '/voting/eligibility/',
+        NOTIFICATIONS: '/notifications/',
+        MARK_READ: '/notifications/{id}/read/',
+        UNREAD_COUNT: '/notifications/unread-count/',
+        ANNOUNCEMENTS: '/notifications/announcements/'
     },
     HEADERS: {
         'Content-Type': 'application/json'

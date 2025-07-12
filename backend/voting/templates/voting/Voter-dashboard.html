@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -19,13 +20,13 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="Voter-dashboard.css" />
+    <link rel="stylesheet" href="{% static 'voting/Voter-dashboard.css' %}" />
   </head>
   <body>
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
       <div class="logo-container">
-       <img class="logo" src="images/Logo.png" width="150px">
+       <img class="logo" src="{% static 'accounts/images/Logo.png' %}" width="150px">
         <i class="bi bi-x-lg" id="close"></i>
       </div>
 
@@ -33,7 +34,7 @@
         <!-- Improved profile image container -->
         <div class="profile-image-container" id="sidebarProfileContainer">
           <img
-            src="/api/placeholder/70/70"
+            src="{% static 'accounts/images/Logo.png' %}"
             class="profile-image"
             id="userProfileImage"
           />
@@ -49,23 +50,23 @@
       <div class="sidebar-nav">
         <ul class="nav flex-column nav-main">
           <li class="nav-item">
-            <a href="Voter-dashboard.html" class="nav-link active">
+            <a href="{% url 'voter-dashboard' %}" class="nav-link active">
               <i class="bi bi-grid-1x2-fill"></i> Dashboard
             </a>
           </li>
           <li class="nav-item">
-            <a href="election-page.html" class="nav-link">
+            <a href="{% url 'elections-dashboard' %}" class="nav-link">
               <i class="bi bi-check2-square"></i> Elections
             </a>
           </li>
           <!-- New Navigation Item -->
           <li class="nav-item">
-            <a href="Voter-guidline.html" class="nav-link">
-              <i class="bi bi-journal-text"></i> Voters Guideline
+            <a href="{% url 'voter-guidline' %}" class="nav-link">
+              <i class="bi bi-journal-text"></i> Voters Guidline
             </a>
           </li>
           <li class="nav-item">
-            <a href="profile-settings.html" class="nav-link">
+            <a href="{% url 'profile_settings_page' %}" class="nav-link">
               <i class="bi bi-gear-fill"></i> Profile Settings
             </a>
           </li>
@@ -74,7 +75,7 @@
         <!-- Logout button in footer section -->
         <ul class="nav flex-column nav-footer">
           <li class="nav-item">
-            <a href="Login.html" class="nav-link">
+            <a href="{% url 'login_page' %}" class="nav-link">
               <i class="bi bi-box-arrow-right"></i> Log out
             </a>
           </li>
@@ -100,12 +101,11 @@
         </div>
 
         <div class="user-actions">
-          <a href="notifications.html">
-            <div
+          <div
             class="action-icon"
             title="Notifications"
           >
-            <a href="notifications.html"><i class="bi bi-bell"></i></a>
+            <a href="{% url 'notifications-page' %}"><i class="bi bi-bell"></i></a>
             <span class="notification-badge">3</span>
           </div>
           <div class="action-icon" title="Help">
@@ -114,7 +114,7 @@
           <!-- Improved navbar user container -->
           <div class="navbar-user-container" id="navbarUserContainer">
             <img
-              src="/api/placeholder/40/40"
+              src="{% static 'accounts/images/Logo.png' %}"
               class="user-avatar"
               id="navbarUserImage"
             />
@@ -138,7 +138,7 @@
             your peers.
           </p>
         </div>
-        <a href="candidate.html">
+        <a href="{% url 'candidate-page' %}">
           <button class="become-candidate-btn" id="becomeCandidateBtn">
             <i class="bi bi-person-badge me-2"></i>Become a Candidate
           </button>
@@ -157,7 +157,7 @@
                   <button class="btn vote-btn">Vote now</button>
                 </div>
                 <img
-                  src="images/Voting-amico.png"
+                  src="{% static 'accounts/images/Voting-amico.png' %}"
                   alt="Election"
                   class="election-image"
                 />
@@ -822,31 +822,36 @@ function initializeHelpModal() {
         try {
           const user = JSON.parse(localStorage.getItem("currentUser")) || {};
 
-          // Update profile name
-          if (user.firstName && user.lastName) {
-            document.getElementById(
-              "userProfileName"
-            ).textContent = `${user.firstName} ${user.lastName}`;
-            // Update welcome message
-            const welcomeHeading = document.querySelector("h2");
-            if (
-              welcomeHeading &&
-              welcomeHeading.textContent.includes("Hello")
-            ) {
-              welcomeHeading.textContent = `Hello, ${user.firstName}!`;
+          // Only update if we have actual user data
+          if (user && Object.keys(user).length > 0) {
+            // Update profile name
+            if (user.firstName && user.lastName) {
+              document.getElementById(
+                "userProfileName"
+              ).textContent = `${user.firstName} ${user.lastName}`;
+              // Update welcome message
+              const welcomeHeading = document.querySelector("h2");
+              if (
+                welcomeHeading &&
+                welcomeHeading.textContent.includes("Hello")
+              ) {
+                welcomeHeading.textContent = `Hello, ${user.firstName}!`;
+              }
+            }
+
+            // Update profile role if exists
+            if (user.role) {
+              document.getElementById("userProfileRole").textContent = user.role;
+            }
+
+            // Update profile images only if user has a profile image
+            if (user.profileImage) {
+              updateProfileDisplays(user.profileImage);
             }
           }
-
-          // Update profile role if exists
-          if (user.role) {
-            document.getElementById("userProfileRole").textContent = user.role;
-          }
-
-          // Update profile images
-          updateProfileDisplays(user.profileImage);
         } catch (error) {
           console.error("Error loading user profile:", error);
-          updateProfileDisplays(null);
+          // Don't update profile displays if there's an error, keep static images
         }
 
         // Create profile edit modal with upload and remove functionality

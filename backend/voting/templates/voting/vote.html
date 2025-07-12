@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,13 +15,13 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="vote.css" />
+    <link rel="stylesheet" href="{% static 'voting/vote.css' %}" />
   </head>
   <body>
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
       <div class="logo-container">
-        <img class="logo" src="images/Logo.png" />
+        <img class="logo" src="{% static 'accounts/images/Logo.png' %}" />
         <i class="bi bi-x-lg" id="close"></i>
       </div>
 
@@ -37,7 +38,7 @@
       <div class="sidebar-nav">
         <ul class="nav flex-column nav-main">
           <li class="nav-item">
-            <a href="Voter-dashboard.html" class="nav-link">
+            <a href="{% url 'voter-dashboard' %}" class="nav-link">
               <i class="bi bi-grid-1x2-fill"></i> Dashboard
             </a>
           </li>
@@ -47,12 +48,12 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="Voter-guidline.html" class="nav-link">
+            <a href="{% url 'voter-guidline' %}" class="nav-link">
               <i class="bi bi-journal-text"></i> Voters Guideline
             </a>
           </li>
           <li class="nav-item">
-            <a href="profile-settings.html" class="nav-link">
+            <a href="{% url 'profile_settings_page' %}" class="nav-link">
               <i class="bi bi-gear-fill"></i> Profile Settings
             </a>
           </li>
@@ -61,7 +62,7 @@
         <!-- Logout button -->
         <ul class="nav flex-column nav-footer">
           <li class="nav-item">
-            <a href="voter_log_in.html" class="nav-link text-danger">
+            <a href="{% url 'login_page' %}" class="nav-link text-danger">
               <i class="bi bi-box-arrow-right"></i> Log out
             </a>
           </li>
@@ -354,7 +355,7 @@
 
     <!-- Bootstrap & Other JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="js/api.js"></script>
+    <script src="{% static 'js/api.js' %}"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         // Toggle Sidebar
@@ -953,7 +954,7 @@
                             </div>
                           </div>
                           <div class="modal-footer">
-                            <a href="Voter-dashboard.html" class="btn btn-primary">Return to Dashboard</a>
+                            <a href="{% url 'voter-dashboard' %}" class="btn btn-primary">Return to Dashboard</a>
                           </div>
                         </div>
                       </div>
@@ -1017,7 +1018,7 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <a href="Voter-dashboard.html" class="btn btn-primary">Return to Dashboard</a>
+                  <a href="{% url 'voter-dashboard' %}" class="btn btn-primary">Return to Dashboard</a>
                 </div>
               </div>
             </div>

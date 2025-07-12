@@ -2,7 +2,7 @@
 from rest_framework import status, permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.db import transaction
 from .models import Vote, VotingSession
@@ -202,3 +202,19 @@ def check_voting_eligibility(request, election_id):
         return Response({'eligible': False, 'reason': 'Already voted in this election'})
     
     return Response({'eligible': True, 'reason': 'Eligible to vote'})
+
+
+# HTML Page Views
+def vote_page(request):
+    """Serve the vote HTML page"""
+    return render(request, 'voting/vote.html')
+
+
+def voter_dashboard_page(request):
+    """Serve the voter dashboard HTML page"""
+    return render(request, 'voting/Voter-dashboard.html')
+
+
+def voter_guidline_page(request):
+    """Serve the voter guideline HTML page"""
+    return render(request, 'voting/Voter-guidline.html')

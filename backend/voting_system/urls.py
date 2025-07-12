@@ -6,12 +6,13 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/accounts/', include('accounts.urls')),
-    path('api/elections/', include('elections.urls')),
-    path('api/voting/', include('voting.urls')),
-    path('api/notifications/', include('notifications.urls')),
+    path('', include('accounts.urls')),  # Serve HTML pages at root
+    path('elections/', include('elections.urls')),  # Elections pages and API
+    path('notifications/', include('notifications.urls')),  # Notifications pages and API
+    path('voting/', include('voting.urls')),  # Voting pages and API
 ]
 
-# Serve media files in development
+# Serve static and media files in development
 if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

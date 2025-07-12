@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,13 +16,13 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
     />
 
-    <link rel="stylesheet" href="Voter-guidline.css" />
+    <link rel="stylesheet" href="{% static 'voting/Voter-guidline.css' %}" />
   </head>
   <body>
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
       <div class="logo-container">
-        <img class="logo" src="images/Logo.png"/>
+        <img class="logo" src="{% static 'voting/images/Logo.png' %}"/>
         <i class="bi bi-x-lg" id="close"></i>
       </div>
 
@@ -29,7 +30,7 @@
         <!-- Improved profile image container -->
         <div class="profile-image-container" id="sidebarProfileContainer">
           <img
-            src="/api/placeholder/70/70"
+            src="{% static 'voting/api/placeholder/70/70' %}"
             class="profile-image"
             id="userProfileImage"
           />
@@ -45,22 +46,22 @@
       <div class="sidebar-nav">
         <ul class="nav flex-column nav-main">
           <li class="nav-item">
-            <a href="Voter-dashboard.html" class="nav-link">
+            <a href="{% url 'voter-dashboard' %}" class="nav-link">
               <i class="bi bi-grid-1x2-fill"></i> Dashboard
             </a>
           </li>
           <li class="nav-item">
-            <a href="election-page.html" class="nav-link">
+            <a href="{% url 'elections-dashboard' %}" class="nav-link">
               <i class="bi bi-check2-square"></i> Elections
             </a>
           </li>
           <li class="nav-item">
-            <a href="Voter-guidline.html" class="nav-link active">
+            <a href="{% url 'voter-guidline' %}" class="nav-link active">
               <i class="bi bi-journal-text"></i> Voters Guideline
             </a>
           </li>
           <li class="nav-item">
-            <a href="profile-settings.html" class="nav-link">
+            <a href="{% url 'profile_settings_page' %}" class="nav-link">
               <i class="bi bi-gear-fill"></i> Profile Settings
             </a>
           </li>
@@ -69,7 +70,7 @@
         <!-- Logout button in footer section -->
         <ul class="nav flex-column nav-footer">
           <li class="nav-item">
-            <a href="Login.html" class="nav-link">
+            <a href="{% url 'login_page' %}" class="nav-link">
               <i class="bi bi-box-arrow-right"></i> Log out
             </a>
           </li>
@@ -99,7 +100,7 @@
             class="action-icon"
             title="Notifications"
           >
-            <a href="notifications.html"><i class="bi bi-bell"></i></a>
+            <a href="{% url 'notifications-page' %}"><i class="bi bi-bell"></i></a>
             <span class="notification-badge">3</span>
           </div>
           <div class="action-icon" title="Help">
@@ -108,7 +109,7 @@
           <!-- Improved navbar user container -->
           <div class="navbar-user-container" id="navbarUserContainer">
             <img
-              src="/api/placeholder/40/40"
+              src="{% static 'voting/api/placeholder/40/40' %}"
               class="user-avatar"
               id="navbarUserImage"
             />
@@ -271,7 +272,7 @@
         </ul>
 
         <img
-          src="images/Voting-pana.png"
+          src="{% static 'voting/images/Voting-pana.png' %}"
           alt="Voting Illustration"
           class="guidelines-image"
         />

@@ -2,7 +2,7 @@
 from rest_framework import status, permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from .models import Notification, SystemAnnouncement
 from .serializers import NotificationSerializer, SystemAnnouncementSerializer
@@ -145,3 +145,9 @@ def notify_vote_confirmation(vote):
         notification_type='vote_confirmation',
         action_url=f'/elections/{vote.election.id}/results/'
     )
+
+
+# HTML Page Views
+def notifications_page(request):
+    """Serve the notifications HTML page"""
+    return render(request, 'notifications/notifications.html')

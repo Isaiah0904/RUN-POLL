@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RUNPOLLS - Online Voting System</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-    <link rel="stylesheet" href="/static/index.css">
+    <link rel="stylesheet" href="{% static 'accounts/index.css' %}">
 </head>
 <body>
     <!-- Header -->
@@ -23,8 +24,8 @@
                 </ul>
             </nav>
             <div class="auth-buttons">
-                <a href="Login.html" class="login-btn">Log In</a>
-                <a href="registration.html" class="signup-btn">Sign Up</a>
+                <a href="{% url 'login_page' %}" class="login-btn">Log In</a>
+                <a href="{% url 'registration_page' %}" class="signup-btn">Sign Up</a>
             </div>
         </div>
     </header>
@@ -35,10 +36,10 @@
             <div class="hero-content animate">
                 <h1 class="hero-title">Online Voting System</h1>
                 <p class="hero-description">Experience secure and transparent digital voting. Bringing democracy to the digital age with cutting-edge security and real-time results.</p>
-                <a href="registration.html" class="hero-button">Register an Account</a>
+                <a href="{% url 'registration_page' %}" class="hero-button">Register an Account</a>
             </div>
             <div class="hero-image animate delay-1">
-                <img src="images/118Z_2012.w017.n001.329B.p15.329.jpg" alt="People voting online">
+                <img src="{% static 'accounts/images/118Z_2012.w017.n001.329B.p15.329.jpg' %}" alt="People voting online">
             </div>
         </div>
     </section>
@@ -52,7 +53,7 @@
                     <i class="fas fa-user-plus fa-3x" style="color: var(--primary);"></i>
                     <h3>SIGN UP</h3>
                     <p>Create an account and verify your identity to join this platform.</p>
-                    <a href="registration.html" class="card-btn">Register Now</a>
+                    <a href="{% url 'registration_page' %}" class="card-btn">Register Now</a>
                 </div>
                 <div class="process-card animate delay-2">
                     <h2>Step 2</h2>
