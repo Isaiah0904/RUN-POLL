@@ -26,7 +26,11 @@
         <div class="col-lg-6">
           <div class="login-form-wrapper h-100 d-flex flex-column">
             <div class="brand-logo animate-fadeInUp">
-              <img width="150px" src="{% static 'accounts/images/Logo.png' %}" alt="RUNPOLLS Logo" />
+              <img
+                width="150px"
+                src="{% static 'accounts/images/Logo.png' %}"
+                alt="RUNPOLLS Logo"
+              />
               <h1 class="description">RUNPOLLS Voting System</h1>
               <p class="campus">Redeemer's University</p>
             </div>
@@ -95,7 +99,9 @@
                       Remember me
                     </label>
                   </div>
-                  <a href="/forgot-password/" class="forgot-link">Forgot Password?</a>
+                  <a href="/forgot-password/" class="forgot-link"
+                    >Forgot Password?</a
+                  >
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-login w-100">
@@ -123,9 +129,7 @@
               <div class="login-footer mt-auto animate-fadeInUp delay-500">
                 <p class="register-text">
                   Don't have an account?
-                  <a href="/register/" class="register-link"
-                    >Register here</a
-                  >
+                  <a href="/register/" class="register-link">Register here</a>
                 </p>
               </div>
             </div>
@@ -237,6 +241,7 @@
 
     <!-- Bootstrap JS with Popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'accounts/js/utils.js' %}"></script>
     <!-- Custom Script -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
@@ -404,7 +409,6 @@
             }
           });
         }
-
         // Voter form submission
         const voterLoginForm = document.getElementById("voterLoginForm");
         if (voterLoginForm) {
@@ -413,44 +417,56 @@
 
             const voterID = document.getElementById("voterID").value;
             const passwordValue = voterPassword.value;
+            const csrftoken = getCookie('csrftoken');
 
             try {
-              const response = await fetch('/api/accounts/api/login/', {
-                method: 'POST',
+              const response = await fetch("/api/login/", {
+                method: "POST",
                 headers: {
-                  'Content-Type': 'application/json',
+                  "Content-Type": "application/json",
+                  'X-CSRFToken': csrftoken,
                 },
                 body: JSON.stringify({
                   email: voterID,
                   password: passwordValue,
-                  user_type: 'voter'
-                })
+                  user_type: "voter",
+                }),
               });
 
               const data = await response.json();
 
               if (response.ok) {
                 // Store authentication data
-                localStorage.setItem('auth_token', data.token);
-                localStorage.setItem('user_type', data.user_type);
-                localStorage.setItem('user_id', data.user_id);
-                
+                localStorage.setItem("auth_token", data.token);
+                localStorage.setItem("user_type", data.user_type);
+                localStorage.setItem("user_id", data.user_id);
+
                 if (data.profile) {
-                  localStorage.setItem('user_profile', JSON.stringify(data.profile));
+                  localStorage.setItem(
+                    "user_profile",
+                    JSON.stringify(data.profile)
+                  );
                 }
 
-                showNotification("Voter login successful! Redirecting to voting page...", "success");
+                showNotification(
+                  "Voter login successful! Redirecting to voting page...",
+                  "success"
+                );
 
                 // Redirect after notification is shown
                 setTimeout(() => {
-                  window.location.href = "/voter-dashboard/";
+                  window.location.href = "/voting/dashboard";
                 }, 1500);
               } else {
-                showNotification(data.message || "Login failed. Please check your credentials.", "error");
+                showNotification(
+                  data.message ||
+                    "Login failed. Please check your credentials.",
+                  "error"
+                );
               }
             } catch (error) {
               showNotification("Network error. Please try again.", "error");
-              console.error('Login error:', error);
+              console.error("Login error:", error);
             }
           });
         }
@@ -465,42 +481,52 @@
             const passwordValue = adminPassword.value;
 
             try {
-              const response = await fetch('/api/accounts/api/login/', {
-                method: 'POST',
+              const response = await fetch("/api/accounts/api/login/", {
+                method: "POST",
                 headers: {
-                  'Content-Type': 'application/json',
+                  "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                   email: adminEmail,
                   password: passwordValue,
-                  user_type: 'admin'
-                })
+                  user_type: "admin",
+                }),
               });
 
               const data = await response.json();
 
               if (response.ok) {
                 // Store authentication data
-                localStorage.setItem('auth_token', data.token);
-                localStorage.setItem('user_type', data.user_type);
-                localStorage.setItem('user_id', data.user_id);
-                
+                localStorage.setItem("auth_token", data.token);
+                localStorage.setItem("user_type", data.user_type);
+                localStorage.setItem("user_id", data.user_id);
+
                 if (data.profile) {
-                  localStorage.setItem('user_profile', JSON.stringify(data.profile));
+                  localStorage.setItem(
+                    "user_profile",
+                    JSON.stringify(data.profile)
+                  );
                 }
 
-                showNotification("Admin login successful! Redirecting to admin dashboard...", "success");
+                showNotification(
+                  "Admin login successful! Redirecting to admin dashboard...",
+                  "success"
+                );
 
                 // Redirect after notification is shown
                 setTimeout(() => {
                   window.location.href = "/admin-dashboard/";
                 }, 1500);
               } else {
-                showNotification(data.message || "Login failed. Please check your credentials.", "error");
+                showNotification(
+                  data.message ||
+                    "Login failed. Please check your credentials.",
+                  "error"
+                );
               }
             } catch (error) {
               showNotification("Network error. Please try again.", "error");
-              console.error('Login error:', error);
+              console.error("Login error:", error);
             }
           });
         }

@@ -123,6 +123,7 @@
 
     <!-- Bootstrap & Other JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'accounts/js/utils.js' %}"></script>
     <script src="{% static 'accounts/js/api.js' %}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -243,12 +244,15 @@
                     const originalText = submitBtn.textContent;
                     submitBtn.textContent = 'Registering...';
                     submitBtn.disabled = true;
+
+                    const csrftoken = getCookie("csrftoken");
                     
                     // Send registration request to backend
-                    const response = await fetch('/api/accounts/api/register/', {
+                    const response = await fetch('/api/register/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
+                            "X-CSRFToken": csrftoken,
                         },
                         body: JSON.stringify(registrationData)
                     });

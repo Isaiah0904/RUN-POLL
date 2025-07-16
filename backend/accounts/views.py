@@ -11,6 +11,7 @@ import os
 import mimetypes
 from .serializers import UserRegistrationSerializer, LoginSerializer, VoterProfileSerializer, AdminProfileSerializer
 from .models import User, VoterProfile, AdminProfile
+from django.views.decorators.csrf import csrf_exempt
 
 # HTML Page Views
 def login_page(request):
@@ -57,6 +58,7 @@ def register(request):
         }, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@csrf_exempt
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login_view(request):
